@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Carli, Carlo to Brown, Nicholas</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Bonafede, Carli conte Carlo</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="corporate" authority="local">
+    <mods:namePart>Consulate of the United States of America in Comacchio</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Brown, Nicholas</mods:namePart>
+    <mods:namePart type="date">1792-1859</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">recipient</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Reports the defeat of boats carrying Garibaldi and his men by the Austrian fleet in the waters off the port of Goro. According to Carli, Garibaldi is said to have escaped with his wife, staff, and some soldiers to land between the ports of Magnavacca and Volano: many of these, including Garibaldi and his wife, are said to have set off across the territory disguised as country peasants. Among Garibaldi's disembarked soldiers were Father Ugo Bassi (a Bolognese priest) and a Captain Ringhini, who headed towards Comacchio only to be arrested for not carrying passports: they are now in jail in Comacchio. Carli promises to update Brown as further information becomes available to him.</mods:abstract>
+  <mods:note type="acquisition" displayLabel="Immediate form of acquisition">Ms 651</mods:note>
+  <mods:note type="preferredcitation">Carli, Carlo to Brown, Nicholas, Rush Hawkins collection, Ms.2006.05, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1849 August 3</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1849</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1849</mods:dateCreated>
+    <mods:place>
+      <mods:placeTerm type="text">Comacchio, Italy</mods:placeTerm>
+    </mods:place>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">ita</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>2 pages</mods:extent>
+    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/NoC-US/1.0/?language=en">No Copyright - United States</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="personal" authority="naf">
+      <mods:namePart>Bassi, Ugo</mods:namePart>
+      <mods:namePart type="date">1801-1849</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="personal" authority="naf">
+      <mods:namePart>Garibaldi, Giuseppe</mods:namePart>
+      <mods:namePart type="date">1807-1882</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:relatedItem type="host">
+    <mods:titleInfo>
+      <mods:title>Rush Hawkins collection</mods:title>
+    </mods:titleInfo>
+    <mods:originInfo>
+      <mods:dateCreated>1750-1951</mods:dateCreated>
+    </mods:originInfo>
+    <mods:identifier type="local">Ms.2006.05</mods:identifier>
+    <mods:location>
+      <mods:physicalLocation>Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:physicalLocation>
+      <mods:url>https://www.riamco.org/render?eadid=US-RPB-ms.2006.05&amp;view=title</mods:url>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 10, Volume 4, Page 98</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:710191</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr710191</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

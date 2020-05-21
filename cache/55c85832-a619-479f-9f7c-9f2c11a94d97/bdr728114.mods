@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Shuyan Wang, Class of 2020</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Murphy, Mary</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Wang, Shuyan</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Shuyan Wang, class of 2020, discusses life on campus, her experience as an applied math concentrator, and the effects of the COVID-19 pandemic on her home in China and her life in the United States. Wang begins by talking about her family and early education in Nanjing, China, where she explains why she decided to move to the United States to attend Brown University. She notes the flexibility of higher education in the United States compared to China, the liberal education of Brown, and prior trips to the States. In speaking of her earliest memories of her time at Brown, Wang recalls attending International Student Orientation and feeling financial and emotional stress during her first semester. She discusses building community with other international students and within the applied math concentration, and also describes why she chose that concentration. Wang goes on to talk about the presidential election of Donald Trump and the effects of his election on campus as well as in her life as an international student. Wang spends the second half of her interview discussing the COVID-19 pandemic. She explains how she experienced it twice – first learning about it during her winter break while back home in Nanjing and then dealing with it again after returning to campus as the wave reached the United States. She remembers worrying about her parents as they faced the virus in China and her mother buying a box of face masks and her urging Wang to wear them while at Brown. Wang cites cultural differences as one reason she did not want to wear a mask in the States, and even shares a moment when someone yelled at her on the street when she was wearing a mask, noting racial tensions. She recalls the last week on campus, her professors preparing students for a possible University closure, and the emotional trauma she incurred by the sudden end of her senior year. Wang closes by explaining her decision to stay in off-campus housing in Providence rather than returning to Nanjing, and talks about the job she expected to move on to after graduation. She states that, “This is a very interesting time to live in this moment, because I feel like nothing happened before that can make everyone in the world so concentrated on one thing and one thing… specifically. …This is impacting every single person’s life in the globe.”</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Shuyan Wang was born and raised in Nanjing, a historical city in eastern China. She graduated from Nanjing Foreign Language School in 2016 and went on to attend Brown University as an international student. During her time at Brown, Shuyan participated in Brown Outdoor Leadership Training as a leader and a mentor, and helped initiate Hack for Humanity, an annual humanitarian themed Hackathon co-organized by the Watson Institute for International and Public Affairs and Brown Humanitarian Society. She also worked as a Teaching Assistant in Applied Mathematics and Computer Science. Shuyan is graduating in 2020 with a degree in Applied Mathematics-Economics.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">2020</mods:note>
+  <mods:note type="preferredcitation">Shuyan Wang, Class of 2020, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2020 March 24</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>Asian Students</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>COVID-19</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>International Students</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Trump Administration</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>2020s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728114</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728114</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

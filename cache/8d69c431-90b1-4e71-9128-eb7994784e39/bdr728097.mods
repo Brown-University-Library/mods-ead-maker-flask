@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Susan Beth Adler, class of 1958</mods:title>
+  </mods:titleInfo>
+  <mods:titleInfo type="alternative" displayLabel="Pembroke title">
+    <mods:title>Susan Kaplan, class of 1958</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Adler, Susan Beth</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Bailey, Bernicestine McLeod</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Howard, Jean</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Murphy, Mary</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Susan Beth Adler, Pembroke College class of 1958, recalls her decades of professional and volunteer service to Rhode Island and Brown University. Adler begins by describing her family’s long history within the Brown community, her mother being in the Pembroke class of 1925 and her father in the Brown class of 1918. She recalls living in Miller Hall and participating in Sock and Buskin – a coeducational theatre group. She briefly touches upon dating and relationships in college during the 1950s before turning to her life after Pembroke. Adler discusses her long career at Classical High School in Providence, both as teacher and administrator, as well as teaching at Roger Williams University. Additionally, she describes in detail serving on the Board of Trustees, a branch of Brown’s bicameral Corporation, and on the Alumni Association. Adler also recalls how she developed her voice as a woman in these organizations. She closes her interview by advising young women graduation from Brown today to network within and outside of the Brown community as much as possible.</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Susan Beth Adler grew up in Providence, Rhode Island with her two sisters. Her mother, Celia Ernstorf, was Pembroke College class of 1925 and her father, Walter Adler, was Brown University class of 1918. Adler attended Classical High School before receiving her A.B. in English and American Literature and her M.A.T from Brown University in 1958 and 1965 respectively. At Brown, she was heavily involved with Sock &amp; Buskin theater. After graduation, Adler devoted her volunteer and professional activities to education. She served as President of Strategies for Education, a national and international educational consulting firm. She was an adjunct professor of Education at both Providence College and Roger Williams University and also served as an educational consultant to the Coalition of Essential Schools. She retired from the Providence Public Schools where she was a teacher for 28 years, then Curriculum Director and Interim Assistant Superintendent for Teaching and Learning. The Carnegie Corporation appointed her to the founding board of the National Board for Professional Teaching Standards, the voluntary advanced teacher certification board. She participated in the Carnegie Teacher Assessment Project at Stanford University as part of that work. She was chief reader for the Rhode Island Writing Assessment and a co-founder and co-director of the Rhode Island Writing Project. Adler served on the Corporation of Brown University from 1986-1992. Some of the other many committees and volunteer roles she has had include member and Chair of the Pembroke Associates Council (1987-2004), Women's Launch Pad Mentor (2011-present), Honorary Chair of 125 Years of Women at Brown Steering Committee (2016-2017), consistent service on her reunion Gift Committees every five years, the Advisory Council on Admission (2003-2014), the Advisory Council on Diversity (2010-2017), and secretary and class agent for the Class of 1958. She is currently serving on the Advisory Council on Relations with Tugaloo College (Vice Chair), on the Brown Annual Fund Emeriti Committee (Co-Chair), and on the Brown Annual Fund Executive Committee (member). The Education Department at Brown awarded her the Distinguished Educator Award in 2000. In 2013, Susan received the H. Anthony Ittleson ’60 Award at the annual Alumni Relations awards ceremony, the highest recognition given to a volunteer fundraiser at Brown.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">1958</mods:note>
+  <mods:note type="preferredcitation">Susan Beth Adler, class of 1958, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2019 February 1</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>Academics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Administration</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Feminism</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Jewish Students</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Theatre</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>1950s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728097</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728097</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

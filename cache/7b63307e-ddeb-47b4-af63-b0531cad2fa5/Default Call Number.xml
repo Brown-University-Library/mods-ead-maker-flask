@@ -1,0 +1,3568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns:ead="urn:isbn:1-931666-22-9" xmlns:ns2="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:isbn:1-931666-22-9" xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd" audience="external" relatedencoding="MARC21">
+  <eadheader audience="external" countryencoding="iso3166-1" dateencoding="iso8601" scriptencoding="iso15924" relatedencoding="MARC21" repositoryencoding="iso15511" langencoding="iso639-2b">
+    <eadid countrycode="US" mainagencycode="US-RPB" identifier="default call number.xml">US-RPB-default call number</eadid>
+    <filedesc>
+      <titlestmt>
+        <titleproper>Guide to the </titleproper>
+        <author>Finding aid prepared by </author>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Brown University Library</publisher>
+        <address>
+          <addressline>John Hay Library, University Archives and Manuscripts</addressline>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+      </publicationstmt>
+    </filedesc>
+    <profiledesc>
+      <creation>This finding aid was produced using the RIAMCO EAD spreadsheet, </creation>
+      <langusage>
+        <language langcode="eng" scriptcode="Latn">English</language>
+      </langusage>
+      <descrules>Finding aid based on Describing Archives: A Content Standard (DACS)</descrules>
+    </profiledesc>
+  </eadheader>
+  <archdesc level="collection" type="inventory">
+    <did>
+      <unitid countrycode="US" repositorycode="US-RPB" type="collection">Default Call Number</unitid>
+      <repository>
+        <corpname>John Hay Library<subarea>University Archives and Manuscripts</subarea></corpname>
+        <address>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+      </repository>
+    </did>
+    <bioghist>
+      <head>Biographical/Historical Note</head>
+    </bioghist>
+    <descgrp type="descriptive">
+      <head>Collection information</head>
+      <userestrict>
+        <p>All researchers seeking to publish materials from the collections of the John Hay Library are requested to complete a Notice of Intent to Publish, prior to reproducing, quoting, or otherwise publishing any portion or extract from this collection. Although Brown University has physical ownership of the collection and the materials contained therein, it does not claim literary rights. It is up to the researcher to determine the owners of the literary rights and to obtain any necessary permissions from them.</p>
+      </userestrict>
+      <accessrestrict>
+        <p>There are no restrictions on access, except that the collection can only be seen by prior appointment. Some materials may be stored off-site and cannot be produced on the same day on which they are requested.</p>
+      </accessrestrict>
+      <arrangement>
+        <p>
+          <list>
+            <item>Series I. Corporation records (Minutes)</item>
+            <item>Series II. Reports, etc. for Corporation Records</item>
+            <item>Series III. Corporation proceedings and reports</item>
+            <item>Series IV. Advisory and Executive Committee minutes and reports</item>
+            <item>Series V. Advisory and Executive Committee Minutes</item>
+            <item>Series VI. Advisory and Executive Committee .title Reports</item>
+            <item>Series VII. Corporation correspondence</item>
+            <item>Series VII. Correspondence</item>
+          </list>
+        </p>
+      </arrangement>
+    </descgrp>
+    <dsc type="combined">
+      <c id="c5" level="series">
+        <did>
+          <unittitle>Corporation records (Minutes)</unittitle>
+          <unitid type="series">Series I</unitid>
+        </did>
+        <c id="c6" level="file">
+          <did>
+            <unittitle>Brown University--Corporation Records</unittitle>
+            <unitdate type="inclusive" normal="1764/1904">1764-1904</unitdate>
+          </did>
+          <scopecontent>
+            <p>Records. volumes. v.1: Charter; minutes, September, 1764 to September 6, 1810 - v.2: Form of engagement; minutes, September 6, 1810 to September 7, 1843 - v.3: Form of engagement; charter; minutes, September 3, 1844 to June 17, 1875 - v.4: Form of engagement; minutes, September 1, 1875 to September 6, 1893; v.5: Minutes, June 19, 1895 to April 28, 1904. Originals in vault. Negative photostats (8 volumes) BOUND-1.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c7" level="series">
+        <did>
+          <unittitle>Reports, etc. for Corporation Records</unittitle>
+          <unitid type="series">Series II</unitid>
+        </did>
+        <c id="c8" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1925/1926">1925-1926</unitdate>
+          </did>
+          <scopecontent>
+            <p>Reports and other material from which the Board of Fellows and Corporation records are composed, volume 1.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c9" level="series">
+        <did>
+          <unittitle>Corporation proceedings and reports</unittitle>
+          <unitid type="series">Series III</unitid>
+        </did>
+        <c id="c10" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1764/1772">1764-1772</unitdate>
+          </did>
+          <scopecontent>
+            <p>Proceedings of the Corporation from 1764 to 1770 [i.e. 1772] .... ---.</p>
+          </scopecontent>
+        </c>
+        <c id="c11" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1861/1861">1861</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Extracts from Corporation records, 1794-1861, compiled by Reuben A. Guild]. n.d. References to: Established of University Grammar School (1794, 1809); Naming the College (1795, 1803); Student attendance at church (1798, 1801); Funds of the College (1821, 1826); Professor Gammell to prepare history of the College (1844); Aid to indigent students (1846); Nicholas Brown scholarships (1846, 1858); Faculty salaries (1848); Resignation of Dr. Wayland (1849); Presentation of Hopkins chair (1849); Election of Dr. Sears as President (1855); Boading in Clubs (1857); Change in degree requirements (1857), Gift of Bowen Estate by John Carter Brown (1860); Aid fund established by Miss Lydia Carpenter (1861);.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c12" level="series">
+        <did>
+          <unittitle>Advisory and Executive Committee minutes and reports</unittitle>
+          <unitid type="series">Series IV</unitid>
+        </did>
+        <c id="c13" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Executive board</unittitle>
+            <unitdate type="inclusive" normal="1851/1865">1851-1856,1858-1860,1862-1865</unitdate>
+          </did>
+          <scopecontent>
+            <p>Reports .... A18079-86,35444[5]. Thirteen reports.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c14" level="series">
+        <did>
+          <unittitle>Advisory and Executive Committee Minutes</unittitle>
+          <unitid type="series">Series V</unitid>
+        </did>
+        <c id="c15" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Minutes</unittitle>
+            <container type="folder" label="Folder">V.1</container>
+            <unitdate type="inclusive" normal="1906-09-14/1906-09-14">1906 September 14</unitdate>
+          </did>
+        </c>
+        <c id="c16" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Minutes</unittitle>
+            <container type="folder" label="Folder">V.2</container>
+            <unitdate type="inclusive" normal="1907-01-11/1907-01-11">1907 January 11</unitdate>
+          </did>
+        </c>
+        <c id="c17" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Minutes</unittitle>
+            <container type="folder" label="Folder">V.3</container>
+            <unitdate type="inclusive" normal="1908-05-08/1908-05-08">1908 May 08</unitdate>
+          </did>
+        </c>
+        <c id="c18" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Minutes</unittitle>
+            <container type="folder" label="Folder">V.4</container>
+            <unitdate type="inclusive" normal="1909-06-04/1909-06-04">1909 June 04</unitdate>
+          </did>
+        </c>
+      </c>
+      <c id="c19" level="series">
+        <did>
+          <unittitle>Advisory and Executive Committee .title Reports</unittitle>
+          <unitid type="series">Series VI</unitid>
+        </did>
+        <c id="c20" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.1</container>
+            <unitdate type="inclusive" normal="1869-09-02/1869-09-02">1869 September 02</unitdate>
+          </did>
+        </c>
+        <c id="c21" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.2</container>
+            <unitdate type="inclusive" normal="1870-04-04/1870-04-04">1870 April 04</unitdate>
+          </did>
+        </c>
+        <c id="c22" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.3</container>
+            <unitdate type="inclusive" normal="1871-06-29/1871-06-29">1871 June 29</unitdate>
+          </did>
+        </c>
+        <c id="c23" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.4</container>
+            <unitdate type="inclusive" normal="1875/1875">1875</unitdate>
+          </did>
+        </c>
+        <c id="c24" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.5</container>
+            <unitdate type="inclusive" normal="1878/1878">1878</unitdate>
+          </did>
+        </c>
+        <c id="c25" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.6</container>
+            <unitdate type="inclusive" normal="1880/1880">1880</unitdate>
+          </did>
+        </c>
+        <c id="c26" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.7</container>
+            <unitdate type="inclusive" normal="1889/1889">1889</unitdate>
+          </did>
+        </c>
+        <c id="c27" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.8</container>
+            <unitdate type="inclusive" normal="1890-06-19/1890-06-19">1890 June 19</unitdate>
+          </did>
+        </c>
+        <c id="c28" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.9</container>
+            <unitdate type="inclusive" normal="1890-09-03/1890-09-03">1890 September 03</unitdate>
+          </did>
+        </c>
+        <c id="c29" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.10</container>
+            <unitdate type="inclusive" normal="1891-09-02/1891-09-02">1891 September 02</unitdate>
+          </did>
+        </c>
+        <c id="c30" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.11</container>
+            <unitdate type="inclusive" normal="1891-06-18/1891-06-18">1891 June 18</unitdate>
+          </did>
+        </c>
+        <c id="c31" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.12</container>
+            <unitdate type="inclusive" normal="1892-06-23/1892-06-23">1892 June 23</unitdate>
+          </did>
+        </c>
+        <c id="c32" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.13</container>
+            <unitdate type="inclusive" normal="1892-10-07/1892-10-07">1892 October 07</unitdate>
+          </did>
+        </c>
+        <c id="c33" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.14</container>
+            <unitdate type="inclusive" normal="1892-11-30/1892-11-30">1892 November 30</unitdate>
+          </did>
+        </c>
+        <c id="c34" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.15</container>
+            <unitdate type="inclusive" normal="1893-06-29/1893-06-29">1893 June 29</unitdate>
+          </did>
+        </c>
+        <c id="c35" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.16</container>
+            <unitdate type="inclusive" normal="1893-09-06/1893-09-06">1893 September 06</unitdate>
+          </did>
+        </c>
+        <c id="c36" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.17</container>
+            <unitdate type="inclusive" normal="1894-06-20/1894-06-20">1894 June 20</unitdate>
+          </did>
+        </c>
+        <c id="c37" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.18</container>
+            <unitdate type="inclusive" normal="1894-09-05/1894-09-05">1894 September 05</unitdate>
+          </did>
+        </c>
+        <c id="c38" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.19</container>
+            <unitdate type="inclusive" normal="1895-06-20/1895-06-20">1895 June 20</unitdate>
+          </did>
+        </c>
+        <c id="c39" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.20</container>
+            <unitdate type="inclusive" normal="1895-09-04/1895-09-04">1895 September 04</unitdate>
+          </did>
+        </c>
+        <c id="c40" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.21</container>
+            <unitdate type="inclusive" normal="1897-06-17/1897-06-17">1897 June 17</unitdate>
+          </did>
+        </c>
+        <c id="c41" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.22</container>
+            <unitdate type="inclusive" normal="1897-09-01/1897-09-01">1897 September 01</unitdate>
+          </did>
+        </c>
+        <c id="c42" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.23</container>
+            <unitdate type="inclusive" normal="1898-06-16/1898-06-16">1898 June 16</unitdate>
+          </did>
+        </c>
+        <c id="c43" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.24</container>
+            <unitdate type="inclusive" normal="1898-09-07/1898-09-07">1898 September 07</unitdate>
+          </did>
+        </c>
+        <c id="c44" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.25</container>
+            <unitdate type="inclusive" normal="1899-06-07/1899-06-07">1899 June 07</unitdate>
+          </did>
+        </c>
+        <c id="c45" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.26</container>
+            <unitdate type="inclusive" normal="1899-09-06/1899-09-06">1899 September 06</unitdate>
+          </did>
+        </c>
+        <c id="c46" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.27</container>
+            <unitdate type="inclusive" normal="1900-03-20/1900-03-20">1900 March 20</unitdate>
+          </did>
+        </c>
+        <c id="c47" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.28</container>
+            <unitdate type="inclusive" normal="1900-06-21/1900-06-21">1900 June 21</unitdate>
+          </did>
+        </c>
+        <c id="c48" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.29</container>
+            <unitdate type="inclusive" normal="1901-06-20/1901-06-20">1901 June 20</unitdate>
+          </did>
+        </c>
+        <c id="c49" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.30</container>
+            <unitdate type="inclusive" normal="1901-09-04/1901-09-04">1901 September 04</unitdate>
+          </did>
+        </c>
+        <c id="c50" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.31</container>
+            <unitdate type="inclusive" normal="1902-06-19/1902-06-19">1902 June 19</unitdate>
+          </did>
+        </c>
+        <c id="c51" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.32</container>
+            <unitdate type="inclusive" normal="1902-09-03/1902-09-03">1902 September 03</unitdate>
+          </did>
+        </c>
+        <c id="c52" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.33</container>
+            <unitdate type="inclusive" normal="1903-06-18/1903-06-18">1903 June 18</unitdate>
+          </did>
+        </c>
+        <c id="c53" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.34</container>
+            <unitdate type="inclusive" normal="1903-09-02/1903-09-02">1903 September 02</unitdate>
+          </did>
+        </c>
+        <c id="c54" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.35</container>
+            <unitdate type="inclusive" normal="1904-06-16/1904-06-16">1904 June 16</unitdate>
+          </did>
+        </c>
+        <c id="c55" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.36</container>
+            <unitdate type="inclusive" normal="1905-06-22/1905-06-22">1905 June 22</unitdate>
+          </did>
+        </c>
+        <c id="c56" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.37</container>
+            <unitdate type="inclusive" normal="1905-10-04/1905-10-04">1905 October 04</unitdate>
+          </did>
+        </c>
+        <c id="c57" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.38</container>
+            <unitdate type="inclusive" normal="1906-06-21/1906-06-21">1906 June 21</unitdate>
+          </did>
+        </c>
+        <c id="c58" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.39</container>
+            <unitdate type="inclusive" normal="1906-10-03/1906-10-03">1906 October 03</unitdate>
+          </did>
+        </c>
+        <c id="c59" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.40</container>
+            <unitdate type="inclusive" normal="1907-06-20/1907-06-20">1907 June 20</unitdate>
+          </did>
+        </c>
+        <c id="c60" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.41</container>
+            <unitdate type="inclusive" normal="1908-06-18/1908-06-18">1908 June 18</unitdate>
+          </did>
+        </c>
+        <c id="c61" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.42</container>
+            <unitdate type="inclusive" normal="1908-10-21/1908-10-21">1908 October 21</unitdate>
+          </did>
+        </c>
+        <c id="c62" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.43</container>
+            <unitdate type="inclusive" normal="1909-03-02/1909-03-02">1909 March 02</unitdate>
+          </did>
+        </c>
+        <c id="c63" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.44</container>
+            <unitdate type="inclusive" normal="1909-06-17/1909-06-17">1909 June 17</unitdate>
+          </did>
+        </c>
+        <c id="c64" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.45</container>
+            <unitdate type="inclusive" normal="1909-10-06/1909-10-06">1909 October 06</unitdate>
+          </did>
+        </c>
+        <c id="c65" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.46</container>
+            <unitdate type="inclusive" normal="1909-10-13/1909-10-13">1909 October 13</unitdate>
+          </did>
+        </c>
+        <c id="c66" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.47</container>
+            <unitdate type="inclusive" normal="1910-11-10/1910-11-10">1910 November 10</unitdate>
+          </did>
+        </c>
+        <c id="c67" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.48</container>
+            <unitdate type="inclusive" normal="1912-06-20/1912-06-20">1912 June 20</unitdate>
+          </did>
+        </c>
+        <c id="c68" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.49</container>
+            <unitdate type="inclusive" normal="1912-10-09/1912-10-09">1912 October 09</unitdate>
+          </did>
+        </c>
+        <c id="c69" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee Report</unittitle>
+            <container type="folder" label="Folder">VI.50</container>
+            <unitdate type="inclusive" normal="1913-06-19/1913-06-19">1913 June 19</unitdate>
+          </did>
+        </c>
+      </c>
+      <c id="c70" level="series">
+        <did>
+          <unittitle>Corporation correspondence</unittitle>
+          <unitid type="series">Series VII</unitid>
+          <container type="folder" label="Folder">VI.51</container>
+          <unitdate type="inclusive" normal="1913-12-18/1913-12-18">1913 December 18</unitdate>
+        </did>
+        <c id="c71" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1768-01-17/1768-01-17">1768 January 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>Vote of a Com[mitt]ee of the Corporation ... respecting a Memor[ia]l to the G[enera]l Assembly of Scotland for Donat[io]ns to ye College .... A20598.</p>
+          </scopecontent>
+        </c>
+        <c id="c72" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1769-08-19/1769-08-19">1769 August 19</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription list for the purchase of an electrical apparatus for the College] .... A20512.</p>
+          </scopecontent>
+        </c>
+        <c id="c73" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1769-12-23/1769-12-23">1769 December 23</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription for locating the proposed college of the colony of Rhode Island in Newport and account of meeting in Court House in Newport December 23, 1769] .... A20953-4. Copy by Sarah K. Birckhead. Includes copy of letter referring to Stiles Charter. With this is letter from Sarah K. Birckhead to Walter C. Bronson concerning the documents.</p>
+          </scopecontent>
+        </c>
+        <c id="c74" level="file">
+          <did>
+            <unittitle>Ward, Henry, 1732-1797</unittitle>
+            <unitdate type="inclusive" normal="1769-12-30/1769-12-30">1769 December 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>Certificate ... concerning ye Newpt. Subscription .... A20506. Prospect of increasing subscription for placing the College in Newport. Signed by Henry Ward and Edward Thurston.</p>
+          </scopecontent>
+        </c>
+        <c id="c75" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1770-02-06/1770-02-06">1770 February 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[List of subscribers to a fund to locate the college west of Weybosset Bridge] .... A13219.</p>
+          </scopecontent>
+        </c>
+        <c id="c76" level="file">
+          <did>
+            <unittitle>Hart, Oliver, 1723-1795</unittitle>
+            <unitdate type="inclusive" normal="1770-05-16/1770-05-16">1770 May 16</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Hezekiah] Smith .... A9407. Discusses church news, and mention several Baptist clergymen: Gano, Edwards, Manning.</p>
+          </scopecontent>
+        </c>
+        <c id="c77" level="file">
+          <did>
+            <unittitle>Maxwell, Adam</unittitle>
+            <unitdate type="inclusive" normal="1770-09-04/1770-09-04">1770 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To David Howell .... A1561. Sends "some very imperfect specimens of my writing.".</p>
+          </scopecontent>
+        </c>
+        <c id="c78" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1772-05-13/1803-08">1772 May 13, 1803 August</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Account with Joseph and William Russell] .... A21140. Note added by committee to settle the account, August, 1803.</p>
+          </scopecontent>
+        </c>
+        <c id="c79" level="file">
+          <did>
+            <unittitle>Vigneron, Walter (1776)</unittitle>
+            <unitdate type="inclusive">1773?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Contract] .... A14750. Requiring Walter Vigneron to pay William Holroyd, steward, for tuition, board at Commons, and room rent.</p>
+          </scopecontent>
+        </c>
+        <c id="c80" level="file">
+          <did>
+            <unittitle>Brown University--Class of 1773</unittitle>
+            <unitdate type="inclusive" normal="1773-02-19/1773-02-19">1773 February 19</unitdate>
+          </did>
+          <scopecontent>
+            <p>The remonstrance of the Senior Class of Rhode Island College, to the respectable, the President and Professor of the same .... A21211. Copy in handwriting of Solomon Drowne. Signed by Jacob Nash, Henry Tillinghast, Joseph Litchfield. Urging a public commencement for the class.</p>
+          </scopecontent>
+        </c>
+        <c id="c81" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1773/1774">1773-1774</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Draft of text of diploma for honorary degrees] .... A17456. Contains list of English recipients of honorary degrees, 1773-74.</p>
+          </scopecontent>
+        </c>
+        <c id="c82" level="file">
+          <did>
+            <unittitle>Pelot, Francis, 1720-1774</unittitle>
+            <unitdate type="inclusive" normal="1774-02-24/1774-02-24">1774 February 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Stephen Hopkins, James Manning and the Committee of the. Corporation of the college in Providence .... A12340. Written from Ewhaw, S.C. Discussing his efforts to raise funds for the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c83" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive">1775?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Regulation prohibiting the use of spirituous liquor in the College and of entertainment in student rooms[ .... A18502.</p>
+          </scopecontent>
+        </c>
+        <c id="c84" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1780-05-06/1780-05-06">1780 May 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Petition to Congress to repair the College] .... A17325. Asks that damage done by troops be repaired at public expense. With this, true copy of petition to Congress as laid before the General Assembly of R. I. with resolves of the Assembly thereon. Attested by David Howell.</p>
+          </scopecontent>
+        </c>
+        <c id="c85" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive">1780?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Vote passed by Corporation] .... A17257. In handwriting of David Howell, secretary. Voted that a committee inspect and supervise the College Edifice during its occupancy by troops and that no further alterations be made without approval of the Committee.</p>
+          </scopecontent>
+        </c>
+        <c id="c86" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1782-05-31/1782-05-31">1782 May 31</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Minutes of meeting] .... A17324. Appointing committees to remove buildings from College Lot, to rent rooms in the College, and to ascertain damage done to College Edifice by the American and French armies.</p>
+          </scopecontent>
+        </c>
+        <c id="c87" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1729-1791</unittitle>
+            <unitdate type="inclusive" normal="1782-09-05/1782-09-05">1782 September 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription for repairing the College Edifice] .... A17249. Also signed by John Brown. On verso is note by Joseph Brown, May 12, 1783, receipt for payment of subscriptions.</p>
+          </scopecontent>
+        </c>
+        <c id="c88" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Committee on damages to the college edifice</unittitle>
+            <unitdate type="inclusive" normal="1782-06-12/1782-06-12">1782 June 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Estimate of damages to the college edifice during the Revolutionary War] .... A17248. Signed, Jona. Hammon, William Wheaton, Jno. Dorrance. Autograph note added and signed by Daniel Cooke, Justice of the Peace, April 30, 1785. With this, an unsigned copy of the document.</p>
+          </scopecontent>
+        </c>
+        <c id="c89" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1782/1862">1782, 1804, 1844, 1862</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Excerpts from Corporation records relating to form of "engagment" for installation of Fellows and Trustees] .... A18245.</p>
+          </scopecontent>
+        </c>
+        <c id="c90" level="file">
+          <did>
+            <unittitle>Brown University--Department of sciences</unittitle>
+            <unitdate type="inclusive">1783?</unitdate>
+          </did>
+          <scopecontent>
+            <p>A short description of the Micrometer, and of the Reflecting telescope .... A18510-11. Instruments purchased for the use of the classes in science, ca. 1783.</p>
+          </scopecontent>
+        </c>
+        <c id="c91" level="file">
+          <did>
+            <unittitle>Wilkinson, William, 1760-1852 (1783)</unittitle>
+            <unitdate type="inclusive" normal="1783-09-25/1783-09-25">1783 September 25</unitdate>
+          </did>
+          <scopecontent>
+            <p>To David Howell .... A1563. Reports on progress at school of young Jeremiah Howell.</p>
+          </scopecontent>
+        </c>
+        <c id="c92" level="file">
+          <did>
+            <unittitle>Brown University--Department of sciences</unittitle>
+            <unitdate type="inclusive" normal="1783/1783">1783</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Draft of remaining parts of an Apparatus for the College] ... A9411.</p>
+          </scopecontent>
+        </c>
+        <c id="c93" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1784/1795">1784-1795</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Extracts from early records of the Corporation] .... A9418. Concerning resignations and elections of Fellows and Trustees.</p>
+          </scopecontent>
+        </c>
+        <c id="c94" level="file">
+          <did>
+            <unittitle>Brown, John, 1736-1803</unittitle>
+            <unitdate type="inclusive" normal="1784-01-27/1784-01-27">1784 January 27</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Corporation of Brown University .... A21634-5. Submitting his treasurer's report, 1775-1784. With this, receipt, John Brown to committee to adjust his accounts, January 27, 1784.</p>
+          </scopecontent>
+        </c>
+        <c id="c95" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1784-09-09/1784-09-09">1784 September 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To His Most Christian Majesty [Louis XVI] .... A20610. Copy signed by Stephen Hopkins and James Manning, asking assistance in procuring collection of French authors and establishing a professorship of French language and history.</p>
+          </scopecontent>
+        </c>
+        <c id="c96" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1785-02-17/1792-08-13">1785 February 17, 1792 August 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Votes to apply to Congress for reparation for occupation of and damage to the college during the war] .... A17327. Extracts from Corporation records. Witnessed by David Howell, secretary.</p>
+          </scopecontent>
+        </c>
+        <c id="c97" level="file">
+          <did>
+            <unittitle>Lawrence, Joseph</unittitle>
+            <unitdate type="inclusive" normal="1785-04-30/1785-04-30">1785 April 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Document relating to use of College for Army Barracks] .... A17323. Certifies that the College was used as barracks from December 10, 1776 to August 20, 1779 without compensation for rent or damages. On verso, certification of Lawrence's appointment as Barracks Master in December 1776, signed by Jabez Bowen. With this, copy of Lawrence's document.</p>
+          </scopecontent>
+        </c>
+        <c id="c98" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1785-05-03/1785-05-03">1785 May 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Petition to Congress to repair the College] .... A17326. Copy. Asking compensation for damages done by troops. Describes the College Edifice.</p>
+          </scopecontent>
+        </c>
+        <c id="c99" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1785-05-03/1785-05-03">1785 May 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>The United States of America to Rhode Island College, Dr. .... A17318. Bill for rent and damages to College during its occupation by troops.</p>
+          </scopecontent>
+        </c>
+        <c id="c100" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1729-1791</unittitle>
+            <unitdate type="inclusive" normal="1786-04-02/1786-04-02">1786 April 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Hezekiah Smith .... A9447. Urges him to come to Providence to supply pulpit Manning has gone to Congress hoping to get what is due the College for damages, as the college funds are not sufficient to maintain him; also, as the College increases, Manning is not able to perform duties of both president and pastor; seeks his advice on procuring a new pastor; 15 students to enroll in fall.</p>
+          </scopecontent>
+        </c>
+        <c id="c101" level="file">
+          <did>
+            <unittitle>Foster, William</unittitle>
+            <unitdate type="inclusive" normal="1786-06-28/1786-06-28">1786 June 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Perez] Fobes .... A20916. Concerns instruments he ordered from London suggests insurance on the instruments. With this, bill listing items.</p>
+          </scopecontent>
+        </c>
+        <c id="c102" level="file">
+          <did>
+            <unittitle>Brown University--Class of 1788</unittitle>
+            <unitdate type="inclusive" normal="1788/1788">1788</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the honorable Corporation .... A21212. Petition signed by twenty members of the class, requesting seats on the stage at Commencement. On verso are miscellaneous notes and quotations in the hand of Solomon Drowne.</p>
+          </scopecontent>
+        </c>
+        <c id="c103" level="file">
+          <did>
+            <unittitle>Drowne, Solomon, 1753-1834 (1773)</unittitle>
+            <unitdate type="inclusive" normal="1791/1791">1791</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Doctors Jonathan Easton and Isaac Senter . Signed also by William Bowen and David Howell. Requesting aid of Easton and Senter in a case involving the life of President Manning.</p>
+          </scopecontent>
+        </c>
+        <c id="c104" level="file">
+          <did>
+            <unittitle>Flint, Abel, 1763-1825</unittitle>
+            <unitdate type="inclusive" normal="1797-03/1791-03">1791 March</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Enos Hitchcock .... A10335. Urging him and Mrs. Hitchcock to be present at his ordination.</p>
+          </scopecontent>
+        </c>
+        <c id="c105" level="file">
+          <did>
+            <unittitle>Bowen, Jabez, 1739-1815</unittitle>
+            <unitdate type="inclusive" normal="1791-07-29/1791-07-29">1791 July 29</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A6608. List of Corporation members. Meeting called to make arrangements for funeral of James Manning and to discuss problems of the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c106" level="file">
+          <did>
+            <unittitle>Howell, David, 1747-1824</unittitle>
+            <unitdate type="inclusive" normal="1791-07-30/1791-07-30">1791 July 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Obituary notice of James Manning] .... A21578.</p>
+          </scopecontent>
+        </c>
+        <c id="c107" level="file">
+          <did>
+            <unittitle>Flint, Abel, 1763-1825</unittitle>
+            <unitdate type="inclusive" normal="1791-08-04/1791-08-04">1791 August 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Enos Hitchcock] .... A10334. Announcing his marriage and commenting on Manning's death.</p>
+          </scopecontent>
+        </c>
+        <c id="c108" level="file">
+          <did>
+            <unittitle>Flint, Abel, 1763-1825</unittitle>
+            <unitdate type="inclusive" normal="1791-10-03/1791-10-03">1791 October 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Enos Hitchcock] .... A10333. Comments on choice of president of the college and on ordination of Mr. Leonard.</p>
+          </scopecontent>
+        </c>
+        <c id="c109" level="file">
+          <did>
+            <unittitle>Pitman, John, 1785-1864 (1799)</unittitle>
+            <unitdate type="inclusive" normal="1791-10-03/1791-10-03">1791 October 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Robert Carter .... A7190. Writes of death of James Manning, and expresses the hope that Carter will still send his son George to the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c110" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1792-12-06/1792-12-06">1792 December 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Petition to Congress for damages and rent of the Edifice] .... A17328. Describes the College Edifice and tells use of it during the Revolution.</p>
+          </scopecontent>
+        </c>
+        <c id="c111" level="file">
+          <did>
+            <unittitle>Bowen, Jabez, 1739-1815</unittitle>
+            <unitdate type="inclusive" normal="1792-12-12/1792-12-12">1792 December 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Certification that the College was evacuated by French troops on May 27, 1782] .... A17322. Draft on verso.</p>
+          </scopecontent>
+        </c>
+        <c id="c112" level="file">
+          <did>
+            <unittitle>Bowen, Jabez, 1739-1815</unittitle>
+            <unitdate type="inclusive" normal="1792-12-12/1792-12-12">1792 December 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Benjamin Bourne .... A17321. To representative in Congress from Rhode Island, concerning claims to Congress for damages to the College during its occupation by troops.</p>
+          </scopecontent>
+        </c>
+        <c id="c113" level="file">
+          <did>
+            <unittitle>Bowen, Jabez, 1739-1815</unittitle>
+            <unitdate type="inclusive" normal="1792-12-12/1792-12-12">1792 December 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Theodore Foster and Joseph Stanton .... A17320. Copy of letter to senators from Rhode Island asking help in presenting claims to Congress for use of the College by troops.</p>
+          </scopecontent>
+        </c>
+        <c id="c114" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1792-12-13/1792-12-13">1792 December 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>The United States of America to Rhode Island College, Dr. . Bill for rent and damages. The 1785 bill with interest to 1792 added.</p>
+          </scopecontent>
+        </c>
+        <c id="c115" level="file">
+          <did>
+            <unittitle>Prince, John, 1751-1836</unittitle>
+            <unitdate type="inclusive" normal="1794-07-22/1794-07-22">1794 July 22</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Loammi Baldwin .... A9593. Informs him that they have been appointed to inspect Mr. Fobes's philosophical instruments.</p>
+          </scopecontent>
+        </c>
+        <c id="c116" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1794-09/1794-09">1794 September</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Commencement program] .... A12255. With list of orators.</p>
+          </scopecontent>
+        </c>
+        <c id="c117" level="file">
+          <did>
+            <unittitle>Maxcy, Jonathan, 1768-1820 (1787)</unittitle>
+            <unitdate type="inclusive" normal="1795-07-12/1795-07-12">1795 July 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Richard Furman] .... A10332. Concerning position at the college and his religious views.</p>
+          </scopecontent>
+        </c>
+        <c id="c118" level="file">
+          <did>
+            <unittitle>Prince, John, 1751-1836</unittitle>
+            <unitdate type="inclusive" normal="1795-08-20/1795-08-20">1795 August 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Loammi Baldwin .... A9592. Committee of the Academy to inspect Dr. Fobes's instruments.</p>
+          </scopecontent>
+        </c>
+        <c id="c119" level="file">
+          <did>
+            <unittitle>Hamilton, Alexander, 1757-1804</unittitle>
+            <unitdate type="inclusive" normal="1795-01-31/1795-01-31">1795 January 31</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report on petition of the Corporation of Rhode Island College] .... A32498. On claims of the College for damage to the College Edifice during its occupation by American and French troops.</p>
+          </scopecontent>
+        </c>
+        <c id="c120" level="file">
+          <did>
+            <unittitle>Rogers, William, 1751-1824 (1769)</unittitle>
+            <unitdate type="inclusive" normal="1795/1795">1795</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Sermon preached on the death of Rev. Morgan Edwards] .... A9227. In handwriting of Rogers. With this, a typescript giving information about Rogers and Edwards.</p>
+          </scopecontent>
+        </c>
+        <c id="c121" level="file">
+          <did>
+            <unittitle>Maxcy, Jonathan, 1768-1820 (1787)</unittitle>
+            <unitdate type="inclusive" normal="1796-04-11/1796-04-11">1796 April 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Welcome Arnold .... A11187. Requests indulgence in the paying of amounts due on a note, explaining his difficulties in collecting money owed him.</p>
+          </scopecontent>
+        </c>
+        <c id="c122" level="file">
+          <did>
+            <unittitle>Bowen, Jabez, 1739-1815</unittitle>
+            <unitdate type="inclusive" normal="1796-04-27/1796-04-27">1796 April 27</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Sir .... A10337. States that application for compensation for use of the Edifice has been made directly to the Congress; No recompense has been made, although institutions in Delaware, Princeton and Cambridge have been compensated for rents and damages.</p>
+          </scopecontent>
+        </c>
+        <c id="c123" level="file">
+          <did>
+            <unittitle>Allen, Bridgham J.</unittitle>
+            <unitdate type="inclusive">1797?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To James Fenner .... A11176. Bill for copying done. Includes charge for two college lottery tickets ($12. for tickets numbered 211 and 212).</p>
+          </scopecontent>
+        </c>
+        <c id="c124" level="file">
+          <did>
+            <unittitle>Brown University--Committee for the college lottery</unittitle>
+            <unitdate type="inclusive" normal="1798/1801">1798-1801</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Accounts] .... A20862-81. Accounts with John Whipple and Samuel Thurber, managers of the College Lottery. Includes promissory notes and receipts.</p>
+          </scopecontent>
+        </c>
+        <c id="c125" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1798-05-12/1798-05-12">1798 May 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on encroachments on the college land] .... A20507. Reports five cases of encroachment on college lands.</p>
+          </scopecontent>
+        </c>
+        <c id="c126" level="file">
+          <did>
+            <unittitle>Fobes, Perez, 1742-1812</unittitle>
+            <unitdate type="inclusive">1799?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Account for philosophical instruments made and imported] .... A20633. On last page is note of salary received from the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c127" level="file">
+          <did>
+            <unittitle>Wilkinson, William, 1760-1852 (1783)</unittitle>
+            <unitdate type="inclusive" normal="1799-12-24/1799-12-24">1799 December 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Benjamin Bourne .... A34993. Announces the death of George Washington.</p>
+          </scopecontent>
+        </c>
+        <c id="c128" level="file">
+          <did>
+            <unittitle>Burgess, Thomas</unittitle>
+            <unitdate type="inclusive">1799? March 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Benjamin Bourne .... A11200.</p>
+          </scopecontent>
+        </c>
+        <c id="c129" level="file">
+          <did>
+            <unittitle>Brown, James 1761-1834 (1780)</unittitle>
+            <unitdate type="inclusive" normal="1800-03-14/1800-03-14">1800 March 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>To B[enjamin] Bourne .... A12253. States decision of Corporation to dismiss Bourne's son and a number of others.</p>
+          </scopecontent>
+        </c>
+        <c id="c130" level="file">
+          <did>
+            <unittitle>United States--Treasury Department</unittitle>
+            <unitdate type="inclusive" normal="1800-05-06/1800-05-06">1800 May 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Certificate of account between U.S. and Rhode Island College] .... A17319. Sum of $2779.13 due the College for use by troops and damages.</p>
+          </scopecontent>
+        </c>
+        <c id="c131" level="file">
+          <did>
+            <unittitle>Smith, Hezekiah, 1737-1805</unittitle>
+            <unitdate type="inclusive" normal="1801-10-26/1801-10-26">1801 October 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Jonathan Maxcy .... A9420. Comments on the choice of Maxcy as president of Union College.</p>
+          </scopecontent>
+        </c>
+        <c id="c132" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive">1801?</unitdate>
+          </did>
+          <scopecontent>
+            <p>Amt. of the certificates which are funded in the Secry's office belonging to the college .... A20379.</p>
+          </scopecontent>
+        </c>
+        <c id="c133" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1804-09-06/1804-09-06">1804 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of a committee to examine accounts of Dr. John Prince] .... A21199. Signed by Robert Rogers and Samuel Eddy. Note by David Howell added. Receipt on last page.</p>
+          </scopecontent>
+        </c>
+        <c id="c134" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive">1806?</unitdate>
+          </did>
+          <scopecontent>
+            <p>References to votes etc. .... A18512. Notations from reports of the Corporation from 1768 to 1806.</p>
+          </scopecontent>
+        </c>
+        <c id="c135" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1805/1805">1805</unitdate>
+          </did>
+          <scopecontent>
+            <p>Brown University in account with Perez Fobes .... A18524.</p>
+          </scopecontent>
+        </c>
+        <c id="c136" level="file">
+          <did>
+            <unittitle>Fobes, Perez, 1742-1812</unittitle>
+            <unitdate type="inclusive" normal="1806-09-02/1806-09-02">1806 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A7198. Explaining adjustments of a claim for apparatus.</p>
+          </scopecontent>
+        </c>
+        <c id="c137" level="file">
+          <did>
+            <unittitle>Brown University--Class of 1806</unittitle>
+            <unitdate type="inclusive" normal="1806-09-04/1908-08-21">1806 September 04, 1908 August 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Secretary of the Corporation .... A8038. Request of the senior class for permission to invite Providence Company of Cadets to attend procession at Commencement. Also signed by Jacob Hill and Adoniram Judson. See Frances Wayland papers, box 7, folder 89, Emily (Cuddeback) Judson. RJB 8/21/08.</p>
+          </scopecontent>
+        </c>
+        <c id="c138" level="file">
+          <did>
+            <unittitle>Clarke, Abraham Lynsen</unittitle>
+            <unitdate type="inclusive" normal="1808-11/1808-11">1808 November</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Moses Lippitt .... A7196. Resignation as Fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c139" level="file">
+          <did>
+            <unittitle>Arnold, Thomas</unittitle>
+            <unitdate type="inclusive" normal="1808-02-13/1808-02-13">1808 February 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Moses] Brown .... A9541. Thinks Brown's accusations against students for attending and performing theatricals unjust and suggests he acknowledge his mistake.</p>
+          </scopecontent>
+        </c>
+        <c id="c140" level="file">
+          <did>
+            <unittitle>Lippitt, Moses</unittitle>
+            <unitdate type="inclusive" normal="1810-06-06/1810-06-06">1810 June 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas P. Ives .... A7995. Sending check for amount of schoolhouse subscription balance. List of names on verso.</p>
+          </scopecontent>
+        </c>
+        <c id="c141" level="file">
+          <did>
+            <unittitle>Flint, Abel, 1763-1825</unittitle>
+            <unitdate type="inclusive" normal="1812-05-05/1812-05-05">1812 May 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To dear Sir .... A10336. Written to a college president at the request of Oliver D. Cooke, a bookseller in Hartford, asking him to take his son as a boarder.</p>
+          </scopecontent>
+        </c>
+        <c id="c142" level="file">
+          <did>
+            <unittitle>Griswold, Alexander Viets, 1766-1843</unittitle>
+            <unitdate type="inclusive" normal="1812-09-23/1812-09-23">1812 September 23</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7195. Accepting election as Fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c143" level="file">
+          <did>
+            <unittitle>Brown and Ives</unittitle>
+            <unitdate type="inclusive" normal="1812-11/1812-11">1812 November</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Moses Lippitt .... A7998. Concerns subscription papers for University Grammar School.</p>
+          </scopecontent>
+        </c>
+        <c id="c144" level="file">
+          <did>
+            <unittitle>Sterry, Cyprian</unittitle>
+            <unitdate type="inclusive" normal="1813-08-31/1813-08-31">1813 August 31</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Jabez Bowen .... A7202. Resigns from Corporation.</p>
+          </scopecontent>
+        </c>
+        <c id="c145" level="file">
+          <did>
+            <unittitle>Burrill, James, 1772-1820 (1788)</unittitle>
+            <unitdate type="inclusive" normal="1813-09-06/1813-09-06">1813 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7200. Accepts appointment as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c146" level="file">
+          <did>
+            <unittitle>Dorr, Sullivan, 1778-1858</unittitle>
+            <unitdate type="inclusive" normal="1813-09-09/1813-09-09">1813 September 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7338. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c147" level="file">
+          <did>
+            <unittitle>Mason, Amasa</unittitle>
+            <unitdate type="inclusive" normal="1813-09-13/1813-09-13">1813 September 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7201. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c148" level="file">
+          <did>
+            <unittitle>Secomb, Ebenezer</unittitle>
+            <unitdate type="inclusive" normal="1814-08-06/1814-08-06">1814 August 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7203. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c149" level="file">
+          <did>
+            <unittitle>Mackie, John</unittitle>
+            <unitdate type="inclusive" normal="1815-10-19/1815-10-19">1815 October 19</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A7205. Declines professorship of chemistry.</p>
+          </scopecontent>
+        </c>
+        <c id="c150" level="file">
+          <did>
+            <unittitle>Ingalls, William, 1769-1851 (h1813)</unittitle>
+            <unitdate type="inclusive" normal="1816-08-03/1816-08-03">1816 August 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Fellows of Corporation of Brown University .... A2374. Resigns his professorship.</p>
+          </scopecontent>
+        </c>
+        <c id="c151" level="file">
+          <did>
+            <unittitle>Ingalls, William, 1769-1851 (h1813)</unittitle>
+            <unitdate type="inclusive" normal="1817-03-25/1817-03-25">1817 March 25</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the President and Fellows of Brown University .... A3293. Also signed by Levi Wheaton. Samuel Atwood Shurtleff, Joseph Mulliken, Thomas Burr, and John Phillips have successfully completed their examinations and are entitled to receive M.D. degrees.</p>
+          </scopecontent>
+        </c>
+        <c id="c152" level="file">
+          <did>
+            <unittitle>Ingalls, William, 1769-1851 (h1813)</unittitle>
+            <unitdate type="inclusive" normal="1817-08-30/1817-08-30">1817 August 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>[To whom it may concern] .... A54023. Statement of qualifications of Caleb Snow. Gives family background and education of Snow, including his eight months study of medicine. Praises his character and "conciliating manners" as well as his reputation as a tutor at Brown.</p>
+          </scopecontent>
+        </c>
+        <c id="c153" level="file">
+          <did>
+            <unittitle>Bowen, Pardon, 1757-1826 (1775)</unittitle>
+            <unitdate type="inclusive" normal="1817-09-10/1817-09-10">1817 September 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7204. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c154" level="file">
+          <did>
+            <unittitle>Kane, Oliver</unittitle>
+            <unitdate type="inclusive" normal="1817-10-04/1817-10-04">1817 October 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A7206. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c155" level="file">
+          <did>
+            <unittitle>Howell, David, 1747-1824</unittitle>
+            <unitdate type="inclusive" normal="1818-09-01/1818-09-01">1818 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To A. V. Griswold .... A8037. Asks Corporation to reconsider electing three Quakers as trustees.</p>
+          </scopecontent>
+        </c>
+        <c id="c156" level="file">
+          <did>
+            <unittitle>Secomb, Ebenezer</unittitle>
+            <unitdate type="inclusive" normal="1819-08-26/1819-08-26">1819 August 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Chancellor of Brown University .... A3301. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c157" level="file">
+          <did>
+            <unittitle>Almy, William</unittitle>
+            <unitdate type="inclusive" normal="1819-08-28/1819-08-28">1819 August 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Sam[uel] Eddy .... A3300. Declining election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c158" level="file">
+          <did>
+            <unittitle>Tillinghast, Thomas</unittitle>
+            <unitdate type="inclusive" normal="1820-08-12/1820-08-12">1820 August 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Board of Trustees of Brown University .... A3299. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c159" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive">1821?</unitdate>
+          </did>
+          <scopecontent>
+            <p>Freshmen Monitor Bill .... A17182.</p>
+          </scopecontent>
+        </c>
+        <c id="c160" level="file">
+          <did>
+            <unittitle>Greene, Ray</unittitle>
+            <unitdate type="inclusive" normal="1821-09-01/1821-09-01">1821 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Nicholas Brown .... A3264. Resigns as Fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c161" level="file">
+          <did>
+            <unittitle>D'Wolf, John, 1786-1862 (1806)</unittitle>
+            <unitdate type="inclusive" normal="1812-09/1812-09">1812 September</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3036. Expenses of the chemistry department.</p>
+          </scopecontent>
+        </c>
+        <c id="c162" level="file">
+          <did>
+            <unittitle>Bridgham, Samuel Willard, 1774-1840 (1794)</unittitle>
+            <unitdate type="inclusive" normal="1821-09-10/1821-09-10">1821 September 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3305. Accepts appointment as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c163" level="file">
+          <did>
+            <unittitle>Smith, Stephen Hopkins</unittitle>
+            <unitdate type="inclusive" normal="1821-09-17/1821-09-17">1821 September 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3040. Accepts appointment as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c164" level="file">
+          <did>
+            <unittitle>Jones, William</unittitle>
+            <unitdate type="inclusive" normal="1821-10-09/1821-10-09">1821 October 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3252. Also signed by Sullivan Dorr. Enclosing two writs which show why they should not be ousted from the seats as members of the Corporation.</p>
+          </scopecontent>
+        </c>
+        <c id="c165" level="file">
+          <did>
+            <unittitle>Chafee, Zechariah, b.?</unittitle>
+            <unitdate type="inclusive" normal="1821-12-08/1821-12-08">1821 December 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Brown University .... A17252. Bill for repairs to the college. On verso, notes by William Holroyd that the bill is found correct.</p>
+          </scopecontent>
+        </c>
+        <c id="c166" level="file">
+          <did>
+            <unittitle>Green, Caleb</unittitle>
+            <unitdate type="inclusive">1822?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Chancellor .... A7199. Concerning the request of his son, Henry, for a dismission from the college to pursue his studies at Union College; suspects that the dismission was withheld by the president because of Henry's participation in student opposition to President Messer.</p>
+          </scopecontent>
+        </c>
+        <c id="c167" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1823-01-11/1823-01-11">1823 January 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee to procure a suitable piece of land and to erect thereon a College Edifice] .... A18504. Reports that Nicholas Brown has built an "elegant Brick Building" for the University; no University funds were used. Signed by Thomas Lloyd Halsey, Richard Jackson, Sullivan Dorr, Thomas P. Ives, Asa Messer, James Rhodes.</p>
+          </scopecontent>
+        </c>
+        <c id="c168" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1769-1841 (1786)</unittitle>
+            <unitdate type="inclusive" normal="1823-01-13/1823-01-13">1823 January 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A7197. Presents Hope College to the University.</p>
+          </scopecontent>
+        </c>
+        <c id="c169" level="file">
+          <did>
+            <unittitle>Ingalls, William, 1769-1851 (h1813)</unittitle>
+            <unitdate type="inclusive" normal="1823-08-28/1823-08-28">1823 August 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3263. Cannot resume his lectures.</p>
+          </scopecontent>
+        </c>
+        <c id="c170" level="file">
+          <did>
+            <unittitle>Jackson, George, 1770-1832 (1788)</unittitle>
+            <unitdate type="inclusive" normal="1823-09-01/1823-09-01">1823 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3262. Declines election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c171" level="file">
+          <did>
+            <unittitle>Howell, David, 1747-1824</unittitle>
+            <unitdate type="inclusive" normal="1823-09-02/1823-09-02">1823 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3286. Also signed by Henry Edes and Stephen H. Smith. The committee to devise measures to manifest the Corporation's gratitude to Nicholas Brown for the gift of Hope College suggest that a portrait of Nicholas Brown be obtained and placed in the building and a monumental marble be placed in front of the building.</p>
+          </scopecontent>
+        </c>
+        <c id="c172" level="file">
+          <did>
+            <unittitle>Hough, Alling, d.1824 (1820)</unittitle>
+            <unitdate type="inclusive" normal="1823-09-03/1823-09-03">1823 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3296. Requests return of twenty dollars of tuition money which he paid.</p>
+          </scopecontent>
+        </c>
+        <c id="c173" level="file">
+          <did>
+            <unittitle>Adams, Jasper, 1793-1841 (1815)</unittitle>
+            <unitdate type="inclusive" normal="1823-10-25/1823-10-25">1823 October 25</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Alexander V. Griswold] .... A9466. Is applying for professorship of chemistry at Columbia College, S. C., and asks for his recommendation.</p>
+          </scopecontent>
+        </c>
+        <c id="c174" level="file">
+          <did>
+            <unittitle>Drowne, Solomon, 1753-1834 (1773)</unittitle>
+            <unitdate type="inclusive" normal="1824/1824">1824</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Honorable Corporation of Brown University. Seeks compensation as professor to that he "need not be obliged to look to the students for pay, -- a troublesome task attended with losses.".</p>
+          </scopecontent>
+        </c>
+        <c id="c175" level="file">
+          <did>
+            <unittitle>Peters, Onslow, d.1856 (1825)</unittitle>
+            <unitdate type="inclusive" normal="1824/1824">1824</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Fellowship &amp; trustees of Brown University .... A3295. Protests against his dismissal from his class.</p>
+          </scopecontent>
+        </c>
+        <c id="c176" level="file">
+          <did>
+            <unittitle>Tobey, Leonard (1826)</unittitle>
+            <unitdate type="inclusive" normal="1824/1824">1824</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Fellowship and Trustees of Brown University .... A3039. Petition for an honorable dismission from the University.</p>
+          </scopecontent>
+        </c>
+        <c id="c177" level="file">
+          <did>
+            <unittitle>Adams, Jasper, 1793-1841 (1815)</unittitle>
+            <unitdate type="inclusive" normal="1824-04-05/1824-04-05">1824 April 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A54813. Resigning as professor of mathematics and natural philosophy to remove to South Carolina.</p>
+          </scopecontent>
+        </c>
+        <c id="c178" level="file">
+          <did>
+            <unittitle>Going, Jonathan, 1786-1844 (1809)</unittitle>
+            <unitdate type="inclusive" normal="1824-05-05/1824-05-05">1824 May 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3289. Certification that Jonathan Aldrich is a beneficiary of the Worcester County Mission and Education Society.</p>
+          </scopecontent>
+        </c>
+        <c id="c179" level="file">
+          <did>
+            <unittitle>Clapp, Joseph B., (1827)</unittitle>
+            <unitdate type="inclusive" normal="1824-08-01/1824-08-01">1824 August 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Fellowship and Trustees of Brown University .... A3294. Appeals for opportunity to clear his name of false charges and gain reinstatement at Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c180" level="file">
+          <did>
+            <unittitle>D'Wolf, John, 1786-1862 (1806)</unittitle>
+            <unitdate type="inclusive" normal="1824-08-05/1824-08-05">1824 August 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Nathaniel Searle .... A3271. Recommends Joseph Patten for a position at Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c181" level="file">
+          <did>
+            <unittitle>Staples, William Read, 1798-1868 (1817)</unittitle>
+            <unitdate type="inclusive" normal="1824-08-21/1824-08-21">1824 August 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Fellows and Trustees of Brown University .... A3038. Submitting some resolutions by the Alumni.</p>
+          </scopecontent>
+        </c>
+        <c id="c182" level="file">
+          <did>
+            <unittitle>D'Wolf, John, 1786-1862 (1806)</unittitle>
+            <unitdate type="inclusive">1825?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A8039. Asks appropriation of $200 for purchase and repair of chemical apparatus.</p>
+          </scopecontent>
+        </c>
+        <c id="c183" level="file">
+          <did>
+            <unittitle>Harrington, Fortunatus</unittitle>
+            <unitdate type="inclusive" normal="1825/1825">1825</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the President and Corporation .... A3304. Requests that his son be reinstated in his class.</p>
+          </scopecontent>
+        </c>
+        <c id="c184" level="file">
+          <did>
+            <unittitle>D'Wolf, John, 1786-1862 (1806)</unittitle>
+            <unitdate type="inclusive" normal="1826-08-12/1826-08-12">1826 August 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [David Benedict] .... A9546. Need for reform at Brown University should raise entrance requirements, discontinue elementary courses, introduce practical courses, stop negligence of officers.</p>
+          </scopecontent>
+        </c>
+        <c id="c185" level="file">
+          <did>
+            <unittitle>Hanes, Oliver</unittitle>
+            <unitdate type="inclusive" normal="1826-09-06/1826-09-06">1826 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Nicholas Brown .... A3298. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c186" level="file">
+          <did>
+            <unittitle>Brown University--Board of Trustees</unittitle>
+            <unitdate type="inclusive" normal="1826-09-07/1826-09-07">1826 September 07</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Votes and resolution] .... A3833,A3835,A51970. Votes witnessed by R. W. Greene and Samuel Eddy, concerning debts of students, admission requirements, and superintendence of library.</p>
+          </scopecontent>
+        </c>
+        <c id="c187" level="file">
+          <did>
+            <unittitle>Mason, Amasa</unittitle>
+            <unitdate type="inclusive" normal="1826-10/1826-10">1826 October</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report by the committee on the conditions of student rooms] .... A17251. Signed also by Thos. Lloyd Halsey.</p>
+          </scopecontent>
+        </c>
+        <c id="c188" level="file">
+          <did>
+            <unittitle>Woods, Alva, 1794-1887</unittitle>
+            <unitdate type="inclusive" normal="1826-12-12/1826-12-12">1826 December 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3278. Has officiated as president for the past quarter relinquishes his duties.</p>
+          </scopecontent>
+        </c>
+        <c id="c189" level="file">
+          <did>
+            <unittitle>Eddy, Samuel, 1769-1839 (1787)</unittitle>
+            <unitdate type="inclusive" normal="1826-12-13/1826-12-13">1826 December 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Tristam Burges .... A3277. Sending a copy of a resolution of the Corporation. Notes in postscript that Francis Wayland has been unanimously elected president.</p>
+          </scopecontent>
+        </c>
+        <c id="c190" level="file">
+          <did>
+            <unittitle>Burges, Welcome Arnold, 1801-1828 (1820)</unittitle>
+            <unitdate type="inclusive" normal="1827-03-14/1827-03-14">1827 March 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas P. Ives .... A3276. Informs the Corporation that his father, Tristam Burges, will be detained in Washington by family illness and not able to attend Corporation meeting at which action on his professorship is expected.</p>
+          </scopecontent>
+        </c>
+        <c id="c191" level="file">
+          <did>
+            <unittitle>D'Wolf, John, 1786-1862 (1806)</unittitle>
+            <unitdate type="inclusive" normal="1827-03-28/1827-03-28">1827 March 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Eddy .... A3254. Being unable to comply with requisition of the Corporation as voted in March 1827, he will resign "in due time." Meanwhile, he will continue the duties of his office in compliance with the vote of September 1826.</p>
+          </scopecontent>
+        </c>
+        <c id="c192" level="file">
+          <did>
+            <unittitle>Bucklin, Thomas, d.1843</unittitle>
+            <unitdate type="inclusive" normal="1827-09-01/1827-09-01">1827 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>[To whom it may concern] .... A3272. Certifies that Dr. Gustavus D. Peck is worthy of the degree of M.D. Also signed by Daniel Thurber on September 3.</p>
+          </scopecontent>
+        </c>
+        <c id="c193" level="file">
+          <did>
+            <unittitle>Ellis, Abner Turner, d. before 1846 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1827-09-04/1827-09-04">1827 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the President &amp; Fellows .... A3288. Having completed his course of study, he was denied degree for not speaking at Commencement; requests award of degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c194" level="file">
+          <did>
+            <unittitle>Woods, Alva, 1794-1887</unittitle>
+            <unitdate type="inclusive" normal="1827-09-04/1827-09-04">1827 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3287. Presents "a brief inventory of the principal Philosophical Instruments belonging to the University, &amp; also a statement of some of the most important deficienc[i]es in this department." Inventory includes instruments for astronomy, pneumatics; mechanics, optics, electricity, magnetism, hydrostatics.</p>
+          </scopecontent>
+        </c>
+        <c id="c195" level="file">
+          <did>
+            <unittitle>Child, John Throop</unittitle>
+            <unitdate type="inclusive" normal="1829-08-17/1829-08-17">1829 August 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Board of Trustees .... A3285. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c196" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive">1830?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on vacations] .... A19271. Recommendations for changing length and season of vacations.</p>
+          </scopecontent>
+        </c>
+        <c id="c197" level="file">
+          <did>
+            <unittitle>Fletcher, Richard, 1788-1869</unittitle>
+            <unitdate type="inclusive" normal="1835-09-16/1835-09-16">1835 September 16</unitdate>
+          </did>
+          <scopecontent>
+            <p>To R. E. Pattison .... A4939.</p>
+          </scopecontent>
+        </c>
+        <c id="c198" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1837/1837">1837</unitdate>
+          </did>
+          <scopecontent>
+            <p>Election of Trustees and Fellows .... A9538. Records from 1813 to 1837.</p>
+          </scopecontent>
+        </c>
+        <c id="c199" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1769-1841 (1786)</unittitle>
+            <unitdate type="inclusive" normal="1838-09/1838-09">1838 September</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A4920.</p>
+          </scopecontent>
+        </c>
+        <c id="c200" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1769-1841 (1786)</unittitle>
+            <unitdate type="inclusive" normal="1839-03-18/1839-03-18">1839 March 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Moses Brown .... A27990. Donating two lots of land and $10,000 for the erection of a President's house and a building for the Department of Natural Philosophy, etc., provided an equal amount is subscribed by others.</p>
+          </scopecontent>
+        </c>
+        <c id="c201" level="file">
+          <did>
+            <unittitle>Brown, Nicholas, 1769-1841 (1786)</unittitle>
+            <unitdate type="inclusive" normal="1839-03-18/1839-03-18">1839 March 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Moses Brown .... A7993. Copy of above letter. On verso is list of subscribers for the purpose of erecting college buildings.</p>
+          </scopecontent>
+        </c>
+        <c id="c202" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1839-04/1839-08">1839 April - 1839 August</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription lists for erection of college buildings] .... A21692-4. Lists from April to August, 1839. Includes copy of Nicholas Brown's letter of March 18.</p>
+          </scopecontent>
+        </c>
+        <c id="c203" level="file">
+          <did>
+            <unittitle>Rhode Island Historical Society</unittitle>
+            <unitdate type="inclusive" normal="1840-09-01/1840-09-01">1840 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3898. Discusses purchase or exchange of the Grammar School lot owned by the Corporation.</p>
+          </scopecontent>
+        </c>
+        <c id="c204" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive">1841?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Committee ... to revise the course of studies .... A39318. Replies to queries dealing with improvement of instruction in Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c205" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1841-04-29/1841-04-30">1841 April 29, 1841 April 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Reports] .... A2642-4,A3827. Concerning Professor Chace's request that he be excused from residence in college for the summer term.</p>
+          </scopecontent>
+        </c>
+        <c id="c206" level="file">
+          <did>
+            <unittitle>Brown University--Board of Fellows</unittitle>
+            <unitdate type="inclusive">1842?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on course of studies, examinations, teaching, responsibility of officers at head of departments] .... A21585. In hand of Francis Wayland.</p>
+          </scopecontent>
+        </c>
+        <c id="c207" level="file">
+          <did>
+            <unittitle>Goddard, William Giles, 1794-1846 (1812)</unittitle>
+            <unitdate type="inclusive" normal="1842-09-08/1842-09-08">1842 September 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A2491. Resigns as professor.</p>
+          </scopecontent>
+        </c>
+        <c id="c208" level="file">
+          <did>
+            <unittitle>Brown University--Students</unittitle>
+            <unitdate type="inclusive" normal="1843-02/1843-02">1843 February</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Petitions of Classes of 1843, 1844, 1845, and 1846] .... A20689-92. Four separate petitions that the term end at the usual time. Includes signatures of students.</p>
+          </scopecontent>
+        </c>
+        <c id="c209" level="file">
+          <did>
+            <unittitle>Brown University--Faculty</unittitle>
+            <unitdate type="inclusive" normal="1843-08-02/1843-08-02">1843 August 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... ---. Recommending compensation for extra services to the Classical department by James R. Boise and Henry S. Frieze. Signed by F. Wayland, A. Caswell, and W. Gammell.</p>
+          </scopecontent>
+        </c>
+        <c id="c210" level="file">
+          <did>
+            <unittitle>Metcalf, Theron, 1784-1875 (1805)</unittitle>
+            <unitdate type="inclusive" normal="1843-07-31/1843-07-31">1843 July 31</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A39329. Resigning from Board of Fellows.</p>
+          </scopecontent>
+        </c>
+        <c id="c211" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1843-08-02/1843-08-02">1843 August 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A42547. Requesting an increase in his salary as professor of rhetoric.</p>
+          </scopecontent>
+        </c>
+        <c id="c212" level="file">
+          <did>
+            <unittitle>Duncan, Alexander, 1805-1889</unittitle>
+            <unitdate type="inclusive" normal="1843-08-04/1843-08-04">1843 August 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To William G. Goddard .... A2646. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c213" level="file">
+          <did>
+            <unittitle>Brown University--Board of Fellows</unittitle>
+            <unitdate type="inclusive" normal="1843/1843">1843</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report] .... A19290. Honorary degrees conferred; list of master�s degrees in course.</p>
+          </scopecontent>
+        </c>
+        <c id="c214" level="file">
+          <did>
+            <unittitle>Wayland, Francis, 1796-1865</unittitle>
+            <unitdate type="inclusive" normal="1843-10-03/1843-10-03">1843 October 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[To whom it may concern] . Signed also by William G. Goddard as secretary to the Corporation. Wax seal of the University affixed. Letter of introduction for Charles C. Jewett, who has been appointed professor of modern languages and is preparing himself by a residence in Europe.</p>
+          </scopecontent>
+        </c>
+        <c id="c215" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1844-09-05/1844-09-05">1844 September 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of Secretary on records of the Corporation] .... A42973.</p>
+          </scopecontent>
+        </c>
+        <c id="c216" level="file">
+          <did>
+            <unittitle>Vernon, Thomas, 1797-1876 (1816)</unittitle>
+            <unitdate type="inclusive" normal="1844-09-09/1844-09-09">1844 September 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Wm. G. Goddard .... A2482. Acknowledges election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c217" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1844-09-11/1844-09-11">1844 September 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Wm. G. Goddard .... A2475. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c218" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1845-09-04/1845-09-04">1845 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Wm. G. Goddard .... A2463. Gives an account of the material he has collected in order to write a history of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c219" level="file">
+          <did>
+            <unittitle>Eddy, Zachariah, 1780-1860 (1799)</unittitle>
+            <unitdate type="inclusive" normal="1844-10-09/1844-10-09">1844 October 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Wm. G. Goddard .... A2476. Accepts election as Fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c220" level="file">
+          <did>
+            <unittitle>Crocker, William Allen, 1802-1871 (1822)</unittitle>
+            <unitdate type="inclusive" normal="1845-09-06/1845-09-06">1845 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To William G. Goddard .... A3826. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c221" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1846-05-18/1846-05-18">1846 May 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Agreement] .... A20952. Copy of an agreement of Brown University and other owners of land on Brown Street to increase or decrease their land as required to change the course of Brown Street.</p>
+          </scopecontent>
+        </c>
+        <c id="c222" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1846/1850">1846-1850</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Extracts from records concerning financial conditions of the university and faculty salaries .... A25274.</p>
+          </scopecontent>
+        </c>
+        <c id="c223" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1848/1848">1848</unitdate>
+          </did>
+          <scopecontent>
+            <p>Resolution on the Fund .... A42986. John Pitman's resolution that $50,000 should be added to permanent fund of Brown University to increase faculty salaries.</p>
+          </scopecontent>
+        </c>
+        <c id="c224" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1848-08-28/1848-08-28">1848 August 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of additions to apparatus .... A42546.</p>
+          </scopecontent>
+        </c>
+        <c id="c225" level="file">
+          <did>
+            <unittitle>Lincoln, John Larkin, 1817-1891 (1836)</unittitle>
+            <unitdate type="inclusive" normal="1848-11-07/1848-11-07">1848 November 07</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Gentlemen .... A28105. Asking that his salary be raised to level of other professors statement of his education and the work of his department.</p>
+          </scopecontent>
+        </c>
+        <c id="c226" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1848-11-29/1848-11-29">1848 November 29</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolution of committee of advice] .... A28106. Recommends raising salary of John Larkin Lincoln. Written and signed by Francis Wayland.</p>
+          </scopecontent>
+        </c>
+        <c id="c227" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1849/1850">1849-1850</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Minutes of the committee of advice] .... A23451. Minutes from October 10, 1849 to March 1, 1850. In hand of Francis Wayland. Enclosed is memorandum of officers' salaries.</p>
+          </scopecontent>
+        </c>
+        <c id="c228" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1849-07-26/1849-07-26">1849 July 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of additions to chemical apparatus .... A39449.</p>
+          </scopecontent>
+        </c>
+        <c id="c229" level="file">
+          <did>
+            <unittitle>Porter, John Addison, 1822-1866</unittitle>
+            <unitdate type="inclusive">1850?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A3280. Does not believe that a course of lectures on the applications of chemistry should be delivered during the present collegiate term.</p>
+          </scopecontent>
+        </c>
+        <c id="c230" level="file">
+          <did>
+            <unittitle>Porter, John Addison, 1822-1866</unittitle>
+            <unitdate type="inclusive">1850?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A3281. Resigns his professorship on condition that six months� salary in addition to that of the current quarter be given to him.</p>
+          </scopecontent>
+        </c>
+        <c id="c231" level="file">
+          <did>
+            <unittitle>Crocker, Nathan Bourne, 1781-1865</unittitle>
+            <unitdate type="inclusive">185-</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee] .... A19185. Report of committee to whom was referred the subject of government in the university. Recommends that students be lodged in private homes, since adequate supervision is not provided in the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c232" level="file">
+          <did>
+            <unittitle>Crocker, Nathan Bourne, 1781-1865</unittitle>
+            <unitdate type="inclusive" normal="1850/1850">1850</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of power of the President] .... A19184. The president has authority in all matters relating to the university and students. President must conduct either the morning or evening chapel service.</p>
+          </scopecontent>
+        </c>
+        <c id="c233" level="file">
+          <did>
+            <unittitle>Greene, George Washington, 1811-1883 (1828)</unittitle>
+            <unitdate type="inclusive" normal="1850-05-18/1850-05-18">1850 May 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Committee of Advice .... A3415. Requests that Department of Modern Languages be placed upon an equal footing with other departments.</p>
+          </scopecontent>
+        </c>
+        <c id="c234" level="file">
+          <did>
+            <unittitle>Kendall, E. Otis</unittitle>
+            <unitdate type="inclusive" normal="1850-07-12/1850-07-12">1850 July 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Trustees of Brown University .... A3424. Recommends William A. Norton for the Professorship of Natural Philosophy and Engineering.</p>
+          </scopecontent>
+        </c>
+        <c id="c235" level="file">
+          <did>
+            <unittitle>Field, Barnum, 1796-1851 (1821)</unittitle>
+            <unitdate type="inclusive" normal="1850-09-12/1850-09-12">1850 September 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A6947. His efforts to obtain money for the college.</p>
+          </scopecontent>
+        </c>
+        <c id="c236" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1851/1851">1851</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on officers' salaries] .... A23452. In hand of Francis Wayland.</p>
+          </scopecontent>
+        </c>
+        <c id="c237" level="file">
+          <did>
+            <unittitle>Porter, John Addison, 1822-1866</unittitle>
+            <unitdate type="inclusive" normal="1851/1851">1851</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A3282. Writes on behalf of Mr. Crandall, who has not been paid for his work as an assistant.</p>
+          </scopecontent>
+        </c>
+        <c id="c238" level="file">
+          <did>
+            <unittitle>Perkins, W. S.</unittitle>
+            <unitdate type="inclusive" normal="1851-04-03/1851-04-03">1851 April 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas R. Hazard .... A3536. Discusses geological collection which is available for $3000.</p>
+          </scopecontent>
+        </c>
+        <c id="c239" level="file">
+          <did>
+            <unittitle>Garrigue, Rudolph</unittitle>
+            <unitdate type="inclusive" normal="1851-04-17/1851-04-17">1851 April 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To .... A9514. 1851(04-17) Encloses receipt for payment for apparatus for Professor Porter.</p>
+          </scopecontent>
+        </c>
+        <c id="c240" level="file">
+          <did>
+            <unittitle>Boise, James Robinson, 1815-1895 (1840)</unittitle>
+            <unitdate type="inclusive" normal="1851-04-21/1851-04-21">1851 April 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A3546. Asks time to consider his appointment as Greek professor.</p>
+          </scopecontent>
+        </c>
+        <c id="c241" level="file">
+          <did>
+            <unittitle>Greene, Samuel Stillman, 1810-1883 (1837)</unittitle>
+            <unitdate type="inclusive" normal="1851-06-17/1851-06-17">1851 June 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Mr. Kingsbury .... A3544. Accepts appointment.</p>
+          </scopecontent>
+        </c>
+        <c id="c242" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1851-06-30/1851-06-30">1851 June 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on religious service] .... A27987. Written and signed by John Kingsbury. Recommends that Sunday afternoon chapel services be resumed and the president be relieved of other duties to allow additional religious instruction.</p>
+          </scopecontent>
+        </c>
+        <c id="c243" level="file">
+          <did>
+            <unittitle>Russell, George Robert, 1800-1866 (1821)</unittitle>
+            <unitdate type="inclusive" normal="1851-08-01/1851-08-01">1851 August 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To J. Kingsbury .... A6952. Will try to persuade his friend to allow his name to be mentioned in connection with his subscription of $1000.</p>
+          </scopecontent>
+        </c>
+        <c id="c244" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1851-08-29/1851-08-29">1851 August 29</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A3549. Requests a year's leave of absence.</p>
+          </scopecontent>
+        </c>
+        <c id="c245" level="file">
+          <did>
+            <unittitle>Norton, William Augustus</unittitle>
+            <unitdate type="inclusive" normal="1851-09-04/1851-09-04">1851 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To J. M. Wightman .... A12159. Requesting material needed for his classes.</p>
+          </scopecontent>
+        </c>
+        <c id="c246" level="file">
+          <did>
+            <unittitle>Norton, William Augustus</unittitle>
+            <unitdate type="inclusive" normal="1851-09-06/1851-09-06">1851 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Z. Allen .... A3552. Accepts offer to pay him a salary of $500 for the ensuing academic year.</p>
+          </scopecontent>
+        </c>
+        <c id="c247" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1851-12-08/1851-12-08">1851 December 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A39319. Report on geological cabinet of the late Prof. L. Vanuxem of Bristol. Describes the geological cabinet of the university.</p>
+          </scopecontent>
+        </c>
+        <c id="c248" level="file">
+          <did>
+            <unittitle>Brown University--Executive Board</unittitle>
+            <unitdate type="inclusive" normal="1852/1852">1852</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Copy from the Minutes to be transmitted to Professor Porter] .... A2812.</p>
+          </scopecontent>
+        </c>
+        <c id="c249" level="file">
+          <did>
+            <unittitle>Norton, William Augustus</unittitle>
+            <unitdate type="inclusive">1852 February 03?</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... A2760. Offers to resign his position under certain conditions.</p>
+          </scopecontent>
+        </c>
+        <c id="c250" level="file">
+          <did>
+            <unittitle>Pitman, John, 1785-1864 (1799)</unittitle>
+            <unitdate type="inclusive" normal="1852-02-04/1852-02-04">1852 February 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To W. A. Norton .... A2761. Requests his resignation.</p>
+          </scopecontent>
+        </c>
+        <c id="c251" level="file">
+          <did>
+            <unittitle>Payne, A.</unittitle>
+            <unitdate type="inclusive" normal="1852-02-10/1852-02-10">1852 February 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Pitman .... A2813. His views about compensation he should receive for his instruction in history.</p>
+          </scopecontent>
+        </c>
+        <c id="c252" level="file">
+          <did>
+            <unittitle>Pearce, William Wheaton, 1825-1867 (1846)</unittitle>
+            <unitdate type="inclusive" normal="1852-02-18/1852-02-18">1852 February 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2811. Accepts appointment as assistant to the professor of chemistry.</p>
+          </scopecontent>
+        </c>
+        <c id="c253" level="file">
+          <did>
+            <unittitle>Burgess, Thomas</unittitle>
+            <unitdate type="inclusive" normal="1852-07-14/1852-07-14">1852 July 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A19183. Report of committee to examine records, journals and documents relative to the origin and proceedings of the Corporation.</p>
+          </scopecontent>
+        </c>
+        <c id="c254" level="file">
+          <did>
+            <unittitle>Brown University--Faculty</unittitle>
+            <unitdate type="inclusive" normal="1852-09-04/1852-09-04">1852 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Recommendation of Nelson Wheeler] .... A27995. Written by President Wayland and signed by eight faculty members. Recommending Wheeler as Professor of Greek Languages and Literature.</p>
+          </scopecontent>
+        </c>
+        <c id="c255" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1853-05-13/1853-05-13">1853 May 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2816. With enclosed letter to John Kingsbury. Expresses his opinion about the new system of pay for professors.</p>
+          </scopecontent>
+        </c>
+        <c id="c256" level="file">
+          <did>
+            <unittitle>Emery, S. Hopkins</unittitle>
+            <unitdate type="inclusive" normal="1853-07-05/1853-07-05">1853 July 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To .... A2842. Recommends Chester Isham Reed for honorary A.M. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c257" level="file">
+          <did>
+            <unittitle>Barnard, Joseph</unittitle>
+            <unitdate type="inclusive" normal="1853-08-30/1853-08-30">1853 August 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Dr. Pattison .... A2838. Recommends L. B. Hanaford for an A.M. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c258" level="file">
+          <did>
+            <unittitle>Thurber, Charles, 1803-1886 (1827)</unittitle>
+            <unitdate type="inclusive" normal="1853-09-12/1853-09-12">1853 September 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2850. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c259" level="file">
+          <did>
+            <unittitle>Cutting, Sewall Sylvester, 1813-1882</unittitle>
+            <unitdate type="inclusive" normal="1853-09-13/1853-09-13">1853 September 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2851. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c260" level="file">
+          <did>
+            <unittitle>Flanders, Charles Worthen, 1807-1875 (1839)</unittitle>
+            <unitdate type="inclusive" normal="1854-09-11/1854-09-11">1854 September 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2862. Acknowledges election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c261" level="file">
+          <did>
+            <unittitle>Thurber, Charles, 1803-1886 (1827)</unittitle>
+            <unitdate type="inclusive" normal="1853-09-12/1853-09-12">1853 September 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2850. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c262" level="file">
+          <did>
+            <unittitle>Chase, Stephen Abbott</unittitle>
+            <unitdate type="inclusive" normal="1854-09-13/1854-09-13">1854 September 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2874. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c263" level="file">
+          <did>
+            <unittitle>Cutting, Sewall Sylvester, 1813-1882</unittitle>
+            <unitdate type="inclusive" normal="1853-09-13/1853-09-13">1853 September 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2851. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c264" level="file">
+          <did>
+            <unittitle>Day, Albert, 1797-1876</unittitle>
+            <unitdate type="inclusive" normal="1853-09-16/1853-09-16">1853 September 16</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A2822. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c265" level="file">
+          <did>
+            <unittitle>Brown University--Students</unittitle>
+            <unitdate type="inclusive">1854?</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Petition] .... A39448. Students rooming in University Hall ask that gas be introduced into their rooms. Lists names of students.</p>
+          </scopecontent>
+        </c>
+        <c id="c266" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1855-09-14/1855-09-14">1855 September 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [John] Kingsbury .... A6515. Discusses unsatisfactory method of payment of salaries and requests that the Executive Board place "the pay of the Professors on a satisfactory basis.".</p>
+          </scopecontent>
+        </c>
+        <c id="c267" level="file">
+          <did>
+            <unittitle>Cutting, Sewall Sylvester, 1813-1882</unittitle>
+            <unitdate type="inclusive" normal="1856-09-03/1856-09-03">1856 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... A3326. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c268" level="file">
+          <did>
+            <unittitle>Stockbridge, John Calvin</unittitle>
+            <unitdate type="inclusive" normal="1856-09-08/1856-09-08">1856 September 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... A23141. On his election to Board of Trustees.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c269" level="series">
+        <did>
+          <unittitle>Correspondence</unittitle>
+          <unitid type="series">Series VII</unitid>
+        </did>
+        <c id="c270" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1857/1857">1857</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription list for portraits for Rhode Island Hall] .... VII. Subscription was originally for instructions in military tactics. With this, note by Reuben A. Guild about subscriptions.</p>
+          </scopecontent>
+        </c>
+        <c id="c271" level="file">
+          <did>
+            <unittitle>Howland, George, 1806-1892</unittitle>
+            <unitdate type="inclusive" normal="1857-02-05/1857-02-05">1857 February 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Would grant Prof. Lincoln's request if his health is as represented.</p>
+          </scopecontent>
+        </c>
+        <c id="c272" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1857-06-08/1857-06-08">1857 June 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... VII. Statement of number of students and of receipts and expenditures of the Department of Analytical Chemistry.</p>
+          </scopecontent>
+        </c>
+        <c id="c273" level="file">
+          <did>
+            <unittitle>Bartlett, John Russell, 1805-1886 (h1848)</unittitle>
+            <unitdate type="inclusive" normal="1857-08-31/1857-08-31">1857 August 31</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Secretary of the Corporation .... VII. List of portraits presented to Brown University and people at whose expense the collection was made.</p>
+          </scopecontent>
+        </c>
+        <c id="c274" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1857-09-03/1857-09-03">1857 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolutions on the death of Moses Brown Ives] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c275" level="file">
+          <did>
+            <unittitle>Francis, John Brown, 1791-1864 (1808)</unittitle>
+            <unitdate type="inclusive" normal="1857-09-03/1857-09-03">1857 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Samuel Boyd Tobey .... VII. Resignation as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c276" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1852/1858">1852, 1858</unitdate>
+          </did>
+          <scopecontent>
+            <p>List of Officers Salaries commencing in year 1852 .... VII. Account of money paid in salaries, 1852-58. Does not list salaries of individuals.</p>
+          </scopecontent>
+        </c>
+        <c id="c277" level="file">
+          <did>
+            <unittitle>Brown University--Executive Board</unittitle>
+            <unitdate type="inclusive" normal="1858-07-09/1858-07-09">1858 July 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of Committee to examine conditions of prize funds in regard to application to encouragement of Boarding Clubs] .... VII. Signed by B. Sears and Wm. S. Patten. Five pages removed. States conditions of President's premiums fund and University premiums fund with conclusion that incomes from these funds cannot be used for Boarding Clubs.</p>
+          </scopecontent>
+        </c>
+        <c id="c278" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1858-09-02/1858-09-02">1858 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on apparatus] .... VII. By T. P. Shepard for the committee. Recommends removal of laboratory of applied chemistry as gases are injurious to philosophical apparatus.</p>
+          </scopecontent>
+        </c>
+        <c id="c279" level="file">
+          <did>
+            <unittitle>Warren, Jonah Goulding, 1812-1884 (1835)</unittitle>
+            <unitdate type="inclusive" normal="1858-10-13/1858-10-13">1858 October 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c280" level="file">
+          <did>
+            <unittitle>Collins, George Lewis, 1852-1926 (1873)</unittitle>
+            <unitdate type="inclusive" normal="1858-10-04/1858-10-04">1858 October 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c281" level="file">
+          <did>
+            <unittitle>Brown University--Real estate committee</unittitle>
+            <unitdate type="inclusive" normal="1859-06/1859-06">1859 June</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Reports relating to land owned by Brown University separating Earle estate from Prospect Street] .... VII. With these are note by Samuel Boyd Tobey, member of committee, June 15, and map showing land involved.</p>
+          </scopecontent>
+        </c>
+        <c id="c282" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1859-09/1859-09">1859 September</unitdate>
+          </did>
+          <scopecontent>
+            <p>Statutes for scholarships passed by the Corporation at its annual meeting .... VII. Copy by Barnas Sears.</p>
+          </scopecontent>
+        </c>
+        <c id="c283" level="file">
+          <did>
+            <unittitle>Diman, Jeremiah Lewis, 1831-1881 (1851)</unittitle>
+            <unitdate type="inclusive" normal="1859-10-08/1859-10-08">1859 October 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... VII. Requests permission to accept position as Hollis Professor of Divinity in Harvard College. With this, draft of reply; no definite action taken.</p>
+          </scopecontent>
+        </c>
+        <c id="c284" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1859-10-14/1859-10-14">1859 October 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>Regulations for payment to those who receive scholarships adopted by Executive Board .... VII. Copy by Barnas Sears.</p>
+          </scopecontent>
+        </c>
+        <c id="c285" level="file">
+          <did>
+            <unittitle>Dunn, Robinson Potter, 1825-1867 (1843)</unittitle>
+            <unitdate type="inclusive" normal="1860-02-06/1860-02-06">1860 February 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... VII. Requests permission to give oral examinations to the whole class in rhetoric.</p>
+          </scopecontent>
+        </c>
+        <c id="c286" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1860-06-08/1860-06-08">1860 June 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on the subject of extra labor performed by. Professors] .... VII. Written and signed by B. Sears, chairman. Appointment of E. H. Cutler and reassignment of duties of Prof. S. S. Greene during absence of Prof. Caswell; statements on need of higher salaries for faculty, specifically James B. Angell and John Larkin Lincoln; question of profit from work done for businessmen by Chemistry Department.</p>
+          </scopecontent>
+        </c>
+        <c id="c287" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1860-06-08/1860-06-08">1860 June 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Executive Board .... VII. Expresses "views in regard to the aims, organization and conduct of the Department of Chemistry.".</p>
+          </scopecontent>
+        </c>
+        <c id="c288" level="file">
+          <did>
+            <unittitle>Angell, James Burrill, 1829-1916 (1849)</unittitle>
+            <unitdate type="inclusive" normal="1860-07-26/1860-07-26">1860 July 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... VII. Resignation as professor of modern languages.</p>
+          </scopecontent>
+        </c>
+        <c id="c289" level="file">
+          <did>
+            <unittitle>Vernon, Thomas</unittitle>
+            <unitdate type="inclusive" normal="1860-09-03/1860-09-03">1860 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c290" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1860-09-04/1860-09-04">1860 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Signed also by Samuel G. Arnold, William Gammell, John R. Bartlett, and William Patten. On presentation of portrait of Nathan B. Crocker.</p>
+          </scopecontent>
+        </c>
+        <c id="c291" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1860-10-06/1860-10-06">1860 October 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of the com[mittee] on trien[nial] catalogue .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c292" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1861-06-06/1861-06-06">1861 June 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To M. B. I. Goddard .... VII. Vote on salary of E. H. Cutler.</p>
+          </scopecontent>
+        </c>
+        <c id="c293" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1861-06-08/1861-06-08">1861 June 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To M. B. I. Goddard .... VII. Amount due President Sears is the same as paid quarterly to the German teacher.</p>
+          </scopecontent>
+        </c>
+        <c id="c294" level="file">
+          <did>
+            <unittitle>Bishop, Nathan, 1808-1880 (1837)</unittitle>
+            <unitdate type="inclusive" normal="1861-08-22/1861-08-22">1861 August 22</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Resigning from Board of Fellows.</p>
+          </scopecontent>
+        </c>
+        <c id="c295" level="file">
+          <did>
+            <unittitle>Patten, William Samuel, 1800-1873 (1818)</unittitle>
+            <unitdate type="inclusive" normal="1861-09-02/1861-09-02">1861 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Report of committee appointed to express the obligations of the Corporation to John Carter Brown for his gift of the Brown Lot. Appended letter from Committee to John Carter Brown, September 8, 1860.</p>
+          </scopecontent>
+        </c>
+        <c id="c296" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1862-09-01/1862-09-01">1862 September 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of special committee on income &amp; expenditure .... VII. Written and signed by Alva Woods, chairman. Signed also by Wm. S. Patten and Wm. Goddard. Notes special expenditures for repair of Manning Hall and salary of financial agent, Horace T. Love.</p>
+          </scopecontent>
+        </c>
+        <c id="c297" level="file">
+          <did>
+            <unittitle>Turner, Thomas Goodwin</unittitle>
+            <unitdate type="inclusive" normal="1862-09-05/1862-09-05">1862 September 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c298" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1863/1863">1863</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Reports of committee to ascertain in what way the income of the University may be increased and its annual expenses diminished] .... VII. Two reports.</p>
+          </scopecontent>
+        </c>
+        <c id="c299" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1863-02-03/1863-02-03">1863 February 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Subscription list for procuring a full-length portrait of Major General Ambrose E. Burnside] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c300" level="file">
+          <did>
+            <unittitle>Shepard, Thomas Perkins, 1817-1877 (1836)</unittitle>
+            <unitdate type="inclusive" normal="1863-05-03/1863-05-03">1863 May 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee to procure the construction of paths east of the college buildings] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c301" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1863-12-12/1863-12-12">1863 December 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To R. H. Ives .... VII. Mr. Lyon is required to pay, in quarterly installments, for the current year a rent of $100 for the use of the Grammar School Building.</p>
+          </scopecontent>
+        </c>
+        <c id="c302" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1864-01-08/1864-01-08">1864 January 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board .... VII. Resignation as professor of history and political economy. Draft of letter with this.</p>
+          </scopecontent>
+        </c>
+        <c id="c303" level="file">
+          <did>
+            <unittitle>Brown University--Executive Board</unittitle>
+            <unitdate type="inclusive" normal="1864-03-11/1864-03-11">1864 March 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolution on resignation of William Gammell] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c304" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1864-03-15/1864-03-15">1864 March 15</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Thanking him for resolution of Executive Board on his resignation.</p>
+          </scopecontent>
+        </c>
+        <c id="c305" level="file">
+          <did>
+            <unittitle>Hill, Nathaniel Peter, 1832-1900 (1856)</unittitle>
+            <unitdate type="inclusive" normal="1864-04-23/1865-01-01">1864 April 23 - 1865 January 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive Board] .... VII. Requesting a leave of absence from April 23, 1864 to January 1, 1865 to accept a temporary job to supplement his income.</p>
+          </scopecontent>
+        </c>
+        <c id="c306" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1864-04-13/1864-04-13">1864 April 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report on salary due Professor Hill for services during absence of Professor Chace] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c307" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1864-06-16/1864-06-16">1864 June 16</unitdate>
+          </did>
+          <scopecontent>
+            <p>To L. Taylor .... VII. States salaries of Professors Pierce and Angell and payment due.</p>
+          </scopecontent>
+        </c>
+        <c id="c308" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Executive board</unittitle>
+            <unitdate type="inclusive" normal="1865-04-14/1865-04-14">1865 April 14</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Extract from records] .... VII. Authorizing treasurer to collect interest on stock and loans of the United Sates belonging to Brown University. Extracts, dated January 21 and March 29, 1867, certified by John Kingsbury.</p>
+          </scopecontent>
+        </c>
+        <c id="c309" level="file">
+          <did>
+            <unittitle>Borden, Jefferson</unittitle>
+            <unitdate type="inclusive" normal="1865-09-12/1865-09-12">1865 September 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c310" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1866-09-06/1866-09-06">1866 September 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Extracts from minutes] .... VII. Notes particularly the resignation of Robert H. Ives as treasurer.</p>
+          </scopecontent>
+        </c>
+        <c id="c311" level="file">
+          <did>
+            <unittitle>Sprague, William, 1831-1915 (h1861)</unittitle>
+            <unitdate type="inclusive" normal="1866-09-09/1866-09-09">1866 September 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Accepts election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c312" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867/1867">1867</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolutions on the death of Robinson Potter Dunn] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c313" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867/1867">1867</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolutions on the death of Samuel Boyd Tobey] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c314" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1867-04-04/1867-04-04">1867 April 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Report of gift of chemical apparatus by John Carter Brown and Robert H. Ives.</p>
+          </scopecontent>
+        </c>
+        <c id="c315" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867-04-17/1867-04-17">1867 April 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolutions accepting resignation of Barnas Sears] .... VII. On verso, Resolutions...by William S. Patten. Rough draft of resolutions with this.</p>
+          </scopecontent>
+        </c>
+        <c id="c316" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867-04-17/1867-04-17">1867 April 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee to receive funds from retiring treasurer, Robert H. Ives] .... VII. Written and signed by A. Woods for the committee. Appended are copies of committee's certificate of receipt and receipt by new treasurer, Marshall Woods, November 21, 1866.</p>
+          </scopecontent>
+        </c>
+        <c id="c317" level="file">
+          <did>
+            <unittitle>Anderson, Martin Brewer, 1815-1890</unittitle>
+            <unitdate type="inclusive" normal="1867-06-07/1867-06-07">1867 June 07</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Rev. [Baron] Stow .... VII. Declining presidency of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c318" level="file">
+          <did>
+            <unittitle>Stow, Baron, 1801-1869</unittitle>
+            <unitdate type="inclusive" normal="1867-06-17/1867-06-17">1867 June 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Informs him that committee of six have informed Dr. M. B. Anderson of his election as President of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c319" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867-07-02/1867-07-02">1867 July 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of Committee on the Department of Analytical Chemistry] .... VII. Report by Thos. P. Shepard for the Committee.</p>
+          </scopecontent>
+        </c>
+        <c id="c320" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867-07-12/1867-07-12">1867 July 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of Committee on physical sciences] .... VII. Signed by G. L. Collins, chairman.</p>
+          </scopecontent>
+        </c>
+        <c id="c321" level="file">
+          <did>
+            <unittitle>Pierce, Edward Lillie, 1829-1897 (1850)</unittitle>
+            <unitdate type="inclusive" normal="1867-08-09/1867-08-09">1867 August 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Wm. Gammell .... VII. Lists reasons why honorary LL.D. degree should be conferred upon Dr. Samuel Gridley Howe.</p>
+          </scopecontent>
+        </c>
+        <c id="c322" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Committee on presidential nominations</unittitle>
+            <unitdate type="inclusive" normal="1867/1868">1867-1868</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Minutes of meetings and report to Corporation] .... VII. Twelve items written between July 10, 1867 and February 6, 1868. Appointment of George Ide Chace as President pro tempore. Nomination of Ezekiel Gilman Robinson; upon his refusal, nomination of Alexis Caswell.</p>
+          </scopecontent>
+        </c>
+        <c id="c323" level="file">
+          <did>
+            <unittitle>Gammell, William, 1812-1889 (1831)</unittitle>
+            <unitdate type="inclusive" normal="1867-08-24/1867-08-24">1867 August 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>To A[lva] Woods .... VII. Recommending Samuel Gridley Howe for honorary degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c324" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1867-09-04/1867-09-04">1867 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Suggests Brown University comply as soon as possible with conditions of an Act of Congress concerning the donation of lands.</p>
+          </scopecontent>
+        </c>
+        <c id="c325" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1867-09-05/1867-09-05">1867 September 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of the committee for examination in the department of rhetorican and English literature .... VII. Submitted by S. L. Caldwell, R. B. Duane, and J. G. Vose. Mentions death of Professor Dunn.</p>
+          </scopecontent>
+        </c>
+        <c id="c326" level="file">
+          <did>
+            <unittitle>Brown University</unittitle>
+            <unitdate type="inclusive" normal="1867-10-01/1867-10-01">1867 October 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>Subscriptions for the Portrait Gallery in Rhode Island Hall .... VII. In hand of Reuben A. Guild.</p>
+          </scopecontent>
+        </c>
+        <c id="c327" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1868/1868">1868</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on the department of the Latin language] .... VII. Written and signed by John Kingsbury for the committee. "Prof. Lincoln has assumed the whole of the Instruction in this Department.".</p>
+          </scopecontent>
+        </c>
+        <c id="c328" level="file">
+          <did>
+            <unittitle>Bowen, Henry Clark, 1785-1867 (1802)</unittitle>
+            <unitdate type="inclusive" normal="1868-07-10/1868-07-10">1868 July 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [John] Kingsbury .... VII. Suggests honorary degree for Samuel S. Scammell, who attended Brown, but never received degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c329" level="file">
+          <did>
+            <unittitle>Warren, Jonah Goulding, 1812-1884 (1835)</unittitle>
+            <unitdate type="inclusive" normal="1868-07-10/1868-07-10">1868 July 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Samuel L.] Caldwell .... VII. Cannot meet with the committee on Saturday.</p>
+          </scopecontent>
+        </c>
+        <c id="c330" level="file">
+          <did>
+            <unittitle>Chase, Stephen Abbott</unittitle>
+            <unitdate type="inclusive" normal="1869-08/1869-08">1869 August</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the chancellor of Brown University .... VII. Resigns as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c331" level="file">
+          <did>
+            <unittitle>McKenzie, William Scott, 1832-1896</unittitle>
+            <unitdate type="inclusive" normal="1869-08-09/1869-08-09">1869 August 09</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. L. Caldwell .... VII. Recommending that Silas Alward be awarded A.M. degree ad eundem. Biographical information about Alward.</p>
+          </scopecontent>
+        </c>
+        <c id="c332" level="file">
+          <did>
+            <unittitle>Chase, Stephen Abbott</unittitle>
+            <unitdate type="inclusive" normal="1869-08-20/1869-08-20">1869 August 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To.... VII. Asks him to render his resignation as trustee as he does not know the name of the chancellor.</p>
+          </scopecontent>
+        </c>
+        <c id="c333" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1869-09-02/1869-09-02">1869 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolutions of the death of James H. Duncan] .... VII. Resolutions offered by Alva Woods.</p>
+          </scopecontent>
+        </c>
+        <c id="c334" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1868-09-02/1868-09-02">1868 September 02</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on president's report] .... VII. Written and signed by A. Caswell, chairman. Comments on distribution of scholarships, need for increased accommodation for the library.</p>
+          </scopecontent>
+        </c>
+        <c id="c335" level="file">
+          <did>
+            <unittitle>Whittier, John Greenleaf, 1807-1892</unittitle>
+            <unitdate type="inclusive" normal="1869-09-10/1869-09-10">1869 September 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Alva Woods .... VII. Negative photostat. Concerning his election to the Corporation; questions his ability to meet expectations.</p>
+          </scopecontent>
+        </c>
+        <c id="c336" level="file">
+          <did>
+            <unittitle>Hazard, Rowland Gibson, 1801-1888</unittitle>
+            <unitdate type="inclusive" normal="1869-09-11/1869-09-11">1869 September 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. S. Bradford .... VII. Accepting election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c337" level="file">
+          <did>
+            <unittitle>Duncan, Rebecca W.</unittitle>
+            <unitdate type="inclusive" normal="1869-09-20/1869-09-20">1869 September 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. S. Bradford .... VII. Thanking the Corporation for resolutions on death of her father, James Henry Duncan.</p>
+          </scopecontent>
+        </c>
+        <c id="c338" level="file">
+          <did>
+            <unittitle>Pollard, Andrew, 1814-1886</unittitle>
+            <unitdate type="inclusive" normal="1870-06-24/1870-06-24">1870 June 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Board of Fellows .... VII. Signed also by George D. Miles. Recommending William Watson Waterman for honorary A.M. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c339" level="file">
+          <did>
+            <unittitle>Wayland, Heman Lincoln, 1830-1898 (1849)</unittitle>
+            <unitdate type="inclusive" normal="1870-06-24/1870-06-24">1870 June 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Will of the late President Wayland provides that his executors may make changes in disposition of President's premiums within five years after his decease. Writer asks for extension of three years.</p>
+          </scopecontent>
+        </c>
+        <c id="c340" level="file">
+          <did>
+            <unittitle>Kingsbury, John, 1801-1874 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1870-07-30/1870-07-30">1870 July 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Dr. Caswell and W. S. Patten .... VII. Cannot accept appointment to committee "to whom was referred that part of the President's Report which relates to the erection of a new building for a Museum of Natural History.".</p>
+          </scopecontent>
+        </c>
+        <c id="c341" level="file">
+          <did>
+            <unittitle>Potter, William H.</unittitle>
+            <unitdate type="inclusive" normal="1870-11-26/1870-11-26">1870 November 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To J. C. Stockbridge .... VII. Recommends Prof. Buckland and D. A. Daboll for honorary degrees.</p>
+          </scopecontent>
+        </c>
+        <c id="c342" level="file">
+          <did>
+            <unittitle>Huntington, F. D.</unittitle>
+            <unitdate type="inclusive" normal="1871-04-10/1871-04-10">1871 April 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To .... VII. Recommends Rev. George H. McKnight for honorary D. D. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c343" level="file">
+          <did>
+            <unittitle>Park, Edwards Amasa, 1808-1900 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1871-06-17/1871-06-17">1871 June 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To John Kingsbury .... VII. Recommends Henry Allon and Warren Lovering for honorary degrees.</p>
+          </scopecontent>
+        </c>
+        <c id="c344" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1871-06-26/1871-06-26">1871 June 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Tenders his resignation as professor of intellectual and moral philosophy.</p>
+          </scopecontent>
+        </c>
+        <c id="c345" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1871-06-28/1871-06-28">1871 June 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of the committee on cooperation of the alumni] .... VII. Written and signed by Alexis Caswell. Further suggests organization of the University Grammar School under faculty of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c346" level="file">
+          <did>
+            <unittitle>Brown University--Real estate committee</unittitle>
+            <unitdate type="inclusive" normal="1871-06-29/1871-06-29">1871 June 29</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report recommending exchange of land] .... VII. Recommends exchange of land with H. G. Russell to obtain for Brown University the land between the college campus and Thayer Street belonging to the heirs of Moses B. Ives. Signed, Alva Woods and Moses B. Ives. With this, document by H. G. Russell, April 22, 1871, agreeing to exchange, and document by Robert H. Ives, July 2, 1871, receipt for quit claim deed from Brown University to Ann A. Ives and H. G. Russell.</p>
+          </scopecontent>
+        </c>
+        <c id="c347" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1872/1872">1872</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Notes on Dr. Park's absence from Corporation meetings for five years] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c348" level="file">
+          <did>
+            <unittitle>Pirkey, Oval</unittitle>
+            <unitdate type="inclusive" normal="1872-01-18/1872-01-18">1872 January 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Charles E. Aaron .... VII. Would welcome a degree from Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c349" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1872-01-24/1872-01-24">1872 January 24</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Vote of appreciation to George Ide Chace] .... VII. Requests that his service be continued.</p>
+          </scopecontent>
+        </c>
+        <c id="c350" level="file">
+          <did>
+            <unittitle>Chace, George Ide, 1808-1885 (1830)</unittitle>
+            <unitdate type="inclusive" normal="1872-01-27/1872-01-27">1872 January 27</unitdate>
+          </did>
+          <scopecontent>
+            <p>To A[lvah] Hovey .... VII. Cannot comply with first resolution passed by the Corporation the second resolution does not require an immediate answer.</p>
+          </scopecontent>
+        </c>
+        <c id="c351" level="file">
+          <did>
+            <unittitle>Appleton, John Howard, 1844-1930 (1863)</unittitle>
+            <unitdate type="inclusive" normal="1872-05/1872-05">1872 May</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Executive and Advisory Committee of the Corporation .... VII. Requests permission to finish instruction for term two weeks earlier in order to go to Europe. "Request granted A. Caswell.".</p>
+          </scopecontent>
+        </c>
+        <c id="c352" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1874/1875">1874-1875</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Reports of the Committee to superintend the construction of the addition to Rhodes Island Hall] .... VII. Written and signed by A. Caswell for the committee.</p>
+          </scopecontent>
+        </c>
+        <c id="c353" level="file">
+          <did>
+            <unittitle>Chace, George Ide</unittitle>
+            <unitdate type="inclusive" normal="1872-02-05/1872-02-05">1872 February 05</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Committee .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c354" level="file">
+          <did>
+            <unittitle>Guild, Reuben Aldridge, 1822-1899 (1847)</unittitle>
+            <unitdate type="inclusive" normal="1875-06-17/1875-06-17">1875 June 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Reports in behalf of the Alumni Association the nominations for vacancies on the Board of Trustees.</p>
+          </scopecontent>
+        </c>
+        <c id="c355" level="file">
+          <did>
+            <unittitle>Hamlin, Charles E.</unittitle>
+            <unitdate type="inclusive" normal="1877-07-06/1877-07-06">1877 July 06</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Marshall Woods .... VII. Accepts professorship in Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c356" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1878-06-01/1878-06-01">1878 June 01</unitdate>
+          </did>
+          <scopecontent>
+            <p>To A. A. Reed] .... VII. Acknowledgment of gift to museum of birds and animals. Signed, E. G. Robinson and J. W. P. Jenks.</p>
+          </scopecontent>
+        </c>
+        <c id="c357" level="file">
+          <did>
+            <unittitle>Davis, Isaac, 1799-1883 (1822)</unittitle>
+            <unitdate type="inclusive" normal="1879-05-26/1879-05-26">1879 May 26</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Resignation from Board of Fellows.</p>
+          </scopecontent>
+        </c>
+        <c id="c358" level="file">
+          <did>
+            <unittitle>Parker, Gilman Parker, 1856-1902 (1878)</unittitle>
+            <unitdate type="inclusive" normal="1880/1880">1880</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Advisory and Executive Committee .... VII. Suggests plan for the renting of rooms.</p>
+          </scopecontent>
+        </c>
+        <c id="c359" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1880-06-17/1880-06-17">1880 June 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of the committee on the English language and literature .... VII. Signed by R. Hazard, William Gammell, A. N. Arnold, A. B. Chace.</p>
+          </scopecontent>
+        </c>
+        <c id="c360" level="file">
+          <did>
+            <unittitle>Brown University--Corporation--Advisory and Executive Committee</unittitle>
+            <unitdate type="inclusive" normal="1880-06-25/1880-06-25">1880 June 25</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolution giving permission to Dr. E. T. Caswell to exhibit portrait of Alexis Caswell in store of Tilden and Thurber] .... VII. Seven signatures added.</p>
+          </scopecontent>
+        </c>
+        <c id="c361" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1881/1881">1881</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on new plan for defraying expense of the commencement dinner] .... VII. Signed by Heman Lincoln, J. C. Stockbridge, A. B. Chace.</p>
+          </scopecontent>
+        </c>
+        <c id="c362" level="file">
+          <did>
+            <unittitle>Brown University--Committee on reconstruction of University Hall</unittitle>
+            <unitdate type="inclusive" normal="1881/1881">1881</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Reports] .... VII. Two reports submitted by C. S. Bradley.</p>
+          </scopecontent>
+        </c>
+        <c id="c363" level="file">
+          <did>
+            <unittitle>Duncan, Alexander, 1805-1889</unittitle>
+            <unitdate type="inclusive" normal="1881-05-30/1881-05-30">1881 May 30</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [William] Gammell .... VII.76. Will comply with request of Brown University for his portrait.</p>
+          </scopecontent>
+        </c>
+        <c id="c364" level="file">
+          <did>
+            <unittitle>Brown University--Associated Alumni</unittitle>
+            <unitdate type="inclusive" normal="1881-06-11/1881-06-11">1881 June 11</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation of Brown University .... VII. Presenting portraits of Rowland Gibson Hazard, Theron Metcalf, John Brown Francis, John Henry Clifford, portrait bust of Lafayette Sabine Foster.</p>
+          </scopecontent>
+        </c>
+        <c id="c365" level="file">
+          <did>
+            <unittitle>Woods, Anne Brown Francis</unittitle>
+            <unitdate type="inclusive" normal="1881-06-13/1881-06-13">1881 June 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [William] Gammell .... VII. Concerning portrait of her father, Governor Francis, which she presents to Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c366" level="file">
+          <did>
+            <unittitle>Whittier, John Greenleaf, 1807-1892</unittitle>
+            <unitdate type="inclusive" normal="1881-08-10/1881-08-10">1881 August 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Richard Atwater .... VII. Expresses the hope that Brown University will open its doors to women students.</p>
+          </scopecontent>
+        </c>
+        <c id="c367" level="file">
+          <did>
+            <unittitle>Brown University--Christian Association</unittitle>
+            <unitdate type="inclusive" normal="1882/1882">1882</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Request of Christian Association and Missionary Society of Inquiry for a room in the university for their use. Signed by James A. Brown, Isaac B. Burgess, George B. Wakeman.</p>
+          </scopecontent>
+        </c>
+        <c id="c368" level="file">
+          <did>
+            <unittitle>Woods, Marshall, 1824-1899 (1845)</unittitle>
+            <unitdate type="inclusive" normal="1882-06-22/1882-06-22">1882 June 22</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Resignation as treasurer of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c369" level="file">
+          <did>
+            <unittitle>Young Men's Christian Association, Providence, R.I.</unittitle>
+            <unitdate type="inclusive" normal="1882-09-29/1882-09-29">1882 September 29</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Agreement with Brown University for use of gymnasium by students] .... VII. Signed by William D. Nisbet.</p>
+          </scopecontent>
+        </c>
+        <c id="c370" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+          </did>
+          <scopecontent>
+            <p>[Resolution accepting portraits] .... VII. n.d. Portraits of Horatio N. Slater, Isaac Davis, Alexander Duncan and Romeo Elton, given by the Associated Alumni.</p>
+          </scopecontent>
+        </c>
+        <c id="c371" level="file">
+          <did>
+            <unittitle>Brown University--Christian Association</unittitle>
+            <unitdate type="inclusive" normal="1882/1882">1882</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Request of Christian Association and Missionary Society of Inquiry for a room in the university for their use. Signed by James A. Brown, Isaac B. Burgess, Geo. B. Wakeman.</p>
+          </scopecontent>
+        </c>
+        <c id="c372" level="file">
+          <did>
+            <unittitle>Brown University--Real estate committee</unittitle>
+            <unitdate type="inclusive" normal="1883-06-21/1883-06-21">1883 June 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report on attempt to purchase lot adjoining east campus] .... VII. Signed by five members of committee. Owner of lot refused to sell.</p>
+          </scopecontent>
+        </c>
+        <c id="c373" level="file">
+          <did>
+            <unittitle>Brown University--Real estate committee</unittitle>
+            <unitdate type="inclusive" normal="1883/1883">1883</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report on fencing the ball grounds] .... VII. Signed by five members of the committee.</p>
+          </scopecontent>
+        </c>
+        <c id="c374" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1883-06-21/1883-06-21">1883 June 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>Report of committee on readjustment of the duties pertaining to the office of the registrar .... VII. Written and signed by William Gammell. Also signed by Merrick Lyon, Wm. Goddard, Rowland Hazard, Daniel Leach. On need for greater supervision of the University's property. Duties of steward and registrar may be performed by one person.</p>
+          </scopecontent>
+        </c>
+        <c id="c375" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1883-09/1883-09">1883 September</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on heating Manning Hall] .... VII. Signed by A. Woods, Marshall Woods, Merrick Lyon, Daniel Leach. With this, copies of bids for work by Ellery Millard and Le Bosquet Bros.</p>
+          </scopecontent>
+        </c>
+        <c id="c376" level="file">
+          <did>
+            <unittitle>Upton, Winslow, 1853-1914 (1875)</unittitle>
+            <unitdate type="inclusive" normal="1884-05-08/1884-05-08">1884 May 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Statement in regard to proposed laboratory] .... VII.</p>
+          </scopecontent>
+        </c>
+        <c id="c377" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1884-06-10/1884-06-10">1884 June 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on observatory] .... VII.75. Signed by William Gammell and E. G. Robinson.</p>
+          </scopecontent>
+        </c>
+        <c id="c378" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1884-09-03/1884-09-03">1884 September 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on the duties of the registrar] .... VII. Written and signed by William Gammell. Signed also by Wm. Goddard, Merrick Lyon, Daniel Leach, Rowland Hazard, Arnold B. Chace, E. G. Robinson. Recommending division of registrar's present duties between registrar and steward. Suggests engaging Gilman P. Robinson as Registrar and Archibald G. Delaney as Steward.</p>
+          </scopecontent>
+        </c>
+        <c id="c379" level="file">
+          <did>
+            <unittitle>Brown University--Faculty</unittitle>
+            <unitdate type="inclusive" normal="1887-05-03/1887-05-03">1887 May 03</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Board of Fellows .... VII. Submitted by Nathaniel F. Davis, Secretary of the Faculty. Requests the new rules be observed in conferring the degree of Master of Arts. Note added by Alvah Hovey, July 25, 1887, stating that he will recommend that the Board grant the request.</p>
+          </scopecontent>
+        </c>
+        <c id="c380" level="file">
+          <did>
+            <unittitle>Lincoln, John Larkin, 1817-1891 (1836)</unittitle>
+            <unitdate type="inclusive" normal="1887-06-15/1887-06-15">1887 June 15</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Requesting leave of absence to go abroad for his wife's health and continuance of his salary on condition that he provide for instruction of his classes at his own expense.</p>
+          </scopecontent>
+        </c>
+        <c id="c381" level="file">
+          <did>
+            <unittitle>Wilcox, C. F.</unittitle>
+            <unitdate type="inclusive" normal="1887-07-18/1887-07-18">1887 July 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. L. Caldwell .... VII. Mrs. Burrough concerned by Corporation's failure to acknowledge her gift of a portrait of David Howell.</p>
+          </scopecontent>
+        </c>
+        <c id="c382" level="file">
+          <did>
+            <unittitle>Porter, Henry Kirke, 1840-1921 (1860)</unittitle>
+            <unitdate type="inclusive" normal="1888-02-21/1888-02-21">1888 February 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. On the purchase of a collection of casts made for the University; praises John Larkin Lincoln as a teacher.</p>
+          </scopecontent>
+        </c>
+        <c id="c383" level="file">
+          <did>
+            <unittitle>Brown University--Class of 1868</unittitle>
+            <unitdate type="inclusive" normal="1888-06-20/1888-06-20">1888 June 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the President and the Corporation .... VII. Written by William Carey Poland. On the class fund, which is to be used to purchase plaster casts and other material for the illustration of classical art. The fund is to be turned over to the treasurer and a committee appointed. Mentions purchase of cast of Hermes of Praxitiles.</p>
+          </scopecontent>
+        </c>
+        <c id="c384" level="file">
+          <did>
+            <unittitle>Lincoln, John Larkin, 1817-1891 (1836)</unittitle>
+            <unitdate type="inclusive" normal="1888-08-20/1888-08-20">1888 August 20</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Announcing gift of $250 from George Van Ness Lothrop for purchase of books on classical subjects for the library.</p>
+          </scopecontent>
+        </c>
+        <c id="c385" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1888-08-23/1888-08-23">1888 August 23</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Report of committee on finance] .... VII. Signed by William Goddard, Mortimer H. Hartwell, Daniel Leach. Report on resolutions of the Corporation concerning funds of the University.</p>
+          </scopecontent>
+        </c>
+        <c id="c386" level="file">
+          <did>
+            <unittitle>Woods, Marshall, 1824-1899 (1845)</unittitle>
+            <unitdate type="inclusive" normal="1888-09-04/1888-09-04">1888 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Samuel L.] Caldwell .... VII. Does not wish to be nominated for reelection to the investment committee.</p>
+          </scopecontent>
+        </c>
+        <c id="c387" level="file">
+          <did>
+            <unittitle>Granger, Abraham Holley</unittitle>
+            <unitdate type="inclusive" normal="1888-09-12/1888-09-12">1888 September 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Samuel L.] Caldwell .... VII. Feels that the records "ought to show by whose authority the existing laws of college were ordained.".</p>
+          </scopecontent>
+        </c>
+        <c id="c388" level="file">
+          <did>
+            <unittitle>Park, Edwards Amasa, 1808-1900 (1826)</unittitle>
+            <unitdate type="inclusive" normal="1888-12-13/1888-12-13">1888 December 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [John C.] Stockbridge .... VII. Concerning Asa Messer.</p>
+          </scopecontent>
+        </c>
+        <c id="c389" level="file">
+          <did>
+            <unittitle>Phelps, Sylvanus Dryden, 1816-1895 (1844)</unittitle>
+            <unitdate type="inclusive" normal="1889-06-13/1889-06-13">1889 June 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. L. Caldwell .... VII. Inquires about an A.M. degree for his son, Arthur Stevens Phelps.</p>
+          </scopecontent>
+        </c>
+        <c id="c390" level="file">
+          <did>
+            <unittitle>Burrage, Henry Sweetser, 1837-1926 (1861)</unittitle>
+            <unitdate type="inclusive" normal="1889-06-28/1889-06-28">1889 June 28</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Samuel L.] Caldwell .... VII. Accepts appointment as a trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c391" level="file">
+          <did>
+            <unittitle>Green, Arnold, 1838-1903 (1858)</unittitle>
+            <unitdate type="inclusive" normal="1889-07-04/1889-07-04">1889 July 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. L. Caldwell .... VII. Accepts appointment as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c392" level="file">
+          <did>
+            <unittitle>Duncan, Samuel White, 1838-1898 (1860)</unittitle>
+            <unitdate type="inclusive" normal="1889-09-18/1889-09-18">1889 September 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To S. L. Caldwell .... VII. 1889(09-18) Accepts appointment as a fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c393" level="file">
+          <did>
+            <unittitle>Blackinton, Mary D.</unittitle>
+            <unitdate type="inclusive" normal="1892-02-12/1892-02-12">1892 February 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Presenting $1000 for the James Fletcher Blackinton scholarship for indigent students in memory of her husband.</p>
+          </scopecontent>
+        </c>
+        <c id="c394" level="file">
+          <did>
+            <unittitle>Foster, William Eaton</unittitle>
+            <unitdate type="inclusive" normal="1893-08-08/1893-08-08">1893 August 08</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Thomas D.] Anderson .... VII. With enclosures: an extract from Dr. Woolsey's article, an extract from Foster's article in The Nation, also a circular letter seeking the discontinuance of awarding honorary Ph.D. degrees.</p>
+          </scopecontent>
+        </c>
+        <c id="c395" level="file">
+          <did>
+            <unittitle>Jenks, John Whipple Potter, 1819-1894 (1838)</unittitle>
+            <unitdate type="inclusive" normal="1893-09-04/1893-09-04">1893 September 04</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Corporation .... VII. Reports alterations to museum: need for permanent fund for museum; purchase of mounted lioness.</p>
+          </scopecontent>
+        </c>
+        <c id="c396" level="file">
+          <did>
+            <unittitle>Hazard, Rowland Gibson, 1855-1918 (1876)</unittitle>
+            <unitdate type="inclusive" normal="1894-06-22/1894-06-22">1894 June 22</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas D. Anderson .... VII. Accepting election as trustee.</p>
+          </scopecontent>
+        </c>
+        <c id="c397" level="file">
+          <did>
+            <unittitle>Olney, Richard, 1835-1916 (1856)</unittitle>
+            <unitdate type="inclusive" normal="1894-06-23/1894-06-23">1894 June 23</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas D. Anderson .... VII. Written by a private secretary. Acknowledging election as fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c398" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1894-09-17/1894-09-17">1894 September 17</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Resolution on the death of Ezekiel Gilman Robinson] .... VII. Rough draft.</p>
+          </scopecontent>
+        </c>
+        <c id="c399" level="file">
+          <did>
+            <unittitle>Brown University--Corporation</unittitle>
+            <unitdate type="inclusive" normal="1895-08-13/1895-08-13">1895 August 13</unitdate>
+          </did>
+          <scopecontent>
+            <p>[Agreement with Wm. A. Chapman &amp; Co.] .... VII. For addition to boiler house at Brown. Signed by A. B. Chace.</p>
+          </scopecontent>
+        </c>
+        <c id="c400" level="file">
+          <did>
+            <unittitle>Hill, John E.</unittitle>
+            <unitdate type="inclusive" normal="1895-12-07/1895-12-07">1895 December 07</unitdate>
+          </did>
+          <scopecontent>
+            <p>Reports on the future development of the present campus of Brown University .... VII. Signed by John E. Hill and Norman M. Isham. With map of property of Brown University showing proposed buildings.</p>
+          </scopecontent>
+        </c>
+        <c id="c401" level="file">
+          <did>
+            <unittitle>Adams, Robert John</unittitle>
+            <unitdate type="inclusive" normal="1896-05-18/1896-05-18">1896 May 18</unitdate>
+          </did>
+          <scopecontent>
+            <p>To [Thomas D.] Anderson .... VII. Recommending Rev. George E. Horr for honorary D.D. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c402" level="file">
+          <did>
+            <unittitle>Park, Edwards Amasa</unittitle>
+          </did>
+          <scopecontent>
+            <p>To Board of Trustees .... VII. Resigns as fellow because of ill health.</p>
+          </scopecontent>
+        </c>
+        <c id="c403" level="file">
+          <did>
+            <unittitle>Rhode Island Pharmaceutical Association</unittitle>
+            <unitdate type="inclusive" normal="1897/1897">1897</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the Advisory and Executive Committee .... VII. Requesting that a course in pharmacy be established at Brown. Signed by ten members of the association. With a tentative outline of the proposed course and a letter by Hermon Carey Bumpus, June 4, 1897, commenting on the proposal; and printed report of committee to consider establishing a school of pharmacy.</p>
+          </scopecontent>
+        </c>
+        <c id="c404" level="file">
+          <did>
+            <unittitle>Lawrence, William</unittitle>
+            <unitdate type="inclusive" normal="1897-04-10/1897-04-10">1897 April 10</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Henry S. Burrga .... VII. Glad to hear that Sumner U. Shearman has received D.D. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c405" level="file">
+          <did>
+            <unittitle>Burrage, Henry Sweetser, 1837-1926 (1861)</unittitle>
+            <unitdate type="inclusive" normal="1897-04-12/1897-04-12">1897 April 12</unitdate>
+          </did>
+          <scopecontent>
+            <p>To B. F. Clarke .... VII. Recommending Rev. Sumner U. Shearman for honorary D.D. degree.</p>
+          </scopecontent>
+        </c>
+        <c id="c406" level="file">
+          <did>
+            <unittitle>Stiness, John H.</unittitle>
+            <unitdate type="inclusive" normal="1897-06-21/1897-06-21">1897 June 21</unitdate>
+          </did>
+          <scopecontent>
+            <p>To Thomas D. Anderson .... VII. Accepts election as a fellow.</p>
+          </scopecontent>
+        </c>
+        <c id="c407" level="file">
+          <did>
+            <unittitle>Poland, William Carey, 1846-1929 (1868)</unittitle>
+            <unitdate type="inclusive" normal="1899-06-19/1899-06-19">1899 June 19</unitdate>
+          </did>
+          <scopecontent>
+            <p>To the President and Corporation .... VII. Recommends the placement of the busts of Washington and Franklin in the Museum of Fine Arts under his direction. MB1A.</p>
+          </scopecontent>
+        </c>
+      </c>
+    </dsc>
+  </archdesc>
+</ead>

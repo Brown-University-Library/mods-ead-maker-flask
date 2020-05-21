@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Shibei Guo, Class of 2020</mods:title>
+  </mods:titleInfo>
+  <mods:typeOfResource>text</mods:typeOfResource>
+  <mods:note type="preferredcitation">Shibei Guo, Class of 2020, Brown University Library</mods:note>
+  <mods:physicalDescription>
+    <mods:extent>1 PDF (19 p.)</mods:extent>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728130_2</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728130_2</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

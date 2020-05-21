@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Brown University--Real estate committee</mods:title>
+  </mods:titleInfo>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">[Report recommending exchange of land] .... VII. Recommends exchange of land with H. G. Russell to obtain for Brown University the land between the college campus and Thayer Street belonging to the heirs of Moses B. Ives. Signed, Alva Woods and Moses B. Ives. With this, document by H. G. Russell, April 22, 1871, agreeing to exchange, and document by Robert H. Ives, July 2, 1871, receipt for quit claim deed from Brown University to Ann A. Ives and H. G. Russell.</mods:abstract>
+  <mods:note type="preferredcitation">Brown University--Real estate committee, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1871 June 29</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1871-06-29</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1871-06-29</mods:dateCreated>
+  </mods:originInfo>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

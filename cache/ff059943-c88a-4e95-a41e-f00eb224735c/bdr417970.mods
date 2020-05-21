@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Latimer, H.K. to Brown, Nicholas</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Latimer, H. K.</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Brown, Nicholas</mods:namePart>
+    <mods:namePart type="date">1792-1859</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">recipient</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Regards the case of Joseph Eismenger, an adolescent Hungarian boy on board Latimer's U.S. Frigate Cumberland. Latimer recounts what he has learned of Joseph: that during the 1848 Hungarian revolution he joined the army with his father—Anton Eismenger—and brother; that his father and brother were killed as prisoners of war; that Joseph escaped to Switzerland and then Italy, where he joined Latimer's ship. Latimer asks Brown to find information about Joseph's uncle, Ferdinand Eismenger, a Hungarian general who is said to have survived and escaped to Rome, or any other surviving relations of the boy, such as possibly an aunt who now lives in a convent in Rome.</mods:abstract>
+  <mods:note type="acquisition" displayLabel="Immediate form of acquisition">Ms 652</mods:note>
+  <mods:note type="preferredcitation">Latimer, H.K. to Brown, Nicholas, Rush Hawkins collection, Ms.2006.05, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1849 November 16</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1849</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1849</mods:dateCreated>
+    <mods:place>
+      <mods:placeTerm type="text">Bay of Spezzia, Italy</mods:placeTerm>
+    </mods:place>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>2 pages</mods:extent>
+    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/NoC-US/1.0/?language=en">No Copyright - United States</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="personal" authority="local">
+      <mods:namePart>Eismenger, Anton</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="personal" authority="local">
+      <mods:namePart>Eismenger, Ferdinand</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="personal" authority="local">
+      <mods:namePart>Eismenger, Joseph</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:relatedItem type="host">
+    <mods:titleInfo>
+      <mods:title>Rush Hawkins collection</mods:title>
+    </mods:titleInfo>
+    <mods:originInfo>
+      <mods:dateCreated>1750-1951</mods:dateCreated>
+    </mods:originInfo>
+    <mods:identifier type="local">Ms.2006.05</mods:identifier>
+    <mods:location>
+      <mods:physicalLocation>Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:physicalLocation>
+      <mods:url>https://www.riamco.org/render?eadid=US-RPB-ms.2006.05&amp;view=title</mods:url>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 10, Volume 4, Page 100</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:417970</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr417970</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

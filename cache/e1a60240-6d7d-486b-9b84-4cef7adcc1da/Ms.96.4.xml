@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns:ead="urn:isbn:1-931666-22-9" xmlns:ns2="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:isbn:1-931666-22-9" xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd" audience="external" relatedencoding="MARC21">
+  <eadheader audience="external" countryencoding="iso3166-1" dateencoding="iso8601" scriptencoding="iso15924" relatedencoding="MARC21" repositoryencoding="iso15511" langencoding="iso639-2b">
+    <eadid countrycode="US" mainagencycode="US-RPB" identifier="ms.96.4.xml">US-RPB-ms.96.4</eadid>
+    <filedesc>
+      <titlestmt>
+        <titleproper>Guide to the Hiram P. Merville papers<date type="inclusive" era="ce" calendar="gregorian" normal="1861/1897">1861-1897</date><date type="bulk" era="ce" calendar="gregorian" normal="1862/1865">(bulk 1862-1865)</date></titleproper>
+        <author>Finding aid prepared by Tim Engels</author>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Brown University Library</publisher>
+        <address>
+          <addressline>John Hay Library, University Archives and Manuscripts</addressline>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+        <date era="ce" calendar="gregorian" normal="2020" type="publication">2020 February 27</date>
+      </publicationstmt>
+    </filedesc>
+    <profiledesc>
+      <creation>This finding aid was produced using the RIAMCO EAD spreadsheet, <date era="ce" calendar="gregorian" normal="2020" type="publication">2020 February 27</date></creation>
+      <langusage>
+        <language langcode="eng" scriptcode="Latn">English</language>
+      </langusage>
+      <descrules>Finding aid based on Describing Archives: A Content Standard (DACS)</descrules>
+    </profiledesc>
+  </eadheader>
+  <archdesc level="collection" type="inventory">
+    <did>
+      <unittitle type="primary">Hiram P. Merville papers</unittitle>
+      <unittitle type="filing">Merville (Hiram P.) papers</unittitle>
+      <unitid countrycode="US" repositorycode="US-RPB" type="collection">Ms.96.4</unitid>
+      <repository>
+        <corpname>John Hay Library<subarea>University Archives and Manuscripts</subarea></corpname>
+        <address>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+      </repository>
+      <langmaterial>
+        <language langcode="eng" scriptcode="Latn">English</language>
+      </langmaterial>
+      <physdesc>
+        <extent>0.25 linear feet</extent>
+      </physdesc>
+      <unitdate type="inclusive" era="ce" calendar="gregorian" normal="1861/1897">1861-1897</unitdate>
+      <unitdate type="bulk" era="ce" calendar="gregorian" normal="1862/1865">(bulk 1862-1865)</unitdate>
+      <origination label="creator">
+        <persname role="creator">Merville, Hiram P.</persname>
+      </origination>
+      <abstract>The Merville papers consist of 19 letters of Hiram P. Merville to family and friends, and one letter from a friend to Hiram, during the years 1861 or 1862 to 1865. The collection also includes a booklet from the 1897 reunion of the First New York Dragoons, the unit in which Hiram served during the Civil War.</abstract>
+    </did>
+    <bioghist>
+      <head>Biographical/Historical Note</head>
+      <p>Hiram P. Merville was born in China, New York in 1840. At the time of his father's death in 1860, he was one of Jacob Merville's four surviving children. He enlisted in the First Regiment of New York Dragoons (previously the 130th Regiment New York Volunteer Infantry) in 1862, at which time he gave his occupation as farming. He was discharged a corporal in August 1865.</p>
+      <p>He became a physician after the war, and in 1867 married Emma Jane Wilkison in Eagle Valley, New York. They had two daughters, Beulah (Mrs. Charles W. Spofford) and Susan (Mrs. Herbert J. Droppers). They soon went west, settling in Milwaukee, Wisconsin, where Hiram practiced medecine until his death in 1908. He is buried in the Forest Home Cemetery in that city.</p>
+      <p>Many of these letters were written to Hiram's brother Charles, and often mention another brother named Fayette. It is probable that the Harry referred to in the letters refers to his brother Harrison.</p>
+      <p>Hiram had no sister named Em. It is likely that this recipient of his letters was his future wife Emma Jane, five years his junior, and a schoolteacher before their marriage. Emma Jane was born in Aztalan, Wisconsin, where her father died after the family had moved there from New York. Emma Jane's mother returned to New York after her husband's death and married her husband's uncle, Nathan Round.</p>
+    </bioghist>
+    <descgrp type="descriptive">
+      <head>Collection information</head>
+      <scopecontent>
+        <p>The Merville papers consist of 19 letters of Hiram P. Merville to family and friends, and one letter from a friend to Hiram, during the years 1861 or 1862 to 1865. The collection also includes a booklet from the 1897 reunion of the First New York Dragoons, the unit in which Hiram served during the Civil War.</p>
+        <p>The collection was given to Brown University Library by Jane Spofford Chafee in 1982. ?????</p>
+      </scopecontent>
+      <userestrict>
+        <p>All researchers seeking to publish materials from the collections of the John Hay Library are requested to complete a Notice of Intent to Publish, prior to reproducing, quoting, or otherwise publishing any portion or extract from this collection. Although Brown University has physical ownership of the collection and the materials contained therein, it does not claim literary rights. It is up to the researcher to determine the owners of the literary rights and to obtain any necessary permissions from them.</p>
+      </userestrict>
+      <accessrestrict>
+        <p>There are no restrictions on access, except that the collection can only be seen by prior appointment. Some materials may be stored off-site and cannot be produced on the same day on which they are requested.</p>
+      </accessrestrict>
+      <prefercite>
+        <p>Hiram P. Merville papers, Ms.96.4, Brown University Library</p>
+      </prefercite>
+      <arrangement>
+        <p>Series 1. Correspondence ; Series 2. Printed items ; Items within Series 1 are ordered chronologically.</p>
+      </arrangement>
+    </descgrp>
+    <descgrp type="administrative">
+      <head>Administrative information</head>
+      <acqinfo>
+        <p>The collection was given to Brown University Library by Jane Spofford Chafee in 1982.</p>
+      </acqinfo>
+    </descgrp>
+    <descgrp type="additional">
+      <head>Additional information</head>
+      <originalsloc>
+        <p>John Hay Library, University Archives and Manuscripts</p>
+      </originalsloc>
+    </descgrp>
+    <descgrp type="cataloging">
+      <controlaccess>
+        <head>Names</head>
+        <persname source="local">Chafee, Jane Spofford</persname>
+      </controlaccess>
+      <controlaccess>
+        <head>Subjects</head>
+        <subject source="lcsh">Merville family</subject>
+        <subject source="lcsh">United States. Army. New York Infantry Regiment, 130th</subject>
+        <subject source="lcsh">United States. Army. New York Cavalry Regiment, 19th</subject>
+        <subject source="lcsh">United States -- History -- Civil War, 1861-1865</subject>
+        <subject source="lcsh">Soldiers--Correspondence</subject>
+      </controlaccess>
+      <controlaccess>
+        <head>Occupations</head>
+        <occupation source="lcsh">Soldiers</occupation>
+      </controlaccess>
+    </descgrp>
+    <dsc type="combined">
+      <c id="c2" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to [unknown]<geogname>[unknown]</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">1</container>
+          <unitdate type="inclusive" normal="1861/1865">[unknown]</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf; fragment: final pages of letter; letter ends, "Do the best for me you can. More anon. Hiram"</p>
+        </scopecontent>
+      </c>
+      <c id="c3" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Bro. C.")<geogname>[no place]</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">2</container>
+          <unitdate type="inclusive" normal="1861/1865">[no date]</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; leaf discolored by stains; stationery bears embossed image of a horse; letter begins, "No. 1 came to me some days ago."</p>
+        </scopecontent>
+      </c>
+      <c id="c4" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Brother Charles")<geogname>Camp of the 130th New York Volunteers</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">3</container>
+          <unitdate type="inclusive" normal="1861/1865">[no date]</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf; ink is very faded; leaf has creases, minor tears, and some stains</p>
+        </scopecontent>
+      </c>
+      <c id="c5" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Wilkison, Emma Jane? ("Em my sister")<geogname>Headquarters of the 130th Regiment of the New York State Volunteers</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">4</container>
+          <unitdate type="inclusive" normal="1861/1865">[no year] March 30</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c6" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles? ("My brother")<geogname>Headquarters of the 130th Regiment of the New York State Volunteers</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">5</container>
+          <unitdate type="inclusive" normal="1861/1865">[no year] March 30</unitdate>
+        </did>
+        <scopecontent>
+          <p>3 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c7" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Bro. Chas.")<geogname>Camp of the 19th New York Cavalry</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">6</container>
+          <unitdate type="inclusive" normal="1861/1865">[no year] September 24 ("Eve of Sept. 24th"), 28</unitdate>
+        </did>
+        <scopecontent>
+          <p>3 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c8" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles and Wilkison, Emma Jane? ("Dear Bro. Chas. &amp; Sister Em")<geogname>Camp Thorpe, Suffolk, Virginia</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">7</container>
+          <unitdate type="inclusive" normal="1861/1865">[no year] September 27; Sunday morn[ing; 1862 September 28?]</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c9" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Brother Charles")<geogname>Camp of the 130th New York Volunteers (See transcription; letter may read "130th Regt")</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">8</container>
+          <unitdate type="inclusive" normal="1861/1865">[no year] [December 24] ("Christmas Eve")</unitdate>
+        </did>
+        <scopecontent>
+          <p>5 pages on 1 leaf; ink is very faded; leaf discolored by stains; stationery bears embossed image (of a horse?)</p>
+        </scopecontent>
+      </c>
+      <c id="c10" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Brother Charles")<geogname>Camp of the 130th New York Volunteers</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">9</container>
+          <unitdate type="inclusive" normal="1862/1862">1862 February 7</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf; small rips and tear at bottom of leaf; stationery bears imbossed image at upper left</p>
+        </scopecontent>
+      </c>
+      <c id="c11" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to "Dear Friends"<geogname>Camp Thorpe, Suffolk, Virginia</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">10</container>
+          <unitdate type="inclusive" normal="1862/1862">1862 September 19-20</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; stationery bears image at upper left of page 1</p>
+        </scopecontent>
+      </c>
+      <c id="c12" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Charles Merville ("Dear Bro. Charles")<geogname>Headquarters of the 130th Regiment of the New York State Volunteers</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">11</container>
+          <unitdate type="inclusive" normal="1862/1862">1862 November 8</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf; ink is faded</p>
+        </scopecontent>
+      </c>
+      <c id="c13" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Wilkison, Emma Jane? ("My Sister")<geogname>Camp Thorpe, Suffolk, Virginia [?]</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">12</container>
+          <unitdate type="inclusive" normal="1863/1863">1863 January 18</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c14" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Charles Merville ("Dear brother Charles")<geogname>Headquarters of the 130th Regiment of the New York State Volunteers; Williamsburg, Virginia</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">13</container>
+          <unitdate type="inclusive" normal="1863/1863">1863 June 8, 9, 23</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c15" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Wilkison, Emma Jane? ("Dear Sister")<geogname>Headquarters of the 19th New York Volunteer Cavalry</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">14</container>
+          <unitdate type="inclusive" normal="1863/1863">1863 September 14</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c16" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Charles Merville ("Dear Bro. Charles")<geogname>Camp of the 1st New York Dragoons ("Dragons"), near Culpeper, Virginia ("Culpepper")</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">15</container>
+          <unitdate type="inclusive" normal="1863/1863">1863 December 11</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf</p>
+        </scopecontent>
+      </c>
+      <c id="c17" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Charles Merville ("Dear Bro. Charles")<geogname>Near Culpeper, Virginia</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">16</container>
+          <unitdate type="inclusive" normal="1863/1863">1863 December 26</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pages on 1 leaf; letter seems to be missing one or more pages; stationery bears embossed image in upper right-hand corner of page 1</p>
+        </scopecontent>
+      </c>
+      <c id="c18" level="file">
+        <did>
+          <unittitle>Hunt, R. J. to Charles Merville [?] ("Dear Friend")<geogname>Rossville, Georgia [?]</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">17</container>
+          <unitdate type="inclusive" normal="1864/1864">1864 April 29</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; return address: 34th Illinois Regiment Infantry [?] ("34th Ills. Vets. [?] Vols.", 2nd Brigade, 2nd Division, Department of the Cumberland (see http://civilwararchive.com/Unreghst/unilinf3.htm#34th)</p>
+        </scopecontent>
+      </c>
+      <c id="c19" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Wilkison, Emma Jane? ("Dear Sis. Em.")<geogname>Near City Point, Virginia ("Wagon Train, Cavalry Corps")</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">18</container>
+          <unitdate type="inclusive" normal="1864/1864">1864 July 1</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; City Point, Virginia, later annexed by city of Hopwell, Virginia, served as headquarters of Union Army during Siege of Petersburg during Richmond-Petersburg Campaign of 1864-1865</p>
+        </scopecontent>
+      </c>
+      <c id="c20" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear bro."), Wilkison, Emma Jane ("wife"), and others<geogname>Buffalo, New York</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">19</container>
+          <unitdate type="inclusive" normal="1865/1865">1865 April 17</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; written from General Hospital, Buffalo, New York; also addressed to "Flora", "Etta", and "Allie May"; includes news of reaction to Abraham Lincoln's assassination</p>
+        </scopecontent>
+      </c>
+      <c id="c21" level="file">
+        <did>
+          <unittitle>Typescript transcription of Merville, Hiram P.'s letter to Merville, Charles; Wilkison, Emma Jane; Flora; Etta; and Allie May<geogname>Buffalo, New York</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">20</container>
+          <unitdate type="inclusive" normal="1865/1865">1865 April 17</unitdate>
+        </did>
+        <scopecontent>
+          <p>3 pages on 3 leaves; date is that of original letter; with annotations in red pencil</p>
+        </scopecontent>
+      </c>
+      <c id="c22" level="file">
+        <did>
+          <unittitle>Merville, Hiram P. to Merville, Charles ("Dear Bro. Charles")<geogname>Buffalo, New York</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">21</container>
+          <unitdate type="inclusive" normal="1865/1865">1865 April 23</unitdate>
+        </did>
+        <scopecontent>
+          <p>4 pages on 1 leaf; written from General Hospital, Buffalo, New York; includes discussion of Abraham Lincoln</p>
+        </scopecontent>
+      </c>
+      <c id="c23" level="file">
+        <did>
+          <unittitle>Typescript transcription of Merville, Hiram P.'s letter to Merville, Charles<geogname>Buffalo, New York</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">22</container>
+          <unitdate type="inclusive" normal="1865/1865">1865 April 23</unitdate>
+        </did>
+        <scopecontent>
+          <p>2 pieces, stapled together; date is that of original letter; with annotations in blue ink</p>
+        </scopecontent>
+      </c>
+      <c id="c24" level="file">
+        <did>
+          <unittitle>Envelope addressed to Merville, Charles K.<geogname>Buffalo, New York</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">23</container>
+          <unitdate type="inclusive" normal="1865/1865">1865 June 29</unitdate>
+        </did>
+        <scopecontent>
+          <p>1 piece; postmarked Buffalo, New York, 1865 June 29; written from East Java, Wyoming County, New York; stamp cut out</p>
+        </scopecontent>
+      </c>
+      <c id="c25" level="file">
+        <did>
+          <unittitle>28th Annual Reunion, First New York Dragoons (previously 130th Regiment New York Volunteer Infantry)<geogname>Buffalo, New York?</geogname></unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">24</container>
+          <unitdate type="inclusive" normal="1897/1897">1897 August 23-28</unitdate>
+        </did>
+        <scopecontent>
+          <p>Reunion booklet, with roster of First New York Dragoons; HPM is listed on page 18 with his name given incorrectly as "Merville, H. B."</p>
+        </scopecontent>
+      </c>
+      <c id="c26" level="file">
+        <did>
+          <unittitle>Transcriptions of letters of Hiram P. Merville and other family members (bound in booklet)</unittitle>
+          <container type="box" label="Box [31236099656814]">1</container>
+          <container type="folder" label="Folder">25</container>
+        </did>
+        <scopecontent>
+          <p>1 item</p>
+        </scopecontent>
+      </c>
+    </dsc>
+  </archdesc>
+</ead>

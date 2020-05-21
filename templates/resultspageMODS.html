@@ -1,0 +1,29 @@
+        <html>
+            <head>
+                <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>MODS Maker</title>
+            </head>
+            <body>
+
+            <div class="container">
+            <h1 class="display-4">MODS Maker</h1>
+
+                <p><h4>{{publicfilename}}</h4></p><br/>
+                <p><h6>Select the Excel sheet in your workbook with inventory metadata you'd like to process.</h6></p>
+
+          <form method="post" action="{{id}}" enctype="multipart/form-data">
+<p><select name="sheetlist" method="GET" action="/">
+  <option value="{{sheets[0]}}" selected>{{sheets[0]}}</option>
+  {% for sheet in sheets[1:] %}
+    <option value="{{sheet}}">{{sheet}}</option>
+  {% endfor %}
+</select></p>
+<p><input type="submit" class="btn btn-primary" value="Download MODS" /></p>
+
+                </form>
+        </html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Annual Recognition Award Tribute to MM for the North American Association of Alcohol Programs with attached correspondence</mods:title>
+  </mods:titleInfo>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:note type="preferredcitation">Annual Recognition Award Tribute to MM for the North American Association of Alcohol Programs with attached correspondence, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1968-09-16</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1968-10-07</mods:dateCreated>
+  </mods:originInfo>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="lcsh">
+    <mods:topic>Australia--Social life and customs</mods:topic>
+  </mods:subject>
+  <mods:relatedItem type="host">
+    <mods:location>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 1, Folder 2</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

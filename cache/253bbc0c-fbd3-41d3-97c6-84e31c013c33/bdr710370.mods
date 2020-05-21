@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Presidential Lecture Series - Calvin Trillin</mods:title>
+  </mods:titleInfo>
+  <mods:note type="preferredcitation">Presidential Lecture Series - Calvin Trillin, OF-1ZPAUR, Brown University Library</mods:note>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:relatedItem type="host">
+    <mods:identifier type="local">OF-1ZPAUR</mods:identifier>
+    <mods:location>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Tape 862</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:710370</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr710370</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

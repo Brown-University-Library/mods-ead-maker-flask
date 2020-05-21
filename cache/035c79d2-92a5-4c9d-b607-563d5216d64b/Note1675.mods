@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Note 1675</mods:title>
+  </mods:titleInfo>
+  <mods:name type="corporate" authority="naf">
+    <mods:namePart>Facebook (Firm), Media platform</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>still image</mods:typeOfResource>
+  <mods:note type="general">Note 1675</mods:note>
+  <mods:note type="preferredcitation">Note 1675, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>undated</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">ara</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>3 pages</mods:extent>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/InC/1.0/?language=en">In Copyright</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="lcsh">
+    <mods:topic>History--Syria--Civil War, 2011-</mods:topic>
+  </mods:subject>
+  <mods:subject authority="fast">
+    <mods:topic>Syria--Saraqib</mods:topic>
+  </mods:subject>
+  <mods:subject authority="lcsh">
+    <mods:geographic>Saraqib (Syria)</mods:geographic>
+  </mods:subject>
+  <mods:subject authority="lcsh">
+    <mods:geographic>Syria</mods:geographic>
+  </mods:subject>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

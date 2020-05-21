@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Mazzini, Joseph to the New York Committee for the Universal Republican Alliance</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="naf">
+    <mods:namePart>Mazzini, Giuseppe</mods:namePart>
+    <mods:namePart type="date">1805-1872</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">After warning about the "divorce between thought and action" that has too often characterized contemporary affairs in which "many pledges have been broken" but expressing his faith that the New York Committee for the Universal Republican Alliance will make good on its promise to help the Universal Republican cause, Giuseppe (here anglicized to "Joseph") Mazzini celebrates the vision of world-wide republicanism, in which what were previously just local movements against depotism would be united in a cooperation binding Europe, the United States, and South America. Strong emphasis is placed on Mazzini's vision of republicanism as the epitome of Christian values: "Ours is a truly Holy Alliance, a highly religious fact," he writes: "the embodiment into a practical reality of the teacings of eigteen centuries of Christianity and of the aspirations of the great good and brave men of all times and countries, all pointing to One God and One Humanity." Mazzini goes on to outline three steps to bring about this universal alliance: the creation of a "continuous uninterrupted organization" with a clear structure; devotion to the Press, including the publication of a series of pamphlets entitled "Universal Republican Alliance"; and the raising of funds in America to support the European Republican Committee.</mods:abstract>
+  <mods:note type="acquisition" displayLabel="Immediate form of acquisition">Ms 586</mods:note>
+  <mods:note type="preferredcitation">Mazzini, Joseph to the New York Committee for the Universal Republican Alliance, Rush Hawkins collection, Ms.2006.05, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1866 August 8</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1866</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1866</mods:dateCreated>
+    <mods:place>
+      <mods:placeTerm type="text">London, England</mods:placeTerm>
+    </mods:place>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>3 pages</mods:extent>
+    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/NoC-US/1.0/?language=en">No Copyright - United States</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="corporate" authority="local">
+      <mods:namePart>Friends of Republican Principles in America</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:relatedItem type="host">
+    <mods:titleInfo>
+      <mods:title>Rush Hawkins collection</mods:title>
+    </mods:titleInfo>
+    <mods:originInfo>
+      <mods:dateCreated>1750-1951</mods:dateCreated>
+    </mods:originInfo>
+    <mods:identifier type="local">Ms.2006.05</mods:identifier>
+    <mods:location>
+      <mods:physicalLocation>Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:physicalLocation>
+      <mods:url>https://www.riamco.org/render?eadid=US-RPB-ms.2006.05&amp;view=title</mods:url>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 10, Volume 4, Page 27</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:417464</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr417464</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Proposta de pauta para a divulgação externa do somos</mods:title>
+  </mods:titleInfo>
+  <mods:name type="corporate" authority="naf" valueURI="https://lccn.loc.gov/n85186357" authorityURI="http://id.loc.gov/authorities/names.html">
+    <mods:namePart>SOMOS (Group)</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="corporate" authority="local">
+    <mods:namePart>SOMOS – Grupo de divulgação externa</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>text</mods:typeOfResource>
+  <mods:genre authority="aat" valueURI="http://vocab.getty.edu/page/aat/300427346" authorityURI="https://www.getty.edu/research/tools/vocabularies/aat/">meeting announcement</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Topics for discussion at a meeting of the outreasch subgroup of SOMOS.</mods:abstract>
+  <mods:note type="preferredcitation">Proposta de pauta para a divulgação externa do somos, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1981 August 04</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1981</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1981</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">por</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>2 pages</mods:extent>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="corporate" authority="fast" valueURI="http://id.worldcat.org/fast/533904/" authorityURI="http://id.worldcat.org/fast">
+      <mods:namePart>Ford Foundation</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject authority="fast" valueURI="http://id.worldcat.org/fast/939080/" authorityURI="http://id.worldcat.org/fast">
+    <mods:topic>Gay consumers</mods:topic>
+  </mods:subject>
+  <mods:subject authority="fast" valueURI="http://id.worldcat.org/fast/1205614/" authorityURI="http://id.worldcat.org/fast">
+    <mods:geographic>Argentina</mods:geographic>
+  </mods:subject>
+  <mods:subject authority="fast" valueURI="http://id.worldcat.org/fast/1205761/" authorityURI="http://id.worldcat.org/fast">
+    <mods:geographic>Brazil--São Paulo</mods:geographic>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:787795</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr787795</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

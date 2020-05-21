@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>The Republican Alliance</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="naf">
+    <mods:namePart>Mazzini, Giuseppe</mods:namePart>
+    <mods:namePart type="date">1805-1872</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Handwritten copy of Giuseppe (here anglicized to "Joseph") Mazzini's "Republican Alliance," as read in an article published in the Atlantic Monthly in February 1867 and reprinted on January 16, 1867 in the New York Tribune. (Copy not in Mazzini's hand, but appears to be a study copy and includes underlining and capitalization of significant passages.) Tribune clipping is tucked between scrapbook pages. Mazzini writes on the occasion of the "peace now concluded" in the war for Italian unification, arguing that as long as Italy remains a monarchy, it is not fully independent of foreign rule. Only a republican national government can achieve the true liberation of a united Italian people.</mods:abstract>
+  <mods:note type="acquisition" displayLabel="Immediate form of acquisition">Ms 579 (1) and (2)</mods:note>
+  <mods:note type="preferredcitation">The Republican Alliance, Rush Hawkins collection, Ms.2006.05, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1867 January 16</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>16 pages</mods:extent>
+    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/NoC-US/1.0/?language=en">No Copyright - United States</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:relatedItem type="host">
+    <mods:titleInfo>
+      <mods:title>Rush Hawkins collection</mods:title>
+    </mods:titleInfo>
+    <mods:originInfo>
+      <mods:dateCreated>1750-1951</mods:dateCreated>
+    </mods:originInfo>
+    <mods:identifier type="local">Ms.2006.05</mods:identifier>
+    <mods:location>
+      <mods:physicalLocation>Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:physicalLocation>
+      <mods:url>https://www.riamco.org/render?eadid=US-RPB-ms.2006.05&amp;view=title</mods:url>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 10, Volume 4, Pages 2-16, plus one page tucked between pages 2 and 3</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:417431</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr417431</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

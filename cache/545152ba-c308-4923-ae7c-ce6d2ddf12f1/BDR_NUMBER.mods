@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>TITLE</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="naf" authorityURI="http://id.loc.gov/authorities/names.html">
+    <mods:namePart>AUTHOR - person LC</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>AUTHOR - person local</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="corporate" authority="naf" authorityURI="http://id.loc.gov/authorities/names.html">
+    <mods:namePart>AUTHOR - corporate LC</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="corporate" authority="local">
+    <mods:namePart>AUTHOR - corporate local</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>RESOURCE_TYPE</mods:typeOfResource>
+  <mods:genre authority="aat" authorityURI="https://www.getty.edu/research/tools/vocabularies/aat/">AAT_GENRE</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">ABSTRACT</mods:abstract>
+  <mods:note type="preferredcitation">TITLE, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>DATE (YYYY/MM/DD)</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">Date start</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">Date End</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">ISOiso639-2b-LANGUAGE_TEXT</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>EXTENT</mods:extent>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="personal" authority="local">
+      <mods:namePart>Local_Kewords person</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="personal" authority="fast" authorityURI="http://id.worldcat.org/fast">
+      <mods:namePart>PERSON_KEYWORD</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="corporate" authority="fast" authorityURI="http://id.worldcat.org/fast">
+      <mods:namePart>CORPORATE_KEYWORD</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject>
+    <mods:name type="corporate" authority="local">
+      <mods:namePart>Local_Kewords corporate</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>LOCAL_KEYWORDS</mods:topic>
+  </mods:subject>
+  <mods:subject authority="fast" authorityURI="http://id.worldcat.org/fast">
+    <mods:topic>TOPIC_KEYWORD</mods:topic>
+  </mods:subject>
+  <mods:subject authority="fast" authorityURI="http://id.worldcat.org/fast">
+    <mods:geographic>GEOGRAPHIC_KEYWORD</mods:geographic>
+  </mods:subject>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

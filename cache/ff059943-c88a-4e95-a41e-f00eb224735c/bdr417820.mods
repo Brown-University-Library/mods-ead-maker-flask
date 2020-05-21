@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Mazzini, Giuseppe to Mariotti, L.</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="naf">
+    <mods:namePart>Mazzini, Giuseppe</mods:namePart>
+    <mods:namePart type="date">1805-1872</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">creator</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="naf">
+    <mods:namePart>Gallenga, Antonio Carlo Napoleone</mods:namePart>
+    <mods:namePart type="date">1810-1895</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">recipient</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>Text</mods:typeOfResource>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Writing in reference to an article published in the London Herald, Mazzini shares his observations about efforts to raise support for Italian revolutionary efforts in England. ("Mariotti" was the adopted name of Antonio Gallenga, an Italian literary scholar living in England at the time.) Mazzini speaks of the danger of arousing "l'amor proprio inglese contro di noi!" but ultimately expresses his faith that the battle can be won. The letter is one of about nine or ten from Mazzini to Gallenga that, according to a librarian's note added to the scrapbook, appeared in H. Nelson Gay's 1928 pamphlet, Mazzini e Antonio Gallenga apostoli dell'indipendenza italiana in Inghilterra.</mods:abstract>
+  <mods:note type="acquisition" displayLabel="Immediate form of acquisition">Ms 627</mods:note>
+  <mods:note type="preferredcitation">Mazzini, Giuseppe to Mariotti, L., Rush Hawkins collection, Ms.2006.05, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:place>
+      <mods:placeTerm type="text">London, England</mods:placeTerm>
+    </mods:place>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">ita</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:extent>3 pages</mods:extent>
+    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="rights statement" xlink:href="https://rightsstatements.org/page/NoC-US/1.0/?language=en">No Copyright - United States</mods:accessCondition>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject>
+    <mods:name type="personal" authority="naf">
+      <mods:namePart>Gay, H. Nelson (Harry Nelson)</mods:namePart>
+      <mods:namePart type="date">1870-1932</mods:namePart>
+    </mods:name>
+  </mods:subject>
+  <mods:relatedItem type="host">
+    <mods:titleInfo>
+      <mods:title>Rush Hawkins collection</mods:title>
+    </mods:titleInfo>
+    <mods:originInfo>
+      <mods:dateCreated>1750-1951</mods:dateCreated>
+    </mods:originInfo>
+    <mods:identifier type="local">Ms.2006.05</mods:identifier>
+    <mods:location>
+      <mods:physicalLocation>Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:physicalLocation>
+      <mods:url>https://www.riamco.org/render?eadid=US-RPB-ms.2006.05&amp;view=title</mods:url>
+      <mods:holdingSimple>
+        <mods:copyInformation>
+          <mods:shelfLocator>Box 10, Volume 4, Page 65</mods:shelfLocator>
+        </mods:copyInformation>
+      </mods:holdingSimple>
+    </mods:location>
+  </mods:relatedItem>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:417820</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr417820</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

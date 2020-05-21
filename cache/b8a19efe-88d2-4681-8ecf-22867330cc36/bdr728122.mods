@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Finch Collins, Class of 2021</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Collins, Finch</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Knox, Amanda</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Finch Collins, class of 2021, describes his early memories of his time at Brown University and explains how COVID-19 has impacted his undergraduate experience. Collins begins by explaining why he decided to attend Brown, citing his mother’s experience as an ’88 alumna, his time at a STEM high school, and Brown’s open curriculum. He recalls having too much down time at first and then committing to extracurricular activities, especially student theatre and Production Workshop. He discusses the work he has done with Production Workshop and goes on to identify several aspects of life on campus that his misses with everyone social distancing due to COVID-19. To that end, Collins recalls the first few times he heard about COVID-19 in China, particularly through classes on campus and student conversations. He remembers not worrying about the threat of the virus until news began coming out of Italy, and discusses the anticipation of waiting to get news from Brown about what to expect if COVID-19 came to Rhode Island. Collins thinks back to when Brown announced that students had to leave campus and classes had to be taught online. He recounts gathering with friends before everyone left, Production Workshop trying to offer students storage space, and the two week transition period before classes resumed. In looking ahead, Collins talks about Bernie Sanders dropping out of the 2020 Presidential race and feeling as though there will be no changes to health care in the United States after COVID-19. He also notes uncertainty in summer internship opportunities and concern for a potential gap on his resume. In closing, Collins discusses will-making among the transgender community and the increased need for trans people to clearly outline their final wishes should they catch COVID-19. He also briefly discusses chest binding and the unexpected freedom self-isolation and social distancing has given him to experiment with hair and makeup.</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Finch Collins ’21 is a concentrator in Modern Culture and Media and American Studies, with a focus on queer theory and trans studies. Hailing from Arlington, VA, Finch came to Brown to study the humanities after four years of a STEM magnet school. Outside of class, Finch spends much of his free time making sure student theater processes run smoothly. When he’s not social distancing, Finch is most likely found working at the Rock or Production Workshop - or taking photos of his roommate’s cat.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">2021</mods:note>
+  <mods:note type="preferredcitation">Finch Collins, Class of 2021, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2020 April 16</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>Academics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>COVID-19</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Politics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Theatre</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Transgender Students</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>2020s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728122</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728122</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

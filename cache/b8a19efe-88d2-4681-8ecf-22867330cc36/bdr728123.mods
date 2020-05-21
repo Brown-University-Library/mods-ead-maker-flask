@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Samantha Kiernan, Class of 2019</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Kiernan, Samantha</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Murphy, Mary</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Samantha Kiernan, Brown University class of 2019, discusses her experiences during the COVID-19 global pandemic. Kiernan discusses international news and anecdotal stories and later her personal struggle with potentially catching COVID-19. Kiernan begins by elaborating on her interest in international relations, her study abroad time in Ireland and China, and her first position with the United Nations Relief and Works Agency for Palestine refugees in the Near East. She details learning about COVID-19 through Chinese social media. She also recalls the way her friends reacted to the death of Dr. Li Wenliang – the Chinese ophthalmologist who warned about the COVID-19 outbreak. Kiernan goes on to discuss how little life changed in Washington, DC, where she lives, and how she urged her friends and family to heed warning about the outbreak spreading to the United States. She talks about her growing fear when the virus broke out in Italy, as well as how the United States Presidential race was overshadowing news of the virus. She explains the difficulty of getting her parents to realize the severity of the outbreak, and also the isolation she felt living and working in her studio apartment before deciding to return to her parents’ home in Connecticut. Furthermore, Kiernan describes falling ill with body aches, a headache, a fever, and shortness of breath. She recalls trying to quarantine from her parents within their home, and her tests results coming back negative for COVID-19. She also details the rollercoaster journey toward getting well. Kiernan closes her interview by discussing gender inequalities in experiences with COVID-19, and emphasizing her disappointment with how politicized the American public’s reaction to the virus became.</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Samantha Kiernan is a research associate at think tank in Washington, DC, where she researches and analyzes the coronavirus pandemic and noncommunicable diseases throughout the world. She previously worked as an outreach and analysis consultant at the United Nations Relief and Works Agency for Palestine Refugees in the Near East and interned with the nonprofit BuildOn as well as at the U.S. Department of State and Irish Parliament. Kiernan graduated from Brown University in 2019, magna cum laude, with an AB in international relations with a regional focus on East Asia. She speaks English, Spanish, and Mandarin Chinese.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">2019</mods:note>
+  <mods:note type="preferredcitation">Samantha Kiernan, Class of 2019, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2020 April 16</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>COVID-19</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Politics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>2010s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728123</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728123</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

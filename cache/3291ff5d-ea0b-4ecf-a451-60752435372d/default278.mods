@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Brown University--Corporation</mods:title>
+  </mods:titleInfo>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">[Report of committee on the subject of extra labor performed by. Professors] .... VII. Written and signed by B. Sears, chairman. Appointment of E. H. Cutler and reassignment of duties of Prof. S. S. Greene during absence of Prof. Caswell; statements on need of higher salaries for faculty, specifically James B. Angell and John Larkin Lincoln; question of profit from work done for businessmen by Chemistry Department.</mods:abstract>
+  <mods:note type="preferredcitation">Brown University--Corporation, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1860 June 08</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1860-06-08</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1860-06-08</mods:dateCreated>
+  </mods:originInfo>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

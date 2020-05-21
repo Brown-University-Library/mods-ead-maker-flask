@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Rita Duarte Marinho, class of 1979</mods:title>
+  </mods:titleInfo>
+  <mods:titleInfo type="alternative" displayLabel="Pembroke title">
+    <mods:title>Rita Moniz, class of 1979</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Knox, Amanda</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Marinho, Rita Duarte</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Murphy, Mary</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Rita Duarte Marinho discusses her experiences pursuing a doctoral degree in political science at Brown University from 1975 to 1979. Marinho begins by sharing some personal background. She describes growing up in New Bedford, Massachusetts, and being raised primarily by women. She sets herself in the context of the Second World War, recalling how her father joined the war effort six weeks after her birth, landed on the beaches in Normandy, France, and did not return home until she was three years old. Marinho also describes her mother, grandfather, aunts, and uncles, who were Portuguese-Americans, and their dedication to education. She goes on to explain that after one year of undergraduate education she married her first husband and hand three sons after which point she attended the University of Massachusetts, Dartmouth, for her undergraduate degree in political science. She explains that after graduating in 1974 she decided to pursue her PhD in political science at Brown. In speaking of her time at Brown, Marinho shares memories of deeply rooted misogyny in the Political Science department. As the only woman in her cohort, she describes many of the ways she was challenged by her male colleagues, while also highlighting the male colleagues who were her allies. She addresses Louise Lamphere vs Brown University – a landmark class action lawsuit that in 1975 charged Brown University with sex discrimination – and the reaction to it within her department. She explains that despite the many obstacles in the department, she truly enjoyed her experience within the larger institution. With regard to her life after Brown, Marinho details her political activism in New Bedford, Fall River, and Massachusetts more broadly, as well as her career in higher education at the University of Massachusetts, Dartmouth, and several other institutions along the eastern seaboard. She concludes her interview by sharing her thoughts on women and the 2019 political climate and thanking Brown for the life it afforded her.</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Rita Duarte Marinho was born in New Bedford, Massachusetts in 1942. Raised primarily by women in the shadow of World War II, Marinho was taught the power and value of a good education. Shortly after beginning an undergraduate degree, Marinho married her first husband, Robert Moniz, and had three sons. Marinho and Moniz later divorced. She married her second husband, Kenneth Duarte, and the two remained together until his death in approximately 2017. When her sons were 10, 8, and 6 years old, she returned to her undergraduate studies and earned her bachelor’s degree in political science from the University of Massachusetts, Dartmouth, in 1974. She went on to become only the fourth woman to earn her PhD in political science from Brown University in 1979. Marinho led a successful academic career beginning as an Assistant Professor of political science at the University of Massachusetts, Dartmouth, in 1978. She worked her way up to be a full professor, the Director of the Women’s Studies department, and eventually Dean in 1995. Simultaneously, she served as New Bedford City Counsellor from 1978 to 1980, Membership Chair of the Women's Caucus for Political Science from 1978 to 1983, Vice President of the Young Women’s Christian Association national board from 1984 to 1990, and Executive Director of the Fall River Regional Task Force from 1984 to 1995. She has retired to Florida.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">1979</mods:note>
+  <mods:note type="preferredcitation">Rita Duarte Marinho, class of 1979, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2019 June 5</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>Academics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Activism</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Feminism</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Louise Lamphere vs Brown University</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Marriage</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Politics</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Sexism</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Women’s Movement</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>1970s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728104</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728104</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

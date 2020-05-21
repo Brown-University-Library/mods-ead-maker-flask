@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Brown University--Corporation Records</mods:title>
+  </mods:titleInfo>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">Records. volumes. v.1: Charter; minutes, September, 1764 to September 6, 1810 - v.2: Form of engagement; minutes, September 6, 1810 to September 7, 1843 - v.3: Form of engagement; charter; minutes, September 3, 1844 to June 17, 1875 - v.4: Form of engagement; minutes, September 1, 1875 to September 6, 1893; v.5: Minutes, June 19, 1895 to April 28, 1904. Originals in vault. Negative photostats (8 volumes) BOUND-1.</mods:abstract>
+  <mods:note type="preferredcitation">Brown University--Corporation Records, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>1764 - 1904</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" keyDate="yes" point="start">1764</mods:dateCreated>
+    <mods:dateCreated encoding="w3cdtf" point="end">1904</mods:dateCreated>
+  </mods:originInfo>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

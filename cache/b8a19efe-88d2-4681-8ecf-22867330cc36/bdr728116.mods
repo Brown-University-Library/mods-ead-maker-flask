@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd">
+  <mods:titleInfo>
+    <mods:title>Katherine Goldman, staff</mods:title>
+  </mods:titleInfo>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Goldman, Katherine</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewee</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:name type="personal" authority="local">
+    <mods:namePart>Murphy, Mary</mods:namePart>
+    <mods:role>
+      <mods:roleTerm type="text" authority="marcrelator">interviewer</mods:roleTerm>
+    </mods:role>
+  </mods:name>
+  <mods:typeOfResource>mixed material</mods:typeOfResource>
+  <mods:genre authority="aat">oral histories (document genres)</mods:genre>
+  <mods:abstract type="general" displayLabel="Scope and Contents note">In this interview, Katherine Goldman, Center Manager of the Center for Latin American and Caribbean Studies (CLACS) at Brown University, discusses her experience during the COVID-19 pandemic as well as its impact on her work with immigration detention centers. Goldman begins by explaining how she first learned about COVID-19 through students and colleagues who are associated with CLACS. She recalls having been diagnosed with the flu and told to stay at home to protect her immune system because of the threat of COVID-19. This happened shortly before the University requested everyone work from home so Goldman describes how that impacted and quickened her transition to remote work. She goes on to detail how threats of the virus influenced her parenting decisions with regards to her teenage children going to school and taking the SATs. She also notes sadness around programming cancellations at CLACS and its impact on students there. Goldman continues her interview by discussing her advocacy work with asylum seekers held in for-profit detention centers at the southern border of the United States. She explains the work volunteers and immigration layers are doing to encourage the release of asylum seekers in order to prevent the spread of COVID-19 throughout those populations. She generally summarizes conversations she has had with clients and the ways that those conversations are different due to COVID-19 and social distancing restrictions. She ends her interview by expressing her appreciation for Brown, and particularly the caring, thoughtful, and activist community of students and alums.</mods:abstract>
+  <mods:note type="biographical/historical" displayLabel="Biographical note">Kate Goldman holds a B.A. in Political Science and Modern Languages from Union College and an M.A. in Spanish American Literature from Rutgers University. She is currently the manager of the Center for Latin American and Caribbean Studies. Prior to joining the Center, she worked as a translator, editor and teacher in the United States and Chile. Goldman is on the board of the Cultural Organization for the Arts, a non-profit that brings arts programs to public schools and volunteers as an interpreter for asylum seekers through the CARA Pro Bono Project and other organizations.</mods:note>
+  <mods:note type="biographical/historical" displayLabel="Class year">2020</mods:note>
+  <mods:note type="preferredcitation">Katherine Goldman, staff, Brown University Library</mods:note>
+  <mods:originInfo>
+    <mods:dateCreated>2020 March 30</mods:dateCreated>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:digitalOrigin>born digital</mods:digitalOrigin>
+  </mods:physicalDescription>
+  <mods:accessCondition type="restriction on access">Collection is open for research.</mods:accessCondition>
+  <mods:subject authority="local">
+    <mods:topic>COVID-19</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:topic>Immigration</mods:topic>
+  </mods:subject>
+  <mods:subject authority="local">
+    <mods:temporal>2020s</mods:temporal>
+  </mods:subject>
+  <mods:identifier type="local" displayLabel="BDR_PID">bdr:728116</mods:identifier>
+  <mods:identifier type="local" displayLabel="MODS_ID">bdr728116</mods:identifier>
+  <mods:note displayLabel="Digital object made available by">Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)</mods:note>
+</mods:mods>

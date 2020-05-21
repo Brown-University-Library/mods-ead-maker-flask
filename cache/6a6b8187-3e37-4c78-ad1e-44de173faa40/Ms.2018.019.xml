@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns:ead="urn:isbn:1-931666-22-9" xmlns:ns2="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:isbn:1-931666-22-9" xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd" audience="external" relatedencoding="MARC21">
+  <eadheader audience="external" countryencoding="iso3166-1" dateencoding="iso8601" scriptencoding="iso15924" relatedencoding="MARC21" repositoryencoding="iso15511" langencoding="iso639-2b">
+    <eadid countrycode="US" mainagencycode="US-RPB" identifier="ms.2018.019.xml">US-RPB-ms.2018.019</eadid>
+    <filedesc>
+      <titlestmt>
+        <titleproper>Guide to the Kenneth W. Faig, Jr. archive on Robert H. Barlow<date type="inclusive" era="ce" calendar="gregorian" normal="1876/1973">1876-1973</date><date type="bulk" era="ce" calendar="gregorian" normal="1932/1973">(bulk 1932-1973)</date></titleproper>
+        <author>Finding aid prepared by Karen Eberhart.</author>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Brown University Library</publisher>
+        <address>
+          <addressline>John Hay Library, University Archives and Manuscripts</addressline>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+        <date era="ce" calendar="gregorian" normal="2020" type="publication">2020 March 10</date>
+      </publicationstmt>
+    </filedesc>
+    <profiledesc>
+      <creation>This finding aid was produced using the RIAMCO EAD spreadsheet, <date era="ce" calendar="gregorian" normal="2020" type="publication">2020 March 10</date></creation>
+      <langusage>
+        <language langcode="eng" scriptcode="Latn">English</language>
+      </langusage>
+      <descrules>Finding aid based on Describing Archives: A Content Standard (DACS)</descrules>
+    </profiledesc>
+  </eadheader>
+  <archdesc level="collection" type="inventory">
+    <did>
+      <unittitle type="primary">Kenneth W. Faig, Jr. archive on Robert H. Barlow</unittitle>
+      <unittitle type="filing">Faig (Kenneth W. Jr.) archive on Robert H. Barlow</unittitle>
+      <unitid countrycode="US" repositorycode="US-RPB" type="collection">Ms.2018.019</unitid>
+      <repository>
+        <corpname>John Hay Library<subarea>University Archives and Manuscripts</subarea></corpname>
+        <address>
+          <addressline>Box A</addressline>
+          <addressline>Brown University</addressline>
+          <addressline>Providence, RI, 02912</addressline>
+          <addressline>Telephone: Manuscripts: 401-863-3723; University Archives: 401-863-2148</addressline>
+          <addressline>Email: Manuscripts: hay@brown.edu; University Archives: archives@brown.edu</addressline>
+        </address>
+      </repository>
+      <langmaterial>
+        <language langcode="eng" scriptcode="Latn">English</language>
+      </langmaterial>
+      <physdesc>
+        <extent>0.5 linear feet</extent>
+      </physdesc>
+      <unitdate type="inclusive" era="ce" calendar="gregorian" normal="1876/1973">1876-1973</unitdate>
+      <unitdate type="bulk" era="ce" calendar="gregorian" normal="1932/1973">(bulk 1932-1973)</unitdate>
+      <origination label="creator">
+        <persname role="creator">Faig, Kenneth W.</persname>
+      </origination>
+    </did>
+    <bioghist>
+      <head>Biographical/Historical Note</head>
+      <p>Kenneth W. Faig, Jr. has been researching all aspects of the life and work of weird fiction writer Howard P. Lovecraft, including the lives of his family and associates, for most of his career. Faig's research included the life of Robert H. Barlow who was appointed by Lovecraft as the executor of his literary estate. Faig began compiling information about Barlow during graduate school at Brown University. He graduated from Northwestern University in 1970 and was enrolled as a masters degree student at Brown University from 1970-1972.</p>
+    </bioghist>
+    <descgrp type="descriptive">
+      <head>Collection information</head>
+      <scopecontent>
+        <p>The materials in this collection were compiled by Kenneth W. Faig, Jr. during 1970-1975 while conducting research for a biography of Robert H. Barlow. The materials include: microfilm of Barlow's literary and scholarly papers made by Barlow's friend George T. Smisor; copies of letters to his brother Wayne Everett Barlow and other family members; photographs of Barlow as a child and his homes; research correspondence with George T. Smisor, E. Hoffman Price, Thomas Hart Benton, and Roy A. Squires.</p>
+      </scopecontent>
+      <userestrict>
+        <p>All researchers seeking to publish materials from the collections of the John Hay Library are requested to complete a Notice of Intent to Publish, prior to reproducing, quoting, or otherwise publishing any portion or extract from this collection. Although Brown University has physical ownership of the collection and the materials contained therein, it does not claim literary rights. It is up to the researcher to determine the owners of the literary rights and to obtain any necessary permissions from them.</p>
+      </userestrict>
+      <accessrestrict>
+        <p>There are no restrictions on access, except that the collection can only be seen by prior appointment. Some materials may be stored off-site and cannot be produced on the same day on which they are requested.</p>
+      </accessrestrict>
+      <prefercite>
+        <p>Robert Barlow materials collected by Ken Faig, Ms.2018.019, Brown University Library</p>
+      </prefercite>
+      <arrangement>
+        <p>This collection is arranged in 3 series. Each series is arranged chronologically.</p>
+        <p>
+          <list>
+            <item>Series 1. Primary Materials</item>
+            <item>Series 2. Secondary Materials</item>
+            <item>Series 3. Research correspondence with Kenneth W. Faig</item>
+          </list>
+        </p>
+      </arrangement>
+    </descgrp>
+    <descgrp type="administrative">
+      <head>Administrative information</head>
+      <acqinfo>
+        <p>Gift of Kenneth W. Faig in 1991.</p>
+      </acqinfo>
+      <custodhist>
+        <p>These materials were compiled by Kenneth W. Faig Jr. during 1970-1975. Faig deposited the collection with the Netzahaulcoyotl Historical Society in Oakland, California in 1975. Faig decided to make a permanent donation of the materials to Brown University in 1988. The materials arrived at Brown University in 1991.</p>
+      </custodhist>
+    </descgrp>
+    <descgrp type="cataloging">
+      <controlaccess>
+        <head>Names</head>
+        <persname source="lcnaf">Barlow, R. H. (Robert Hayward), 1918-1951</persname>
+        <persname source="lcnaf">Lovecraft, H. P. (Howard Phillips), 1890-1937--Friends and associates</persname>
+        <persname source="lcnaf">Smisor, George T.</persname>
+        <persname source="lcnaf">Benton, Thomas Hart, 1889-1975</persname>
+        <persname source="lcnaf">Price, E. Hoffmann</persname>
+        <persname source="lcnaf">Squires, Roy A.</persname>
+      </controlaccess>
+      <controlaccess>
+        <head>Subjects</head>
+        <subject source="lcsh">Authors, American--20th century--Biography</subject>
+        <subject source="lcsh">Poets, American--20th century--Biography</subject>
+      </controlaccess>
+    </descgrp>
+    <dsc type="combined">
+      <c id="c2" level="series">
+        <did>
+          <unittitle>Primary Materials</unittitle>
+          <unitid type="series">Series 1</unitid>
+        </did>
+        <c id="c3" level="file">
+          <did>
+            <unittitle>Robert Hayward Barlow Microfilm: Reel 1</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">1</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Microfilm of the personal and literary papers of Robert Hayward Barlow (RHB), photographed by George T. Smisor (GTS) In 1951. Three 100-foot reels. (The original reels 3 and 4, each 50 feet, were spliced to make the current reel 3/4.)</p>
+          </scopecontent>
+        </c>
+        <c id="c4" level="file">
+          <did>
+            <unittitle>Robert Hayward Barlow Microfilm: Reel 2</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">2</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Microfilm of the personal and literary papers of Robert Hayward Barlow (RHB), photographed by George T. Smisor (GTS) In 1951. Three 100-foot reels. (The original reels 3 and 4, each 50 feet, were spliced to make the current reel 3/4.)</p>
+          </scopecontent>
+        </c>
+        <c id="c5" level="file">
+          <did>
+            <unittitle>Robert Hayward Barlow Microfilm: Reel 3</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">3</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Pre-Activist poems, published stories and poems, miscellaneous items dealing with his work in art and anthropology 1938-1950</p>
+          </scopecontent>
+        </c>
+        <c id="c6" level="file">
+          <did>
+            <unittitle>Robert Hayward Barlow Microfilm: Reel 4</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">4</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>George Tupper Letters to RHB; H.P. Lovecraft Letters to RHB</p>
+          </scopecontent>
+        </c>
+        <c id="c7" level="file">
+          <did>
+            <unittitle>House of Tlaloc (1)</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">5</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Microfilm of House of Tlaloc correspondence, photographed by George T. Smisor In 1951. Two reels.</p>
+          </scopecontent>
+        </c>
+        <c id="c8" level="file">
+          <did>
+            <unittitle>House of Tlaloc (2)</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">6</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Microfilm of House of Tlaloc correspondence, photographed by George T. Smisor In 1951. Two reels.</p>
+          </scopecontent>
+        </c>
+        <c id="c9" level="file">
+          <did>
+            <unittitle>Weird Tales - Volume 1, No.1-4</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="reel" label="Reel">7</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Microfilm of the science fiction journal "Weird Tales", Volume 1, No. 1,2,3,4 dated March, April, May and June of 1923. Microfilmed by George T. Smisor at the Biblioteca Benjamin Franklin, Paseo de la Reforma #34, Mexico in 1951. Sent to David A. Jonah, Brown University Librarian, March 16, 1951.</p>
+          </scopecontent>
+        </c>
+        <c id="c10" level="file">
+          <did>
+            <unittitle>Barlow Family Material Relating to RHB</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">1</container>
+            <unitdate type="inclusive" normal="1933/1950">1933-1950</unitdate>
+          </did>
+          <scopecontent>
+            <p>Sarah Barlow, compiler, Collection of Barlow family material relating to RHB. Correspondence of RHB to his mother, his father, and his brother. Transcription of RHB's 1933 diary and his mother's Mexican travelogue. Newspaper cuttings pertaining to RHB and his family. Genealogical notes by RHB and sundry writings. Mostly xerox copies of originals; a few carbon copies of typed transcriptions, slightly edited. Organized and annotated by Sarah Barlow.</p>
+          </scopecontent>
+        </c>
+        <c id="c11" level="file">
+          <did>
+            <unittitle>Collection of photographs assembled by George Smisor</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">2</container>
+            <unitdate type="inclusive" normal="1949/1951">1949-1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Collection of photographs made and annotated by George T. Smisor. Two large photographs of RHB. Six smaller photographs: two of Barlow's home, three of his grave site, and one of George T. Smisor.</p>
+          </scopecontent>
+        </c>
+        <c id="c12" level="file">
+          <did>
+            <unittitle>Collection of photographs assembled by Sarah Barlow</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">3</container>
+            <unitdate type="inclusive" normal="1876/1962">1876-1962</unitdate>
+          </did>
+          <scopecontent>
+            <p>Collection of photographs compiled and annotated by Sarah (Mrs. Everett Wayne) Barlow. Photographs of RHB, his family, and his homes.</p>
+          </scopecontent>
+        </c>
+        <c id="c13" level="file">
+          <did>
+            <unittitle>RHB, correspondence with Claire Beck</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">4</container>
+            <unitdate type="inclusive" normal="1937/1937">1937</unitdate>
+          </did>
+          <scopecontent>
+            <p>RHB, correspondence with Claire Beck (The Futile Press). Xerox of typed transcription by Beck.</p>
+          </scopecontent>
+        </c>
+        <c id="c14" level="file">
+          <did>
+            <unittitle>RHB, correspondence with Larry Farsaci</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">5</container>
+            <unitdate type="inclusive" normal="1939/1943">1939-1943</unitdate>
+          </did>
+          <scopecontent>
+            <p>Correspondence with Larry Farsaci. Xerox copies prepared by Larry Farsaci.</p>
+          </scopecontent>
+        </c>
+        <c id="c15" level="file">
+          <did>
+            <unittitle>RHB, Letter to Robert Ervin Howard</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">6</container>
+            <unitdate type="inclusive" normal="1936/1936">1936</unitdate>
+          </did>
+          <scopecontent>
+            <p>RHB, letter to Robert Ervin Howard, July 5, 1936. Xerox copy prepared by Glenn Lord, agent for the Howard Estate.</p>
+          </scopecontent>
+        </c>
+        <c id="c16" level="file">
+          <did>
+            <unittitle>George T. Smisor correspondence relating to Barlow Estate</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">7</container>
+            <unitdate type="inclusive" normal="1951/1952">1951-1952</unitdate>
+          </did>
+          <scopecontent>
+            <p>George T. Smisor, compiler, et alii, Collection of correspondence relating to the disposition of Barlow's estate.</p>
+          </scopecontent>
+        </c>
+        <c id="c17" level="file">
+          <did>
+            <unittitle>Bernice L. Barlow, T.L.S. to Hoffman Price</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">8</container>
+            <unitdate type="inclusive" normal="1951/1951">1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Benace L. Barlow, T.L.S. to E. Hoffmann Price, dated May 20, 1951. Original letter, donated by Price.</p>
+          </scopecontent>
+        </c>
+        <c id="c18" level="file">
+          <did>
+            <unittitle>H.P. Lovecraft: Sketch of Barlow Home</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">9</container>
+            <unitdate type="inclusive" normal="1934/1935">1934-1935</unitdate>
+          </did>
+          <scopecontent>
+            <p>Howard Phillips Lovecraft (HPL), sketch of Barlow home in Cassia. Prom a letter to Dwayne W. Rimel, 1934 or 1935, in the John Hay Library, Brown University. Not to be reproduced w/o permission of Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c19" level="file">
+          <did>
+            <unittitle>RHB-H.P. Lovecraft "Bouts Rimes"</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">10</container>
+            <unitdate type="inclusive" normal="1934/1934">1934</unitdate>
+          </did>
+          <scopecontent>
+            <p>Howard P. Lovecraft and RHB, "Bouts Rimes". Typed transcription or T.Ms. In the John Hay Library, Brown University. Reference to Barlow's memoir of Lovecraft in Marginalia.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c20" level="series">
+        <did>
+          <unittitle>Secondary Materials</unittitle>
+          <unitid type="series">Series 2</unitid>
+        </did>
+        <c id="c21" level="file">
+          <did>
+            <unittitle>J. Vernon Shea "R.H. Barlow: Lost Little Boy"</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">11</container>
+            <unitdate type="inclusive">undated</unitdate>
+          </did>
+          <scopecontent>
+            <p>J. Vernon Shea, "R. H. Barlow: Lost Little Boy". A sketch intended for Shea's work—in—progress, The Lovecraft Circle. Not to be reproduced or quoted without permission of J. Vernon Shea, 10621 Governor Avenue, Cleveland, Ohio 44111</p>
+          </scopecontent>
+        </c>
+        <c id="c22" level="file">
+          <did>
+            <unittitle>Ignacio Bernal: Obituary of RHB, BBAA 1950</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">12</container>
+            <unitdate type="inclusive" normal="1950/1950">1950</unitdate>
+          </did>
+          <scopecontent>
+            <p>Ignacio Bernal, "Robert H. Barlow", from the Boletin Bibliografico de Antropologia Americana (BBAA), vol. 13 pt. 1, 1950, pp. 301-304. Xerox copy.</p>
+          </scopecontent>
+        </c>
+        <c id="c23" level="file">
+          <did>
+            <unittitle>RHB, Bibliography from Boletin Bibliographico de Atropologia Americana (BBAA)</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">13</container>
+            <unitdate type="inclusive">undated</unitdate>
+          </did>
+          <scopecontent>
+            <p>Bibliographies of Barlow's scholarly articles. From BBAA (v. 10, 1947, pp. 278-282), covering the years, 1942-1947, and the same source (v. 13, pt. 2, 1950, pp. 249-251), covering the years 1947-1951. Xerox copies. (N.B.: The Smisor microfilm contains a fine bibliography of Barlow's literary work, both professional and amateur.)</p>
+          </scopecontent>
+        </c>
+        <c id="c24" level="file">
+          <did>
+            <unittitle>H.P. Lovecraft Notes on Correspondence with Richard Ely Morse</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">14</container>
+            <unitdate type="inclusive" normal="1932/1937">1932-1937</unitdate>
+          </did>
+          <scopecontent>
+            <p>Howard P. Lovecraft, correspondence to Richard Ely Morse, 1932-937. Notes and transcriptions by Kenneth W. Faig, Jr. (KWF). From the letter file in the New York Public Library.</p>
+          </scopecontent>
+        </c>
+        <c id="c25" level="file">
+          <did>
+            <unittitle>RHB Poems for a Competition, 1942</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">15</container>
+            <unitdate type="inclusive" normal="1942/1942">1942</unitdate>
+          </did>
+          <scopecontent>
+            <p>RHB, Poems for a Competition, 1942. Xerox copy.</p>
+          </scopecontent>
+        </c>
+        <c id="c26" level="file">
+          <did>
+            <unittitle>RHB View from a Hill, 1947</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">16</container>
+            <unitdate type="inclusive" normal="1947/1947">1947</unitdate>
+          </did>
+          <scopecontent>
+            <p>RHB, View from a Hill, 1947. Xerox copy.</p>
+          </scopecontent>
+        </c>
+        <c id="c27" level="file">
+          <did>
+            <unittitle>RHB, "Annals of the Jinns"</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">17</container>
+            <unitdate type="inclusive" normal="1933/1935">1933-1935</unitdate>
+          </did>
+          <scopecontent>
+            <p>RHB, "Annals of the Jinns". Published as a serial in The Fantasy Fan. Xerox copies.</p>
+          </scopecontent>
+        </c>
+        <c id="c28" level="file">
+          <did>
+            <unittitle>RHB, correspondence resumes and notes on correspondence. with A.E. Gamwell and John Hay Library</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">18</container>
+            <unitdate type="inclusive" normal="1935/1951">1935-1951</unitdate>
+          </did>
+          <scopecontent>
+            <p>Kenneth W. Faig, compiler, resumes of correspondence of RHB with Annie E. P. Gamwell and the John Hay Library. From the copies in the John Hay Library, Brown University.</p>
+          </scopecontent>
+        </c>
+        <c id="c29" level="file">
+          <did>
+            <unittitle>RHB, Untitled poem Couleur de Rose, 1938</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">19</container>
+            <unitdate type="inclusive" normal="1938/1938">1938</unitdate>
+          </did>
+          <scopecontent>
+            <p>Benton E. Wetzel, publisher, Couleur de Rose, number 4, Christmas, 1938. Amateur magazine with an untitled poem by RHB. Xerox copy.</p>
+          </scopecontent>
+        </c>
+        <c id="c30" level="file">
+          <did>
+            <unittitle>George Smisor, collection of title pages of works by RHB</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">20</container>
+            <unitdate type="inclusive" normal="1945/1949">1945-1949</unitdate>
+          </did>
+          <scopecontent>
+            <p>George T. Smisor, compiler, Collection of title pages of scholarly works by RHB. Xerox copies.</p>
+          </scopecontent>
+        </c>
+        <c id="c31" level="file">
+          <did>
+            <unittitle>Kenneth Faig misc. research notes and letters on RHB</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">21</container>
+            <unitdate type="inclusive" normal="1971/1971">1971, undated</unitdate>
+          </did>
+          <scopecontent>
+            <p>Kenneth W. Faig, compiler, miscellaneous research notes and letters pertaining to RHB.</p>
+          </scopecontent>
+        </c>
+        <c id="c32" level="file">
+          <did>
+            <unittitle>Roy A. Squires Catalog II, 1969</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">22</container>
+            <unitdate type="inclusive" normal="1969/1969">1969</unitdate>
+          </did>
+          <scopecontent>
+            <p>Roy A. Squires, compiler, Clark Ashton Smith, H. P. Lovecraft, Robert H. Barlow: Catalog II, Glendale, California, n.d. /1969/.</p>
+          </scopecontent>
+        </c>
+        <c id="c33" level="file">
+          <did>
+            <unittitle>Mooser, "A Study of Robert Barlow", Mexico Quarterly Review 1968</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">23</container>
+            <unitdate type="inclusive" normal="1968/1968">1968</unitdate>
+          </did>
+          <scopecontent>
+            <p>Clare Mooser, "A Study of Robert Barlow: The T. E. Lawrence of Mexico", Mexico Quarterly Review, v. 3 no. 2 1968, pp. 5-12.</p>
+          </scopecontent>
+        </c>
+      </c>
+      <c id="c34" level="series">
+        <did>
+          <unittitle>Research correspondence with Kenneth W. Faig</unittitle>
+          <unitid type="series">Series 3</unitid>
+        </did>
+        <c id="c35" level="file">
+          <did>
+            <unittitle>Barlow, Everett Wayne and Sarah Barlow</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">24</container>
+            <unitdate type="inclusive" normal="1971/1972">1971-1972</unitdate>
+          </did>
+          <scopecontent>
+            <p>Everett Wayne Barlow and Sarah Barlow</p>
+          </scopecontent>
+        </c>
+        <c id="c36" level="file">
+          <did>
+            <unittitle>Barrett, Dr. C. L. (M.D.)</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">25</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c37" level="file">
+          <did>
+            <unittitle>Beck, Claire</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">26</container>
+            <unitdate type="inclusive" normal="1937/1973">1937-1973</unitdate>
+          </did>
+          <scopecontent>
+            <p>See also Box 1 Folder 4.</p>
+          </scopecontent>
+        </c>
+        <c id="c38" level="file">
+          <did>
+            <unittitle>Benton, Thomas Hart</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">27</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c39" level="file">
+          <did>
+            <unittitle>Blish, James</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">28</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c40" level="file">
+          <did>
+            <unittitle>Bradofsky, Hyman</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">29</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c41" level="file">
+          <did>
+            <unittitle>Brown, Rosalie Moore</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">30</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>Includes xerox copies of an article on RHB from Number, a letter of RHB to Mrs. Brown, and RHB's design for a Brown family coat of arms.</p>
+          </scopecontent>
+        </c>
+        <c id="c42" level="file">
+          <did>
+            <unittitle>Coslet, Walter A.</unittitle>
+            <container type="box" label="Box">1</container>
+            <container type="folder" label="Folder">31</container>
+            <unitdate type="inclusive" normal="1971/1972">1971-1972</unitdate>
+          </did>
+        </c>
+        <c id="c43" level="file">
+          <did>
+            <unittitle>Derleth, August W.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">1</container>
+            <unitdate type="inclusive" normal="1971/1972">1971-1972</unitdate>
+          </did>
+        </c>
+        <c id="c44" level="file">
+          <did>
+            <unittitle>Farsaci, Larry B.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">2</container>
+            <unitdate type="inclusive" normal="1972/1972">1972</unitdate>
+          </did>
+          <scopecontent>
+            <p>See also Box 1 Folder 5.</p>
+          </scopecontent>
+        </c>
+        <c id="c45" level="file">
+          <did>
+            <unittitle>Hart, Lawrence</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">3</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>Draft and final letter by Kenneth W. Faig only. No reply received.</p>
+          </scopecontent>
+        </c>
+        <c id="c46" level="file">
+          <did>
+            <unittitle>Kirk, Barbara A.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">4</container>
+            <unitdate type="inclusive" normal="1941/1971">1941-1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>With photographs of jewelry designed by RHB, transcript of RHB's college record, and xerox copy of postcard from RHB.</p>
+          </scopecontent>
+        </c>
+        <c id="c47" level="file">
+          <did>
+            <unittitle>Everts, R. Alain (aka R. Alan Kirsch)</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">5</container>
+            <unitdate type="inclusive" normal="1944/1971">1944-1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>Selection of correspondence with Kenneth W. Faig pertaining to RHB. With small photograph of RHB from Everts collection.</p>
+          </scopecontent>
+        </c>
+        <c id="c48" level="file">
+          <did>
+            <unittitle>Barlow, Robert H. "The Extent of the Empire of the Culhua Mexica"</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">6</container>
+            <unitdate type="inclusive" normal="1949/1949">1949</unitdate>
+          </did>
+          <scopecontent>
+            <p>Book by Barlow ("Ibero-Americana:28")</p>
+          </scopecontent>
+        </c>
+        <c id="c49" level="file">
+          <did>
+            <unittitle>Langworthy, Dorcas</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">7</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>No reply received.</p>
+          </scopecontent>
+        </c>
+        <c id="c50" level="file">
+          <did>
+            <unittitle>La Rue, Carolyn</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">8</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>No reply received.</p>
+          </scopecontent>
+        </c>
+        <c id="c51" level="file">
+          <did>
+            <unittitle>Price, Edgar Hoffman</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">9</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c52" level="file">
+          <did>
+            <unittitle>Smisor, George T.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">10</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+          <scopecontent>
+            <p>See also Box 1 Folders 2 and 20, Box 2 Reels 1-6.</p>
+          </scopecontent>
+        </c>
+        <c id="c53" level="file">
+          <did>
+            <unittitle>Squires, Roy A.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">11</container>
+            <unitdate type="inclusive" normal="1970/1972">1970-1972</unitdate>
+          </did>
+          <scopecontent>
+            <p>Selection of correspondence with Kenneth W. Faig pertaining to RHB.</p>
+          </scopecontent>
+        </c>
+        <c id="c54" level="file">
+          <did>
+            <unittitle>Sterling, Dr. Kenneth (M.D.)</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">12</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c55" level="file">
+          <did>
+            <unittitle>Warner, Harry Jr.</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">13</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c56" level="file">
+          <did>
+            <unittitle>Wesson, Sheldon</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">14</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+        <c id="c57" level="file">
+          <did>
+            <unittitle>Wollheim, Donald</unittitle>
+            <container type="box" label="Box">2</container>
+            <container type="folder" label="Folder">15</container>
+            <unitdate type="inclusive" normal="1971/1971">1971</unitdate>
+          </did>
+        </c>
+      </c>
+    </dsc>
+  </archdesc>
+</ead>
