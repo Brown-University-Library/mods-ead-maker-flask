@@ -44,11 +44,7 @@ def multilinefield(refdict, parentelement, originalfieldname, eadfieldname):
         pelement.text = ' '.join(line.split())
 
 def repeatingsubjectfield(parentelement, refdict, originalfieldname, eadfieldname, eadattributes):
-    splitcharacter = ""
-    if ";" in refdict.get(originalfieldname, ''):
-        splitcharacter = ";"
-    else:
-        splitcharacter = "|"
+    splitcharacter = ";"
 
     for namesindex, addedentry in enumerate(refdict.get(originalfieldname, '').split(splitcharacter)):
 
@@ -67,6 +63,45 @@ def repeatingsubjectfield(parentelement, refdict, originalfieldname, eadfieldnam
 
         namecontrolaccesselement = etree.SubElement(parentelement, eadfieldname, customAttributes)
         namecontrolaccesselement.text = ' '.join(addedentry.replace("|d", "").replace("|e", "").split())
+
+def repeatingNameField(parentElement, elementName, rowString, assignedRole, source):
+    for name in rowString.split(';'):
+        currentname = ""
+        currentrole = ""
+        attributes = {}
+
+        #Extract URI
+
+        uri = re.findall("(?P<url>https?://[^\s]+)", name)
+
+        #If there's a URI
+        if len(uri) > 0:
+            #Remove it from the addedentry
+            name = name.replace(uri[0],"")
+            #Add it as a valueURI attribute
+            attributes["authfilenumber"] = xmltext(uri[0])
+
+        for index, namefield in enumerate(name.split(',')):
+            namefieldrevised = xmltext(namefield)
+
+            if index == 0:
+                currentname = currentname + namefieldrevised + ", "
+            elif hasYear(namefieldrevised) == True:
+                currentname = currentname + namefieldrevised
+            elif isAllLower(namefieldrevised) == True:
+                currentrole = namefieldrevised
+            elif hasLetters(namefieldrevised) != None:
+                currentname = currentname + namefieldrevised + ", "
+
+        if currentrole:
+            attributes['role'] = currentrole
+        elif assignedRole:
+            attributes['role'] = assignedRole
+
+        attributes['source'] = source
+
+        nameelement = etree.SubElement(parentElement, elementName, attributes)
+        nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
 
 def xmltext(text):
     return(' '.join(str(text).split()))
@@ -237,17 +272,22 @@ def getSheetNames(chosenfile):
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
+CACHEDIR = "/home/codyross/eadmaker/cache/"
+#CACHEDIR = os.getcwd() + "/"
+HOMEDIR = "/home/codyross/eadmaker/"
+#HOMEDIR = os.getcwd() + "/"
+
 print("._. EAD Maker ._.", file=sys.stderr)
 
 def processExceltoEAD(chosenfile, chosensheet, id):
 
-    if not os.path.exists("/home/codyross/eadmaker/cache/" + id):
-            os.mkdir("/home/codyross/eadmaker/cache/" + id)
+    if not os.path.exists(CACHEDIR + id):
+            os.mkdir(CACHEDIR + id)
 
     #Get all languages codes and script codes.
-    langcode = XLSDictReaderLanguageCode("/home/codyross/eadmaker/SupportedLanguages.xlsx","languages xlsx")
-    langcodeopp = XLSDictReaderLanguageCodeOpp("/home/codyross/eadmaker/SupportedLanguages.xlsx","languages xlsx")
-    scriptcode = XLSDictReaderScriptCode("/home/codyross/eadmaker/SupportedLanguages.xlsx","languages xlsx")
+    langcode = XLSDictReaderLanguageCode(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
+    langcodeopp = XLSDictReaderLanguageCodeOpp(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
+    scriptcode = XLSDictReaderScriptCode(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
 
     csvdata = {}
     cldata = {}
@@ -278,7 +318,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     csvdata = XLSDictReader(chosenfile, chosensheet)
 
     if "Collection-Level Data" not in sheetnames:
-        copyworkbook("/home/codyross/eadmaker/Collection-Level Data.xlsx", chosenfile)
+        copyworkbook(HOMEDIR + "Collection-Level Data.xlsx", chosenfile)
         excel = xlrd.open_workbook(chosenfile)
 
         #if originalfile != '':
@@ -879,6 +919,20 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #controlaccess and name fields
         ccontrolaccess = etree.SubElement(ctelement, "controlaccess")
 
+        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLC", ''), "creator", "naf")
+        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLocal", ''), "creator", "local")
+        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorFAST", ''), "creator", "fast")
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLC", ''), "", "naf")
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLocal", ''), "", "local")
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherFAST", ''), "", "fast")
+
+        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLC", ''), "creator", "naf")
+        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLocal", ''), "creator", "local")
+        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorFAST", ''), "creator", "fast")
+
+        
+        
+        """
         #namePersonCreatorLC
         namePersonCreatorLCsplitchar = getSplitCharacter(row.get("namePersonCreatorLC", ''))
         for namesindex, name in enumerate(row.get("namePersonCreatorLC", '').split(namePersonCreatorLCsplitchar)):
@@ -917,13 +971,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
                 elif hasLetters(namefieldrevised) != None:
                     currentname = currentname + namefieldrevised + ", "
 
-                """if index == 0:
-                    if namefield == "":
-                        continue
-                    currentname = ' '.join(namefield.replace("|d", "").split()).rstrip(',')
-                else:
-                    currentrole = ' '.join(namefield.split())"""
-
             nameelement = etree.SubElement(ccontrolaccess, "persname", {"role":currentrole, "source":"naf"})
             nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
 
@@ -945,13 +992,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
                     currentrole = namefieldrevised
                 elif hasLetters(namefieldrevised) != None:
                     currentname = currentname + namefieldrevised + ", "
-
-                """if index == 0:
-                    if namefield == "":
-                        continue
-                    currentname = ' '.join(namefield.replace("|d", "").split()).rstrip(',')
-                else:
-                    currentrole = ' '.join(namefield.split())"""
 
             nameelement = etree.SubElement(ccontrolaccess, "persname", {"role":currentrole, "source":"local"})
             nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
@@ -976,7 +1016,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             #controlaccesscorpelement.text = ' '.join(corp.split())
 
             originationcorpelement = etree.SubElement(originationelement, "corpname", {"role":"creator", "source":"local"})
-            originationcorpelement.text = ' '.join(corp.split())
+            originationcorpelement.text = ' '.join(corp.split()) """
 
         notegeneralelement = etree.SubElement(ctelement, "odd")
         scopelines = row.get("noteGeneral", '').splitlines()
@@ -1028,13 +1068,21 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #subject
         repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesLC', 'persname',{"source":"naf"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesLocal', 'persname',{"source":"local"})
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesFAST', 'persname',{"source":"fast"})
+
         repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpLC', 'corpname',{"source":"naf"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpLocal', 'corpname',{"source":"local"})
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpFAST', 'corpname',{"source":"fast"})
+
         repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsLC', 'subject',{"source":"lcsh"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsLocal', 'subject',{"source":"local"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsFAST', 'subject',{"source":"fast"})
+
         repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoLC', 'geogname',{"source":"lcsh"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleLC', 'title',{})
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoFAST', 'geogname',{"source":"fast"})
+
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleLC', 'title',{"source":"lcsh"})
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleFAST', 'title',{"source":"fast"})
 
         #for index, temporal in enumerate(row.get("subjectTemporalLC", '').split('|')):
         #    subjectelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}subject", {"authority":"local"})
@@ -1214,7 +1262,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     print("AT THE END", file=sys.stderr)
 
-    with open("/home/codyross/eadmaker/cache/" + id + "/" + cldata.get("callNumber", '') + ".xml", 'w+') as f:
+    with open(CACHEDIR + id + "/" + cldata.get("callNumber", '') + ".xml", 'w+') as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
         #completestring = etree.tostring(clean, pretty_print = True)
         #completestring = completestring.replace('&lt;','<')
@@ -1230,7 +1278,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     returndict["filename"] = cldata.get("callNumber", '') + ".xml"
     returndict["error"] = False
 
-    with open("/home/codyross/eadmaker/cache/" + id + "/" + cldata.get("callNumber", '') + ".xml", 'rb') as f:
+    with open(CACHEDIR + id + "/" + cldata.get("callNumber", '') + ".xml", 'rb') as f:
         return(f.read(), returndict)
 
     if langissue == True:
@@ -1248,3 +1296,4 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     print( u"   \u2606 \u2606 \u2606", file=sys.stderr)
     print('\n\n\n', file=sys.stderr)
+
