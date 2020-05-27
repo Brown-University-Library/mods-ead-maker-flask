@@ -11,13 +11,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 @app.route("/", methods=["GET", "POST"])
-def file_autumn_page():
+def redirectToEADMaker():
     return redirect(url_for('eadMakerHome'))
-
-@app.route('/aspaceservice', methods=['POST'])
-def result():
-    print(request.form.get('ItemCitation'))
-    return request.form # response to your request.
 
 @app.route("/eadmaker", methods=["GET", "POST"])
 def eadMakerHome():

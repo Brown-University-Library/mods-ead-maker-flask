@@ -51,7 +51,21 @@ def repeatingsubjectfield(parentelement, refdict, originalfieldname, eadfieldnam
         splitcharacter = "|"
 
     for namesindex, addedentry in enumerate(refdict.get(originalfieldname, '').split(splitcharacter)):
-        namecontrolaccesselement = etree.SubElement(parentelement, eadfieldname, eadattributes)
+
+        customAttributes = eadattributes.copy()
+
+        #Extract URI
+
+        uri = re.findall("(?P<url>https?://[^\s]+)", addedentry)
+
+        #If there's a URI
+        if len(uri) > 0:
+            #Remove it from the addedentry
+            addedentry = addedentry.replace(uri[0],"")
+            #Add it as a valueURI attribute
+            customAttributes["authfilenumber"] = xmltext(uri[0])
+
+        namecontrolaccesselement = etree.SubElement(parentelement, eadfieldname, customAttributes)
         namecontrolaccesselement.text = ' '.join(addedentry.replace("|d", "").replace("|e", "").split())
 
 def xmltext(text):
