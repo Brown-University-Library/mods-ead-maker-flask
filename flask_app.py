@@ -12,7 +12,7 @@ app.config["DEBUG"] = True
 
 @app.route("/", methods=["GET", "POST"])
 def file_autumn_page():
-    return redirect(url_for('file_summer_page'))
+    return redirect(url_for('eadMakerHome'))
 
 @app.route('/aspaceservice', methods=['POST'])
 def result():
@@ -20,7 +20,7 @@ def result():
     return request.form # response to your request.
 
 @app.route("/eadmaker", methods=["GET", "POST"])
-def file_summer_page():
+def eadMakerHome():
     if request.method == "POST":
         #print(request.get_data(), file=sys.stderr)
         id = str(uuid.uuid4())
@@ -46,7 +46,7 @@ def file_summer_page():
         return render_template('home.html')
 
 @app.route("/eadmaker/renderead/<string:filename>/<string:id>", methods=["GET", "POST"])
-def file_winter_page(filename, id):
+def eadMakerSelectSheet(filename, id):
     print("TRYING TO RENDER RENDERTEMPLATE", file=sys.stderr)
     #print(g.sheetnames, file=sys.stderr)
     if request.method == "POST":
@@ -63,7 +63,7 @@ def file_winter_page(filename, id):
         return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename)
 
 @app.route("/eadmakerapi", methods=["GET", "POST"])
-def file_spring_page():
+def eadMakerAPI():
     if request.method == "POST":
         print("REQUESTREQUEST", file=sys.stderr)
         #print(request.get_data(), file=sys.stderr)
