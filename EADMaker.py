@@ -994,6 +994,9 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoLC', 'geogname',{"source":"lcsh"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoFAST', 'geogname',{"source":"fast"})
 
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectTemporalLC', 'subject',{"source":"lcsh"})
+        repeatingsubjectfield(ccontrolaccess, row, 'subjectTemporalFAST', 'subject',{"source":"fast"})
+
         repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleLC', 'title',{"source":"lcsh"})
         repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleFAST', 'title',{"source":"fast"})
 
