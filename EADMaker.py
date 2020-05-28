@@ -922,101 +922,14 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLC", ''), "creator", "naf")
         repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLocal", ''), "creator", "local")
         repeatingNameField(originationelement, "persname", row.get("namePersonCreatorFAST", ''), "creator", "fast")
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLC", ''), "", "naf")
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLocal", ''), "", "local")
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherFAST", ''), "", "fast")
 
         repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLC", ''), "creator", "naf")
         repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLocal", ''), "creator", "local")
         repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorFAST", ''), "creator", "fast")
 
-        
-        
-        """
-        #namePersonCreatorLC
-        namePersonCreatorLCsplitchar = getSplitCharacter(row.get("namePersonCreatorLC", ''))
-        for namesindex, name in enumerate(row.get("namePersonCreatorLC", '').split(namePersonCreatorLCsplitchar)):
-            nameoriginationelement = etree.SubElement(originationelement, "persname", {"role":"creator", "source":"naf"})
-            nametext = xmltext(name).replace("|d","")
-            nameoriginationelement.text = nametext  #' '.join(name.replace("|d", "").split())
-
-            #namecontrolaccesselement = etree.SubElement(ccontrolaccess, "persname", {"role":"creator", "source":"naf"})
-            #namecontrolaccesselement.text = ' '.join(name.replace("|d", "").split())
-
-        #namePersonCreatorLocal
-        namePersonCreatorLocalsplitchar = getSplitCharacter(row.get("namePersonCreatorLocal", ''))
-        for namesindex, name in enumerate(row.get("namePersonCreatorLocal", '').split(namePersonCreatorLocalsplitchar)):
-            nameoriginationelement = etree.SubElement(originationelement, "persname", {"role":"creator", "source":"local"})
-            nameoriginationelement.text = ' '.join(name.replace("|d", "").split())
-
-            #namecontrolaccesselement = etree.SubElement(ccontrolaccess, "persname", {"role":"creator", "source":"local"})
-            #namecontrolaccesselement.text = ' '.join(name.replace("|d", "").split())
-
-        #namePersonOtherLC
-        namePersonOtherLCsplitchar = getSplitCharacter(row.get("namePersonOtherLC", ''))
-        for namesindex, names in enumerate(row.get("namePersonOtherLC", '').split(namePersonOtherLCsplitchar)):
-
-            currentname = ""
-            currentrole = ""
-
-            for index, namefield in enumerate(names.split(",")):
-                namefieldrevised = ' '.join(namefield.split()).replace('|d', '').replace('|e','')
-
-                if index == 0:
-                    currentname = currentname + namefieldrevised + ", "
-                elif hasYear(namefieldrevised) == True:
-                    currentname = currentname + namefieldrevised
-                elif isAllLower(namefieldrevised) == True:
-                    currentrole = namefieldrevised
-                elif hasLetters(namefieldrevised) != None:
-                    currentname = currentname + namefieldrevised + ", "
-
-            nameelement = etree.SubElement(ccontrolaccess, "persname", {"role":currentrole, "source":"naf"})
-            nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
-
-        #namePersonOtherLocal
-        namePersonOtherLocalsplitchar = getSplitCharacter(row.get("namePersonOtherLocal", ''))
-        for namesindex, names in enumerate(row.get("namePersonOtherLocal", '').split(namePersonOtherLocalsplitchar)):
-
-            currentname = ""
-            currentrole = ""
-
-            for index, namefield in enumerate(names.split(",")):
-                namefieldrevised = ' '.join(namefield.split()).replace('|d', '').replace('|e','')
-
-                if index == 0:
-                    currentname = currentname + namefieldrevised + ", "
-                elif hasYear(namefieldrevised) == True:
-                    currentname = currentname + namefieldrevised
-                elif isAllLower(namefieldrevised) == True:
-                    currentrole = namefieldrevised
-                elif hasLetters(namefieldrevised) != None:
-                    currentname = currentname + namefieldrevised + ", "
-
-            nameelement = etree.SubElement(ccontrolaccess, "persname", {"role":currentrole, "source":"local"})
-            nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
-
-        #nameCorpCreatorLC
-        nameCorpCreatorLCsplitchart = getSplitCharacter(row.get("nameCorpCreatorLC", ''))
-        for index, corp in enumerate(row.get("nameCorpCreatorLC", '').split(nameCorpCreatorLCsplitchart)):
-            if corp == "":
-                continue
-            #controlaccesscorpelement = etree.SubElement(ccontrolaccess, "corpname", {"role":"creator", "source":"naf"})
-            #controlaccesscorpelement.text = ' '.join(corp.split())
-
-            originationcorpelement = etree.SubElement(originationelement, "corpname", {"role":"creator", "source":"naf"})
-            originationcorpelement.text = ' '.join(corp.split())
-
-        #nameCorpCreatorLocal
-        nameCorpCreatorLocalsplitchar = getSplitCharacter(row.get("nameCorpCreatorLocal", ''))
-        for index, corp in enumerate(row.get("nameCorpCreatorLocal", '').split(nameCorpCreatorLocalsplitchar)):
-            if corp == "":
-                continue
-            #controlaccesscorpelement = etree.SubElement(ccontrolaccess, "corpname", {"role":"creator", "source":"local"})
-            #controlaccesscorpelement.text = ' '.join(corp.split())
-
-            originationcorpelement = etree.SubElement(originationelement, "corpname", {"role":"creator", "source":"local"})
-            originationcorpelement.text = ' '.join(corp.split()) """
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLC", ''), "", "naf")
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLocal", ''), "", "local")
+        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherFAST", ''), "", "fast")
 
         notegeneralelement = etree.SubElement(ctelement, "odd")
         scopelines = row.get("noteGeneral", '').splitlines()
