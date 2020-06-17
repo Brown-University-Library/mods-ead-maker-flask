@@ -227,8 +227,10 @@ def XLSDictReaderVertical(file, sheetname):
                     value = str(sheet.cell_value(row,datacolumn)).replace('|d', '').replace('|e', '').replace('|',';')
             else:
                     value = sheet.cell_value(row,datacolumn).replace('|d', '').replace('|e', '').replace('|',';')
-            #value = sheet.cell_value(row, 3)
-            verticaldictionary[key] = value
+            if verticaldictionary.get(key, '') == '':
+                verticaldictionary[key] = value
+            else:
+                verticaldictionary[key] = verticaldictionary[key] + ';' + value
         return(verticaldictionary)
 
 def XLSDictReaderLanguageCode(file, sheetname):
