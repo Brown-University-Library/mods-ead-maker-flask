@@ -1178,25 +1178,20 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     completestring = completestring.replace('&lt;','<')
     completestring = completestring.replace('&gt;','>')
 
-    print("AT THE END", file=sys.stderr)
+    finalfilename = eadidelement.text + '.xml'
 
-    with open(CACHEDIR + id + "/" + cldata.get("callNumber", '') + ".xml", 'w+') as f:
+    with open(CACHEDIR + id + "/" + finalfilename, 'w+') as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-        #completestring = etree.tostring(clean, pretty_print = True)
-        #completestring = completestring.replace('&lt;','<')
-        #completestring = completestring.replace('&gt;','>')
         f.write(completestring)
-        print("Returning file", file=sys.stderr)
-        print("Wrote file " + cldata.get("callNumber", '') + ".xml\n", file=sys.stderr)
         f.close()
-        print('\n\n', file=sys.stderr)
+
 
     returndict = {}
 
-    returndict["filename"] = cldata.get("callNumber", '') + ".xml"
+    returndict["filename"] = finalfilename
     returndict["error"] = False
 
-    with open(CACHEDIR + id + "/" + cldata.get("callNumber", '') + ".xml", 'rb') as f:
+    with open(CACHEDIR + id + "/" + finalfilename, 'rb') as f:
         return(f.read(), returndict)
 
     if langissue == True:
