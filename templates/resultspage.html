@@ -14,7 +14,7 @@
             <h1 class="display-4">EAD Maker</h1>
 
                 <p><h4>{{publicfilename}}</h4></p><br/>
-                <p><h6>Select the Excel sheet in your workbook with inventory metadata you'd like to process.</h6></p>
+                <p><h6>Select the Excel sheet in your Excel workbook that contains the inventory (box/folder) metadata you'd like to process.</h6> The Excel sheet containing the Collection-Level Data will automatically be included during the process.</p>
 
           <form method="post" action="{{id}}" enctype="multipart/form-data">
 <p><select name="sheetlist" method="GET" action="/">
@@ -25,5 +25,7 @@
 </select></p>
 <p><input type="submit" class="btn btn-primary" value="Download EAD" /></p>
                 </form>
+                <br/><hr>
+<p>Your EAD file will download as a .xml file. The name of the .xml file will be the same as the text of the collection-level &lt;eadid&gt; element, which joins country and MARC repository codes as well as the collection's call number.</p>
 
         </html>

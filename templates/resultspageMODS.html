@@ -14,7 +14,7 @@
             <h1 class="display-4">MODS Maker</h1>
 
                 <p><h4>{{publicfilename}}</h4></p><br/>
-                <p><h6>Select the Excel sheet in your workbook with inventory metadata you'd like to process.</h6></p>
+                <p><h6>Select the Excel sheet in your Excel workbook that contains the metadata you'd like to process.</h6></p>
 
           <form method="post" action="{{id}}" enctype="multipart/form-data">
 <p><select name="sheetlist" method="GET" action="/">
@@ -24,6 +24,9 @@
   {% endfor %}
 </select></p>
 <p><input type="submit" class="btn btn-primary" value="Download MODS" /></p>
+<br/><hr>
+<p>Your MODS files will download inside a .zip file.  The title of the .zip file will be the same as the title of the Excel sheet you chose to process.</p>
+
 
                 </form>
         </html>
