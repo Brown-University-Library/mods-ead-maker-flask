@@ -879,10 +879,8 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             for action, elem in context:
                 parent = elem.getparent()
                 if recursively_empty(elem):
-                    try:
-                        parent.remove(elem)
-                    except:
-                        print("Couldn't remove blank parent element.")
+                    parent.remove(elem)
+
 
             # remove nodes with blank attribute
             for element in clean.xpath(".//*[@*='']"):
