@@ -274,9 +274,9 @@ def getSheetNames(chosenfile):
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
-CACHEDIR = "/home/codyross/eadmaker/cache/"
+CACHEDIR = os.path.join(os.getcwd(), "cache") + "/"
 #CACHEDIR = os.getcwd() + "/"
-HOMEDIR = "/home/codyross/eadmaker/"
+HOMEDIR = os.getcwd() + "/"
 #HOMEDIR = os.getcwd() + "/"
 
 print("._. EAD Maker ._.", file=sys.stderr)
@@ -1190,6 +1190,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     returndict["filename"] = finalfilename
     returndict["error"] = False
+    returndict["allrecords"] = completestring
 
     with open(CACHEDIR + id + "/" + finalfilename, 'rb') as f:
         return(f.read(), returndict)
