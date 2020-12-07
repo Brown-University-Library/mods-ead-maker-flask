@@ -274,10 +274,10 @@ def getSheetNames(chosenfile):
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
-CACHEDIR = os.path.join(os.getcwd(), "cache") + "/"
-#CACHEDIR = os.getcwd() + "/"
-HOMEDIR = os.getcwd() + "/"
-#HOMEDIR = os.getcwd() + "/"
+CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
+#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 print("._. EAD Maker ._.", file=sys.stderr)
 
@@ -324,7 +324,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         excel = xlrd.open_workbook(chosenfile)
 
         #if originalfile != '':
-        #    copyworkbook(os.getcwd() + "/data/Collection-Level Data.xlsx", originalfile)
+        #    copyworkbook(os.path.dirname(os.path.abspath(__file__)) + "/data/Collection-Level Data.xlsx", originalfile)
 
         #print("")
         print("*Collection-Level Data Missing*\n", file=sys.stderr)
@@ -1170,7 +1170,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     # finished cleanup
     # write out to intermediate file
-    #with open(os.getcwd() + '/cache/clean.xml', 'wb') as f:
+    #with open(os.path.dirname(os.path.abspath(__file__)) + '/cache/clean.xml', 'wb') as f:
     #    f.write(etree.tostring(clean))
     #print "XML is now clean"
 

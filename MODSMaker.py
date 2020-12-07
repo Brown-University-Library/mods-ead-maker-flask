@@ -329,10 +329,10 @@ def XLSDictReaderScriptCode(file, sheetname):
         return(scriptcode)
 
 
-CACHEDIR = os.path.join(os.getcwd(), "cache") + "/"
-#CACHEDIR = os.getcwd() + "/"
-HOMEDIR = os.getcwd() + "/"
-#HOMEDIR = os.getcwd() + "/"
+CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
+#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 #print("._. MODS Maker ._.")
 
@@ -382,7 +382,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
         #Create the output directory and save the path to the output_path variable.
         #now = datetime.datetime.now()
-        #output_path = os.getcwd()
+        #output_path = os.path.dirname(os.path.abspath(__file__))
 
         #try:
         #     os.mkdir(output_path + '/'+ chosenfile + " " + now.strftime("%m-%d-%Y %H %M " + str(now.second)))

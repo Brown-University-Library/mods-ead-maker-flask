@@ -27,12 +27,12 @@ def eadMakerHome():
         if ".xlsx" in filename:
             filename = filename.replace("/", " ").replace("\\", " ")
             #print(input_file)
-            input_file.save(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
             #input_data = input_file.stream.read()
             return redirect("eadmaker/renderead/" + filename + "/" + id)
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
         #print(output_data, file=sys.stderr)
         #response = make_response(output_data)
@@ -50,13 +50,13 @@ def eadMakerSelectSheet(filename, id):
         print("GET requested", file=sys.stderr)
         select = request.form.get('sheetlist')
         #print(select, file=sys.stderr)
-        output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"), select, id)
+        output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         #print(output_data, file=sys.stderr)
         response = make_response(output_data)
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
         return response
     else:
-        sheetnames = getSheetNames(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename)
 
 @app.route("/eadmakerapi", methods=["GET", "POST"])
@@ -70,13 +70,13 @@ def eadMakerAPI():
         filename = filename.replace("/", " ").replace("\\", " ")
         #print(input_file)
         if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
             #input_data = input_file.stream.read()
             return "eadmaker/renderead/" + filename + "/" + id
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
 
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
         #print(output_data, file=sys.stderr)
         #response = make_response(output_data)
@@ -98,12 +98,12 @@ def modsMakerHome():
         filename = filename.replace("/", " ").replace("\\", " ")
         #print(input_file)
         if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
             #input_data = input_file.stream.read()
             return redirect("modsmaker/rendermods/" + filename + "/" + id)
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
         #print(output_data, file=sys.stderr)
         #response = make_response(output_data)
@@ -121,13 +121,13 @@ def modsMakerSelectSheet(filename, id):
         print("GET requested", file=sys.stderr)
         select = request.form.get('sheetlist')
         #print(select, file=sys.stderr)
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"), select, id)
+        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         #print(output_data, file=sys.stderr)
         response = make_response(output_data)
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
         return response
     else:
-        sheetnames = getSheetNames(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         return render_template('resultspageMODS.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename)
 
 @app.route("/modsmaker/getpreview", methods=["GET", "POST"])
@@ -137,7 +137,7 @@ def modsMakerGetPreview():
         requestDict = request.get_json()
         id = requestDict.get("id")
         select = requestDict.get("sheetname")
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"), select, id)
+        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         return(jsonify(returndict["allrecords"]))
 
 @app.route("/eadmaker/getpreview", methods=["GET", "POST"])
@@ -147,7 +147,7 @@ def eadMakerGetPreview():
         requestDict = request.get_json()
         id = requestDict.get("id")
         select = requestDict.get("sheetname")
-        output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"), select, id)
+        output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         return(jsonify(returndict["allrecords"]))
 
 
@@ -162,12 +162,12 @@ def modsMakerAPI():
         filename = filename.replace("/", " ").replace("\\", " ")
         #print(input_file)
         if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
             #input_data = input_file.stream.read()
             return "modsmaker/rendermods/" + filename + "/" + id
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.getcwd(), "cache"), id + ".xlsx"))
+        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
         #print(output_data, file=sys.stderr)
         #response = make_response(output_data)
