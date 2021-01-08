@@ -94,7 +94,7 @@ def repeatingfield(parentelement, refdict, originalfieldname, modsfieldname, mod
             parentelement = subjectelement
 
         namecontrolaccesselement = etree.SubElement(parentelement, modsfieldname, customMODSattributes)
-        namecontrolaccesselement.text = ' '.join(addedentry.replace("|d", "").replace("|e", "").split())
+        namecontrolaccesselement.text = ' '.join(addedentry.split())
 
         parentelement = originalparentelement
 
