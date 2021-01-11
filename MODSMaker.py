@@ -169,7 +169,7 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
 
 
         for textindex, text in enumerate(name.split(',')):
-            textrevised = ' '.join(text.split()).replace('|d', '').replace('|e','')
+            textrevised = ' '.join(text.split())
 
             if textrevised == '':
                 continue
@@ -196,10 +196,10 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
         namepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart")
         namepart.text = xmltext(nametext).rstrip(',')
         namedatepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"date"})
-        namedatepart.text = xmltext(datetext).lstrip(',').rstrip(',').replace('|d','')
+        namedatepart.text = xmltext(datetext).lstrip(',').rstrip(',')
         modsrole = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}role")
         modsroleterm = etree.SubElement(modsrole, "{http://www.loc.gov/mods/v3}roleTerm", {"type":"text", "authority":"marcrelator"})
-        modsroleterm.text = xmltext(roletext).lstrip(',').rstrip(',').replace('|e','')
+        modsroleterm.text = xmltext(roletext).lstrip(',').rstrip(',')
 
         parentelement = originalparentelement
 
@@ -280,9 +280,9 @@ def XLSDictReader(file, sheetname):
                 #If the value is a number, turn it into a string.
                 newvalue = ''
                 if sheet.cell(row,column).ctype > 1:
-                    newvalue = str(sheet.cell_value(row,column)).replace('|d', '').replace('|e', '').replace('|',';')
+                    newvalue = str(sheet.cell_value(row,column)).replace('|',';')
                 else:
-                    newvalue = sheet.cell_value(row,column).replace('|d', '').replace('|e', '').replace('|',';')
+                    newvalue = sheet.cell_value(row,column).replace('|',';')
 
                 #If the column is repeating, serialize the row values.
                 if rowdictionary.get(sheet.cell_value(0,column), '') != '':
