@@ -456,7 +456,15 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
 
             #typeOfResource
-            typeofresource = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}typeOfResource")
+
+            typeOfResourceAttributes = {}
+
+            if row.get("typeOfResourceManuscript", "") != "":
+                typeOfResourceAttributes['manuscript'] = "yes"
+            if row.get("typeOfResourceCollection", "") != "":
+                typeOfResourceAttributes['collection'] = "yes"
+
+            typeofresource = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}typeOfResource",typeOfResourceAttributes)
             typeofresource.text = xmltext(row.get("typeOfResource", ''))
 
             #genre
