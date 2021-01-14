@@ -146,7 +146,8 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
         nametext = ""
         datetext = ""
         roletext = predefinedrole
-
+        appendTermsOfAddress = []
+        prependTermsOfAddress = []
         customAttributes = topmodsattributes.copy()
 
         #Extract URI
@@ -167,13 +168,32 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
         if authorityURIs.get(authorityType):
             customAttributes["authorityURI"] = authorityURIs.get(authorityType)
 
+        #Extract termsOfAddress 
+
+        for textindex, text in enumerate(name.split(',')):
+
+            if textindex == 0:
+
+                appendTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+
+                for appendTermOfAddress in appendTermsOfAddress:
+                    name = name.replace(appendTermOfAddress, "")
+            
+            if textindex == 1:
+
+                prependTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+
+                for prependTermOfAddress in prependTermsOfAddress:
+                    print(text)
+                    print(prependTermOfAddress)
+                    name = name.replace(prependTermOfAddress, "")
 
         for textindex, text in enumerate(name.split(',')):
             textrevised = ' '.join(text.split())
 
             if textrevised == '':
                 continue
-
+            
             max_index = len(xmltext(name).split(','))-1
 
             if textindex == 0:
@@ -193,8 +213,16 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
             parentelement = subjectelement
 
         nameelement = etree.SubElement(parentelement, "{http://www.loc.gov/mods/v3}name", customAttributes)
+        for termOfAddress in prependTermsOfAddress:
+            termOfAddress = termOfAddress.replace("{{","").replace("}}","")
+            termOfAddressElement = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"termsOfAddress"})
+            termOfAddressElement.text = termOfAddress
         namepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart")
         namepart.text = xmltext(nametext).rstrip(',')
+        for termOfAddress in appendTermsOfAddress:
+            termOfAddress = termOfAddress.replace("{{","").replace("}}","")
+            termOfAddressElement = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"termsOfAddress"})
+            termOfAddressElement.text = termOfAddress
         namedatepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"date"})
         namedatepart.text = xmltext(datetext).lstrip(',').rstrip(',')
         modsrole = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}role")
@@ -437,6 +465,10 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             #title.text = xmltext(row.get("title"]) #' '.join(row["title", '').split())
             subtitle = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}subTitle")
             subtitle.text = xmltext(row.get("subTitle", ''))
+
+            alternateTitleInfoElement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"alternative"})
+            alternateTitleElement = etree.SubElement(alternateTitleInfoElement, "{http://www.loc.gov/mods/v3}title")
+            alternateTitleElement.text = xmltext(row.get("itemTitleAlternate", ''))
 
             pembroketitleinfo = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"alternative", "displayLabel":"Pembroke title"})
             pembroketitle = etree.SubElement(pembroketitleinfo, "{http://www.loc.gov/mods/v3}title")
