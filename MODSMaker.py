@@ -364,7 +364,10 @@ HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 #print("._. MODS Maker ._.")
 
-def processExceltoMODS(chosenfile, chosensheet, id):
+def processExceltoMODS(chosenfile, chosensheet, id, includeDefaults):
+
+        print("INCLUDE DEFAULTS")
+        print(includeDefaults)
     #try:
 
         if not os.path.exists(CACHEDIR + id):
@@ -535,7 +538,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             print(xmltext(row.get("noteVenue", '')))
 
 
-            if row.get("noPreferredCitation", "") == "":
+            if includeDefaults == True:
                 notePreferredCitation = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"preferredcitation"})
                 notePreferredCitationstring = title.text # xmltext(row.get("title", '')).rstrip('.')
                 if row.get("collection", '') != "":
@@ -617,7 +620,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             rightsStatementelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"rights statement","{http://www.w3.org/1999/xlink}href":xmltext(row.get("rightsStatementURI", ''))})
             rightsStatementelement.text = xmltext(row.get("rightsStatementText", ''))
 
-            if xmltext(row.get('notOpenForResearch','')) == '':
+            if includeDefaults == True:
                 restrictionOnAccesselement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"restriction on access"})
                 restrictionOnAccesselement.text = "Collection is open for research."
 
@@ -719,7 +722,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
                 MODSIDIdentifierelement.text = 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':','')
 
             #lastnote
-            if row.get("noDigitalObjectMade", "") == "":
+            if includeDefaults == True:
                 digitalObjectMadeelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"displayLabel":"Digital object made available by"})
                 digitalObjectMadeelement.text = "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"
 

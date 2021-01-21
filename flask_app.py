@@ -120,8 +120,11 @@ def modsMakerSelectSheet(filename, id):
     if request.method == "POST":
         print("GET requested", file=sys.stderr)
         select = request.form.get('sheetlist')
+        includeDefaults = True
+        if request.form.get('defaultsCheckbox', None) == None:
+            includeDefaults = False
         #print(select, file=sys.stderr)
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
+        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id, includeDefaults)
         #print(output_data, file=sys.stderr)
         response = make_response(output_data)
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
@@ -135,9 +138,11 @@ def modsMakerGetPreview():
     if request.method == "POST":
         print(request.get_json())
         requestDict = request.get_json()
+        print(requestDict)
         id = requestDict.get("id")
         select = requestDict.get("sheetname")
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
+        includeDefaults = requestDict.get('includedefaults', True)
+        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id, includeDefaults)
         return(jsonify(returndict["allrecords"]))
 
 @app.route("/eadmaker/getpreview", methods=["GET", "POST"])

@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <title>EAD Maker</title>
 </head>
 
@@ -64,7 +63,7 @@
     process.</p>
 
     <form method="post" action="{{id}}" enctype="multipart/form-data">
-      <p><select name="sheetlist" id="sheetlist" method="GET" action="/">
+      <p><select class="form-select" name="sheetlist" id="sheetlist" method="GET" action="/">
           <option value="{{sheets[0]}}" selected>{{sheets[0]}}</option>
           {% for sheet in sheets[1:] %}
           <option value="{{sheet}}">{{sheet}}</option>
