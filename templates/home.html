@@ -1,25 +1,11 @@
-        <html>
-            <head>
-                <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
+{% block content %}
+<p>
+<h6>Choose the Excel file you'd like to process.</h6>
+</p>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    <title>EAD Maker</title>
-            </head>
-            <body>
-
-            <div class="container">
-                <h1 class="display-4">EAD Maker</h1>
-                <br/>
-                <p><h6>Choose the Excel file you'd like to process.</h6></p>
-
-                <form method="post" action="/eadmaker" enctype="multipart/form-data">
-                    <p><input type="file" name="input_file" /></p>
-                    <p><input type="submit" class="btn btn-primary" value="Proceed" /></p>
-                </form>
-            </div>
-            </body>
-        </html>
+<form method="post" action="/eadmaker" enctype="multipart/form-data">
+    <p><input type="file" name="input_file" /></p>
+    <p><input type="submit" class="btn btn-primary" value="Proceed" /></p>
+</form>
+{% endblock %}

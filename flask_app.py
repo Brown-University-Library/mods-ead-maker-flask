@@ -14,7 +14,7 @@ app.config["DEBUG"] = True
 
 @app.route("/", methods=["GET", "POST"])
 def redirectToEADMaker():
-    return redirect(url_for('eadMakerHome'))
+    return redirect(url_for('modsMakerHome'))
 
 @app.route("/eadmaker", methods=["GET", "POST"])
 def eadMakerHome():
@@ -26,21 +26,13 @@ def eadMakerHome():
 
         if ".xlsx" in filename:
             filename = filename.replace("/", " ").replace("\\", " ")
-            #print(input_file)
             input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-            #input_data = input_file.stream.read()
             return redirect("eadmaker/renderead/" + filename + "/" + id)
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
-        #print(output_data, file=sys.stderr)
-        #response = make_response(output_data)
-        #response.headers["Content-Disposition"] = "attachment; filename=result.xml"
-        #return response
 
     else:
-        return render_template('home.html')
+        return render_template('home.html', title="EAD Maker")
 
 @app.route("/eadmaker/renderead/<string:filename>/<string:id>", methods=["GET", "POST"])
 def eadMakerSelectSheet(filename, id):
@@ -57,7 +49,7 @@ def eadMakerSelectSheet(filename, id):
         return response
     else:
         sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename)
+        return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename, title="EAD Maker")
 
 @app.route("/eadmakerapi", methods=["GET", "POST"])
 def eadMakerAPI():
@@ -75,13 +67,6 @@ def eadMakerAPI():
             return "eadmaker/renderead/" + filename + "/" + id
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
-        #print(output_data, file=sys.stderr)
-        #response = make_response(output_data)
-        #response.headers["Content-Disposition"] = "attachment; filename=result.xml"
-        #return response
 
     else:
         return "ERROR"
@@ -103,15 +88,9 @@ def modsMakerHome():
             return redirect("modsmaker/rendermods/" + filename + "/" + id)
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
-        #print(output_data, file=sys.stderr)
-        #response = make_response(output_data)
-        #response.headers["Content-Disposition"] = "attachment; filename=result.xml"
-        #return response
 
     else:
-        return render_template('homeMODS.html')
+        return render_template('homeMODS.html', title="MODS Maker")
 
 @app.route("/modsmaker/rendermods/<string:filename>/<string:id>", methods=["GET", "POST"])
 def modsMakerSelectSheet(filename, id):
@@ -131,7 +110,7 @@ def modsMakerSelectSheet(filename, id):
         return response
     else:
         sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        return render_template('resultspageMODS.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename)
+        return render_template('resultspageMODS.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename, title="MODS Maker")
 
 @app.route("/modsmaker/getpreview", methods=["GET", "POST"])
 def modsMakerGetPreview():
@@ -172,12 +151,10 @@ def modsMakerAPI():
             return "modsmaker/rendermods/" + filename + "/" + id
         else:
             return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-        #return render_template('resultspage.html', sheets=sheetnames, publicfilename=request.files["input_file"].name, privatefilename=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        #output_data = processExceltoEAD("/home/codyross/eadmaker/cache/input.xlsx", "seed-list (3)")
-        #print(output_data, file=sys.stderr)
-        #response = make_response(output_data)
-        #response.headers["Content-Disposition"] = "attachment; filename=result.xml"
-        #return response
 
     else:
         return "ERROR"
+
+@app.route("/resources", methods=["GET"])
+def renderResources():
+    return render_template('resources.html', title="Resources")
