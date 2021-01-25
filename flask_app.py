@@ -29,7 +29,7 @@ def eadMakerHome():
             input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
             return redirect("eadmaker/renderead/" + filename + "/" + id)
         else:
-            return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
 
     else:
         return render_template('home.html', title="EAD Maker")
@@ -66,8 +66,7 @@ def eadMakerAPI():
             #input_data = input_file.stream.read()
             return "eadmaker/renderead/" + filename + "/" + id
         else:
-            return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
     else:
         return "ERROR"
 
@@ -87,8 +86,7 @@ def modsMakerHome():
             #input_data = input_file.stream.read()
             return redirect("modsmaker/rendermods/" + filename + "/" + id)
         else:
-            return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
-
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
     else:
         return render_template('homeMODS.html', title="MODS Maker")
 
@@ -150,7 +148,7 @@ def modsMakerAPI():
             #input_data = input_file.stream.read()
             return "modsmaker/rendermods/" + filename + "/" + id
         else:
-            return render_template('error.html', error="Uploaded file must be a .XLSX Excel file.")
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
 
     else:
         return "ERROR"
