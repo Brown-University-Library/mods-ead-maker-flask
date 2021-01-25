@@ -30,6 +30,15 @@
             margin-top: 35px;
         }
 
+        .modsbuttons {
+            margin-top: 25px;
+        }
+
+        .explanationcard {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+
     </style>
 </head>
 
@@ -44,15 +53,6 @@
       <li class="nav-item">
         <a class="nav-link{% if title == "Resources" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('renderResources')}}">Resources</a>
       </li>
-      <!-- <li class="info nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Info</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" target="_blank"  href="https://docs.google.com/spreadsheets/d/1VbBANdK18uvoHqEuTfonty7CzO6p6BA5OHE0bQXoooQ/edit?usp=sharing"><i class="bi bi-link-45deg"></i> Usage and templates</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" target="_blank" href="http://www.loc.gov/standards/mods/"><i class="bi bi-link-45deg"></i> MODS documentation</a></li>
-          <li><a class="dropdown-item" target="_blank" href="https://www.loc.gov/ead/"><i class="bi bi-link-45deg"></i> EAD documentation</a></li>
-        </ul>
-      </li> -->
     </ul>
     <div class="container">
         <h1 class="display-4">{{title}}</h1>
