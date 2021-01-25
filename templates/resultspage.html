@@ -39,9 +39,9 @@
 
   }
 </script>
-<p>
+
 <h4>{{publicfilename}}</h4>
-</p><br />
+<br />
 <p>
 <h6>Select the Excel sheet in your Excel workbook that contains the inventory (box/folder) metadata you'd like to
   process.</h6> The Excel sheet containing the Collection-Level Data will automatically be included during the
@@ -54,12 +54,14 @@ process.</p>
       <option value="{{sheet}}">{{sheet}}</option>
       {% endfor %}
     </select></p>
-  <input type="submit" class="btn btn-primary" value="Download EAD" />
+  <div class="buttons">
+  <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download EAD</button>
   <div style="margin-left: 5px; display:inline-block" onclick="retrievePreview('{{id}}')" class="btn btn-secondary">
     <span style="display:none;" class="spinner-border spinner-border-sm" id="previewspinner" role="status"
       aria-hidden="true"></span>
     Preview EAD
   </div>
+</div>
 </form>
 <div class="alert alert-secondary instructions" role="alert">
   Your EAD file will download as a .xml file. The name of the .xml file will be your institution's MARC Repository
