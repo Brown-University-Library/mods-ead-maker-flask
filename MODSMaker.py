@@ -469,6 +469,12 @@ def processExceltoMODS(chosenfile, chosensheet, id, includeDefaults):
             subtitle = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}subTitle")
             subtitle.text = xmltext(row.get("subTitle", ''))
 
+            partNumberElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partNumber")
+            partNumberElement.text = xmltext(row.get("itemTitlePartNumber").replace(".0",""))
+
+            partNameElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partName")
+            partNameElement.text = xmltext(row.get("itemTitlePartName"))
+
             translatedTitleInfoElement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"translated"})
             translatedTitleElement = etree.SubElement(translatedTitleInfoElement, "{http://www.loc.gov/mods/v3}title")
             translatedTitleElement.text = xmltext(row.get("itemTitleTranslated", ''))
