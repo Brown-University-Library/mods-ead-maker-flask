@@ -88,11 +88,24 @@ def modsMakerHome():
         else:
             return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
     else:
-        return render_template('homeMODS.html', title="MODS Maker")
+        return render_template('MODSfileselect.html', title="MODS Maker")
 
-@app.route("/modsmaker/rendermods/<string:filename>/<string:id>", methods=["GET", "POST"])
-def modsMakerSelectSheet(filename, id):
-    print("TRYING TO RENDER RENDERTEMPLATE", file=sys.stderr)
+@app.route("/processfileupload", methods=["POST"])
+def processNewFile():
+    if request.method == "POST":
+        fileUid = str(uuid.uuid4())
+        inputFile = request.files.get("xlsx_file")
+        fileName = inputFile.filename
+        if ".xlsx" in fileName:
+            filePath = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), fileUid + ".xlsx")
+            inputFile.save(os.path.join(filePath))
+            data = {"filename":fileName, "sheetnames": getSheetNames(filePath), "uid": fileUid}
+            return jsonify(data)
+        else:
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
+
+@app.route("/modsmaker/returnmods/<string:id>", methods=["POST"])
+def modsMakerReturnMods(id):
     #print(g.sheetnames, file=sys.stderr)
     if request.method == "POST":
         print("GET requested", file=sys.stderr)
@@ -106,9 +119,6 @@ def modsMakerSelectSheet(filename, id):
         response = make_response(output_data)
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
         return response
-    else:
-        sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-        return render_template('resultspageMODS.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename, title="MODS Maker")
 
 @app.route("/modsmaker/getpreview", methods=["GET", "POST"])
 def modsMakerGetPreview():
