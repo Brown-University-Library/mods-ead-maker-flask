@@ -470,7 +470,7 @@ def processExceltoMODS(chosenfile, chosensheet, id, includeDefaults):
             subtitle.text = xmltext(row.get("subTitle", ''))
 
             partNumberElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partNumber")
-            partNumberElement.text = xmltext(row.get("itemTitlePartNumber").replace(".0",""))
+            partNumberElement.text = xmltext(row.get("itemTitlePartNumber","").replace(".0",""))
 
             partNameElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partName")
             partNameElement.text = xmltext(row.get("itemTitlePartName"))
@@ -931,9 +931,8 @@ def processExceltoMODS(chosenfile, chosensheet, id, includeDefaults):
             context = etree.iterwalk(clean)
             for action, elem in context:
                 parent = elem.getparent()
-                if recursively_empty(elem):
+                if recursively_empty(elem) and parent is not None:
                     parent.remove(elem)
-
 
             # remove nodes with blank attribute
             for element in clean.xpath(".//*[@*='']"):
