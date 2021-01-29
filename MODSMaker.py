@@ -94,7 +94,7 @@ def repeatingfield(parentelement, refdict, originalfieldname, modsfieldname, mod
             parentelement = subjectelement
 
         namecontrolaccesselement = etree.SubElement(parentelement, modsfieldname, customMODSattributes)
-        namecontrolaccesselement.text = ' '.join(addedentry.replace("|d", "").replace("|e", "").split())
+        namecontrolaccesselement.text = ' '.join(addedentry.split())
 
         parentelement = originalparentelement
 
@@ -146,7 +146,8 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
         nametext = ""
         datetext = ""
         roletext = predefinedrole
-
+        appendTermsOfAddress = []
+        prependTermsOfAddress = []
         customAttributes = topmodsattributes.copy()
 
         #Extract URI
@@ -167,13 +168,32 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
         if authorityURIs.get(authorityType):
             customAttributes["authorityURI"] = authorityURIs.get(authorityType)
 
+        #Extract termsOfAddress 
 
         for textindex, text in enumerate(name.split(',')):
-            textrevised = ' '.join(text.split()).replace('|d', '').replace('|e','')
+
+            if textindex == 0:
+
+                appendTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+
+                for appendTermOfAddress in appendTermsOfAddress:
+                    name = name.replace(appendTermOfAddress, "")
+            
+            if textindex == 1:
+
+                prependTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+
+                for prependTermOfAddress in prependTermsOfAddress:
+                    print(text)
+                    print(prependTermOfAddress)
+                    name = name.replace(prependTermOfAddress, "")
+
+        for textindex, text in enumerate(name.split(',')):
+            textrevised = ' '.join(text.split())
 
             if textrevised == '':
                 continue
-
+            
             max_index = len(xmltext(name).split(','))-1
 
             if textindex == 0:
@@ -193,13 +213,21 @@ def repeatingnamefield(parentelement, refdict, originalfieldname, topmodsattribu
             parentelement = subjectelement
 
         nameelement = etree.SubElement(parentelement, "{http://www.loc.gov/mods/v3}name", customAttributes)
+        for termOfAddress in prependTermsOfAddress:
+            termOfAddress = termOfAddress.replace("{{","").replace("}}","")
+            termOfAddressElement = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"termsOfAddress"})
+            termOfAddressElement.text = termOfAddress
         namepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart")
         namepart.text = xmltext(nametext).rstrip(',')
+        for termOfAddress in appendTermsOfAddress:
+            termOfAddress = termOfAddress.replace("{{","").replace("}}","")
+            termOfAddressElement = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"termsOfAddress"})
+            termOfAddressElement.text = termOfAddress
         namedatepart = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}namePart", {"type":"date"})
-        namedatepart.text = xmltext(datetext).lstrip(',').rstrip(',').replace('|d','')
+        namedatepart.text = xmltext(datetext).lstrip(',').rstrip(',')
         modsrole = etree.SubElement(nameelement, "{http://www.loc.gov/mods/v3}role")
         modsroleterm = etree.SubElement(modsrole, "{http://www.loc.gov/mods/v3}roleTerm", {"type":"text", "authority":"marcrelator"})
-        modsroleterm.text = xmltext(roletext).lstrip(',').rstrip(',').replace('|e','')
+        modsroleterm.text = xmltext(roletext).lstrip(',').rstrip(',')
 
         parentelement = originalparentelement
 
@@ -280,9 +308,9 @@ def XLSDictReader(file, sheetname):
                 #If the value is a number, turn it into a string.
                 newvalue = ''
                 if sheet.cell(row,column).ctype > 1:
-                    newvalue = str(sheet.cell_value(row,column)).replace('|d', '').replace('|e', '').replace('|',';')
+                    newvalue = str(sheet.cell_value(row,column)).replace('|',';')
                 else:
-                    newvalue = sheet.cell_value(row,column).replace('|d', '').replace('|e', '').replace('|',';')
+                    newvalue = sheet.cell_value(row,column).replace('|',';')
 
                 #If the column is repeating, serialize the row values.
                 if rowdictionary.get(sheet.cell_value(0,column), '') != '':
@@ -329,14 +357,17 @@ def XLSDictReaderScriptCode(file, sheetname):
         return(scriptcode)
 
 
-CACHEDIR = "/home/codyross/eadmaker/cache/"
-#CACHEDIR = os.getcwd() + "/"
-HOMEDIR = "/home/codyross/eadmaker/"
-#HOMEDIR = os.getcwd() + "/"
+CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
+#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 #print("._. MODS Maker ._.")
 
-def processExceltoMODS(chosenfile, chosensheet, id):
+def processExceltoMODS(chosenfile, chosensheet, id, includeDefaults):
+
+        print("INCLUDE DEFAULTS")
+        print(includeDefaults)
     #try:
 
         if not os.path.exists(CACHEDIR + id):
@@ -352,6 +383,9 @@ def processExceltoMODS(chosenfile, chosensheet, id):
         #Extract spreadsheet data to csvdata dictionary.
         csvdata = {}
         langissue = False
+
+        #For preview
+        allrecords = ""
 
         excel = xlrd.open_workbook(chosenfile)
         selectedsheet = excel.sheet_by_name(chosensheet)
@@ -379,7 +413,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
         #Create the output directory and save the path to the output_path variable.
         #now = datetime.datetime.now()
-        #output_path = os.getcwd()
+        #output_path = os.path.dirname(os.path.abspath(__file__))
 
         #try:
         #     os.mkdir(output_path + '/'+ chosenfile + " " + now.strftime("%m-%d-%Y %H %M " + str(now.second)))
@@ -435,6 +469,20 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             subtitle = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}subTitle")
             subtitle.text = xmltext(row.get("subTitle", ''))
 
+            partNumberElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partNumber")
+            partNumberElement.text = xmltext(row.get("itemTitlePartNumber","").replace(".0",""))
+
+            partNameElement = etree.SubElement(titleinfo, "{http://www.loc.gov/mods/v3}partName")
+            partNameElement.text = xmltext(row.get("itemTitlePartName"))
+
+            translatedTitleInfoElement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"translated"})
+            translatedTitleElement = etree.SubElement(translatedTitleInfoElement, "{http://www.loc.gov/mods/v3}title")
+            translatedTitleElement.text = xmltext(row.get("itemTitleTranslated", ''))
+
+            alternateTitleInfoElement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"alternative"})
+            alternateTitleElement = etree.SubElement(alternateTitleInfoElement, "{http://www.loc.gov/mods/v3}title")
+            alternateTitleElement.text = xmltext(row.get("itemTitleAlternate", ''))
+
             pembroketitleinfo = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}titleInfo", {"type":"alternative", "displayLabel":"Pembroke title"})
             pembroketitle = etree.SubElement(pembroketitleinfo, "{http://www.loc.gov/mods/v3}title")
             pembroketitle.text = xmltext(row.get("itemTitleAlternatePembroke", ''))
@@ -453,7 +501,15 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
 
             #typeOfResource
-            typeofresource = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}typeOfResource")
+
+            typeOfResourceAttributes = {}
+
+            if row.get("typeOfResourceManuscript", "") != "":
+                typeOfResourceAttributes['manuscript'] = "yes"
+            if row.get("typeOfResourceCollection", "") != "":
+                typeOfResourceAttributes['collection'] = "yes"
+
+            typeofresource = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}typeOfResource",typeOfResourceAttributes)
             typeofresource.text = xmltext(row.get("typeOfResource", ''))
 
             #genre
@@ -467,17 +523,17 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             notescopeelement.text = xmltext(row.get("noteScope", ''))
             #xmltext(row.get("noteScope", ''))
 
-            noteGeneralelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"general"})
-            noteGeneralelement.text = xmltext(row.get("noteGeneral", ''))
-            #xmltext(row.get("noteGeneral", ''))
-
             noteAccessionelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"acquisition", "displayLabel":"Immediate form of acquisition"})
             noteAccessionelement.text = xmltext(row.get("noteAccession", ''))
             #xmltext(row.get("noteAccession", ''))
 
-            noteHistoricalelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"biographical/historical", "displayLabel":"Biographical note"})
+            noteHistoricalelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"biographical/historical", "displayLabel":"Biographical/historical note"})
             noteHistoricalelement.text = xmltext(row.get("noteHistorical", ''))
             #xmltext(row.get("noteHistorical", ''))
+
+            noteGeneralelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"general"})
+            noteGeneralelement.text = xmltext(row.get("noteGeneral", ''))
+            #xmltext(row.get("noteGeneral", ''))
 
             noteHistoricalClassYearelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"biographical/historical", "displayLabel":"Class year"})
             noteHistoricalClassYearelement.text = xmltext(row.get("noteHistoricalClassYear", '')).replace('.0','')
@@ -487,13 +543,16 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             noteVenueelement.text = xmltext(row.get("noteVenue", ''))
             print(xmltext(row.get("noteVenue", '')))
 
-            notePreferredCitation = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"preferredcitation"})
-            notePreferredCitationstring = title.text # xmltext(row.get("title", '')).rstrip('.')
-            if row.get("collection", '') != "":
-                notePreferredCitationstring = notePreferredCitationstring + ", " + xmltext(row.get("collection", ''))
-            if row.get("callNumber", '') != "":
-                notePreferredCitationstring = notePreferredCitationstring + ", " + xmltext(row.get("callNumber", ''))
-            notePreferredCitation.text = notePreferredCitationstring + ', Brown University Library'
+
+            if includeDefaults == True:
+                notePreferredCitation = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"type":"preferredcitation"})
+                notePreferredCitationstring = title.text # xmltext(row.get("title", '')).rstrip('.')
+                if row.get("collection", '') != "":
+                    notePreferredCitationstring = notePreferredCitationstring + ", " + xmltext(row.get("collection", ''))
+                if row.get("callNumber", '') != "":
+                    notePreferredCitationstring = notePreferredCitationstring + ", " + xmltext(row.get("callNumber", ''))
+                
+                notePreferredCitation.text = notePreferredCitationstring + ', Brown University Library'
 
             #originInfo
             originInfoelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}originInfo")
@@ -505,6 +564,9 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
             if row.get("dateQualifier", '') != "":
                 dateQualifierAttribute = {"qualifier": row.get("dateQualifier", '')}
+
+            if row.get("dateStart", '') == "":
+                dateQualifierAttribute["keyDate"] = "yes"
 
             dateCreatedelement = etree.SubElement(originInfoelement, "{http://www.loc.gov/mods/v3}dateCreated", dateQualifierAttribute)
             dateCreatedelement.text = xmltext(row.get("dateText", '')).replace('.0','')
@@ -564,7 +626,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             rightsStatementelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"rights statement","{http://www.w3.org/1999/xlink}href":xmltext(row.get("rightsStatementURI", ''))})
             rightsStatementelement.text = xmltext(row.get("rightsStatementText", ''))
 
-            if xmltext(row.get('notOpenForResearch','')) == '':
+            if includeDefaults == True:
                 restrictionOnAccesselement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"restriction on access"})
                 restrictionOnAccesselement.text = "Collection is open for research."
 
@@ -578,6 +640,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
             repeatingfield(modstop, row, "subjectTopicsLC", "{http://www.loc.gov/mods/v3}topic", {}, True, {"authority":"lcsh"})
             repeatingfield(modstop, row, "subjectTopicsLocal", "{http://www.loc.gov/mods/v3}topic", {}, True, {"authority":"local"})
+            repeatingfield(modstop, row, "subjectTopicsLocalFreedomNow", "{http://www.loc.gov/mods/v3}topic", {}, True, {"authority":"local", "displayLabel":"Freedom Now! keyword"})
             repeatingfield(modstop, row, "subjectTopicsFAST", "{http://www.loc.gov/mods/v3}topic", {}, True, {"authority":"fast"})
             repeatingfield(modstop, row, "subjectGeoLC", "{http://www.loc.gov/mods/v3}geographic", {}, True, {"authority":"lcsh"})
             repeatingfield(modstop, row, "subjectGeoFAST", "{http://www.loc.gov/mods/v3}geographic", {}, True, {"authority":"fast"})
@@ -585,6 +648,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             repeatingfield(modstop, row, "subjectTemporalFAST", "{http://www.loc.gov/mods/v3}temporal", {}, True, {"authority":"fast"})
             repeatingfield(modstop, row, "subjectTemporalLocal", "{http://www.loc.gov/mods/v3}temporal", {}, True, {"authority":"local"})
 
+            repeatingTitleSubjectField(modstop, row, "subjectTitleLocal", {"authority":"local"})
             repeatingTitleSubjectField(modstop, row, "subjectTitleLC", {"authority":"lcsh"})
             repeatingTitleSubjectField(modstop, row, "subjectTitleFAST", {"authority":"fast"})
 
@@ -640,6 +704,20 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             shelfLocatorstring = shelfLocatorstring.lstrip(', ')
             hostshelfLocatorelement.text = ' '.join(shelfLocatorstring.split())
 
+            #Additional location fields
+            locationElement = etree.SubElement(modstop,"{http://www.loc.gov/mods/v3}location")
+            repeatingfield(locationElement, row, "physicalLocationLC", "{http://www.loc.gov/mods/v3}physicalLocation", {"authority":"naf"}, False, {} )
+            holdingSimpleElement = etree.SubElement(locationElement, "{http://www.loc.gov/mods/v3}holdingSimple")
+            copyInformationElement = etree.SubElement(holdingSimpleElement, "{http://www.loc.gov/mods/v3}copyInformation")
+
+            if row.get("physicalLocationLC", "") != "":
+                shelfLocator1Element = etree.SubElement(copyInformationElement, "{http://www.loc.gov/mods/v3}note", {"type": row.get("shelfLocator1","").lower() + " name"})
+                shelfLocator1Element.text = xmltext(row.get("shelfLocator1", "") + " " + row.get("shelfLocator1ID","").replace('.0',''))
+                shelfLocator2Element = etree.SubElement(copyInformationElement, "{http://www.loc.gov/mods/v3}note", {"type": row.get("shelfLocator2","").lower() + " title"})
+                shelfLocator2Element.text = xmltext(row.get("shelfLocator2", "") + " " + row.get("shelfLocator2ID","").replace('.0',''))
+                shelfLocator3Element = etree.SubElement(copyInformationElement, "{http://www.loc.gov/mods/v3}note", {"type": row.get("shelfLocator3","").lower() + " name"})
+                shelfLocator3Element.text = xmltext(row.get("shelfLocator3", "") + " " + row.get("shelfLocator3ID","").replace('.0',''))
+
             #If identifierBDR has a bdr number in it:
             if row.get("identifierBDR", '').startswith('bdr'):
                 #identifiers
@@ -650,8 +728,9 @@ def processExceltoMODS(chosenfile, chosensheet, id):
                 MODSIDIdentifierelement.text = 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':','')
 
             #lastnote
-            digitalObjectMadeelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"displayLabel":"Digital object made available by"})
-            digitalObjectMadeelement.text = "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"
+            if includeDefaults == True:
+                digitalObjectMadeelement = etree.SubElement(modstop, "{http://www.loc.gov/mods/v3}note", {"displayLabel":"Digital object made available by"})
+                digitalObjectMadeelement.text = "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"
 
             ##Alphabetize certain kinds of elements
             #mods:name in [namePersonCreatorLC, namePersonCreatorLocal] [nameCorpCreatorLC, nameCorpCreatorLocal] [namePersonOtherLC, namePersonOtherLocal] order
@@ -852,7 +931,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             context = etree.iterwalk(clean)
             for action, elem in context:
                 parent = elem.getparent()
-                if recursively_empty(elem):
+                if recursively_empty(elem) and parent is not None:
                     parent.remove(elem)
 
             # remove nodes with blank attribute
@@ -862,6 +941,9 @@ def processExceltoMODS(chosenfile, chosensheet, id):
             # remove nodes with attribute "null"
             for element in clean.xpath(".//*[@*='null']"):
                 element.getparent().remove(element)
+
+            allrecords = allrecords + "\n" + etree.tostring(clean, pretty_print = True, encoding="unicode")
+            allrecords.lstrip("\n")
 
             filename = row.get("identifierBDR", '')
 
@@ -883,6 +965,7 @@ def processExceltoMODS(chosenfile, chosensheet, id):
 
         returndict["filename"] = chosensheet + ".zip"
         returndict["error"] = False
+        returndict["allrecords"] = allrecords
 
         #Return the zipped files
         #zipObj.close()

@@ -12,6 +12,8 @@ from copy import copy
 import sys
 import traceback
 
+xlrd.xlsx.ensure_elementtree_imported(False, None)
+xlrd.xlsx.Element_has_iter = True
 
 requiredcolumns = ["barcode","subgroupTitle", "subgroupID", "recordgroupTitle", "recordgroupID", "locationCopies", "subjectTopicsFAST","Ignore", "seriesTitle", "seriesID", "subSeriesTitle", "subSeriesID", "fileTitle", "itemTitle", "subTitle", "place","dateText","dateStart","dateEnd","dateBulkStart","dateBulkEnd","dateQualifier", "shelfLocator1", "shelfLocator1ID", "shelfLocator2", "shelfLocator2ID", "shelfLocator3","shelfLocator3ID","typeOfResource","genreAAT","genreLCSH","genreLocal","genreRBGENR","extentQuantity","extentSize","extentSpeed","form","noteScope","noteHistorical","noteHistoricalClassYear","noteGeneral","language","noteAccession","identifierBDR","publisher","namePersonCreatorLC","namePersonCreatorLocal","nameCorpCreatorLC","nameCorpCreatorLocal","namePersonOtherLC","namePersonOtherLocal","subjectNamesLC","subjectNamesLocal","subjectCorpLC","subjectCorpLocal","subjectTopicsLC","subjectTopicsLocal","subjectGeoLC","subjectTemporalLC","subjectTitleLC","collection","dateTextParent","callNumber","repository","findingAid","digitalOrigin","rightsStatementText","rightsStatementURI", "useAndReproduction", "coordinates", "scale", "projection", "containerSummary"]
 langcode = {}
@@ -274,10 +276,10 @@ def getSheetNames(chosenfile):
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
-CACHEDIR = "/home/codyross/eadmaker/cache/"
-#CACHEDIR = os.getcwd() + "/"
-HOMEDIR = "/home/codyross/eadmaker/"
-#HOMEDIR = os.getcwd() + "/"
+CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
+#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 print("._. EAD Maker ._.", file=sys.stderr)
 
@@ -324,7 +326,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         excel = xlrd.open_workbook(chosenfile)
 
         #if originalfile != '':
-        #    copyworkbook(os.getcwd() + "/data/Collection-Level Data.xlsx", originalfile)
+        #    copyworkbook(os.path.dirname(os.path.abspath(__file__)) + "/data/Collection-Level Data.xlsx", originalfile)
 
         #print("")
         print("*Collection-Level Data Missing*\n", file=sys.stderr)
@@ -1170,7 +1172,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     # finished cleanup
     # write out to intermediate file
-    #with open(os.getcwd() + '/cache/clean.xml', 'wb') as f:
+    #with open(os.path.dirname(os.path.abspath(__file__)) + '/cache/clean.xml', 'wb') as f:
     #    f.write(etree.tostring(clean))
     #print "XML is now clean"
 
@@ -1190,6 +1192,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     returndict["filename"] = finalfilename
     returndict["error"] = False
+    returndict["allrecords"] = completestring
 
     with open(CACHEDIR + id + "/" + finalfilename, 'rb') as f:
         return(f.read(), returndict)

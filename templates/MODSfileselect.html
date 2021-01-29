@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>
+<h6>Choose the Excel file you'd like to process.</h6>
+</p>
+
+<form enctype="multipart/form-data">
+    <p><input class="form-control" type="file" name="input_file" id="input_file" /></p> 
+</form>
+
+{% include 'MODSaction.html' %}
+
+<script>
+    fileInput = document.getElementById("input_file")
+    fileInput.addEventListener('change', handleFileInputChange)
+    fileTitle = document.getElementById("file_name")
+    sheetList = document.getElementById("sheetlist")
+    previewButton = document.getElementById("preview_button")
+    submitForm = document.getElementById("submit_mods")
+    actionCard = document.getElementById("action_card")
+    clearActionSheet()
+
+    function handleFileInputChange() {
+
+        clearActionSheet()
+
+        if (fileInput.files[0] == undefined) {
+            return
+        }
+
+        let selectedFile = fileInput.files[0]
+        
+        console.log(selectedFile.name)
+        if (selectedFile.name.includes(".xlsx")) {
+            handleUpload(selectedFile)
+        }
+    }
+
+    function handleUpload(file) {
+        let formData = new FormData();
+
+        formData.append("xlsx_file", file);
+        fetch('/processfileupload', {method: "POST", body: formData})
+        .then(response => response.json())
+        .then(data => setUpActionCard(data));
+    }
+
+    function setUpActionCard(response) {
+        fileName = response['filename']
+        sheetNames = response['sheetnames']
+        uid = response['uid']
+
+        console.log(sheetNames)
+
+        fileTitle.innerText = fileName
+
+        for (sheetName of sheetNames) {
+            sheetList.appendChild(createSheetOptionElement(sheetName))
+        }
+
+        previewButton.addEventListener('click', function() {
+            retrievePreview(uid)
+        })
+
+        submitForm.setAttribute("action", "/modsmaker/returnmods/" + uid)
+        
+        actionCard.style.opacity = "1"
+        actionCard.style.pointerEvents = "all"
+    }
+
+    function createSheetOptionElement(sheetName) {
+        newSheetOption = document.createElement("option")
+        newSheetOption.setAttribute("value",sheetName)
+        newSheetOption.innerText = sheetName
+        return newSheetOption
+    }
+
+    function clearActionSheet() {
+
+        fileTitle.innerText = "No file selected"
+
+        sheetList.innerText = ""
+
+        previewButton.addEventListener('click', function() {
+            
+        })
+
+        submitForm.setAttribute("action", "")
+
+        actionCard.style.opacity = "0.5"
+        actionCard.style.pointerEvents = "none"
+
+        const previewParentDiv = document.getElementById("previewparent")
+        previewParentDiv.style.display = "none"
+   
+    }
+
+</script>
+
+{% endblock %}
