@@ -1,0 +1,168 @@
+skipif:
+ - recordgroupTitle
+ - subgroupTitle
+ - seriesTitle
+ - subSeriesTitle
+ - Ignore
+
+attrqname: 
+  uri: http://www.w3.org/2001/XMLSchema-instance
+  tag: schemaLocation
+nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-instance, xlink: http://www.w3.org/1999/xlink}
+elementnamespace: '{http://www.loc.gov/mods/v3}'
+parenttag: 'mods'
+
+fields:
+#Regular title
+  - type: element 
+    name: titleInfo
+    children:
+      - type: element 
+        name: title
+        cols:
+          - {header: fileTitle, method: value}
+          - {header: itemTitle, method: value}
+      - type: element 
+        name: subTitle
+        cols:
+          - {header: subTitle, method: value}
+      - type: element 
+        name: partNumber
+        cols:
+          - {header: itemTitlePartNumber, method: num}
+      - type: element 
+        name: partName
+        cols:
+          - {header: itemTitlePartName, method: value}
+
+  - type: element 
+    name: titleInfo
+    attrs: {type: translated}
+    children:
+      - type: element
+        name: title
+        cols:
+          - {header: itemTitleTranslated, method: value}
+
+  - type: element 
+    name: titleInfo
+    attrs: {type: alternative}
+    children:
+      - type: element
+        name: title
+        cols:
+          - {header: itemTitleAlternate, method: value}
+
+  - type: element
+    name: titleInfo
+    attrs: {type: alternative, displayLabel: Pembroke title}
+    children:
+      - type: element
+        name: title
+        cols:
+          - {header: itemTitleAlternatePembroke, method: value}
+  
+  - type: repeating 
+    method: name
+    colheaders:
+      - namePersonCreatorLC
+    attrs: {type: personal, authority: naf}
+    defaultrole: creator
+    issubject: false
+
+  - type: repeating 
+    method: name
+    colheaders:
+      - namePersonCreatorFAST
+    attrs: {type: personal, authority: fast}
+    defaultrole: creator
+    issubject: false
+
+  - type: repeating 
+    method: name
+    colheaders:
+      - namePersonCreatorLocal
+    attrs: {type: personal, authority: local}
+    defaultrole: creator
+    issubject: false
+
+  - type: element 
+    name: typeOfResource 
+    cols:
+      - {header: typeOfResource, method: value}
+    conditionalattrs:
+      - key: manuscript
+        col: typeOfResourceManuscript
+        method: bool
+        value: 'yes'
+      - key: collection 
+        col: typeOfResourceCollection
+        method: bool
+        value: 'yes'
+  
+  - type: repeating
+    method: value
+    colheaders:
+      - genreAAT
+    name: genre
+    attrs: {authority: aat}
+    issubject: false
+  
+  - type: element
+    name: abstract
+    attrs: {type: general, displayLabel: Scope and Contents note}
+    cols:
+      - {header: noteScope, method: value}
+
+
+  - type: repeating
+    method: value
+    name: topic
+    issubject: true
+    attrs: {}
+    subjectattrs:
+      authority: lcsh
+    colheaders:
+      - subjectTopicsLC
+  
+  - type: repeating
+    method: value
+    name: topic
+    issubject: true
+    attrs: {}
+    subjectattrs:
+      authority: local
+    colheaders:
+      - subjectTopicsLocal
+
+  - type: repeating
+    method: value
+    name: topic
+    issubject: true
+    attrs: {}
+    subjectattrs:
+      authority: local
+      displayLabel: Freedom Now! keyword
+    colheaders:
+      - subjectTopicsFreedomNow
+
+  - type: repeating
+    method: title
+    attrs:
+      authority: lcsh
+    colheaders:
+      - subjectTitleLocal
+
+  - type: repeating
+    method: title
+    attrs:
+      authority: lc
+    colheaders:
+      - subjectTitleLC
+
+  - type: repeating
+    method: title
+    attrs:
+      authority: fast
+    colheaders:
+      - subjectTitleFAST
