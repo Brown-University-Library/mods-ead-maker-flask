@@ -12,6 +12,12 @@ nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-
 elementnamespace: '{http://www.loc.gov/mods/v3}'
 parenttag: 'mods'
 
+authorities: 
+  - {suffix: LC, authority: lcsh, authorityURI: http://id.loc.gov/authorities/subjects.html}
+  - {suffix: FAST, authority: fast, authorityURI: http://id.worldcat.org/fast}
+  - {suffix: Local, authority: local}
+  - {suffix: RBGENR, authority: rbgenr, authorityURI: https://rbms.info/vocabularies/genre/alphabetical_list.htm}
+
 fields:
 #Regular title
   - type: element 
@@ -61,30 +67,146 @@ fields:
         name: title
         cols:
           - {header: itemTitleAlternatePembroke, method: value}
-  
-  - type: repeating 
-    method: name
-    colheaders:
-      - namePersonCreatorLC
-    attrs: {type: personal, authority: naf}
-    defaultrole: creator
-    issubject: false
 
-  - type: repeating 
-    method: name
-    colheaders:
-      - namePersonCreatorFAST
-    attrs: {type: personal, authority: fast}
-    defaultrole: creator
-    issubject: false
+  - type: repeating
+    method: nameauthority
+    colprefix:
+      - namePersonCreator
+    defaults: {name.role: creator}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          col: name.authority
+          method: value
+        - key: valueURI
+          col: name.valueURI
+          method: value
+        - key: authorityURI
+          col: name.authorityURI
+          method: value
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          cols:
+          - {header: name.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          cols:
+          - {header: name.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            cols:
+            - {header: name.role, method: value}
 
-  - type: repeating 
+  - type: repeating
     method: name
-    colheaders:
-      - namePersonCreatorLocal
-    attrs: {type: personal, authority: local}
-    defaultrole: creator
-    issubject: false
+    colprefix:
+      - namePersonOther
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          col: name.authority
+          method: value
+        - key: valueURI
+          col: name.valueURI
+          method: value
+        - key: authorityURI
+          col: name.authorityURI
+          method: value
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          cols:
+          - {header: name.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          cols:
+          - {header: name.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            cols:
+            - {header: name.role, method: value}
+
+  - type: repeating
+    method: name
+    colprefix:
+      - nameCorpCreator
+    defaults: {name.role: creator}
+    element:
+      name: name
+      attrs: {type: corporate}
+      conditionalattrs: 
+        - key: authority
+          col: name.authority
+          method: value
+        - key: valueURI
+          col: name.valueURI
+          method: value
+        - key: authorityURI
+          col: name.authorityURI
+          method: value
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          cols:
+          - {header: name.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          cols:
+          - {header: name.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          cols:
+          - {header: name.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            cols:
+            - {header: name.role, method: value}
 
   - type: element 
     name: typeOfResource 
@@ -102,67 +224,424 @@ fields:
   
   - type: repeating
     method: value
-    colheaders:
-      - genreAAT
-    name: genre
-    attrs: {authority: aat}
-    issubject: false
-  
+    colprefix:
+      - genre
+    element:
+      name: genre
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+        - key: valueURI
+          col: value.valueURI
+          method: value
+        - key: authorityURI
+          col: value.authorityURI
+          method: value
+      cols:
+        - {header: value.value, method: value}
+
   - type: element
     name: abstract
     attrs: {type: general, displayLabel: Scope and Contents note}
     cols:
       - {header: noteScope, method: value}
 
+  - type: element
+    name: note
+    attrs: {type: acquisition, displayLabel: Immediate form of acquisition}
+    cols:
+      - {header: noteAccession, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: biographical/historical, displayLabel: Biographical/historical note}
+    cols:
+      - {header: noteHistorical, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: general}
+    cols:
+      - {header: noteGeneral, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: biographical/historical, displayLabel: Class year}
+    cols:
+      - {header: noteHistoricalClassYear, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: venue}
+    cols:
+      - {header: noteVenue, method: value}
+
+#### Preferred citation
+#### keyDate if no dateStart
+
+  - type: element
+    name: originInfo
+    children:
+      - type: element
+        name: publisher
+        cols:
+        - {header: publisher, method: value}
+      - type: element
+        name: dateCreated
+        conditionalattrs:
+          - key: qualifier
+            col: dateQualifier
+            method: value
+        cols:
+          - {header: dateText, method: num}
+      - type: element
+        name: dateStart
+        attrs: {encoding: w3cdtf, keyDate: "yes", point: start}
+        conditionalattrs:
+          - key: qualifier
+            col: dateQualifier
+            method: value
+        cols:
+          - {header: dateStart, method: num}          
+      - type: element
+        name: dateCreated
+        attrs: {encoding: w3cdtf, keyDate: "yes", point: start}
+        conditionalattrs:
+          - key: qualifier
+            col: dateQualifier
+            method: value
+        cols:
+          - {header: dateStart, method: num}  
+      - type: element
+        name: dateCreated
+        attrs: {encoding: w3cdtf, point: end}
+        conditionalattrs:
+          - key: qualifier
+            col: dateQualifier
+            method: value
+        cols:
+          - {header: dateEnd, method: num}  
+      - type: element
+        name: place
+        children:
+          - type: element
+            name: placeTerm
+            attrs: {type: text}
+            cols:
+            - {header: place, method: value}
+
+#### Language
+
+  - type: element
+    name: physicalDescription
+    children:
+      - type: element
+        name: extent
+        cols:
+          - {header: extentQuantity, method: value}      
+      - type: element
+        name: extent
+        cols:
+          - {header: extentSize, method: value}    
+      - type: element
+        name: extent
+        cols:
+          - {header: extentSpeed, method: value}  
+      - type: element
+        name: digitalOrigin
+        cols:
+          - {header: digitalOrigin, method: value} 
+      - type: element
+        name: form
+        cols:
+          - {header: form, method: value} 
+
+  - type: element
+    name: accessCondition
+    attrs: {type: use and reproduction}
+    cols:
+      - {header: useAndReproduction, method: value}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: rights statement}
+    conditionalattrs:
+      - key: "{http://www.w3.org/1999/xlink}href"
+        col: rightsStatementURI
+        method: value
+    cols:
+      - {header: rightsStatementText, method: value}
+
+#### Restriction on access
+
+  - type: repeating
+    method: name
+    colprefix:
+      - subjectNames
+    element:
+      name: subject
+      children:
+        - type: element
+          name: name
+          attrs: {type: personal}
+          conditionalattrs: 
+            - key: authority
+              col: name.authority
+              method: value
+            - key: valueURI
+              col: name.valueURI
+              method: value
+            - key: authorityURI
+              col: name.authorityURI
+              method: value
+          children:
+            - type: element
+              name: namePart
+              attrs: {type: termsOfAddress}
+              cols:
+              - {header: name.prependTermOfAddress, method: value}
+            - type: element
+              name: namePart
+              cols:
+              - {header: name.name, method: value}
+            - type: element
+              name: namePart
+              attrs: {type: termsOfAddress}
+              cols:
+              - {header: name.appendTermOfAddress, method: value}
+            - type: element
+              name: namePart
+              attrs: {type: date}
+              cols:
+              - {header: name.date, method: value}
+            - type: element
+              name: role
+              children:
+              - type: element
+                name: roleTerm
+                attrs: {type: text, authority: marcrelator}
+                cols:
+                - {header: name.role, method: value}
+
+  - type: repeating
+    method: name
+    colprefix:
+      - subjectCorp
+    element:
+      name: subject
+      children:
+        - type: element
+          name: name
+          attrs: {type: corporate}
+          conditionalattrs: 
+            - key: authority
+              col: name.authority
+              method: value
+            - key: valueURI
+              col: name.valueURI
+              method: value
+            - key: authorityURI
+              col: name.authorityURI
+              method: value
+          children:
+            - type: element
+              name: namePart
+              attrs: {type: termsOfAddress}
+              cols:
+              - {header: name.prependTermOfAddress, method: value}
+            - type: element
+              name: namePart
+              cols:
+              - {header: name.name, method: value}
+            - type: element
+              name: namePart
+              attrs: {type: termsOfAddress}
+              cols:
+              - {header: name.appendTermOfAddress, method: value}
+            - type: element
+              name: namePart
+              attrs: {type: date}
+              cols:
+              - {header: name.date, method: value}
+            - type: element
+              name: role
+              children:
+              - type: element
+                name: roleTerm
+                attrs: {type: text, authority: marcrelator}
+                cols:
+                - {header: name.role, method: value}
 
   - type: repeating
     method: value
-    name: topic
-    issubject: true
-    attrs: {}
-    subjectattrs:
-      authority: lcsh
-    colheaders:
-      - subjectTopicsLC
-  
-  - type: repeating
-    method: value
-    name: topic
-    issubject: true
-    attrs: {}
-    subjectattrs:
-      authority: local
-    colheaders:
-      - subjectTopicsLocal
+    colprefix:
+      - subjectTopics
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+        - key: valueURI
+          col: value.valueURI
+          method: value
+        - key: authorityURI
+          col: value.authorityURI
+          method: value
+      children:
+        - type: element
+          name: topic
+          cols:
+            - {header: value.value, method: value}
 
   - type: repeating
     method: value
-    name: topic
-    issubject: true
-    attrs: {}
-    subjectattrs:
-      authority: local
-      displayLabel: Freedom Now! keyword
-    colheaders:
+    colprefix:
+      - subjectTopicsGeo
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+        - key: valueURI
+          col: value.valueURI
+          method: value
+        - key: authorityURI
+          col: value.authorityURI
+          method: value
+      children:
+        - type: element
+          name: geographic
+          cols:
+            - {header: value.value, method: value}
+
+  - type: repeating
+    method: value
+    colprefix:
+      - subjectTopicsTemporal
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+        - key: valueURI
+          col: value.valueURI
+          method: value
+        - key: authorityURI
+          col: value.authorityURI
+          method: value
+      children:
+        - type: element
+          name: temporal
+          cols:
+            - {header: value.value, method: value}
+
+  - type: repeating
+    method: value
+    cols:
       - subjectTopicsFreedomNow
+    defaults: {value.authority: local}
+    element:
+      name: subject
+      attrs:  {displayLabel: Freedom Now! keyword}
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+      children:
+        - type: element
+          name: topic
+          cols:
+            - {header: value.value, method: value}
 
   - type: repeating
-    method: title
-    attrs:
-      authority: lcsh
-    colheaders:
-      - subjectTitleLocal
+    method: value
+    colprefix:
+      - subjectTitle
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          col: value.authority
+          method: value
+        - key: valueURI
+          col: value.valueURI
+          method: value
+        - key: authorityURI
+          col: value.authorityURI
+          method: value
+      children:
+        - type: element
+          name: titleInfo
+          children:
+            - type: element
+              name: title
+              cols:
+                - {header: value.value, method: value}
 
-  - type: repeating
-    method: title
-    attrs:
-      authority: lc
-    colheaders:
-      - subjectTitleLC
+  - type: element
+    name: subject
+    children:
+      - type: element
+        name: cartographics
+        children:
+          - type: element
+            name: cartographicExtension
+            children: 
+              - type: element
+                name: coordinates
+                cols:
+                  - {header: coordinates, method: value}
+              - type: element
+                name: scale
+                cols:
+                  - {header: scale, method: value}
+              - type: element
+                name: projection
+                cols:
+                  - {header: projection, method: value}  
 
-  - type: repeating
-    method: title
-    attrs:
-      authority: fast
-    colheaders:
-      - subjectTitleFAST
+  - type: element
+    name: relatedItem
+    attrs: {type: host}
+    children:
+      - type: element
+        name: titleInfo
+        children:
+          - type: element
+            name: title
+            cols:
+              - {header: collection, method: value}
+          - type: element
+            name: originInfo
+            children: 
+              - type: element
+                name: dateCreated
+                cols: 
+                  - {header: dateTextParent, method: num}
+          - type: element
+            name: identifier
+            attrs: {type: local}
+            cols:
+              - {header: callNumber, method: value}
+          - type: element
+            name: location
+            children:
+              - type: element
+                name: physicalLocation
+                cols:
+                  - {header: repository, method: value}
+              - type: element
+                name: url
+                cols:
+                  - {header: findingAid, method: value}
+
+#### Shelf locator and location elements
+
+#### BDR element
+
+#### Digital object made available by
+  

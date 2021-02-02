@@ -130,7 +130,24 @@ def getTermsOfAddressPrependAndAppend(name):
                 name = name.replace(prependTermOfAddress, "")
     
     return name, prependTermsOfAddress, appendTermsOfAddress
+
+def getTermsOfAddressPrependAndAppendStripped(name):
+    appendTermOfAddress = ""
+    prependTermOfAddress = ""
+
+    for textIndex, text in enumerate(name.split(',')):
+        if textIndex == 0:
+            appendTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+            if len(appendTermsOfAddress) > 0:
+                appendTermOfAddress = appendTermsOfAddress[0].replace("{{","").replace("}}","")
+        
+        if textIndex == 1:
+            prependTermsOfAddress = re.findall("(\{\{.*\}\})", text)
+            if len(prependTermsOfAddress) > 0:
+                prependTermOfAddress = prependTermsOfAddress[0].replace("{{","").replace("}}","")
     
+    return prependTermOfAddress, appendTermOfAddress
+
 def getUri(name, customAttributes):
     uri = re.findall("(?P<url>https?://[^\s]+)", name)
 
@@ -148,6 +165,60 @@ def getUri(name, customAttributes):
         customAttributes["authorityURI"] = authorityURIs.get(authorityType)
     
     return name, customAttributes
+
+def getValueUri(name):
+    uris = re.findall("(?P<url>https?://[^\s]+)", name)
+
+    #If there's a URI
+    if len(uris) > 0:
+        return normalizeString(uris[0])
+    else: 
+        return ""
+
+def getNameDateRoleFromEntry(entry):
+
+    name = ""
+    date = ""
+    role = ""
+
+    for textIndex, text in enumerate(entry.split(',')):
+        normalizedText = normalizeString(text)
+
+        if normalizedText == '':
+            continue
+        
+        if textIndex == 0:
+            name = name + normalizedText + ", "
+        elif hasYear(normalizedText) == True:
+            date = date + normalizedText
+            date = date.lstrip(',').rstrip(',')
+        elif isAllLower(normalizedText) == True:
+            role = text
+        elif hasLetters(normalizedText) != None:
+            name = name + normalizedText + " "
+
+    return normalizeString(name), normalizeString(date), normalizeString(role)
+
+
+def getRepeatingNameMetadataFromEntry(entry):
+    valueUri = getValueUri(entry)
+    entry = entry.replace(valueUri, "")
+
+    prependTermOfAddress, appendTermOfAddress = getTermsOfAddressPrependAndAppendStripped(entry)
+    entry = entry.replace("{{" + prependTermOfAddress + "}}", "")
+    entry = entry.replace("{{" + appendTermOfAddress + "}}", "")
+
+    name, date, role = getNameDateRoleFromEntry(entry)
+
+    return {"name.name": name, "name.date": date, "name.role": role, "name.prependTermOfAddress": prependTermOfAddress, "name.appendTermOfAddress":appendTermOfAddress}
+
+def getRepeatingValueMetadataFromEntry(entry):
+    valueUri = getValueUri(entry)
+    entry = entry.replace(valueUri, "")
+
+    value = normalizeString(entry)
+
+    return {"value.value": value, "value.valueURI": valueUri}
 
 def repeatingnamefield(parentelement, rowString, topmodsattributes, predefinedrole, subject):
     originalparentelement = parentelement
@@ -993,12 +1064,54 @@ key = yaml.safe_load(open("MODSkey.yaml"))
 
 keySkips = key.get("skipif", [])
 keyFields = key.get("fields", [])
+keyAuthorities = key.get("authorities")
 
 keyNameSpace = key.get("elementnamespace", [])
 
 # attrQname = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
 # nsMap = {"mods" : "http://www.loc.gov/mods/v3", "xsi" : "http://www.w3.org/2001/XMLSchema-instance", "xlink" : "http://www.w3.org/1999/xlink"}
 # elementNameSpace = "{http://www.loc.gov/mods/v3}"
+
+def clearEmptyElementsFromEtree(parentElement):
+    # start cleanup
+    # remove any element tails
+    for element in parentElement.iter():
+        element.tail = None
+
+    # remove any line breaks or tabs in element text
+        if element.text:
+            if '\n' in element.text:
+                element.text = element.text.replace('\n', '')
+            if '\t' in element.text:
+                element.text = element.text.replace('\t', '')
+
+    # remove any remaining whitespace
+    parser = etree.XMLParser(remove_blank_text=True, remove_comments=True, recover=True)
+    treestring = etree.tostring(parentElement)
+    clean = etree.XML(treestring, parser)
+
+    # remove recursively empty nodes
+    # found here: https://stackoverflow.com/questions/12694091/python-lxml-how-to-remove-empty-repeated-tags
+    def recursively_empty(e):
+        if e.text:
+            return False
+        return all((recursively_empty(c) for c in e.iterchildren()))
+
+    context = etree.iterwalk(clean)
+    for action, elem in context:
+        parent = elem.getparent()
+        if recursively_empty(elem) and parent is not None:
+            parent.remove(elem)
+
+    # remove nodes with blank attribute
+    for element in clean.xpath(".//*[@*='']"):
+        element.getparent().remove(element)
+
+    # remove nodes with attribute "null"
+    for element in clean.xpath(".//*[@*='null']"):
+        element.getparent().remove(element)
+
+    return clean
 
 def createParentElement(key):
     keyQName = key.get("attrqname", {})
@@ -1051,12 +1164,20 @@ def processConditionalAttrs(conditionalAttr, row, element):
         if row.get(columnHeader):
             element.set(key, value)
 
+    if method == "value":
+        columnHeader = conditionalAttr.get("col","")
+        value = row.get(columnHeader, "")
+
+        if value:
+            element.set(key, value)
+
 def processElementTypeField(keyField, elementNameSpace, row, parentElement):
+    print(keyField)
     elementName = keyField.get("name", "")
     elementAttrs = keyField.get("attrs", {})
     element = createSubElement(parentElement, elementName, elementNameSpace, elementAttrs, "")
-
     columns = keyField.get("cols", {})
+
     for column in columns:
         processColumn(column, row, element)
     
@@ -1068,29 +1189,96 @@ def processElementTypeField(keyField, elementNameSpace, row, parentElement):
     for childKeyField in childrenKeyFields:
         processElementTypeField(childKeyField, elementNameSpace, row, element)
 
-def processRepeatingTypeField(keyField, elementNameSpace, row, parentElement):
+# def processRepeatingTypeField(keyField, elementNameSpace, row, parentElement):
+#     repeatingMethod = keyField.get("method")
+#     repeatingAttrs = keyField.get("attrs", {})
+#     defaultRole = keyField.get("defaultrole","")
+#     isSubjectField = keyField.get("issubject",False)
+#     columnHeaders = keyField.get("colheaders", [])
+
+#     if repeatingMethod  == "name":
+#         for columnHeader in columnHeaders:
+#             rowString = row.get(columnHeader, "")
+#             repeatingnamefield(parentElement, rowString, repeatingAttrs, defaultRole, isSubjectField)
+            
+#     if repeatingMethod  == "value":
+#         for columnHeader in columnHeaders:
+#             rowString = row.get(columnHeader, "")
+#             elementName = keyField.get("name","")
+#             subjectAttrs = keyField.get("subjectattrs", {})
+#             repeatingfield(parentElement, rowString, elementNameSpace + elementName, repeatingAttrs, isSubjectField, subjectAttrs)
+
+#     if repeatingMethod  == "title":
+#         for columnHeader in columnHeaders:
+#             rowString = row.get(columnHeader, "")
+#             repeatingTitleSubjectField(parentElement, rowString, repeatingAttrs)
+
+def handleRepeatingNameTypeField(parentElement, rowString, keyElement, authority, repeatingDefaults):
+    entries = rowString.split("|")
+    authorityAdditions = {}
+    authorityAdditions["name.authority"] = authority.get("authority", "")
+    authorityAdditions["name.authorityURI"] = authority.get("authorityURI", "")
+    
+    for entry in entries:
+        entryAdditions = getRepeatingNameMetadataFromEntry(entry)
+        print(entryAdditions)
+        if areAllDictValuesEmpty(entryAdditions) == False:
+            entryAdditions.update(repeatingDefaults)
+            entryAdditions.update(authorityAdditions)
+            print(entryAdditions)
+        print(keyElement)
+        processElementTypeField(keyElement, keyNameSpace, entryAdditions, parentElement)
+
+def handleRepeatingValueTypeField(parentElement, rowString, keyElement, authority, repeatingDefaults):
+    entries = rowString.split("|")
+    authorityAdditions = {}
+    authorityAdditions["value.authority"] = authority.get("authority", "")
+    authorityAdditions["value.authorityURI"] = authority.get("authorityURI", "")
+    
+    for entry in entries:
+        entryAdditions = getRepeatingValueMetadataFromEntry(entry)
+        if areAllDictValuesEmpty(entryAdditions) == False:
+            entryAdditions.update(authorityAdditions)
+            entryAdditions.update(repeatingDefaults)
+        processElementTypeField(keyElement, keyNameSpace, entryAdditions, parentElement)
+
+def areAllDictValuesEmpty(dict={}):
+    keys = dict.keys()
+
+    for key in keys:
+        if dict[key] == "":
+            continue
+        else:
+            return False
+
+    return True
+
+def processRepeatingTypeField(keyField, keyAuthorities, elementNameSpace, row, parentElement):
     repeatingMethod = keyField.get("method")
-    repeatingAttrs = keyField.get("attrs", {})
-    defaultRole = keyField.get("defaultrole","")
-    isSubjectField = keyField.get("issubject",False)
-    columnHeaders = keyField.get("colheaders", [])
+    colPrefixes = keyField.get("colprefix", [])
+    colHeaders = keyField.get("cols", [])
+    repeatingElement = keyField.get("element", {})
+    repeatingDefaults = keyField.get("defaults", {})
 
     if repeatingMethod  == "name":
-        for columnHeader in columnHeaders:
-            rowString = row.get(columnHeader, "")
-            repeatingnamefield(parentElement, rowString, repeatingAttrs, defaultRole, isSubjectField)
-            
-    if repeatingMethod  == "value":
-        for columnHeader in columnHeaders:
-            rowString = row.get(columnHeader, "")
-            elementName = keyField.get("name","")
-            subjectAttrs = keyField.get("subjectattrs", {})
-            repeatingfield(parentElement, rowString, elementNameSpace + elementName, repeatingAttrs, isSubjectField, subjectAttrs)
+        for colPrefix in colPrefixes:
+            for keyAuthority in keyAuthorities:
+                colHeader = colPrefix + keyAuthority.get("suffix", "")
+                rowString = row.get(colHeader, "")
+                handleRepeatingNameTypeField(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults)
+        for colHeader in colHeaders:
+            rowString = row.get(colHeader, "")
+            handleRepeatingNameTypeField(parentElement, rowString, repeatingElement, {}, repeatingDefaults)
 
-    if repeatingMethod  == "title":
-        for columnHeader in columnHeaders:
-            rowString = row.get(columnHeader, "")
-            repeatingTitleSubjectField(parentElement, rowString, repeatingAttrs)
+    if repeatingMethod  == "value":
+        for colPrefix in colPrefixes:
+            for keyAuthority in keyAuthorities:
+                colHeader = colPrefix + keyAuthority.get("suffix", "")
+                rowString = row.get(colHeader, "")
+                handleRepeatingValueTypeField(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults)
+        for colHeader in colHeaders:
+            rowString = row.get(colHeader, "")
+            handleRepeatingValueTypeField(parentElement, rowString, repeatingElement, {}, repeatingDefaults)
 
 def convertExcelRowToEtree(row):
 
@@ -1100,18 +1288,23 @@ def convertExcelRowToEtree(row):
     parentElement = createParentElement(key)
 
     for keyField in keyFields:
-        keyType = keyField.get('type')
+        keyType = keyField.get('type', "")
+
+        print(keyField)
 
         if keyType == 'element':
             processElementTypeField(keyField, keyNameSpace, row, parentElement)
 
         if keyType == "repeating":
-            processRepeatingTypeField(keyField, keyNameSpace, row, parentElement)    
-    print(etree.tostring(parentElement, pretty_print=True).decode('utf-8'))
+            processRepeatingTypeField(keyField, keyAuthorities, keyNameSpace, row, parentElement) 
+
+    cleandUpFile = clearEmptyElementsFromEtree(parentElement)
+    print(cleandUpFile)
+    print(etree.tostring(cleandUpFile, pretty_print=True).decode("utf-8"))
 ####
 
 
 
-row = {"subjectTopicsLocal": "Local topic 1|Local topic 2", "subjectTopicsFreedomNow":"FN 1|FN2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST": "Guy, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
+row = {"rightsStatementText":"In Copyright","subjectTopicsTemporalLocal":"Title 1| Title 2", "subjectNamesLC":"Name, One, manager, 1992-1993|Name, Two, director, 1993-1994", "genreLocal": "Local Genre 1|Local Genre 2","genreFAST": "genre1 http://genre.gov|genre2", "subjectTopicsLocal": "Local topic 1|Local topic 2", "subjectTopicsFreedomNow":"FN 1|FN2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST":"Fast {{the great}}, Person, job having, 1991-1992", "namePersonCreatorNAF": "Guy, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
 
 convertExcelRowToEtree(row)
