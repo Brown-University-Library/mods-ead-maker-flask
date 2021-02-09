@@ -6,8 +6,10 @@ elementnamespace: '{http://www.loc.gov/mods/v3}'
 parenttag: 'mods'
 
 authorities: 
-  - {suffix: LC, authority: lcsh, authorityURI: http://id.loc.gov/authorities/subjects.html}
+  - {suffix: LCSH, authority: lcsh, authorityURI: http://id.loc.gov/authorities/subjects.html}
+  - {suffix: NAF, authority: naf, authorityURI: http://id.loc.gov/authorities/names.html}
   - {suffix: FAST, authority: fast, authorityURI: http://id.worldcat.org/fast}
+  - {suffix: AAT, authority: aat, authorityURI: https://www.getty.edu/research/tools/vocabularies/aat/}
   - {suffix: Local, authority: local}
   - {suffix: RBGENR, authority: rbgenr, authorityURI: https://rbms.info/vocabularies/genre/alphabetical_list.htm}
 
@@ -17,6 +19,22 @@ skipif:
  - seriesTitle
  - subSeriesTitle
  - Ignore
+
+sort:
+  #Creator personal and name fields
+  - {elementxpath: "mods:name[@type='personal'][mods:role/mods:roleTerm[contains(text(),'creator')]]", sortbyxpath: "mods:namePart/text()"}
+  - {elementxpath: "mods:name[@type='corporate'][mods:role/mods:roleTerm[contains(text(),'creator')]]", sortbyxpath: "mods:namePart/text()"}
+  #Other personal and corporate name fields (other role or blank role)
+  - {elementxpath: "mods:name[@type='personal'][mods:role/mods:roleTerm[not(contains(text(),'creator'))] or not(mods:role)]", sortbyxpath: "mods:namePart/text()"}
+  - {elementxpath: "mods:name[@type='corporate'][mods:role/mods:roleTerm[not(contains(text(),'creator'))] or not(mods:role)]", sortbyxpath: "mods:namePart/text()"}
+  #Personal and corporate subjects
+  - {elementxpath: "mods:subject[mods:name[@type='personal']]", sortbyxpath: "mods:name/mods:namePart/text()"}
+  - {elementxpath: "mods:subject[mods:name[@type='corporate']]", sortbyxpath: "mods:name/mods:namePart/text()"}
+  #Subjects
+  - {elementxpath: "mods:subject[mods:topic]", sortbyxpath: "mods:topic/text()"}
+  - {elementxpath: "mods:subject[mods:titleInfo]", sortbyxpath: "mods:titleInfo/mods:title/text()"}
+  - {elementxpath: "mods:subject[mods:geographic]", sortbyxpath: "mods:geographic/text()"}
+  - {elementxpath: "mods:subject[mods:temporal]", sortbyxpath: "mods:temporal/text()"}
 
 fields:
   - type: element 
@@ -82,7 +100,7 @@ fields:
               - {type: col, header: itemTitleAlternatePembroke, method: value}
 
   - type: repeating
-    method: nameauthority
+    method: name
     colprefix:
       - namePersonCreator
     defaults: {entry.role: creator}
@@ -91,70 +109,20 @@ fields:
       attrs: {type: personal}
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
-        - key: valueURI
-          col: entry.valueURI
-          method: value
-        - key: authorityURI
-          col: entry.authorityURI
-          method: value
-      children:
-        - type: element
-          name: namePart
-          attrs: {type: termsOfAddress}
-          text:
-          - type: value
-            values:
-              - {type: col, header: entry.prependTermOfAddress, method: value}
-        - type: element
-          name: namePart
-          text:
-          - type: value
-            values:
-              - {type: col, header: entry.name, method: value}
-        - type: element
-          name: namePart
-          attrs: {type: termsOfAddress}
-          text:
-          - type: value
-            values:
-              - {type: col, header: entry.appendTermOfAddress, method: value}
-        - type: element
-          name: namePart
-          attrs: {type: date}
-          text:
-          - type: value
-            values:
-              - {type: col, header: entry.date, method: value}
-        - type: element
-          name: role
-          children:
-          - type: element
-            name: roleTerm
-            attrs: {type: text, authority: marcrelator}
-            text:
+          text: 
             - type: value
               values:
-                - {type: col, header: entry.role, method: value}
-
-  - type: repeating
-    method: name
-    colprefix:
-      - namePersonOther
-    element:
-      name: name
-      attrs: {type: personal}
-      conditionalattrs: 
-        - key: authority
-          col: entry.authority
-          method: value
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: namePart
@@ -204,14 +172,82 @@ fields:
       attrs: {type: corporate}
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: repeating
+    method: name
+    colprefix:
+      - namePersonOther
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: namePart
@@ -259,14 +295,17 @@ fields:
           - {type: col, header: typeOfResource, method: value}
     conditionalattrs:
       - key: manuscript
-        col: typeOfResourceManuscript
-        method: ifpresent
-        value: 'yes'
-      - key: collection 
-        col: typeOfResourceCollection
-        method: ifpresent
-        value: 'yes'
-  
+        text:
+          - type: ifpresent
+            col: typeOfResourceManuscript
+            values:
+              - {type: value, text: "yes"}
+      - key: collection
+        text:
+          - type: ifpresent
+            col: typeOfResourceCollection
+            values:
+              - {type: value, text: "yes"}
   - type: repeating
     method: value
     colprefix:
@@ -375,12 +414,16 @@ fields:
         name: dateCreated
         conditionalattrs:
           - key: qualifier
-            col: dateQualifier
-            method: value
+            text: 
+              - type: value
+                values:
+                  - {type: col, header: dateQualifier, method: value}
           - key: keyDate
-            value: "yes"
-            col: dateStart
-            method: ifnotpresent
+            text: 
+              - type: ifnotpresent
+                col: dateStart
+                values:
+                  - {type: value, text: "yes"}
         text:
           - type: value
             values:
@@ -390,8 +433,10 @@ fields:
         attrs: {encoding: w3cdtf, keyDate: "yes", point: start}
         conditionalattrs:
           - key: qualifier
-            col: dateQualifier
-            method: value
+            text: 
+              - type: value
+                values:
+                  - {type: col, header: dateQualifier, method: value}
         text:
           - type: value
             values:
@@ -401,8 +446,10 @@ fields:
         attrs: {encoding: w3cdtf, point: end}
         conditionalattrs:
           - key: qualifier
-            col: dateQualifier
-            method: value
+            text: 
+              - type: value
+                values:
+                  - {type: col, header: dateQualifier, method: value}
         text:
           - type: value
             values:
@@ -467,8 +514,10 @@ fields:
     attrs: {type: rights statement}
     conditionalattrs:
       - key: "{http://www.w3.org/1999/xlink}href"
-        col: rightsStatementURI
-        method: value
+        text: 
+          - type: value
+            values:
+              - {type: col, header: rightsStatementURI, method: value}
     text:
       - type: value
         values:
@@ -494,14 +543,20 @@ fields:
           attrs: {type: personal}
           conditionalattrs: 
             - key: authority
-              col: entry.authority
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authority, method: value}
             - key: valueURI
-              col: entry.valueURI
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.valueURI, method: value}
             - key: authorityURI
-              col: entry.authorityURI
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authorityURI, method: value}
           children:
             - type: element
               name: namePart
@@ -553,14 +608,20 @@ fields:
           attrs: {type: corporate}
           conditionalattrs: 
             - key: authority
-              col: entry.authority
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authority, method: value}
             - key: valueURI
-              col: entry.valueURI
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.valueURI, method: value}
             - key: authorityURI
-              col: entry.authorityURI
-              method: value
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authorityURI, method: value}
           children:
             - type: element
               name: namePart
@@ -608,14 +669,20 @@ fields:
       name: subject
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: topic
@@ -632,14 +699,20 @@ fields:
       name: subject
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: geographic
@@ -656,14 +729,20 @@ fields:
       name: subject
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: temporal
@@ -682,8 +761,10 @@ fields:
       attrs:  {displayLabel: Freedom Now! keyword}
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
       children:
         - type: element
           name: topic
@@ -700,14 +781,20 @@ fields:
       name: subject
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       children:
         - type: element
           name: titleInfo
@@ -791,8 +878,123 @@ fields:
                   - type: value
                     values:
                       - {type: col, header: findingAid, method: value}
-
-#### Shelf locator and location elements
+              - type: element
+                name: holdingSimple
+                children:
+                  - type: element
+                    name: copyInformation
+                    children: 
+                      - type: element
+                        name: shelfLocator
+                        text:
+                          - type: ifpresent
+                            col: shelfLocator1
+                            values: 
+                              - {type: col, header: shelfLocator1, method: value}
+                              - {type: value, text: " "}
+                              - {type: col, header: shelfLocator1ID, method: num}
+                          - type: ifpresent
+                            col: shelfLocator2
+                            values: 
+                              - {type: value, text: ", "}
+                              - {type: col, header: shelfLocator2, method: value}
+                              - {type: value, text: " "}
+                              - {type: col, header: shelfLocator2ID, method: num}
+                          - type: ifpresent
+                            col: shelfLocator3
+                            values: 
+                              - {type: value, text: ", "}
+                              - {type: col, header: shelfLocator3, method: value}
+                              - {type: value, text: " "}
+                              - {type: col, header: shelfLocator3ID, method: num}
+                          - type: action
+                            action: leftstriprightstrip
+                            leftstriprightstriptext: ", "
+                          
+  - type: repeating
+    method: value
+    colprefix:
+      - physicalLocation
+    element:
+      type: element
+      name: location
+      children:
+        - type: element
+          name: physicalLocation
+          conditionalattrs: 
+            - key: authority
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authority, method: value}
+            - key: valueURI
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.valueURI, method: value}
+            - key: authorityURI
+              text: 
+                - type: value
+                  values:
+                    - {type: col, header: entry.authorityURI, method: value}
+          text:
+            - type: value
+              values:
+                - {type: col, header: entry.value, method: value}
+        - type: element
+          name: holdingSimple
+          children:
+            - type: element
+              name: copyInformation
+              children: 
+                - type: element
+                  name: note
+                  conditionalattrs:
+                    - key: type
+                      text:
+                        - type: value 
+                          values:
+                            - {type: col, header: shelfLocator1, method: lower}
+                            - {type: value, text: " name"}
+                  text:
+                    - type: ifpresent
+                      col: shelfLocator1 
+                      values: 
+                        - {type: col, header: shelfLocator1, method: value}
+                        - {type: value, text: " "}
+                        - {type: col, header: shelfLocator1ID, method: num}
+                - type: element
+                  name: note
+                  conditionalattrs:
+                    - key: type
+                      text:
+                        - type: value 
+                          values:
+                            - {type: col, header: shelfLocator2, method: lower}
+                            - {type: value, text: " title"}
+                  text:
+                    - type: ifpresent
+                      col: shelfLocator2 
+                      values: 
+                        - {type: col, header: shelfLocator2, method: value}
+                        - {type: value, text: " "}
+                        - {type: col, header: shelfLocator2ID, method: num}
+                - type: element
+                  name: note
+                  conditionalattrs:
+                    - key: type
+                      text:
+                        - type: value 
+                          values:
+                            - {type: col, header: shelfLocator3, method: lower}
+                            - {type: value, text: " name"}
+                  text:
+                    - type: ifpresent
+                      col: shelfLocator3 
+                      values: 
+                        - {type: col, header: shelfLocator3, method: value}
+                        - {type: value, text: " "}
+                        - {type: col, header: shelfLocator3ID, method: num}
 
   - type: element
     name: identifier
@@ -808,7 +1010,7 @@ fields:
           - "bdr:"
           - bdr 
         values:
-          - {type: col, header: identifierBDR}
+          - {type: col, header: identifierBDR, method: value}
 
   - type: element
     name: identifier
@@ -824,7 +1026,7 @@ fields:
           - "bdr:"
           - bdr 
         values:
-          - {type: col, header: identifierBDR}
+          - {type: col, header: identifierBDR, method: value}
 
   - type: element
     name: note

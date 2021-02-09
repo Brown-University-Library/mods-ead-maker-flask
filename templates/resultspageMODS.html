@@ -42,7 +42,8 @@
 
   }
 </script>
-<h4>{{publicfilename}}</h4>
+<h4><span style="display:none;" class="spinner-border spinner-border-sm" id="filespinner" role="status"
+    aria-hidden="true"></span>{{publicfilename}}</h4>
 <br />
 <h6 style="margin-bottom: 30px;">Select the Excel sheet in your Excel workbook that contains the metadata you'd like to
   process.</h6>
@@ -63,25 +64,26 @@
       </a>
     </label>
   </div>
-  <div class="collapse" id="defaultsView" >
+  <div class="collapse" id="defaultsView">
     <div class="card border-secondary mb-3 explanationcard">
       <div class="card-header">Default Brown University archival fields</div>
       <div class="card-body text-secondary">
-    <p class="card-text" style="font-family:monospace;font-size: 1rem; color:black;">{% include 'defaultMODSfields.html' %}</p>
-  </div>
-  </div>
+        <p class="card-text" style="font-family:monospace;font-size: 1rem; color:black;">
+          {% include 'defaultMODSfields.html' %}</p>
+      </div>
+    </div>
   </div>
   <div class="buttons">
-  <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
-  <div style="margin-left: 5px; display:inline-block" onclick="retrievePreview('{{id}}')" class="btn btn-secondary">
-    <span style="display:none;" class="spinner-border spinner-border-sm" id="previewspinner" role="status"
-      aria-hidden="true"></span>
-    Preview MODS
+    <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
+    <div style="margin-left: 5px; display:inline-block" onclick="retrievePreview('{{id}}')" class="btn btn-secondary">
+      <span style="display:none;" class="spinner-border spinner-border-sm" id="previewspinner" role="status"
+        aria-hidden="true"></span>
+      Preview MODS
+    </div>
   </div>
-</div>
 </form>
 <div class="alert alert-secondary instructions" role="alert">
-Your MODS files will download inside a .zip file. The title of the .zip file will be the same as the title of
+  Your MODS files will download inside a .zip file. The title of the .zip file will be the same as the title of
   the Excel sheet you chose to process.
 </div>
 {% include 'preview.html' %}

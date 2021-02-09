@@ -197,7 +197,7 @@ def getNameDateRoleFromEntry(entry):
         elif hasLetters(normalizedText) != None:
             name = name + normalizedText + " "
 
-    return normalizeString(name), normalizeString(date), normalizeString(role)
+    return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
 
 
 def getMetadataFromEntry(entry):
@@ -211,7 +211,7 @@ def getMetadataFromEntry(entry):
 
     name, date, role = getNameDateRoleFromEntry(entry)
 
-    return {"entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
+    return {"entry.value": value, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
 
 def getRepeatingValueMetadataFromEntry(entry):
     valueUri = getValueUri(entry)
@@ -1066,7 +1066,7 @@ key = yaml.safe_load(open("MODSkey.yaml"))
 keySkips = key.get("skipif", [])
 keyFields = key.get("fields", [])
 keyAuthorities = key.get("authorities")
-
+keySorts = key.get("sort", [])
 keyNameSpace = key.get("elementnamespace", [])
 
 # attrQname = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
@@ -1123,9 +1123,11 @@ def createParentElement(key):
     keyElementNameSpace = key.get("elementnamespace", "")
     keyParentTag = key.get("parenttag", "")
 
-    return etree.Element(keyElementNameSpace + keyParentTag, {keyAttrQname: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"}, nsmap=keyNsMap)
+    return lxml.etree.Element(keyElementNameSpace + keyParentTag, {keyAttrQname: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"}, nsmap=keyNsMap)
 
 def createSubElement(parentElement, elementName, elementNameSpace, elementAttrs, elementText):
+    print(elementNameSpace)
+    print(elementName)
     subElement = etree.SubElement(parentElement, elementNameSpace + elementName, elementAttrs)
     subElement.text = normalizeString(elementText)
 
@@ -1143,7 +1145,12 @@ def processNumColumn(column, row):
     text = row.get(columnHeader, "").replace(".0", "")
     return normalizeString(text)
 
-def processColumn(column, row):
+def processLowerColumn(column, row):
+    columnHeader = column.get("header")
+    text = row.get(columnHeader, "").lower()
+    return normalizeString(text)
+
+def processColumnTextValue(column, row):
     columnMethod = column.get("method")
     columnHeader = column.get("header")
 
@@ -1151,34 +1158,21 @@ def processColumn(column, row):
         return processValueColumn(column, row)
     if columnMethod  == "num":
         return processNumColumn(column, row)
+    if columnMethod  == "lower":
+        return processLowerColumn(column, row)
 
     return row.get(columnHeader,"")
 
 ### Conditional attributes
 
 def processConditionalAttrs(conditionalAttr, row, element):
-    method = conditionalAttr.get("method")
     key = conditionalAttr.get("key","")
-    columnHeader = conditionalAttr.get("col","")
 
-    if method == "ifpresent":
-        value = conditionalAttr.get("value","")
+    textKeyField = conditionalAttr.get("text","")
+    text = processTextKeyField(textKeyField, row)
 
-        if row.get(columnHeader):
-            element.set(key, value)
-
-    if method == "ifnotpresent":
-        value = conditionalAttr.get("value","")
-
-        if row.get(columnHeader) == None:
-            element.set(key, value)
-
-    if method == "value":
-        columnHeader = conditionalAttr.get("col","")
-        value = row.get(columnHeader, "")
-
-        if value:
-            element.set(key, value)
+    if text:
+        element.set(key, text)
 
 #### Text key fields
 
@@ -1193,9 +1187,14 @@ def processTextKeyFieldValues(textKeyFieldValues, row):
             text = text + valueText
 
         if valueType == "col":
-            text = text + processColumn(value, row)
+            text = text + processColumnTextValue(value, row)
     
     return text
+
+def performTextAction(textAction, text):
+    if textAction.get("action") == "leftstriprightstrip":
+        lstripRstripText = textAction.get("leftstriprightstriptext", "")
+        return text.lstrip(lstripRstripText).rstrip(lstripRstripText)
 
 def processTextKeyField(textKeyFields, row):
     text = ""
@@ -1208,6 +1207,10 @@ def processTextKeyField(textKeyFields, row):
             if row.get(textKeyFieldColumn):
                 newText = processTextKeyFieldValues(textKeyFieldValues, row)
                 text = text + newText
+        if  textKeyFieldType == "ifnotpresent":
+            if row.get(textKeyFieldColumn) == None:
+                newText = processTextKeyFieldValues(textKeyFieldValues, row)
+                text = text + newText
         if  textKeyFieldType == "value":
             newText = processTextKeyFieldValues(textKeyFieldValues, row)
             text = text + newText
@@ -1217,6 +1220,8 @@ def processTextKeyField(textKeyFields, row):
             for replaceString in replaceStrings:
                 newText = newText.replace(replaceString, "")
             text = text + newText
+        if  textKeyFieldType == "action":
+            text = performTextAction(textKeyField, text)
 
     return text
 
@@ -1250,10 +1255,6 @@ def processElementTypeField(keyField, elementNameSpace, row, parentElement):
         shouldCreateElement = shouldCreateElementBasedOnCondition(condition, row)
         if shouldCreateElement == False:
             return
-
-    # for column in columns:
-    #     text = processColumn(column, row)
-    #     element.text = text
     
     conditionalAttrs = keyField.get("conditionalattrs", [])
     for conditionalAttr in conditionalAttrs:
@@ -1270,7 +1271,7 @@ def processElementTypeField(keyField, elementNameSpace, row, parentElement):
 
     return element
 
-def handleRepeatingTypeEntry(parentElement, rowString, keyElement, authority, repeatingDefaults):
+def handleRepeatingTypeEntry(parentElement, rowString, keyElement, authority, repeatingDefaults, originalRow):
     entries = rowString.split("|")
     authorityAdditions = {}
     authorityAdditions["entry.authority"] = authority.get("authority", "")
@@ -1278,10 +1279,13 @@ def handleRepeatingTypeEntry(parentElement, rowString, keyElement, authority, re
     elementsCreated = []
 
     for entry in entries:
-        entryAdditions = getRepeatingValueMetadataFromEntry(entry)
+        print(entry)
+        entryAdditions = getMetadataFromEntry(entry)
+        print(entryAdditions)
         if areAllDictValuesEmpty(entryAdditions) == False:
             entryAdditions.update(authorityAdditions)
             entryAdditions.update(repeatingDefaults)
+            entryAdditions.update(originalRow)
         element = processElementTypeField(keyElement, keyNameSpace, entryAdditions, parentElement)
         elementsCreated.append(element)
     
@@ -1310,12 +1314,36 @@ def processRepeatingTypeField(keyField, keyAuthorities, elementNameSpace, row, p
             for keyAuthority in keyAuthorities:
                 colHeader = colPrefix + keyAuthority.get("suffix", "")
                 rowString = row.get(colHeader, "")
-                handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults)
+                handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults, row)
         for colHeader in colHeaders:
             rowString = row.get(colHeader, "")
-            handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, {}, repeatingDefaults)
+            handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, {}, repeatingDefaults, row)
+
+def processSort(parentElement, sort, keyParentTag, keyElementNameSpace):
+    nameSpace = {keyParentTag: keyElementNameSpace}
+    elementXpath = sort.get("elementxpath", "")
+    sortByXpath = sort.get("sortbyxpath", "")
+
+    allMatchingElements = parentElement.xpath(elementXpath, namespaces=parentElement.nsmap)
+    firstElementIndex = 0
+    
+    if len(allMatchingElements) > 0:
+        firstElementIndex = parentElement.getchildren().index(allMatchingElements[0])
+
+    allMatchingElements = sorted(allMatchingElements, key=lambda ch: ch.xpath(sortByXpath, namespaces={keyParentTag: keyElementNameSpace.replace("{","").replace("}","")}))
+
+    for element in allMatchingElements:
+        parentElement.remove(element)
+
+    for (index, element) in enumerate(allMatchingElements):
+        print(etree.tostring(element))
+        parentElement.insert(firstElementIndex + index, element)
+
+    print("....")
 
 def convertExcelRowToEtree(row, globalConditions):
+    keyElementNameSpace = key.get("elementnamespace", "")
+    keyParentTag = key.get("parenttag", "")
 
     if shouldSkipRow(row, keySkips):
         return
@@ -1324,22 +1352,48 @@ def convertExcelRowToEtree(row, globalConditions):
 
     for keyField in keyFields:
         print(keyField)
-        keyType = keyField.get('type', "")
+        keyFieldType = keyField.get('type', "")
 
-        if keyType == 'element':
+        if keyFieldType == 'element':
             element = processElementTypeField(keyField, keyNameSpace, row, parentElement)
 
-        if keyType == "repeating":
+        if keyFieldType == "repeating":
             elements = processRepeatingTypeField(keyField, keyAuthorities, keyNameSpace, row, parentElement) 
 
     cleandUpFile = clearEmptyElementsFromEtree(parentElement)
+
+    for keySort in keySorts:
+        processSort(cleandUpFile, keySort, keyParentTag, keyElementNameSpace)
+    
     print(cleandUpFile)
     print(etree.tostring(cleandUpFile, pretty_print=True).decode("utf-8"))
 ####
 
-
-
-row = {"identifierBDR":"411bdr411","callNumber":"callNo", "dateText":"10-04-2014","dateStart":"10-00-2015", "dateEnd":"10-21-2016", "rightsStatementText":"In Copyright","subjectTopicsTemporalLocal":"Title 1| Title 2", "subjectNamesLC":"Name, One, manager, 1992-1993|Name, Two, director, 1993-1994", "genreLocal": "Local Genre 1|Local Genre 2","genreFAST": "genre1 http://genre.gov|genre2", "subjectTopicsLocal": "Local topic 1|Local topic 2", "subjectTopicsFreedomNow":"FN 1|FN2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST":"Fast {{the great}}, Person, job having, 1991-1992", "namePersonCreatorNAF": "Guy, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
+row = {"subjectCorpNAF":"Zacks Corp, 1991-2002|B Corp, 1992-1993 http://google.com|A Corp|","subjectNamesLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","nameCorpCreatorNAF":"B Corp, 1992-1993 http://google.com|A Corp","namePersonOtherLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","rightsStatementURI":"www.google.com","rightsStatementText":"In Copyright","physicalLocationNAF":"Brown University. Library http://id.loc.gov/authorities/names/n81029638","shelfLocator3":"Paper","shelfLocator3ID":"100", "shelfLocator2":"Box","shelfLocator2ID":"Hello","identifierBDR":"bdr411","callNumber":"callNo", "dateText":"10-04-2014","dateStart":"10-00-2015", "dateEnd":"10-21-2016", "rightsStatementText":"In Copyright","subjectTopicsTemporalLocal":"Mock Temporal|A Temporal", "subjectNamesLC":"Name, One, manager, 1992-1993|Name, Two, director, 1993-1994", "genreLocal": "Local Genre 1|Local Genre 2","genreFAST": "genre1 http://genre.gov|genre2", "subjectTopicsLocal": "A Local Topic|C Local Topic", "subjectTopicsFreedomNow":"B FN Topic|FN2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST":"Fast {{the great}}, Person, job having, 1991-1992", "namePersonCreatorNAF": "Nadler, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
 globalConditions = {"includeDefaults": True}
 
 convertExcelRowToEtree(row, globalConditions)
+
+# def getAllColumnHeaders(keyFields):
+
+#     parentElement = parentElement = createParentElement(key)
+
+#     for keyField in keyFields:
+#         keyFieldType = keyField.get('type', "")
+
+#         if keyFieldType == 'element':
+#             textFields = keyField.get("text", [])
+#             for textField in textFields:
+#                 textFieldValues = textField.get("values", [])
+#                 for textFieldValue in textFieldValues:
+#                     if textFieldValue.get("type") == "col":
+#                         print(textFieldValue.get("header"))
+#                         header = textFieldValue.get("header", "")
+                        
+#                         element = processElementTypeField(keyField, keyNameSpace, {header: header}, parentElement)
+#                         print(etree.tostring(element, pretty_print=True).decode("utf-8"))
+            
+#         if keyFieldType == "repeating":
+#             pass
+#             # elements = processRepeatingTypeField(keyField, keyAuthorities, keyNameSpace, row, parentElement) 
+
