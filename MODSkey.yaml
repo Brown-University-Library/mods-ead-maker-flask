@@ -46,7 +46,7 @@ fields:
           - type: value
             values:
               - {type: col, header: fileTitle, method: value}
-          - {header: itemTitle, method: value}
+              - {type: col, header: itemTitle, method: value}
       - type: element 
         name: subTitle
         text:
@@ -306,6 +306,7 @@ fields:
             col: typeOfResourceCollection
             values:
               - {type: value, text: "yes"}
+              
   - type: repeating
     method: value
     colprefix:
@@ -314,14 +315,20 @@ fields:
       name: genre
       conditionalattrs: 
         - key: authority
-          col: entry.authority
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
         - key: valueURI
-          col: entry.valueURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
         - key: authorityURI
-          col: entry.authorityURI
-          method: value
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
       text:
         - type: value
           values:
@@ -1035,3 +1042,6 @@ fields:
       - type: value
         values: 
           - {type: value, text: "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"}
+
+samplevalues:
+  identifierBDR: "bdr:12345"

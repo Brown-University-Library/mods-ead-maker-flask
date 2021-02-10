@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+  
+<div></div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Columns</th>
+        <th scope="col">Conditional Attributes</th>
+        <th scope="col">Field Example</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for field in fieldList%} 
+      <tr>
+        <td>
+            <p><small>Generated from columns:</small></p>
+                <ul>
+                    {%for column in field["headers"] %} 
+                    <li><small>{{column}}</small></li>
+                    {% endfor %}
+                </ul>
+        </td>
+        <td>
+            {%for conditionalattr in field["conditionalattrs"] %} 
+            <p><small>{{conditionalattr["explanation"]}}</small></p>
+            <ul>
+                <li><small>{{conditionalattr["attribute"]}}</small></li>
+            </ul>   
+            {% endfor %}
+        </td>
+
+        <td class="code">{{field["elementstring"]}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+
+  {%endblock%}

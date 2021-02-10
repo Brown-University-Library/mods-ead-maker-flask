@@ -4,6 +4,7 @@ import EADMaker
 from EADMaker import processExceltoEAD
 from EADMaker import getSheetNames
 from MODSMaker import processExceltoMODS
+import MODSMaker2
 import sys
 import uuid
 import os
@@ -142,6 +143,11 @@ def eadMakerGetPreview():
         output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         return(jsonify(returndict["allrecords"]))
 
+@app.route("/modsmaker/fieldreview", methods=["GET"])
+def modsMakerDisplayFieldList():
+    if request.method == "GET":
+        fieldList = MODSMaker2.getFieldReviewList()
+        return render_template('fieldlist.html', fieldList=fieldList, title="Fields")
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
