@@ -76,7 +76,7 @@ def getMetadataFromEntry(entry):
 
     name, date, role = getNameDateRoleFromEntry(entry)
 
-    return {"entry.value": value, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
+    return {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
 
 
 def normalizeString(string):
@@ -173,11 +173,11 @@ def clearEmptyElementsFromEtree(parentElement):
 
     return clean
 
-def createParentElement(key):
+def createParentElement(key, keyNsMap):
     keyQName = key.get("attrqname", {})
     keyAttrQname = etree.QName(keyQName.get("uri",""),keyQName.get("tag",""))
 
-    keyNsMap = key.get("nsmap", {})
+    # keyNsMap = key.get("nsmap", {})
 
     keyElementNameSpace = key.get("elementnamespace", "")
     keyParentTag = key.get("parenttag", "")
@@ -342,6 +342,7 @@ def handleRepeatingTypeEntry(parentElement, rowString, keyElement, authority, re
         if areAllDictValuesEmpty(entryAdditions) == False:
             entryAdditions.update(authorityAdditions)
             entryAdditions.update(repeatingDefaults)
+            print(originalRow)
             entryAdditions.update(originalRow)
         element = processElementTypeField(keyElement, keyNameSpace, entryAdditions, parentElement)
         elementsCreated.append(element)
@@ -402,7 +403,7 @@ def convertExcelRowToEtree(row, globalConditions):
     if shouldSkipRow(row, keySkips):
         return
     
-    parentElement = createParentElement(key)
+    parentElement = createParentElement(key, key.get("nsmap", {}))
 
     for keyField in keyFields:
         print(keyField)
@@ -485,18 +486,30 @@ def removeDuplicatesFromArray(array):
     array = list(dict.fromkeys(array))
     return array
 
+def removeItemsWithPeriodFromList(array):
+    returnArray = []
+
+    for item in array:
+        if "." in item:
+            continue
+        returnArray.append(item)
+    
+    return returnArray
+
+replaceTextForExamples = ' xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"'
+
 def getConditionalAttrsTextHeadersElementFromField(keyField):
 
     keyElementNameSpace = key.get("elementnamespace", "")
     keyParentTag = key.get("parenttag", "")
     keySampleValues = key.get("samplevalues",{})
-    parentElement = createParentElement(key)
+    name = keyField.get("name", [])
+    textFields = keyField.get("text", [])
+    parentElement = createParentElement(key, key.get("nsmap", {}))
 
     textHeaders = []
     conditionalAttrConditions = []
 
-    name = keyField.get("name", [])
-    textFields = keyField.get("text", [])
     textHeaders = getHeadersFromTextFields(textFields)
     
     conditionalAttrs = keyField.get("conditionalattrs", [])
@@ -515,13 +528,62 @@ def getConditionalAttrsTextHeadersElementFromField(keyField):
     element = processElementTypeField(keyField, keyNameSpace, textHeaderRow, parentElement)
     cleanedElement = clearEmptyElementsFromEtree(element)
     elementString = etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
-
+    elementString = elementString.replace(replaceTextForExamples, "")
+    
     return removeDuplicatesFromArray(textHeaders), conditionalAttrConditions, elementString
 
+def getConditionalAttrsTextHeadersElementFromRepeatingField(keyField):
+    parentElement = createParentElement(key, key.get("nsmap", {}))
+    repeatingElement = keyField.get("element", {})
+    repeatingDefaults = keyField.get("defaults", {})
+    colPrefixes = keyField.get("colprefix", [])
+    colHeaders = keyField.get("cols", [])
+    repeatingFieldMethod = keyField.get("method", "")
+
+    columnHeaders = []
+    elementsCreated = []
+    rowString = ""
+    sampleCol = ""
+    row = {}
+
+    if repeatingFieldMethod == "value":
+        rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
+    if repeatingFieldMethod == "name":
+        rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second example identity, 1990-2000, presenter https://library.brown.edu"
+    
+    element = keyField.get("element",[])
+    textHeaders, conditionalAttrsHeaders, singleElementString = getConditionalAttrsTextHeadersElementFromField(element)
+    columnHeaders.extend(textHeaders)
+    row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))
+    
+    for colHeader in colHeaders:
+        sampleCol = colHeader
+        columnHeaders.append(colHeader)
+        elements = handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, {}, repeatingDefaults, row)
+        elementsCreated.extend(elements)
+
+    for colPrefix in colPrefixes:
+        for (index, keyAuthority) in enumerate(keyAuthorities):
+            colHeader = colPrefix + keyAuthority.get("suffix", "")
+            columnHeaders.append(colHeader)
+            if index == 0:
+                sampleCol = colHeader
+                elements = handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults, row)
+                elementsCreated.extend(elements)
+
+    elementString = ""
+
+    for element in elementsCreated:
+            cleanedElement = clearEmptyElementsFromEtree(element)
+            elementString = elementString + "\n" + etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
+            elementString = elementString.lstrip("\n").rstrip("\n")
+    
+    elementString = elementString.replace(replaceTextForExamples, "")
+    columnHeaders = removeDuplicatesFromArray( removeItemsWithPeriodFromList(columnHeaders))
+
+    return columnHeaders, conditionalAttrsHeaders, elementString, rowString, sampleCol
 
 def getFieldReviewList():
-
-    parentElement = parentElement = createParentElement(key)
     fieldList = []
 
     for keyField in keyFields:
@@ -529,17 +591,17 @@ def getFieldReviewList():
 
         if keyFieldType == 'element':
             textHeaders, conditionalAttrsHeaders, elementString = getConditionalAttrsTextHeadersElementFromField(keyField)
-            print(textHeaders)
-            print(conditionalAttrsHeaders)
-            print(elementString)
             field = {"headers": textHeaders, "conditionalattrs": conditionalAttrsHeaders, "elementstring": elementString}
             fieldList.append(field)
         if keyFieldType == "repeating":
-            pass
+            textHeaders, conditionalAttrsHeaders, elementString, sampleEntry, sampleCol = getConditionalAttrsTextHeadersElementFromRepeatingField(keyField)
+            field = {"headers": textHeaders, "conditionalattrs": conditionalAttrsHeaders, "elementstring": elementString, "sampleentry":sampleEntry, "samplecol":sampleCol}
+            print(field)
+            fieldList.append(field)
             # elements = processRepeatingTypeField(keyField, keyAuthorities, keyNameSpace, row, parentElement) 
     return fieldList
 
-# getAllColumnHeaders(keyFields)
+getFieldReviewList()
 
 
 

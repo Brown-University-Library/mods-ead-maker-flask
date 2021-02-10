@@ -1,5 +1,5 @@
 from flask import jsonify, Flask, make_response, request, render_template, redirect, g, url_for
-
+import flask
 import EADMaker
 from EADMaker import processExceltoEAD
 from EADMaker import getSheetNames
@@ -152,8 +152,6 @@ def modsMakerDisplayFieldList():
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
     if request.method == "POST":
-        print("REQUESTREQUEST", file=sys.stderr)
-        #print(request.get_data(), file=sys.stderr)
         id = str(uuid.uuid4())
         input_file = request.files['file']
         filename = request.files['file'].filename
