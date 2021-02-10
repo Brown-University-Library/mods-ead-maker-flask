@@ -701,7 +701,7 @@ fields:
   - type: repeating
     method: value
     colprefix:
-      - subjectTopicsGeo
+      - subjectGeo
     element:
       name: subject
       conditionalattrs: 
@@ -731,7 +731,7 @@ fields:
   - type: repeating
     method: value
     colprefix:
-      - subjectTopicsTemporal
+      - subjectTemporal
     element:
       name: subject
       conditionalattrs: 

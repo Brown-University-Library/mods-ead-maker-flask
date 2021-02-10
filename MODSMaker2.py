@@ -556,12 +556,6 @@ def getConditionalAttrsTextHeadersElementFromRepeatingField(keyField):
     columnHeaders.extend(textHeaders)
     row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))
     
-    for colHeader in colHeaders:
-        sampleCol = colHeader
-        columnHeaders.append(colHeader)
-        elements = handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, {}, repeatingDefaults, row)
-        elementsCreated.extend(elements)
-
     for colPrefix in colPrefixes:
         for (index, keyAuthority) in enumerate(keyAuthorities):
             colHeader = colPrefix + keyAuthority.get("suffix", "")
@@ -570,6 +564,12 @@ def getConditionalAttrsTextHeadersElementFromRepeatingField(keyField):
                 sampleCol = colHeader
                 elements = handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, keyAuthority, repeatingDefaults, row)
                 elementsCreated.extend(elements)
+
+    for colHeader in colHeaders:
+        sampleCol = colHeader
+        columnHeaders.append(colHeader)
+        elements = handleRepeatingTypeEntry(parentElement, rowString, repeatingElement, {}, repeatingDefaults, row)
+        elementsCreated.extend(elements)
 
     elementString = ""
 
