@@ -9,6 +9,7 @@ import sys
 import uuid
 import os
 import json
+import fileSupport
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -58,15 +59,19 @@ def eadMakerSelectSheet(filename, id):
 def modsMakerHome():
     if request.method == "POST":
         #print(request.get_data(), file=sys.stderr)
-        id = str(uuid.uuid4())
         input_file = request.files["input_file"]
         filename = request.files["input_file"].filename
+        selectedSheet = request.form.get('sheetlist')
         filename = filename.replace("/", " ").replace("\\", " ")
         #print(input_file)
         if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-            #input_data = input_file.stream.read()
-            return redirect("modsmaker/rendermods/" + filename + "/" + id)
+            # input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
+            # #input_data = input_file.stream.read()
+            # return redirect("modsmaker/rendermods/" + filename + "/" + id)
+            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, "MODSkey.yaml",{})
+            response = make_response(zipFile)
+            response.headers["Content-Disposition"] = "attachment; filename=" + filename
+            return response
         else:
             return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
     else:
@@ -78,10 +83,12 @@ def processNewFile():
         fileUid = str(uuid.uuid4())
         inputFile = request.files.get("xlsx_file")
         fileName = inputFile.filename
+        sheetNames = fileSupport.getSheetNames(inputFile.read())
+        print(sheetNames)
         if ".xlsx" in fileName:
-            filePath = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), fileUid + ".xlsx")
-            inputFile.save(os.path.join(filePath))
-            data = {"filename":fileName, "sheetnames": getSheetNames(filePath), "uid": fileUid}
+            #filePath = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), fileUid + ".xlsx")
+            #inputFile.save(os.path.join(filePath))
+            data = {"filename":fileName, "sheetnames": sheetNames, "uid": fileUid}
             return jsonify(data)
         else:
             return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
@@ -91,6 +98,7 @@ def modsMakerReturnMods(id):
     #print(g.sheetnames, file=sys.stderr)
     if request.method == "POST":
         print("GET requested", file=sys.stderr)
+        inputFile = request.files.get("xlsx_file")
         select = request.form.get('sheetlist')
         includeDefaults = True
         if request.form.get('defaultsCheckbox', None) == None:
@@ -102,17 +110,14 @@ def modsMakerReturnMods(id):
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
         return response
 
-@app.route("/modsmaker/getpreview", methods=["GET", "POST"])
+@app.route("/modsmaker/getpreview", methods=["POST"])
 def modsMakerGetPreview():
     if request.method == "POST":
-        print(request.get_json())
-        requestDict = request.get_json()
-        print(requestDict)
-        id = requestDict.get("id")
-        select = requestDict.get("sheetname")
-        includeDefaults = requestDict.get('includedefaults', True)
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id, includeDefaults)
-        return(jsonify(returndict["allrecords"]))
+        inputFile = request.files.get("xlsx_file")
+        requestDict = json.loads(request.form["data"])
+        sheetName = requestDict.get("sheetname")
+        preview = fileSupport.getPreview(inputFile.read(), sheetName, "MODSkey.yaml", {})
+        return(jsonify(preview))
 
 @app.route("/eadmaker/getpreview", methods=["GET", "POST"])
 def eadMakerGetPreview():

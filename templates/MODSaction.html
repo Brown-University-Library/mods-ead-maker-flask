@@ -11,15 +11,30 @@
       previewParentDiv.style.display = "inherit"
   
       const includeDefaults = document.getElementById("defaultsCheckbox").checked
-  
+
+      fileInput = document.getElementById("input_file")
+ 
       const data = {
-        "id": id,
         "sheetname": document.getElementById("sheetlist").value,
         "includedefaults": includeDefaults
       }
+
+        if (fileInput.files[0] == undefined) {
+            return
+        }
+
+        let selectedFile = fileInput.files[0]
+
+        if (!selectedFile.name.includes(".xlsx")) {
+            return
+        }
+
+      let formData = new FormData();
+      formData.append("xlsx_file", selectedFile);
+      formData.append("data", JSON.stringify(data))
   
       const parameters = {
-        body: JSON.stringify(data),
+        body: formData,
         method: "POST",
         cache: "no-cache",
         headers: new Headers({
@@ -27,7 +42,7 @@
         })
       }
   
-      fetch("/modsmaker/getpreview", parameters)
+      fetch("/modsmaker/getpreview", {method: "POST", body: formData})
         .then(response => response.json())
         .then(function (data) {
           previewDiv.innerText = data.trim()
@@ -46,7 +61,7 @@
   <p class="card-text">Select the Excel sheet in your Excel workbook that contains the metadata you'd like to
     process.</p>
   
-  <form method="post" action="" enctype="multipart/form-data" id="submit_mods">
+  
     <select style="margin-bottom: 15px;" class="form-select" name="sheetlist" id="sheetlist" method="GET" action="/">
     </select>
     <div class="form-check form-switch">
@@ -74,7 +89,7 @@
       Preview MODS
     </div>
   </div>
-  </form>
+  
   <div class="alert alert-secondary instructions" role="alert">
     Your MODS files will download inside a .zip file. The title of the .zip file will be the same as the title of
       the Excel sheet you chose to process.

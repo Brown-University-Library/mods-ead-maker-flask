@@ -205,7 +205,7 @@ class Profile():
 
     def shouldSkipRow(self, row):
         for profileSkip in self.profileSkips:
-            if row.get(profileSkip) != None:
+            if row.get(profileSkip, "") != "":
                 return True
 
     def createParentElement(self, nsMap):
@@ -412,14 +412,13 @@ class Profile():
         for (index, element) in enumerate(allMatchingElements):
             parentElement.insert(firstElementIndex + index, element)
 
-    def convertRowToEtree(self, row, globalConditions):
+    def convertRowToXmlString(self, row, globalConditions):
         if self.shouldSkipRow(row):
             return
         
         parentElement = self.createParentElement(self.profileNsMap)
 
         for profileField in self.profileFields:
-            print(profileField)
             profileFieldType = profileField.get('type', "")
 
             if profileFieldType == 'element':
@@ -433,13 +432,14 @@ class Profile():
         for profileSort in self.profileSorts:
             self.processSort(cleanedUpEtree, profileSort)
         
-        print(cleanedUpEtree)
-        print(etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8"))
+        # print(cleanedUpEtree)
+        # print(etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8"))
+
+        return etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8")
 
     def getHeadersFromTextFields(self, textFields):
         textHeaders = []
         for textField in textFields:
-            print(textField)
             textFieldValues = textField.get("values", [])
             for textFieldValue in textFieldValues:
                 if textFieldValue.get("type") == "col":
@@ -567,7 +567,6 @@ class Profile():
 
         for profileField in self.profileFields:
             profileFieldType = profileField.get('type', "")
-            print(profileField)
             if profileFieldType == 'element':
                 textHeaders, conditionalAttrsHeaders, elementString = self.getFieldListInfoFromElementField(profileField)
                 field = {"headers": textHeaders, "conditionalattrs": conditionalAttrsHeaders, "elementstring": elementString}
@@ -578,8 +577,8 @@ class Profile():
                 fieldList.append(field)
         return fieldList
 
-row = {"language":"English|Chinese","subjectCorpNAF":"Zacks Corp, 1991-2002|B Corp, 1992-1993 http://google.com|A Corp|","subjectNamesLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","nameCorpCreatorNAF":"B Corp, 1992-1993 http://google.com|A Corp","namePersonOtherLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","rightsStatementURI":"www.google.com","rightsStatementText":"In Copyright","physicalLocationNAF":"Brown University. Library http://id.loc.gov/authorities/names/n81029638","shelfLocator3":"Paper","shelfLocator3ID":"100", "shelfLocator2":"Box","shelfLocator2ID":"Hello","identifierBDR":"bdr411","callNumber":"callNo", "dateText":"10-04-2014","dateStart":"10-00-2015", "dateEnd":"10-21-2016", "rightsStatementText":"In Copyright","subjectTopicsTemporalLocal":"Mock Temporal|A Temporal", "subjectNamesLC":"Name, One, manager, 1992-1993|Name, Two, director, 1993-1994", "genreLocal": "Local Genre 1|Local Genre 2","genreFAST": "genre1 http://genre.gov|genre2", "subjectTopicsLocal": "A Local Topic|C Local Topic", "subjectTopicsFreedomNow":"B FN Topic|FN2","subjectTopicsLC":"LC Topic https://google.com|LC Topic 2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST":"Fast {{the great}}, Person, job having, 1991-1992", "namePersonCreatorLC": "Nadler, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
-
+# row = {"language":"English|Chinese","subjectCorpNAF":"Zacks Corp, 1991-2002|B Corp, 1992-1993 http://google.com|A Corp|","subjectNamesLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","nameCorpCreatorNAF":"B Corp, 1992-1993 http://google.com|A Corp","namePersonOtherLocal":"Person, Other, 1992-|Berson, Other, 1992-, author","rightsStatementURI":"www.google.com","rightsStatementText":"In Copyright","physicalLocationNAF":"Brown University. Library http://id.loc.gov/authorities/names/n81029638","shelfLocator3":"Paper","shelfLocator3ID":"100", "shelfLocator2":"Box","shelfLocator2ID":"Hello","identifierBDR":"bdr411","callNumber":"callNo", "dateText":"10-04-2014","dateStart":"10-00-2015", "dateEnd":"10-21-2016", "rightsStatementText":"In Copyright","subjectTopicsTemporalLocal":"Mock Temporal|A Temporal", "subjectNamesLC":"Name, One, manager, 1992-1993|Name, Two, director, 1993-1994", "genreLocal": "Local Genre 1|Local Genre 2","genreFAST": "genre1 http://genre.gov|genre2", "subjectTopicsLocal": "A Local Topic|C Local Topic", "subjectTopicsFreedomNow":"B FN Topic|FN2","subjectTopicsLC":"LC Topic https://google.com|LC Topic 2", "subjectTitleLC":"yes https://google.com| no https://yahoo.net", "itemTitle":"whatever", "itemTitlePartNumber":"1", "itemTitlePartName":"Hello", "typeOfResource":"water", "typeOfResourceCollection":"sad", "namePersonCreatorFAST":"Fast {{the great}}, Person, job having, 1991-1992", "namePersonCreatorLC": "Nadler, Mad, 1989-2002, little helper https://google.com| Guy {{III}}, Happy, 1928-, useful man https://facebook.com "}
+# row2 = {'MODS Maker header': '', 'Ignore': '', '': 'y|y|y|SNCC released this press release and report after teh Agricultural Stabilization Committee elecions in the Mississippi Delta in 1964.  The report, entitled "The Cotton Vote in Mississippi", describes the agricultural situation for black Mississippians in teh Delta and explains the results of thh elections.|SNCC released this press release and report after teh Agricultural Stabilization Committee elecions in the Mississippi Delta in 1964.  The report, entitled "The Cotton Vote in Mississippi", describes the agricultural situation for black Mississippians in teh Delta and explains the results of thh elections.|Brianna Larkin|This document included in the Freedom Now! project by Tougaloo College student(s): Brianna Larkin.|2005-08-9|public|archival|organizational|1964-12-10|1964-12-10|7|pages|8.5 x 11|Ed King Box 11|593|Tougaloo College Archives|Black type print on white paper|RBB0017-04|RB0017-01.jpg RB0017-02.jpg RB0017-03.jpg RB0017-05.jpg RB0017-06.jpg RB0017-07.jpg|10190_1.jpg 10190_2.jpg 10190_3.jpg 10190_5.jpg 10190_6.jpg 10190_7.jpg|SNCC, Agricultural Stabilization Committee, Cleveland Sellers, COFO, Jane Adams, Orville Freeman, Robert Miles, Summer projet, Curtis Williams, Penny Patch, Felix Webb, Fannie Lou Hamer, FDP, Roland Nelson, Carlin Hays, Batesville Hospital |SNCC|Agricultural Stabilization Committee|Cleveland Sellers|COFO|Jane Adams|Orville Freeman|Robert Miles|Summer projet|Curtis Williams|Penny Patch|Felix Webb|Fannie Lou Hamer|FDP|Roland Nelson|Carlin Hays|Batesville Hospital|y||||||||||||||||||||||||||||x', 'identifierBDR': '10190', 'y': 'Press Release, The Cotton Vote in Mississippi, SNCC, Atlanta GA 10 December 1964', 'itemTitle': 'Press Release, The Cotton Vote in Mississippi, SNCC, Atlanta GA 10 December 1964', 'noteHistorical': 'SNCC released this press release and report after teh Agricultural Stabilization Committee elecions in the Mississippi Delta in 1964.  The report, entitled "The Cotton Vote in Mississippi", describes the agricultural situation for black Mississippians in teh Delta and explains the results of thh elections. ', 'noteGeneral': 'This document included in the Freedom Now! project by Tougaloo College student(s): Brianna Larkin.', 'genreLocal': 'organizational', 'dateText': '1964-12-10', 'place': 'Atlanta, GA', 'language': 'English', 'extentQuantity': '7 pages', 'extentSize': '8.5 in. x 11 in.', 'collection': 'Ed King', 'repository': 'Tougaloo College Archives, L. Zenobia Coleman Library, Tougaloo College, 500 West County Line Road, Tougaloo, MS 39174, (https://www.tougaloo.edu/library/archives-special-collections)', 'shelfLocator1': 'Box', 'shelfLocator1ID': '11.0', 'shelfLocator2': 'Folder', 'shelfLocator2ID': '593.0', 'callNumber': '90.22', 'noteScope': 'SNCC publication about teh ASC elections in the MS Delta.  Describes teh imprtance of the cotton vote for black Mississippians in teh Delta.', 'image_filename': 'RB0017-01 RB0017-02 RB0017-03 RBB0017-04 RB0017-05 RB0017-06 RB0017-07', 'subjectTopicsLocalFreedomNow': '', 'subjectTopicsLocal': 'SNCC|Agricultural Stabilization Committee|Cleveland Sellers|COFO|Jane Adams|Orville Freeman|Miles, Robert|Summer projet|Curtis Williams|Penny Patch|Felix Webb|Hamer, Fannie Lou|FDP|Roland Nelson|Carlin Hays|Batesville Hospital', 'namePersonCreatorLocal': '', 'namePersonOtherLocal': '', 'digitalOrigin': 'reformatted digital', 'physicalLocationLC': 'Tougaloo College. Archives http://id.loc.gov/authorities/names/n2009053890', 'noDigitalObjectMade': 'x', 'noPreferredCitation': 'x', 'notOpenForResearch': 'x', 'rightsStatementText': 'In Copyright', 'rightsStatementURI': 'https://rightsstatements.org/page/InC/1.0/?language=en', 'typeOfResource': 'text', 'typeOfResourceManuscript': ''}
 # modsMaker = Profile("MODSkey.yaml")
-# print(modsMaker.convertRowToEtree(row, {}))
+# print(modsMaker.convertRowToXmlString(row2, {}))
 # print(modsMaker.getFieldList())
