@@ -52,25 +52,6 @@ def eadMakerSelectSheet(filename, id):
         sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename, title="EAD Maker")
 
-@app.route("/eadmakerapi", methods=["GET", "POST"])
-def eadMakerAPI():
-    if request.method == "POST":
-        print("REQUESTREQUEST", file=sys.stderr)
-        #print(request.get_data(), file=sys.stderr)
-        id = str(uuid.uuid4())
-        input_file = request.files['file']
-        filename = request.files['file'].filename
-        filename = filename.replace("/", " ").replace("\\", " ")
-        #print(input_file)
-        if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-            #input_data = input_file.stream.read()
-            return "eadmaker/renderead/" + filename + "/" + id
-        else:
-            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
-    else:
-        return "ERROR"
-
 #------MODS------
 
 @app.route("/modsmaker", methods=["GET", "POST"])
@@ -143,27 +124,17 @@ def eadMakerGetPreview():
         output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         return(jsonify(returndict["allrecords"]))
 
-@app.route("/modsmaker/fieldreview", methods=["GET"])
+@app.route("/modsmaker/fieldlist", methods=["GET"])
 def modsMakerDisplayFieldList():
     if request.method == "GET":
-        fieldList = MODSMaker2.getFieldReviewList()
+        modsMaker = MODSMaker2.Profile("MODSkey.yaml")
+        fieldList = modsMaker.getFieldList()
         return render_template('fieldlist.html', fieldList=fieldList, title="Fields")
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
     if request.method == "POST":
-        id = str(uuid.uuid4())
-        input_file = request.files['file']
-        filename = request.files['file'].filename
-        filename = filename.replace("/", " ").replace("\\", " ")
-        #print(input_file)
-        if ".xlsx" in filename:
-            input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-            #input_data = input_file.stream.read()
-            return "modsmaker/rendermods/" + filename + "/" + id
-        else:
-            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
-
+        pass
     else:
         return "ERROR"
 

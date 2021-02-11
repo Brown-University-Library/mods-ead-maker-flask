@@ -1,54 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-  
-<div></div>
-<table class="table">
+<table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">Field Example</th>
-        <th scope="col">Columns</th>
-      </tr>
+        <tr>
+            <th scope="col">Columns</th>
+            <th scope="col">Field Example</th>
+        </tr>
     </thead>
     <tbody>
-        {%for field in fieldList%} 
-      <tr>
-        <td class="code">{{field["elementstring"]}}</td>
-        <td>
+        {%for field in fieldList%}
+        <tr>
+            <td>
                 <ul class="list-group list-group-field-list">
-                    {%for column in field["headers"] %} 
+                    {%for column in field["headers"] %}
                     <li class="list-group-item "><small>{{column}}</small></li>
                     {% endfor %}
-                    {%for conditionalattr in field["conditionalattrs"] %} 
+                    {%for conditionalattr in field["conditionalattrs"] %}
                 </ul>
-                    <ul class="list-group list-group-field-list">
-                        <li class="list-group-item"><p><small>{{conditionalattr["explanation"]}}</small></p>
-                            <div class="alert alert-light" role="alert">
-                        <div class="code">{{conditionalattr["attribute"]}}</div>
-                    </div></li>
-                    
-                    </ul>   
-                    {% endfor %}
-                
+                <ul class="list-group list-group-field-list">
+                    <li class="list-group-item">
+                        <p><small>{{conditionalattr["explanation"]}}</small></p>
+                        <div class="alert alert-light" role="alert">
+                            <div class="code">{{conditionalattr["attribute"]}}</div>
+                        </div>
+                    </li>
+
+                </ul>
+                {% endfor %}
+
                 {% if field.get("samplecol") %}
-            </ul>
-            <ul class="list-group list-group-field-list">
-                <li class="list-group-item ">
-                    <small>The example reflects the following entry in the {{field.get("samplecol","")}} column:</small>
-                    <div class="alert alert-light" role="alert">
-                        <div class="code">{{field.get("sampleentry")}}</div>
-                    </div>
-            </ul>   
-
+                </ul>
+                <ul class="list-group list-group-field-list">
+                    <li class="list-group-item ">
+                        <small>The example reflects the following entry in the {{field.get("samplecol","")}}
+                            column:</small>
+                        <div class="alert alert-light" role="alert">
+                            <div class="code">{{field.get("sampleentry")}}</div>
+                        </div>
+                </ul>
                 {% endif %}
-        </td>
-        <td>
-        </td>
-
-      </tr>
-      {%endfor%}
+            </td>
+            <td class="code">{{field["elementstring"]}}</td>
+        </tr>
+        {%endfor%}
     </tbody>
-  </table>
+</table>
 
-  {%endblock%}
+{%endblock%}

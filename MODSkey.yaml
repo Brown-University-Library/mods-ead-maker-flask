@@ -20,6 +20,9 @@ skipif:
  - subSeriesTitle
  - Ignore
 
+globalconditions:
+  - {code: includeBrownDefaults, defaultvalue: true, explanation: "Include default Brown University archival fields."}
+
 sort:
   #Creator personal and name fields
   - {elementxpath: "mods:name[@type='personal'][mods:role/mods:roleTerm[contains(text(),'creator')]]", sortbyxpath: "mods:namePart/text()"}
@@ -103,6 +106,13 @@ fields:
     method: name
     colprefix:
       - namePersonCreator
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     defaults: {entry.role: creator}
     element:
       name: name
@@ -166,6 +176,13 @@ fields:
     method: name
     colprefix:
       - nameCorpCreator
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     defaults: {entry.role: creator}
     element:
       name: name
@@ -229,6 +246,13 @@ fields:
     method: name
     colprefix:
       - namePersonOther
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: name
       attrs: {type: personal}
@@ -311,6 +335,15 @@ fields:
     method: value
     colprefix:
       - genre
+    colsuffixes:
+      - suffix: AAT
+        defaults: {entry.authority: aat, entry.authorityURI: https://www.getty.edu/research/tools/vocabularies/aat/}
+      - suffix: LCSH
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: Local
+        defaults: {entry.authority: local}
+      - suffix: RBGENR
+        defaults: {entry.authority: fast, entry.authorityURI: https://rbms.info/vocabularies/genre/alphabetical_list.htm}
     element:
       name: genre
       conditionalattrs: 
@@ -472,7 +505,21 @@ fields:
               values:
                 - {type: col, header: place, method: value}
 
-#### Language
+  - type: repeating
+    method: value
+    cols:
+      - language
+    element:
+      type: element
+      name: language
+      children:
+        - type: element
+          name: languageTerm
+          attrs: {type: code, authority: iso639-2b}
+          text:
+            - type: value
+              values:
+                - {type: col, header: entry.value, method: lang}
 
   - type: element
     name: physicalDescription
@@ -542,6 +589,13 @@ fields:
     method: name
     colprefix:
       - subjectNames
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: subject
       children:
@@ -607,6 +661,13 @@ fields:
     method: name
     colprefix:
       - subjectCorp
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: subject
       children:
@@ -672,6 +733,15 @@ fields:
     method: value
     colprefix:
       - subjectTopics
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
+      - suffix: FreedomNow
+        defaults: {entry.authority: local, entry.displayLabel: "Freedom Now! keyword"}
     element:
       name: subject
       conditionalattrs: 
@@ -690,6 +760,11 @@ fields:
             - type: value
               values:
                 - {type: col, header: entry.authorityURI, method: value}
+        - key: displayLabel
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.displayLabel, method: value}
       children:
         - type: element
           name: topic
@@ -702,6 +777,13 @@ fields:
     method: value
     colprefix:
       - subjectGeo
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: subject
       conditionalattrs: 
@@ -732,6 +814,13 @@ fields:
     method: value
     colprefix:
       - subjectTemporal
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: subject
       conditionalattrs: 
@@ -760,30 +849,15 @@ fields:
 
   - type: repeating
     method: value
-    cols:
-      - subjectTopicsFreedomNow
-    defaults: {entry.authority: local}
-    element:
-      name: subject
-      attrs:  {displayLabel: Freedom Now! keyword}
-      conditionalattrs: 
-        - key: authority
-          text: 
-            - type: value
-              values:
-                - {type: col, header: entry.authority, method: value}
-      children:
-        - type: element
-          name: topic
-          text:
-            - type: value
-              values:
-                - {type: col, header: entry.value, method: value}
-
-  - type: repeating
-    method: value
     colprefix:
       - subjectTitle
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       name: subject
       conditionalattrs: 
@@ -922,6 +996,13 @@ fields:
     method: value
     colprefix:
       - physicalLocation
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
     element:
       type: element
       name: location
@@ -1045,3 +1126,4 @@ fields:
 
 samplevalues:
   identifierBDR: "bdr:12345"
+  language: "eng|rus"
