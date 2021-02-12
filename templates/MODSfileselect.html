@@ -4,7 +4,7 @@
 <h6>Choose the Excel file you'd like to process.</h6>
 </p>
 
-<form method="post" action="/modsmaker" enctype="multipart/form-data" id="submit_mods">
+<form method="post" action="{{url_for('modsMakerHome', profileFilename=profilename)}}" enctype="multipart/form-data" id="submit_mods">
     <p><input class="form-control" type="file" name="input_file" id="input_file" /></p> 
 
 {% include 'MODSaction.html' %}

@@ -4,6 +4,7 @@ from lxml import etree
 from lxml import objectify
 import yaml
 import re
+import csv
 
 def convertArrayToDictWithMatchingKeyValues(array):
     dictionary = {}
@@ -614,7 +615,3 @@ class Profile():
                 allHeaders.append(header)
         
         return removeDuplicatesFromArray(allHeaders)
-        
-
-modsMaker = Profile("profiles/modsprofile.yaml")
-modsMaker.getAllHeaders()

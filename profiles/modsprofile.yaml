@@ -336,7 +336,7 @@ fields:
       - suffix: Local
         defaults: {entry.authority: local}
       - suffix: RBGENR
-        defaults: {entry.authority: fast, entry.authorityURI: https://rbms.info/vocabularies/genre/alphabetical_list.htm}
+        defaults: {entry.authority: rbgenr, entry.authorityURI: https://rbms.info/vocabularies/genre/alphabetical_list.htm}
     element:
       name: genre
       conditionalattrs: 
@@ -773,6 +773,46 @@ fields:
   - type: repeating
     method: value
     colprefix:
+      - subjectTitle
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: Local
+        defaults: {entry.authority: local}
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: titleInfo
+          children:
+            - type: element
+              name: title
+              text:
+                - type: value
+                  values:
+                    - {type: col, header: entry.value, method: value}
+
+  - type: repeating
+    method: value
+    colprefix:
       - subjectGeo
     colsuffixes:
       - suffix: LC
@@ -843,46 +883,6 @@ fields:
             - type: value
               values:
                 - {type: col, header: entry.value, method: value}
-
-  - type: repeating
-    method: value
-    colprefix:
-      - subjectTitle
-    colsuffixes:
-      - suffix: LC
-        defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
-      - suffix: FAST
-        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
-      - suffix: Local
-        defaults: {entry.authority: local}
-    element:
-      name: subject
-      conditionalattrs: 
-        - key: authority
-          text: 
-            - type: value
-              values:
-                - {type: col, header: entry.authority, method: value}
-        - key: valueURI
-          text: 
-            - type: value
-              values:
-                - {type: col, header: entry.valueURI, method: value}
-        - key: authorityURI
-          text: 
-            - type: value
-              values:
-                - {type: col, header: entry.authorityURI, method: value}
-      children:
-        - type: element
-          name: titleInfo
-          children:
-            - type: element
-              name: title
-              text:
-                - type: value
-                  values:
-                    - {type: col, header: entry.value, method: value}
 
   - type: element
     name: subject
