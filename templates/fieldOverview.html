@@ -37,6 +37,17 @@
                         </div>
                 </ul>
                 {% endif %}
+                {% if field.get("conditions") %}
+                {%for condition in field["conditions"] %}
+                </ul>
+                <ul class="list-group list-group-field-list">
+
+                        <div class="alert alert-warning" role="alert">
+                        <small>{{condition}}</small>
+               
+                </ul>
+                {% endfor %}
+                {% endif %}
             </td>
             <td class="code">{{field["elementstring"]}}</td>
         </tr>
