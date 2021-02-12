@@ -117,7 +117,7 @@ def modsMakerDisplayFieldList(profileFilename):
     if request.method == "GET":
         modsMaker = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
         fieldList = modsMaker.getFieldList()
-        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml"))).read()
+        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
             
         return render_template('profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
 
