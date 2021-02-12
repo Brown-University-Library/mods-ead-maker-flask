@@ -3,13 +3,13 @@ import flask
 import EADMaker
 from EADMaker import processExceltoEAD
 from EADMaker import getSheetNames
-from MODSMaker import processExceltoMODS
-import MODSMaker2
+import profileInterpreter
 import sys
 import uuid
 import os
 import json
 import fileSupport
+from glob import glob
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -38,86 +38,16 @@ def eadMakerHome():
 
 @app.route("/eadmaker/renderead/<string:filename>/<string:id>", methods=["GET", "POST"])
 def eadMakerSelectSheet(filename, id):
-    print("TRYING TO RENDER RENDERTEMPLATE", file=sys.stderr)
-    #print(g.sheetnames, file=sys.stderr)
     if request.method == "POST":
         print("GET requested", file=sys.stderr)
         select = request.form.get('sheetlist')
-        #print(select, file=sys.stderr)
         output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
-        #print(output_data, file=sys.stderr)
         response = make_response(output_data)
         response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
         return response
     else:
         sheetnames = getSheetNames(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
         return render_template('resultspage.html', sheets=sheetnames, publicfilename=filename, id=id, filename=filename, title="EAD Maker")
-
-#------MODS------
-
-@app.route("/modsmaker", methods=["GET", "POST"])
-def modsMakerHome():
-    if request.method == "POST":
-        #print(request.get_data(), file=sys.stderr)
-        input_file = request.files["input_file"]
-        filename = request.files["input_file"].filename
-        selectedSheet = request.form.get('sheetlist')
-        filename = filename.replace("/", " ").replace("\\", " ")
-        #print(input_file)
-        if ".xlsx" in filename:
-            # input_file.save(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"))
-            # #input_data = input_file.stream.read()
-            # return redirect("modsmaker/rendermods/" + filename + "/" + id)
-            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, "MODSkey.yaml",{})
-            response = make_response(zipFile)
-            response.headers["Content-Disposition"] = "attachment; filename=" + filename
-            return response
-        else:
-            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
-    else:
-        return render_template('MODSfileselect.html', title="MODS Maker")
-
-@app.route("/processfileupload", methods=["POST"])
-def processNewFile():
-    if request.method == "POST":
-        fileUid = str(uuid.uuid4())
-        inputFile = request.files.get("xlsx_file")
-        fileName = inputFile.filename
-        sheetNames = fileSupport.getSheetNames(inputFile.read())
-        print(sheetNames)
-        if ".xlsx" in fileName:
-            #filePath = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), fileUid + ".xlsx")
-            #inputFile.save(os.path.join(filePath))
-            data = {"filename":fileName, "sheetnames": sheetNames, "uid": fileUid}
-            return jsonify(data)
-        else:
-            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
-
-@app.route("/modsmaker/returnmods/<string:id>", methods=["POST"])
-def modsMakerReturnMods(id):
-    #print(g.sheetnames, file=sys.stderr)
-    if request.method == "POST":
-        print("GET requested", file=sys.stderr)
-        inputFile = request.files.get("xlsx_file")
-        select = request.form.get('sheetlist')
-        includeDefaults = True
-        if request.form.get('defaultsCheckbox', None) == None:
-            includeDefaults = False
-        #print(select, file=sys.stderr)
-        output_data, returndict = processExceltoMODS(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id, includeDefaults)
-        #print(output_data, file=sys.stderr)
-        response = make_response(output_data)
-        response.headers["Content-Disposition"] = "attachment; filename=" + returndict["filename"]
-        return response
-
-@app.route("/modsmaker/getpreview", methods=["POST"])
-def modsMakerGetPreview():
-    if request.method == "POST":
-        inputFile = request.files.get("xlsx_file")
-        requestDict = json.loads(request.form["data"])
-        sheetName = requestDict.get("sheetname")
-        preview = fileSupport.getPreview(inputFile.read(), sheetName, "MODSkey.yaml", {})
-        return(jsonify(preview))
 
 @app.route("/eadmaker/getpreview", methods=["GET", "POST"])
 def eadMakerGetPreview():
@@ -129,12 +59,72 @@ def eadMakerGetPreview():
         output_data, returndict = processExceltoEAD(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache"), id + ".xlsx"), select, id)
         return(jsonify(returndict["allrecords"]))
 
-@app.route("/modsmaker/fieldlist", methods=["GET"])
-def modsMakerDisplayFieldList():
+#------MODS------
+
+@app.route("/modsmaker", methods=["GET", "POST"])
+def modsMakerHome():
+    if request.method == "POST":
+        input_file = request.files["input_file"]
+        filename = request.files["input_file"].filename
+        selectedSheet = request.form.get('sheetlist')
+        globalConditions = {}
+        for formInput in request.form:
+            globalConditions[formInput] = True
+
+        if ".xlsx" in filename:
+            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, "profiles/modsprofile.yaml",globalConditions)
+            response = make_response(zipFile)
+            response.headers["Content-Disposition"] = "attachment; filename=" + filename
+            return response
+
+        else:
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
+
+    else:
+        profile = profileInterpreter.Profile("profiles/modsprofile.yaml")
+        return render_template('MODSfileselect.html', globalconditions=profile.profileGlobalConditions, title="MODS Maker")
+
+@app.route("/processfileupload", methods=["POST"])
+def processNewFile():
+    if request.method == "POST":
+        fileUid = str(uuid.uuid4())
+        inputFile = request.files.get("xlsx_file")
+        fileName = inputFile.filename
+        sheetNames = fileSupport.getSheetNames(inputFile.read())
+        if ".xlsx" in fileName:
+            data = {"filename":fileName, "sheetnames": sheetNames, "uid": fileUid}
+            return jsonify(data)
+        else:
+            return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
+
+@app.route("/modsmaker/getpreview", methods=["POST"])
+def modsMakerGetPreview():
+    if request.method == "POST":
+        inputFile = request.files.get("xlsx_file")
+        requestDict = json.loads(request.form["data"])
+        sheetName = requestDict.get("sheetname")
+        globalConditions = requestDict.get("globalconditions", {})
+        preview = fileSupport.getPreview(inputFile.read(), sheetName, "profiles/modsprofile.yaml", globalConditions)
+        return(jsonify(preview))
+
+@app.route("/modsmaker/profiles/<string:profileFilename>", methods=["GET"])
+def modsMakerDisplayFieldList(profileFilename):
     if request.method == "GET":
-        modsMaker = MODSMaker2.Profile("MODSkey.yaml")
+        modsMaker = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
         fieldList = modsMaker.getFieldList()
-        return render_template('fieldlist.html', fieldList=fieldList, title="Fields")
+        yaml = open(os.path.join("profiles", profileFilename + ".yaml")).read()
+            
+        return render_template('profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
+
+@app.route("/modsmaker/profiles/", methods=["GET"])
+def modsMakerDisplayProfiles():
+    if request.method == "GET":
+        files = glob("profiles/*.yaml")
+        print(files)
+        profileList = []
+        for file in files:
+            profileList.append(os.path.basename(file).replace(".yaml", ""))
+        return render_template('profiles.html', profiles=profileList, title="Profiles")
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
@@ -142,6 +132,8 @@ def modsMakerAPI():
         pass
     else:
         return "ERROR"
+
+####Extra
 
 @app.route("/resources", methods=["GET"])
 def renderResources():

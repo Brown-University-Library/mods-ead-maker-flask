@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class="list-group list-group-flush">
+
+{%for profile in profiles %}
+<a class="list-group-item" href="/modsmaker/profiles/{{profile}}">{{profile}}</a>
+{% endfor %}
+</ul>
+{%endblock%}

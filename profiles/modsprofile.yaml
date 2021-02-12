@@ -1,6 +1,7 @@
 attrqname: 
   uri: http://www.w3.org/2001/XMLSchema-instance
   tag: schemaLocation
+schemalocation: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"
 nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-instance, xlink: http://www.w3.org/1999/xlink}
 elementnamespace: '{http://www.loc.gov/mods/v3}'
 parenttag: 'mods'
@@ -409,6 +410,8 @@ fields:
 
   - type: element
     name: note
+    conditions:
+      - {type: global, code: includeBrownDefaults}
     attrs: {type: preferredcitation}
     text:
       - type: ifpresent
@@ -571,6 +574,8 @@ fields:
 
   - type: element
     name: accessCondition
+    conditions:
+      - {type: global, code: includeBrownDefaults}
     attrs: {type: restriction on access}
     text:
       - type: value
@@ -920,69 +925,69 @@ fields:
               - type: value
                 values:
                   - {type: col, header: collection, method: value}
+      - type: element
+        name: originInfo
+        children: 
           - type: element
-            name: originInfo
-            children: 
-              - type: element
-                name: dateCreated
-                text:
-                  - type: value
-                    values:
-                      - {type: col, header: dateTextParent, method: num}
-          - type: element
-            name: identifier
-            attrs: {type: local}
+            name: dateCreated
             text:
               - type: value
                 values:
-                  - {type: col, header: callNumber, method: value}
+                  - {type: col, header: dateTextParent, method: num}
+      - type: element
+        name: identifier
+        attrs: {type: local}
+        text:
+          - type: value
+            values:
+              - {type: col, header: callNumber, method: value}
+      - type: element
+        name: location
+        children:
           - type: element
-            name: location
+            name: physicalLocation
+            text:
+              - type: value
+                values:
+                  - {type: col, header: repository, method: value}
+          - type: element
+            name: url
+            text:
+              - type: value
+                values:
+                  - {type: col, header: findingAid, method: value}
+          - type: element
+            name: holdingSimple
             children:
               - type: element
-                name: physicalLocation
-                text:
-                  - type: value
-                    values:
-                      - {type: col, header: repository, method: value}
-              - type: element
-                name: url
-                text:
-                  - type: value
-                    values:
-                      - {type: col, header: findingAid, method: value}
-              - type: element
-                name: holdingSimple
-                children:
+                name: copyInformation
+                children: 
                   - type: element
-                    name: copyInformation
-                    children: 
-                      - type: element
-                        name: shelfLocator
-                        text:
-                          - type: ifpresent
-                            col: shelfLocator1
-                            values: 
-                              - {type: col, header: shelfLocator1, method: value}
-                              - {type: value, text: " "}
-                              - {type: col, header: shelfLocator1ID, method: num}
-                          - type: ifpresent
-                            col: shelfLocator2
-                            values: 
-                              - {type: value, text: ", "}
-                              - {type: col, header: shelfLocator2, method: value}
-                              - {type: value, text: " "}
-                              - {type: col, header: shelfLocator2ID, method: num}
-                          - type: ifpresent
-                            col: shelfLocator3
-                            values: 
-                              - {type: value, text: ", "}
-                              - {type: col, header: shelfLocator3, method: value}
-                              - {type: value, text: " "}
-                              - {type: col, header: shelfLocator3ID, method: num}
-                          - type: action
-                            action: leftstriprightstrip
-                            leftstriprightstriptext: ", "
+                    name: shelfLocator
+                    text:
+                      - type: ifpresent
+                        col: shelfLocator1
+                        values: 
+                          - {type: col, header: shelfLocator1, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator1ID, method: num}
+                      - type: ifpresent
+                        col: shelfLocator2
+                        values: 
+                          - {type: value, text: ", "}
+                          - {type: col, header: shelfLocator2, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator2ID, method: num}
+                      - type: ifpresent
+                        col: shelfLocator3
+                        values: 
+                          - {type: value, text: ", "}
+                          - {type: col, header: shelfLocator3, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator3ID, method: num}
+                      - type: action
+                        action: leftstriprightstrip
+                        leftstriprightstriptext: ", "
                           
   - type: repeating
     method: value
@@ -1110,6 +1115,8 @@ fields:
 
   - type: element
     name: note
+    conditions:
+      - {type: global, code: includeBrownDefaults}
     attrs: {displayLabel: Digital object made available by}
     text:
       - type: value
@@ -1118,4 +1125,4 @@ fields:
 
 samplevalues:
   identifierBDR: "bdr:12345"
-  language: "eng|rus"
+  language: "English|rus"

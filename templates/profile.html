@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{url_for('modsMakerDisplayProfiles')}}">Profiles</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{profilename}}</li>
+  </ol>
+</nav>
+<h3>{{profilename}} <small class="text-muted"> profile</small></h3>
+<ul class="nav nav-tabs profile-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#fieldOverview" type="button" role="tab" aria-controls="home" aria-selected="true">Field Overview</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#yamlView" type="button" role="tab" aria-controls="profile" aria-selected="false">YAML View</button>
+    </li>
+  </ul>
+  <div class="tab-content" >
+    <div class="tab-pane fade show active" id="fieldOverview" role="tabpanel" aria-labelledby="fieldOverview-tab">
+        {% include 'fieldOverview.html' %}
+    </div>
+    <div class="tab-pane fade" id="yamlView" role="tabpanel" aria-labelledby="yamlView-tab">
+        {% include 'yamlView.html' %}
+    </div>
+  </div>
+
+
+
+{%endblock%}

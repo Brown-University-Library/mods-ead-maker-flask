@@ -1,7 +1,8 @@
 import xlrd
-import MODSMaker2
+import profileInterpreter
 from zipfile import ZipFile
 import os
+import io
 import uuid
 from lxml import etree
 
@@ -44,37 +45,37 @@ def getFilenameFromRow(row, index):
     else:
         return "default" + str(index)
 
-def createZipFromExcel(excelFile, sheetName, profilePath, globalConditons):
-    id = str(uuid.uuid4())
+def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxFileToDict(excelFile, sheetName)
-    profile = MODSMaker2.Profile(profilePath)
-    os.mkdir(CACHEDIR + id)
-    zipObj = ZipFile(CACHEDIR + id + "/" + sheetName + '.zip', 'w')
+    profile = profileInterpreter.Profile(profilePath)
+    profile.globalConditionsSet = globalConditions
+
+    zipBuffer = io.BytesIO()
+    zipObj = ZipFile(zipBuffer, 'w')
 
     for (index, row) in enumerate(rows):
-        
-        xmlString = profile.convertRowToXmlString(row, {})
+        xmlString = profile.convertRowToXmlString(row)
         filename = getFilenameFromRow(row, index)
 
+        fileBuffer = io.StringIO()
+
         if xmlString != None:
-            with open(CACHEDIR + id + "/" + filename + ".mods", 'w+') as f:
-                f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-                f.write(xmlString)
-
-            zipObj.write(CACHEDIR + id + "/" + filename + ".mods", filename + ".mods")
-
+                fileBuffer.write(xmlString)
+                zipObj.writestr(filename + ".mods", fileBuffer.getvalue())
+            
     zipObj.close()
-    with open(CACHEDIR + id + "/" + sheetName + '.zip', mode='rb') as zipdata:
-        return zipdata.read(), sheetName + '.zip'
+    
+    return zipBuffer.getvalue(), sheetName + '.zip'
 
 def getPreview(excelFile, sheetName, profilePath, globalConditons):
     rows = convertXlsxFileToDict(excelFile, sheetName)
-    profile = MODSMaker2.Profile(profilePath)
+    profile = profileInterpreter.Profile(profilePath)
+    profile.globalConditionsSet = globalConditons
     allXmlString = ""
 
     for (index, row) in enumerate(rows):
         
-        xmlString = profile.convertRowToXmlString(row, {})
+        xmlString = profile.convertRowToXmlString(row)
         filename = getFilenameFromRow(row, index)
 
         if xmlString:

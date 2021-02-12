@@ -1,6 +1,7 @@
 import csv
 import lxml
 from lxml import etree
+from lxml import objectify
 import yaml
 import re
 
@@ -188,12 +189,15 @@ class Profile():
         self.profileFields = self.profile.get("fields", [])
         self.colSuffixes = self.profile.get("authorities")
         self.profileSorts = self.profile.get("sort", [])
+        self.profileSampleValues = self.profile.get("samplevalues", {})
 
-        self.globalConditions = self.profile.get("globalconditions")
+        self.profileGlobalConditions = self.profile.get("globalconditions")
+        self.globalConditionsSet = {}
 
         self.profileNameSpace = self.profile.get("elementnamespace", [])
         self.profileParentTag = self.profile.get("parenttag", [])
         self.profileQName = self.profile.get("attrqname", [])
+        self.profileSchemaLocation = self.profile.get("schemalocation", [])
         self.profileNsMap = self.profile.get("nsmap", {})
 
         with open("SupportedLanguages.csv") as langCsv:
@@ -211,9 +215,7 @@ class Profile():
     def createParentElement(self, nsMap):
         attrQname = etree.QName(self.profileQName.get("uri",""),self.profileQName.get("tag",""))
 
-        # keyNsMap = key.get("nsmap", {})
-
-        return lxml.etree.Element(self.profileNameSpace + self.profileParentTag, {attrQname: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"}, nsmap=nsMap)
+        return lxml.etree.Element(self.profileNameSpace + self.profileParentTag, {attrQname: self.profileSchemaLocation}, nsmap=nsMap)
 
     def createSubElement(self, parentElement, elementName, elementAttrs, elementText):
         subElement = etree.SubElement(parentElement, self.profileNameSpace + elementName, elementAttrs)
@@ -325,10 +327,8 @@ class Profile():
                 return True
 
         if conditionType == "global":
-            column = condition.get("col","")
-            rowValue = row.get(column, "")
-            hasText = condition.get("text", "")
-            if hasText in rowValue:
+            globalConditionCode = condition.get("code","")
+            if self.globalConditionsSet.get(globalConditionCode):
                 return True
 
         return False
@@ -412,7 +412,7 @@ class Profile():
         for (index, element) in enumerate(allMatchingElements):
             parentElement.insert(firstElementIndex + index, element)
 
-    def convertRowToXmlString(self, row, globalConditions):
+    def convertRowToXmlString(self, row):
         if self.shouldSkipRow(row):
             return
         
@@ -435,7 +435,7 @@ class Profile():
         # print(cleanedUpEtree)
         # print(etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8"))
 
-        return etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8")
+        return etree.tostring(cleanedUpEtree, pretty_print=True, encoding="unicode")
 
     def getHeadersFromTextFields(self, textFields):
         textHeaders = []
@@ -448,7 +448,7 @@ class Profile():
         
         return textHeaders
 
-    def getConditionalAttrsTextHeadersAndConditions(self, conditionalAttr, name):
+    def getFieldListInfoFromConditionalAttr(self, conditionalAttr, name):
         textHeaders = []
         conditionalAttrConditions = []
 
@@ -490,7 +490,7 @@ class Profile():
         
         conditionalAttrs = profileField.get("conditionalattrs", [])
         for conditionalAttr in conditionalAttrs:
-            conditionalAttrTextHeaders, conditionalAttrCondition = self.getConditionalAttrsTextHeadersAndConditions(conditionalAttr, name)
+            conditionalAttrTextHeaders, conditionalAttrCondition = self.getFieldListInfoFromConditionalAttr(conditionalAttr, name)
             textHeaders.extend(conditionalAttrTextHeaders)
             conditionalAttrConditions.extend(conditionalAttrCondition)
         
@@ -503,8 +503,10 @@ class Profile():
         textHeaderRow.update(keySampleValues)
         element = self.processElementTypeField(profileField, textHeaderRow, parentElement)
         cleanedElement = clearEmptyElementsFromEtree(element)
+        objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
         elementString = etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
-        elementString = elementString.replace(self.replaceTextForExamples, "")
+        
+        #elementString = elementString.replace(self.replaceTextForExamples, "")
         
         return removeDuplicatesFromArray(textHeaders), conditionalAttrConditions, elementString
 
@@ -527,7 +529,7 @@ class Profile():
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
         if repeatingFieldMethod == "name":
             rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second example identity, 1990-2000, presenter https://library.brown.edu"
-        
+    
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString = self.getFieldListInfoFromElementField(element)
         row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))
@@ -540,12 +542,20 @@ class Profile():
                     sampleCol = colHeader
                     colSuffixDefaults = colSuffix.get("defaults",{})
                     colSuffixDefaults.update(repeatingDefaults)
+
+                    if self.profileSampleValues.get(colHeader):
+                        rowString = self.profileSampleValues.get(colHeader)
+
                     elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
                     elementsCreated.extend(elements)
 
         for colHeader in colHeaders:
             sampleCol = colHeader
             columnHeaders.append(colHeader)
+
+            if self.profileSampleValues.get(colHeader):
+                rowString = self.profileSampleValues.get(colHeader)
+
             elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
             elementsCreated.extend(elements)
 
@@ -554,6 +564,7 @@ class Profile():
 
         for element in elementsCreated:
                 cleanedElement = clearEmptyElementsFromEtree(element)
+                objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
                 elementString = elementString + "\n" + etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
                 elementString = elementString.lstrip("\n").rstrip("\n")
         
@@ -564,6 +575,9 @@ class Profile():
 
     def getFieldList(self):
         fieldList = []
+        
+        for globalCondition in self.profileGlobalConditions:
+            self.globalConditionsSet[globalCondition.get("code","")] = True
 
         for profileField in self.profileFields:
             profileFieldType = profileField.get('type', "")

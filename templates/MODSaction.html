@@ -9,17 +9,19 @@
   
       const previewParentDiv = document.getElementById("previewparent")
       previewParentDiv.style.display = "inherit"
-  
-      const includeDefaults = document.getElementById("defaultsCheckbox").checked
+        
+      const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+      var globalConditions = {}
 
-      fileInput = document.getElementById("input_file")
- 
-      const data = {
-        "sheetname": document.getElementById("sheetlist").value,
-        "includedefaults": includeDefaults
+      for (globalConditionCheckbox of globalConditionCheckboxes) {
+          if (globalConditionCheckbox.checked) {
+            elementId = globalConditionCheckbox.id
+            globalConditions[elementId] = true
+          }
       }
 
-        if (fileInput.files[0] == undefined) {
+      fileInput = document.getElementById("input_file")
+      if (fileInput.files[0] == undefined) {
             return
         }
 
@@ -29,18 +31,14 @@
             return
         }
 
+      const data = {
+        "sheetname": document.getElementById("sheetlist").value,
+        "globalconditions": globalConditions
+      }
+
       let formData = new FormData();
       formData.append("xlsx_file", selectedFile);
       formData.append("data", JSON.stringify(data))
-  
-      const parameters = {
-        body: formData,
-        method: "POST",
-        cache: "no-cache",
-        headers: new Headers({
-          "content-type": "application/json"
-        })
-      }
   
       fetch("/modsmaker/getpreview", {method: "POST", body: formData})
         .then(response => response.json())
@@ -64,11 +62,19 @@
   
     <select style="margin-bottom: 15px;" class="form-select" name="sheetlist" id="sheetlist" method="GET" action="/">
     </select>
+    {% for globalcondition in globalconditions %}
     <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" value="" name="{{globalcondition.get('code','')}}" id="{{globalcondition.get('code','')}}" {% if globalcondition.get('defaultvalue', False) %} checked {% endif %}>
+        <label class="form-check-label" for="defaultsCheckbox">
+          {{globalcondition.get("explanation","")}}
+        </label>
+      </div>
+    {% endfor %}
+    <!-- <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" value="" name="defaultsCheckbox" id="defaultsCheckbox" checked>
       <label class="form-check-label" for="defaultsCheckbox">
         Include default Brown University archival fields. <a class="" data-bs-toggle="collapse" href="#defaultsView"
-          role="button" aria-expanded="false" aria-controls="collapseExample">
+          role="button" aria-expanded="false" aria-controls="defaultsView">
           See default fields.
         </a>
       </label>
@@ -80,7 +86,7 @@
       <p class="card-text" style="font-family:monospace;font-size: 1rem; color:black;">{% include 'defaultMODSfields.html' %}</p>
     </div>
     </div>
-    </div>
+    </div> -->
     <div class="buttons">
     <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
     <div style="margin-left: 5px; display:inline-block" id="preview_button" class="btn btn-secondary">
