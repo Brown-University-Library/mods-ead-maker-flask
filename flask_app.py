@@ -62,17 +62,22 @@ def eadMakerGetPreview():
 #------MODS------
 
 @app.route("/modsmaker", methods=["GET", "POST"])
-def modsMakerHome():
+def modsMakerRedirect():
+    return redirect("/modsmaker/modsprofile")
+
+@app.route("/modsmaker/<string:profileFilename>", methods=["GET", "POST"])
+def modsMakerHome(profileFilename):
     if request.method == "POST":
         input_file = request.files["input_file"]
         filename = request.files["input_file"].filename
         selectedSheet = request.form.get('sheetlist')
+
         globalConditions = {}
         for formInput in request.form:
             globalConditions[formInput] = True
 
         if ".xlsx" in filename:
-            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, "profiles/modsprofile.yaml",globalConditions)
+            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, os.path.join("profiles", profileFilename + ".yaml"),globalConditions)
             response = make_response(zipFile)
             response.headers["Content-Disposition"] = "attachment; filename=" + filename
             return response
@@ -81,8 +86,8 @@ def modsMakerHome():
             return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
 
     else:
-        profile = profileInterpreter.Profile("profiles/modsprofile.yaml")
-        return render_template('MODSfileselect.html', globalconditions=profile.profileGlobalConditions, title="MODS Maker")
+        profile = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
+        return render_template('MODSfileselect.html', profilename=profileFilename, globalconditions=profile.profileGlobalConditions, title="MODS Maker")
 
 @app.route("/processfileupload", methods=["POST"])
 def processNewFile():
@@ -134,6 +139,11 @@ def modsMakerAPI():
         return "ERROR"
 
 ####Extra
+
+@app.route("/downloadprofile/<string:profileFilename>", methods=["GET"])
+def downloadYaml(profileFilename):
+    path = os.path.join("profiles", profileFilename + ".yaml")
+    return flask.send_file(path, as_attachment=True)
 
 @app.route("/resources", methods=["GET"])
 def renderResources():

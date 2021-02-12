@@ -7,6 +7,10 @@
   </ol>
 </nav>
 <h3>{{profilename}} <small class="text-muted"> profile</small></h3>
+<div class="btn-group profile-buttons" role="group" aria-label="Profile buttons">
+    <a href="{{url_for('downloadYaml', profileFilename=profilename)}}" type="button" class="btn btn-outline-primary">Download YAML</a>
+    <a href="{{url_for('modsMakerHome', profileFilename=profilename)}}" class="btn btn-outline-primary">Use Profile</a>
+  </div>
 <ul class="nav nav-tabs profile-tabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#fieldOverview" type="button" role="tab" aria-controls="home" aria-selected="true">Field Overview</button>
