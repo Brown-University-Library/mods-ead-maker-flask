@@ -67,10 +67,10 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     
     return zipBuffer.getvalue(), sheetName + '.zip'
 
-def getPreview(excelFile, sheetName, profilePath, globalConditons):
+def getPreview(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxFileToDict(excelFile, sheetName)
     profile = profileInterpreter.Profile(profilePath)
-    profile.globalConditionsSet = globalConditons
+    profile.globalConditionsSet = globalConditions
     allXmlString = ""
 
     for (index, row) in enumerate(rows):

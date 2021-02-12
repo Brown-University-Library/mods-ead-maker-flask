@@ -5,6 +5,7 @@ from lxml import objectify
 import yaml
 import re
 import csv
+import os
 
 def convertArrayToDictWithMatchingKeyValues(array):
     dictionary = {}
@@ -184,7 +185,7 @@ def clearEmptyElementsFromEtree(parentElement):
 class Profile():
 
     def __init__(self, profileDirectory):
-        self.profile = yaml.safe_load(open(profileDirectory))
+        self.profile = yaml.safe_load(open(os.path.join( os.path.dirname(os.path.abspath(__file__)), profileDirectory)))
 
         self.profileSkips = self.profile.get("skipif", [])
         self.profileFields = self.profile.get("fields", [])
@@ -201,7 +202,7 @@ class Profile():
         self.profileSchemaLocation = self.profile.get("schemalocation", [])
         self.profileNsMap = self.profile.get("nsmap", {})
 
-        with open("SupportedLanguages.csv") as langCsv:
+        with open(os.path.join( os.path.dirname(os.path.abspath(__file__)),"SupportedLanguages.csv")) as langCsv:
             languageToLanguageCodes = {}
             csvReader = csv.reader(langCsv)
             for row in csvReader:
