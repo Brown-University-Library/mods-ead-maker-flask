@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class="list-group list-group-flush">
+
+{%for profile in profiles %}
+<li class="list-group-item">
+<a class="btn btn-primary" href="/modsmaker/profiles/{{profile}}">{{profile}} <i class="bi bi-arrow-right"></i></a>
+<div class="btn-group profile-buttons" style="max-width: 300px;" role="group" aria-label="Profile buttons">
+    <a href="{{url_for('downloadYaml', profileFilename=profile)}}" type="button" class="btn btn-outline-primary">Download YAML</a>
+    <a href="{{url_for('modsMakerHome', profileFilename=profile)}}" class="btn btn-outline-primary">Use Profile</a>
+  </div></li>
+{% endfor %}
+</ul>
+{%endblock%}

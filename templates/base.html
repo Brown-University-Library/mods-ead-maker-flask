@@ -15,7 +15,7 @@
     <style>
         .container {
             margin-top: 20px;
-            max-width: 960px;
+            max-width: 1080px;
             padding-left: 30px;
             padding-right: 30px;
         }
@@ -31,13 +31,16 @@
         .no-title-case {
             text-transform: none;
         }
-/* 
-        .instructions {
-            margin-top: 1rem;
-        } */
+
+        .code {
+            font-family: monospace; 
+            white-space: pre-wrap; 
+            color:black;
+        }
 
         .buttons {
             margin-top: 25px;
+            margin-bottom: 15px;
         }
 
         .explanationcard {
@@ -47,6 +50,20 @@
 
         .actioncard {
             transition: all 0.2s;
+            opacity: 0.5; pointer-events: none;
+        }
+
+        .list-group-field-list {
+            margin-bottom: 10px;
+        }
+
+        .profile-buttons {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .profile-tabs {
+            margin-top: 15px;
         }
 
     </style>
@@ -55,17 +72,22 @@
 <body>
     <ul class="nav nav-tabs justify-content-center">
       <li class="nav-item">
-        <a class="nav-link{% if title == "MODS Maker" %} active" aria-current="page" {% else %} " {% endif %}  href="{{url_for('modsMakerHome')}}">MODS Maker</a>
+        <a class="nav-link{% if title == "MODS Maker" %} active" aria-current="page" {% else %} " {% endif %}  href="{{url_for('modsMakerRedirect')}}">MODS Maker</a>
       </li>
       <li class="nav-item">
         <a class="nav-link{% if title == "EAD Maker" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('eadMakerHome')}}">EAD Maker</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link{% if title == "Profiles" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('modsMakerDisplayProfiles')}}">Profiles</a>
       </li>
       <li class="nav-item">
         <a class="nav-link{% if title == "Resources" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('renderResources')}}">Resources</a>
       </li>
     </ul>
     <div class="container">
-        <h1 class="display-4">{{title}}</h1>
+        <h1 class="display-4">{{title}}
+            {% if profilename and title == "MODS Maker" and profilename != "modsprofile" %}<small class="text-muted">  {{profilename}}</small>{% endif %}
+        </h1>
         {% block content %}{% endblock %}
 
     </div>

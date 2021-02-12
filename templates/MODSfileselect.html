@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-
 <p>
 <h6>Choose the Excel file you'd like to process.</h6>
 </p>
 
-<form enctype="multipart/form-data">
+<form method="post" action="{{url_for('modsMakerHome', profileFilename=profilename)}}" enctype="multipart/form-data" id="submit_mods">
     <p><input class="form-control" type="file" name="input_file" id="input_file" /></p> 
-</form>
 
 {% include 'MODSaction.html' %}
+
+</form>
 
 <script>
     fileInput = document.getElementById("input_file")
@@ -62,8 +62,6 @@
         previewButton.addEventListener('click', function() {
             retrievePreview(uid)
         })
-
-        submitForm.setAttribute("action", "/modsmaker/returnmods/" + uid)
         
         actionCard.style.opacity = "1"
         actionCard.style.pointerEvents = "all"
@@ -85,8 +83,6 @@
         previewButton.addEventListener('click', function() {
             
         })
-
-        submitForm.setAttribute("action", "")
 
         actionCard.style.opacity = "0.5"
         actionCard.style.pointerEvents = "none"

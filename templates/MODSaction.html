@@ -3,31 +3,44 @@
   
       var spinner = document.getElementById("previewspinner")
       spinner.style.display = "inherit"
-  
+
       const previewDiv = document.getElementById("preview")
       previewDiv.innerText = ""
   
       const previewParentDiv = document.getElementById("previewparent")
       previewParentDiv.style.display = "inherit"
-  
-      const includeDefaults = document.getElementById("defaultsCheckbox").checked
-  
+        
+      const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+      var globalConditions = {}
+
+      for (globalConditionCheckbox of globalConditionCheckboxes) {
+          if (globalConditionCheckbox.checked) {
+            elementId = globalConditionCheckbox.id
+            globalConditions[elementId] = true
+          }
+      }
+
+      fileInput = document.getElementById("input_file")
+      if (fileInput.files[0] == undefined) {
+            return
+        }
+
+        let selectedFile = fileInput.files[0]
+
+        if (!selectedFile.name.includes(".xlsx")) {
+            return
+        }
+
       const data = {
-        "id": id,
         "sheetname": document.getElementById("sheetlist").value,
-        "includedefaults": includeDefaults
+        "globalconditions": globalConditions
       }
+
+      let formData = new FormData();
+      formData.append("xlsx_file", selectedFile);
+      formData.append("data", JSON.stringify(data))
   
-      const parameters = {
-        body: JSON.stringify(data),
-        method: "POST",
-        cache: "no-cache",
-        headers: new Headers({
-          "content-type": "application/json"
-        })
-      }
-  
-      fetch("/modsmaker/getpreview", parameters)
+      fetch("/modsmaker/getpreview", {method: "POST", body: formData})
         .then(response => response.json())
         .then(function (data) {
           previewDiv.innerText = data.trim()
@@ -39,20 +52,29 @@
   </script>
   
   <div class="card text-dark bg-light mb-3 actioncard" id="action_card">
-    <h5 class="card-header no-title-case" id="file_name">No file selected</h5>
+    <h5 class="card-header no-title-case" id="file_name">
+        No file selected</h5> 
       <div class="card-body">
     
   <p class="card-text">Select the Excel sheet in your Excel workbook that contains the metadata you'd like to
     process.</p>
   
-  <form method="post" action="" enctype="multipart/form-data" id="submit_mods">
+  
     <select style="margin-bottom: 15px;" class="form-select" name="sheetlist" id="sheetlist" method="GET" action="/">
     </select>
+    {% for globalcondition in globalconditions %}
     <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" value="" name="{{globalcondition.get('code','')}}" id="{{globalcondition.get('code','')}}" {% if globalcondition.get('defaultvalue', False) %} checked {% endif %}>
+        <label class="form-check-label" for="defaultsCheckbox">
+          {{globalcondition.get("explanation","")}}
+        </label>
+      </div>
+    {% endfor %}
+    <!-- <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" value="" name="defaultsCheckbox" id="defaultsCheckbox" checked>
       <label class="form-check-label" for="defaultsCheckbox">
         Include default Brown University archival fields. <a class="" data-bs-toggle="collapse" href="#defaultsView"
-          role="button" aria-expanded="false" aria-controls="collapseExample">
+          role="button" aria-expanded="false" aria-controls="defaultsView">
           See default fields.
         </a>
       </label>
@@ -64,7 +86,7 @@
       <p class="card-text" style="font-family:monospace;font-size: 1rem; color:black;">{% include 'defaultMODSfields.html' %}</p>
     </div>
     </div>
-    </div>
+    </div> -->
     <div class="buttons">
     <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
     <div style="margin-left: 5px; display:inline-block" id="preview_button" class="btn btn-secondary">
@@ -73,7 +95,7 @@
       Preview MODS
     </div>
   </div>
-  </form>
+  
   <div class="alert alert-secondary instructions" role="alert">
     Your MODS files will download inside a .zip file. The title of the .zip file will be the same as the title of
       the Excel sheet you chose to process.
