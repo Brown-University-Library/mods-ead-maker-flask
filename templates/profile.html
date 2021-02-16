@@ -6,8 +6,8 @@
     <li class="breadcrumb-item active" aria-current="page">{{profilename}}</li>
   </ol>
 </nav>
-<h3>{{profilename}} <small class="text-muted"> profile</small></h3>
-<div class="btn-group profile-buttons" role="group" aria-label="Profile buttons">
+<h3>{{profilename}}</h3>
+<div class="btn-group btn-group-sm profile-buttons" role="group" aria-label="Profile buttons">
     <a href="{{url_for('downloadYaml', profileFilename=profilename)}}" type="button" class="btn btn-outline-primary">Download YAML</a>
     <a href="{{url_for('modsMakerHome', profileFilename=profilename)}}" class="btn btn-outline-primary">Use Profile</a>
   </div>
