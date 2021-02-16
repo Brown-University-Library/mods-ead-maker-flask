@@ -63,7 +63,7 @@ def eadMakerGetPreview():
 
 @app.route("/modsmaker", methods=["GET", "POST"])
 def modsMakerRedirect():
-    return redirect("/modsmaker/modsprofile")
+    return redirect(url_for("modsMakerHome", profileFilename="modsprofile"))
 
 @app.route("/modsmaker/<string:profileFilename>", methods=["GET", "POST"])
 def modsMakerHome(profileFilename):
@@ -92,12 +92,11 @@ def modsMakerHome(profileFilename):
 @app.route("/processfileupload", methods=["POST"])
 def processNewFile():
     if request.method == "POST":
-        fileUid = str(uuid.uuid4())
         inputFile = request.files.get("xlsx_file")
         fileName = inputFile.filename
         sheetNames = fileSupport.getSheetNames(inputFile.read())
         if ".xlsx" in fileName:
-            data = {"filename":fileName, "sheetnames": sheetNames, "uid": fileUid}
+            data = {"filename":fileName, "sheetnames": sheetNames}
             return jsonify(data)
         else:
             return render_template('error.html', error="Please go back and select a .XLSX Excel file to proceed.", title="Error")
@@ -112,24 +111,6 @@ def modsMakerGetPreview():
         preview = fileSupport.getPreview(inputFile.read(), sheetName, "profiles/modsprofile.yaml", globalConditions)
         return(jsonify(preview))
 
-@app.route("/modsmaker/profiles/<string:profileFilename>", methods=["GET"])
-def modsMakerDisplayFieldList(profileFilename):
-    if request.method == "GET":
-        modsMaker = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
-        fieldList = modsMaker.getFieldList()
-        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
-            
-        return render_template('profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
-
-@app.route("/modsmaker/profiles/", methods=["GET"])
-def modsMakerDisplayProfiles():
-    if request.method == "GET":
-        files = glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", "*.yaml"))
-        profileList = []
-        for file in files:
-            profileList.append(os.path.basename(file).replace(".yaml", ""))
-        return render_template('profiles.html', profiles=profileList, title="Profiles")
-
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
     if request.method == "POST":
@@ -139,7 +120,25 @@ def modsMakerAPI():
 
 ####Extra
 
-@app.route("/downloadprofile/<string:profileFilename>", methods=["GET"])
+@app.route("/profiles/<string:profileFilename>", methods=["GET"])
+def displayProfile(profileFilename):
+    if request.method == "GET":
+        modsMaker = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
+        fieldList = modsMaker.getFieldList()
+        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
+            
+        return render_template('profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
+
+@app.route("/profiles/", methods=["GET"])
+def modsMakerDisplayProfiles():
+    if request.method == "GET":
+        files = glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", "*.yaml"))
+        profileList = []
+        for file in files:
+            profileList.append(os.path.basename(file).replace(".yaml", ""))
+        return render_template('profiles.html', profiles=profileList, title="Profiles")
+
+@app.route("/profiles/downloadprofile/<string:profileFilename>", methods=["GET"])
 def downloadYaml(profileFilename):
     path = os.path.join("profiles", profileFilename + ".yaml")
     return flask.send_file(path, as_attachment=True)
