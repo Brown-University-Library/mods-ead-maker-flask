@@ -1,3 +1,6 @@
 *.pyc
 __pycache___
 .vscode/**
+.DS_Store
+legacy/cache/**
+!legacy/cache/.gitinclude
