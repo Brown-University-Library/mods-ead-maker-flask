@@ -2,6 +2,5 @@
 __pycache___
 .vscode/**
 .DS_Store
-*/.DS_Store
 legacy/cache/**
 !legacy/cache/.gitinclude
