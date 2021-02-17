@@ -4,10 +4,11 @@
 <h6>Choose the Excel file you'd like to process.</h6>
 </p>
 
-<form method="post" action="{{url_for('modsMakerHome', profileFilename=profilename)}}" enctype="multipart/form-data" id="submit_mods">
-    <p><input class="form-control" type="file" name="input_file" id="input_file" /></p> 
+<form method="post" action="{{url_for('modsMakerHome', profileFilename=profilename)}}" enctype="multipart/form-data"
+    id="submit_mods">
+    <p><input class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" name="input_file" id="input_file" /></p>
 
-{% include 'MODSaction.html' %}
+    {% include 'mods/modsAction.html' %}
 
 </form>
 
@@ -30,7 +31,7 @@
         }
 
         let selectedFile = fileInput.files[0]
-        
+
         console.log(selectedFile.name)
         if (selectedFile.name.includes(".xlsx")) {
             handleUpload(selectedFile)
@@ -41,9 +42,9 @@
         let formData = new FormData();
 
         formData.append("xlsx_file", file);
-        fetch('/processfileupload', {method: "POST", body: formData})
-        .then(response => response.json())
-        .then(data => setUpActionCard(data));
+        fetch('/processfileupload', { method: "POST", body: formData })
+            .then(response => response.json())
+            .then(data => setUpActionCard(data));
     }
 
     function setUpActionCard(response) {
@@ -59,17 +60,17 @@
             sheetList.appendChild(createSheetOptionElement(sheetName))
         }
 
-        previewButton.addEventListener('click', function() {
+        previewButton.addEventListener('click', function () {
             retrievePreview(uid)
         })
-        
+
         actionCard.style.opacity = "1"
         actionCard.style.pointerEvents = "all"
     }
 
     function createSheetOptionElement(sheetName) {
         newSheetOption = document.createElement("option")
-        newSheetOption.setAttribute("value",sheetName)
+        newSheetOption.setAttribute("value", sheetName)
         newSheetOption.innerText = sheetName
         return newSheetOption
     }
@@ -80,8 +81,8 @@
 
         sheetList.innerText = ""
 
-        previewButton.addEventListener('click', function() {
-            
+        previewButton.addEventListener('click', function () {
+
         })
 
         actionCard.style.opacity = "0.5"
@@ -89,7 +90,7 @@
 
         const previewParentDiv = document.getElementById("previewparent")
         previewParentDiv.style.display = "none"
-   
+
     }
 
 </script>
