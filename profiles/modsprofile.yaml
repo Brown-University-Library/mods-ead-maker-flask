@@ -584,6 +584,14 @@ fields:
         values: 
           - {type: value, text: "Collection is open for research."}
 
+  - type: element
+    name: accessCondition
+    attrs: {type: restriction on access}
+    text:
+      - type: value
+        values: 
+          - {type: col, header: restrictionOnAccess, method: value}
+
   - type: repeating
     method: name
     colprefix:
