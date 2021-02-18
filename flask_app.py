@@ -65,8 +65,9 @@ def modsMakerGetPreview():
         inputFile = request.files.get("xlsx_file")
         requestDict = json.loads(request.form["data"])
         sheetName = requestDict.get("sheetname")
+        profileFilename = requestDict.get("profile")
         globalConditions = requestDict.get("globalconditions", {})
-        preview = fileSupport.getPreview(inputFile.read(), sheetName, "profiles/modsprofile.yaml", globalConditions)
+        preview = fileSupport.getPreview(inputFile.read(), sheetName, os.path.join("profiles", profileFilename + ".yaml"), globalConditions)
         return(jsonify(preview))
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])
@@ -75,6 +76,8 @@ def modsMakerAPI():
         pass
     else:
         return "ERROR"
+
+#------EAD------
 
 @app.route("/eadmaker", methods=["GET", "POST"])
 def eadMakerHome():
