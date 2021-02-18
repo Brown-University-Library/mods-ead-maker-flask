@@ -184,7 +184,7 @@ def clearEmptyElementsFromEtree(parentElement):
 
 class Profile():
 
-    def __init__(self, profileDirectory):
+    def __init__(self, profileDirectory, globalConditions={}):
         self.profile = yaml.safe_load(open(os.path.join( os.path.dirname(os.path.abspath(__file__)), profileDirectory)))
 
         self.profileSkips = self.profile.get("skipif", [])
@@ -194,7 +194,10 @@ class Profile():
         self.profileSampleValues = self.profile.get("samplevalues", {})
 
         self.profileGlobalConditions = self.profile.get("globalconditions")
-        self.globalConditionsSet = {}
+        self.globalConditionsSet = globalConditions
+
+        self.profileFilenameColumn = self.profile.get("filenamecolumn", "")
+        self.profileFileExtension = self.profile.get("fileextension", ".xml")
 
         self.profileNameSpace = self.profile.get("elementnamespace", [])
         self.profileParentTag = self.profile.get("parenttag", [])
@@ -257,14 +260,14 @@ class Profile():
         key = conditionalAttr.get("key","")
 
         textKeyField = conditionalAttr.get("text","")
-        text = self.processTextKeyField(textKeyField, row)
+        text = self.processTextUnit(textKeyField, row)
 
         if text:
             element.set(key, text)
 
-    def processTextKeyFieldValues(self, textKeyFieldValues, row):
+    def processTextUnitValues(self, textUnitValues, row):
         text = ""
-        for value in textKeyFieldValues:
+        for value in textUnitValues:
             valueType = value.get("type","")
             valueHeader = value.get("header",None)
             valueText = value.get("text","")
@@ -282,32 +285,32 @@ class Profile():
             lstripRstripText = textAction.get("leftstriprightstriptext", "")
             return text.lstrip(lstripRstripText).rstrip(lstripRstripText)
 
-    def processTextKeyField(self, textKeyFields, row):
+    def processTextUnit(self, textUnits, row):
         text = ""
-        for textKeyField in textKeyFields:
-            textKeyFieldType = textKeyField.get("type","")
-            textKeyFieldColumn = textKeyField.get("col", None)
-            textKeyFieldValues = textKeyField.get("values","")
+        for textUnit in textUnits:
+            textUnitType = textUnit.get("type","")
+            textUnitColumn = textUnit.get("col", None)
+            textUnitValues = textUnit.get("values","")
 
-            if  textKeyFieldType == "ifpresent":
-                if row.get(textKeyFieldColumn):
-                    newText = self.processTextKeyFieldValues(textKeyFieldValues, row)
+            if  textUnitType == "ifpresent":
+                if row.get(textUnitColumn):
+                    newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
-            if  textKeyFieldType == "ifnotpresent":
-                if row.get(textKeyFieldColumn) == None:
-                    newText = self.processTextKeyFieldValues(textKeyFieldValues, row)
+            if  textUnitType == "ifnotpresent":
+                if row.get(textUnitColumn) == None:
+                    newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
-            if  textKeyFieldType == "value":
-                newText = self.processTextKeyFieldValues(textKeyFieldValues, row)
+            if  textUnitType == "value":
+                newText = self.processTextUnitValues(textUnitValues, row)
                 text = text + newText
-            if  textKeyFieldType == "removetext":
-                newText = self.processTextKeyFieldValues(textKeyFieldValues, row)
-                replaceStrings = textKeyField.get("removetext",[])
+            if  textUnitType == "removetext":
+                newText = self.processTextUnitValues(textUnitValues, row)
+                replaceStrings = textUnit.get("removetext",[])
                 for replaceString in replaceStrings:
                     newText = newText.replace(replaceString, "")
                 text = text + newText
-            if  textKeyFieldType == "action":
-                text = self.performTextAction(textKeyField, text)
+            if  textUnitType == "action":
+                text = self.performTextAction(textUnit, text)
 
         return text
 
@@ -355,7 +358,7 @@ class Profile():
             self.processElementTypeField(childKeyField, row, element)
         
         textKeyField = profileField.get("text", [])
-        text = self.processTextKeyField(textKeyField, row)
+        text = self.processTextUnit(textKeyField, row)
         if text:
             element.text = text
 
@@ -414,32 +417,7 @@ class Profile():
         for (index, element) in enumerate(allMatchingElements):
             parentElement.insert(firstElementIndex + index, element)
 
-    def convertRowToXmlString(self, row):
-        if self.shouldSkipRow(row):
-            return
-        
-        parentElement = self.createParentElement(self.profileNsMap)
-
-        for profileField in self.profileFields:
-            profileFieldType = profileField.get('type', "")
-
-            if profileFieldType == 'element':
-                self.processElementTypeField(profileField, row, parentElement)
-
-            if profileFieldType == "repeating":
-                self.processRepeatingTypeField(profileField, self.colSuffixes, row, parentElement) 
-
-        cleanedUpEtree = clearEmptyElementsFromEtree(parentElement)
-
-        for profileSort in self.profileSorts:
-            self.processSort(cleanedUpEtree, profileSort)
-        
-        # print(cleanedUpEtree)
-        # print(etree.tostring(cleanedUpEtree, pretty_print=True).decode("utf-8"))
-
-        return etree.tostring(cleanedUpEtree, pretty_print=True, encoding="unicode")
-
-    def getHeadersFromTextFields(self, textFields):
+    def getColumnHeadersFromTextFields(self, textFields):
         textHeaders = []
         for textField in textFields:
             textFieldValues = textField.get("values", [])
@@ -456,20 +434,20 @@ class Profile():
 
         attrKey = conditionalAttr.get("key", "")
         attrTextFields = conditionalAttr.get("text", [])
-        textHeaders = self.getHeadersFromTextFields(attrTextFields)
+        textHeaders = self.getColumnHeadersFromTextFields(attrTextFields)
 
         for attrTextField in attrTextFields:
             attrTextType = attrTextField.get("type","")
             if attrTextType == "ifpresent":
                 string = "If text is entered in the " + attrTextField.get("col","") + " column, the following attribute will be added to the <" + self.profileParentTag + ":" + name + "> element:"
-                value = self.processTextKeyFieldValues(attrTextField.get("values",[]), convertArrayToDictWithMatchingKeyValues(textHeaders))
+                value = self.processTextUnitValues(attrTextField.get("values",[]), convertArrayToDictWithMatchingKeyValues(textHeaders))
                 attrString = attrKey + "='" + value + "'"
                 conditionalAttrCondition = {"explanation":string, "attribute":attrString}
                 conditionalAttrConditions.append(conditionalAttrCondition)
                 textHeaders.append(attrTextField.get("col",""))
             if attrTextType == "ifnotpresent":
                 string = "If text is not entered in the " + attrTextField.get("col","") + " column, the following attribute will be added to the <" + self.profileParentTag + ":" + name + "> element:"
-                value = self.processTextKeyFieldValues(attrTextField.get("values",[]), convertArrayToDictWithMatchingKeyValues(textHeaders))
+                value = self.processTextUnitValues(attrTextField.get("values",[]), convertArrayToDictWithMatchingKeyValues(textHeaders))
                 attrString = attrKey + "='" + value + "'"
                 conditionalAttrCondition = {"explanation":string, "attribute":attrString}
                 conditionalAttrConditions.append(conditionalAttrCondition)
@@ -477,7 +455,6 @@ class Profile():
 
         return textHeaders, conditionalAttrConditions
 
-    replaceTextForExamples = ' xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"'
     def getFieldListInfoFromCondition(self, condition):
         if condition.get("type","") == "global":    
             return 'Only appears if the "' + condition.get("code", "") + '" condition is set.'
@@ -485,7 +462,14 @@ class Profile():
             return 'Only appears if the text in column "' + condition.get("col", "") + '" starts with "' + condition.get("text", "") + '".'
         if condition.get("type","") == "has":    
             return 'Only appears if the text in column "' + condition.get("col", "") + '" contains "' + condition.get("text", "") + '".'
-     
+
+    def createExampleElementTextFromEtree(self, element):
+        cleanedElement = clearEmptyElementsFromEtree(element)
+        objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
+        elementString = etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
+
+        return elementString
+
     def getFieldListInfoFromElementField(self, profileField):
         keySampleValues = self.profile.get("samplevalues",{})
         name = profileField.get("name", [])
@@ -496,7 +480,7 @@ class Profile():
         conditionalAttrConditions = []
         conditions = []
 
-        textHeaders = self.getHeadersFromTextFields(textFields)
+        textHeaders = self.getColumnHeadersFromTextFields(textFields)
 
         for condition in profileField.get("conditions",[]):
             conditionText = self.getFieldListInfoFromCondition(condition)
@@ -516,13 +500,10 @@ class Profile():
 
         textHeaderRow = convertArrayToDictWithMatchingKeyValues(textHeaders)
         textHeaderRow.update(keySampleValues)
+
         element = self.processElementTypeField(profileField, textHeaderRow, parentElement)
-        cleanedElement = clearEmptyElementsFromEtree(element)
-        objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
-        elementString = etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
-        
-        #elementString = elementString.replace(self.replaceTextForExamples, "")
-        
+        elementString = self.createExampleElementTextFromEtree(element)
+                
         return removeDuplicatesFromArray(textHeaders), conditionalAttrConditions, elementString, conditions
 
     def getFieldListInfoFromRepeatingField(self, profileField):
@@ -579,12 +560,10 @@ class Profile():
         elementString = ""
 
         for element in elementsCreated:
-                cleanedElement = clearEmptyElementsFromEtree(element)
-                objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
-                elementString = elementString + "\n" + etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
+                singleElementString = self.createExampleElementTextFromEtree(element)
+                elementString = elementString + "\n" + singleElementString
                 elementString = elementString.lstrip("\n").rstrip("\n")
         
-        elementString = elementString.replace(self.replaceTextForExamples, "")
         columnHeaders = removeDuplicatesFromArray( removeItemsWithPeriodFromList(columnHeaders))
 
         return columnHeaders, conditionalAttrsHeaders, elementString, rowString, sampleCol, conditions
@@ -616,3 +595,26 @@ class Profile():
                 allHeaders.append(header)
         
         return removeDuplicatesFromArray(allHeaders)
+
+
+    def convertRowToXmlString(self, row):
+        if self.shouldSkipRow(row):
+            return
+        
+        parentElement = self.createParentElement(self.profileNsMap)
+
+        for profileField in self.profileFields:
+            profileFieldType = profileField.get('type', "")
+
+            if profileFieldType == 'element':
+                self.processElementTypeField(profileField, row, parentElement)
+
+            if profileFieldType == "repeating":
+                self.processRepeatingTypeField(profileField, self.colSuffixes, row, parentElement) 
+
+        cleanedUpEtree = clearEmptyElementsFromEtree(parentElement)
+
+        for profileSort in self.profileSorts:
+            self.processSort(cleanedUpEtree, profileSort)
+
+        return etree.tostring(cleanedUpEtree, pretty_print=True, encoding="unicode")

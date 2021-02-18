@@ -52,7 +52,7 @@ def processNewFile():
     if request.method == "POST":
         inputFile = request.files.get("xlsx_file")
         fileName = inputFile.filename
-        sheetNames = fileSupport.getSheetNames(inputFile.read())
+        sheetNames = fileSupport.getSheetNamesFromXlsx(inputFile.read())
         if ".xlsx" in fileName:
             data = {"filename":fileName, "sheetnames": sheetNames}
             return jsonify(data)
@@ -129,7 +129,7 @@ def displayProfile(profileFilename):
         return render_template('profiles/profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
 
 @app.route("/profiles/", methods=["GET"])
-def modsMakerDisplayProfiles():
+def displayProfileList():
     if request.method == "GET":
         files = glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", "*.yaml"))
         profileList = []

@@ -9,12 +9,12 @@ from lxml import etree
 CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
 HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
-def getSheetNames(fileContents):
+def getSheetNamesFromXlsx(fileContents):
     excel = xlrd.open_workbook(file_contents=fileContents)
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
-def convertXlsxFileToDict(fileContents, sheetname):
+def convertXlsxToDictList(fileContents, sheetname):
         book = xlrd.open_workbook(file_contents=fileContents)
         sheet = book.sheet_by_name(sheetname)
 
@@ -39,47 +39,54 @@ def convertXlsxFileToDict(fileContents, sheetname):
 
         return rowarray
 
-def getFilenameFromRow(row, index):
-    if row.get("identifierBDR"):
-        return row.get("identifierBDR").replace(":","")
+def cleanStringForFilename(string):
+    invalidCharacters = '<>:"/\|?* '
+
+    for character in invalidCharacters:
+        string = string.replace(character, '')
+        
+    return string
+
+def getFilenameFromRow(row, index, filenameColumn):
+    if row.get(filenameColumn):
+        return cleanStringForFilename(row.get(filenameColumn))
     else:
         return "default" + str(index)
 
 def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
-    rows = convertXlsxFileToDict(excelFile, sheetName)
-    profile = profileInterpreter.Profile(profilePath)
-    profile.globalConditionsSet = globalConditions
+    rows = convertXlsxToDictList(excelFile, sheetName)
+    profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
 
     zipBuffer = io.BytesIO()
     zipObj = ZipFile(zipBuffer, 'w')
 
     for (index, row) in enumerate(rows):
         xmlString = profile.convertRowToXmlString(row)
-        filename = getFilenameFromRow(row, index)
+        filename = getFilenameFromRow(row, index, profile.profileFilenameColumn)
 
         fileBuffer = io.StringIO()
 
         if xmlString != None:
                 fileBuffer.write(xmlString)
-                zipObj.writestr(filename + ".mods", fileBuffer.getvalue())
+                zipObj.writestr(filename + profile.profileFileExtension, fileBuffer.getvalue())
             
     zipObj.close()
     
     return zipBuffer.getvalue(), sheetName + '.zip'
 
 def getPreview(excelFile, sheetName, profilePath, globalConditions):
-    rows = convertXlsxFileToDict(excelFile, sheetName)
-    profile = profileInterpreter.Profile(profilePath)
-    profile.globalConditionsSet = globalConditions
+    rows = convertXlsxToDictList(excelFile, sheetName)
+    profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
+
     allXmlString = ""
 
     for (index, row) in enumerate(rows):
         
         xmlString = profile.convertRowToXmlString(row)
-        filename = getFilenameFromRow(row, index)
+        filename = getFilenameFromRow(row, index, profile.profileFilenameColumn)
 
         if xmlString:
-            allXmlString = allXmlString + "\n\n" + filename + ".mods" + "\n\n" + xmlString
+            allXmlString = allXmlString + "\n\n" + filename + profile.profileFileExtension + "\n\n" + xmlString
             allXmlString = allXmlString.lstrip("\n\n")
 
     return allXmlString
