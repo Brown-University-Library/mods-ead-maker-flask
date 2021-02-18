@@ -1,56 +1,3 @@
-<script>
-  function retrievePreview(id) {
-
-    var spinner = document.getElementById("previewspinner")
-    spinner.style.display = "inherit"
-
-    const previewDiv = document.getElementById("preview")
-    previewDiv.innerText = ""
-
-    const previewParentDiv = document.getElementById("previewparent")
-    previewParentDiv.style.display = "inherit"
-
-    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
-    var globalConditions = {}
-
-    for (globalConditionCheckbox of globalConditionCheckboxes) {
-      if (globalConditionCheckbox.checked) {
-        elementId = globalConditionCheckbox.id
-        globalConditions[elementId] = true
-      }
-    }
-
-    fileInput = document.getElementById("input_file")
-    if (fileInput.files[0] == undefined) {
-      return
-    }
-
-    let selectedFile = fileInput.files[0]
-
-    if (!selectedFile.name.includes(".xlsx")) {
-      return
-    }
-
-    const data = {
-      "sheetname": document.getElementById("sheetlist").value,
-      "globalconditions": globalConditions
-    }
-
-    let formData = new FormData();
-    formData.append("xlsx_file", selectedFile);
-    formData.append("data", JSON.stringify(data))
-
-    fetch("/modsmaker/getpreview", { method: "POST", body: formData })
-      .then(response => response.json())
-      .then(function (data) {
-        previewDiv.innerText = data.trim()
-        spinner.style.display = "none"
-      }
-      );
-
-  }
-</script>
-
 <div class="card text-dark bg-light mb-3 actioncard" id="action_card">
   <h5 class="card-header no-title-case" id="file_name">
     No file selected</h5>
@@ -88,3 +35,57 @@
     {% include 'preview.html' %}
   </div>
 </div>
+
+<script>
+  function retrievePreview(id) {
+
+    var spinner = document.getElementById("previewspinner")
+    spinner.style.display = "inherit"
+
+    const previewDiv = document.getElementById("preview")
+    previewDiv.innerText = ""
+
+    const previewParentDiv = document.getElementById("previewparent")
+    previewParentDiv.style.display = "inherit"
+
+    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+    var globalConditions = {}
+
+    for (globalConditionCheckbox of globalConditionCheckboxes) {
+      if (globalConditionCheckbox.checked) {
+        elementId = globalConditionCheckbox.id
+        globalConditions[elementId] = true
+      }
+    }
+
+    fileInput = document.getElementById("input_file")
+    if (fileInput.files[0] == undefined) {
+      return
+    }
+
+    let selectedFile = fileInput.files[0]
+
+    if (!selectedFile.name.includes(".xlsx")) {
+      return
+    }
+
+    const data = {
+      "sheetname": document.getElementById("sheetlist").value,
+      "globalconditions": globalConditions,
+      "profile": "{{profilename}}"
+    }
+
+    let formData = new FormData();
+    formData.append("xlsx_file", selectedFile);
+    formData.append("data", JSON.stringify(data))
+
+    fetch("/modsmaker/getpreview", { method: "POST", body: formData })
+      .then(response => response.json())
+      .then(function (data) {
+        previewDiv.innerText = data.trim()
+        spinner.style.display = "none"
+      }
+      );
+
+  }
+</script>
