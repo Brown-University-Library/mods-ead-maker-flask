@@ -20,6 +20,8 @@
     previewButton = document.getElementById("preview_button")
     submitForm = document.getElementById("submit_mods")
     actionCard = document.getElementById("action_card")
+    fileSpinner = document.getElementById("filespinner")
+
     clearActionSheet()
 
     function handleFileInputChange() {
@@ -40,6 +42,7 @@
 
     function handleUpload(file) {
         let formData = new FormData();
+        fileSpinner.style.display = "inherit"
 
         formData.append("xlsx_file", file);
         fetch('/processfileupload', { method: "POST", body: formData })
@@ -66,6 +69,8 @@
 
         actionCard.style.opacity = "1"
         actionCard.style.pointerEvents = "all"
+
+        fileSpinner.style.display = "none"
     }
 
     function createSheetOptionElement(sheetName) {
@@ -90,6 +95,8 @@
 
         const previewParentDiv = document.getElementById("previewparent")
         previewParentDiv.style.display = "none"
+
+        fileSpinner.style.display = "none"
 
     }
 
