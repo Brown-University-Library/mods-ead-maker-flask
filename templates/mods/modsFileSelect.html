@@ -43,6 +43,7 @@
     function handleUpload(file) {
         let formData = new FormData();
         fileSpinner.style.display = "inherit"
+        fileTitle.innerText = "Loading file . . . "
 
         formData.append("xlsx_file", file);
         fetch('/processfileupload', { method: "POST", body: formData })
