@@ -297,7 +297,7 @@ class Profile():
                     newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
             if  textUnitType == "ifnotpresent":
-                if row.get(textUnitColumn) == None:
+                if row.get(textUnitColumn) == None or row.get(textUnitColumn) == "":
                     newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
             if  textUnitType == "value":

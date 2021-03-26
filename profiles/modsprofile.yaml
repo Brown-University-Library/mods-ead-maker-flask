@@ -16,7 +16,7 @@ skipif:
 globalconditions:
   - {code: includeBrownDefaults, defaultvalue: true, explanation: "Include default Brown University archival fields."}
 filenamecolumn: identifierBDR
-fileextension: ".mods"
+fileextension: ".mods.xml"
 
 sort:
   #Creator personal and name fields
@@ -412,6 +412,30 @@ fields:
 
   - type: element
     name: note
+    attrs: {type: general, displayLabel: "Award received"}
+    text:
+      - type: value
+        values:
+          - {type: col, header: noteAwardReceived, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: general, displayLabel: "Award placement"}
+    text:
+      - type: value
+        values:
+          - {type: col, header: noteAwardPlacement, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: general, displayLabel: "Award date"}
+    text:
+      - type: value
+        values:
+          - {type: col, header: noteAwardDate, method: num}
+
+  - type: element
+    name: note
     conditions:
       - {type: global, code: includeBrownDefaults}
     attrs: {type: preferredcitation}
@@ -447,6 +471,24 @@ fields:
         - type: value
           values:
             - {type: col, header: publisher, method: value}
+      - type: element
+        name: dateIssued
+        conditionalattrs:
+          - key: qualifier
+            text: 
+              - type: value
+                values:
+                  - {type: col, header: dateIssuedQualifier, method: value}
+          - key: keyDate
+            text: 
+              - type: ifnotpresent
+                col: dateText
+                values:
+                  - {type: value, text: "yes"}
+        text:
+          - type: value
+            values:
+              - {type: col, header: dateIssuedText, method: num}
       - type: element
         name: dateCreated
         conditionalattrs:
@@ -998,7 +1040,93 @@ fields:
                       - type: action
                         action: leftstriprightstrip
                         leftstriprightstriptext: ", "
-                          
+
+  - type: element
+    name: part
+    children:
+      - type: element
+        name: detail
+        attrs: {type: volume}
+        children:
+          - type: element
+            name: number
+            text:
+              - type: value
+                values:
+                  - {type: col, header: partPublicationVolume, method: value}
+      - type: element
+        name: detail
+        attrs: {type: issue}
+        children:
+          - type: element
+            name: number
+            text:
+              - type: value
+                values:
+                  - {type: col, header: partPublicationIssue, method: value}
+      - type: element
+        name: date
+        text:
+          - type: value
+            values:
+              - {type: col, header: partPublicationDate, method: value}
+
+
+  - type: element
+    name: relatedItem
+    attrs: {type: host}
+    children:
+      - type: element
+        name: titleInfo
+        children:
+          - type: element
+            name: title
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationTitle, method: value}
+          - type: element
+            name: subTitle
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationSubTitle, method: value}
+          - type: element
+            name: partNumber
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPartNumber, method: value}
+      - type: element
+        name: part
+        children:
+          - type: element
+            name: detail
+            attrs: {type: volume}
+            children:
+              - type: element
+                name: number
+                text:
+                  - type: value
+                    values:
+                      - {type: col, header: hostPublicationVolume, method: value}
+          - type: element
+            name: detail
+            attrs: {type: issue}
+            children:
+              - type: element
+                name: number
+                text:
+                  - type: value
+                    values:
+                      - {type: col, header: hostPublicationIssue, method: value}
+          - type: element
+            name: date
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationDate, method: value}
+
   - type: repeating
     method: value
     colprefix:
