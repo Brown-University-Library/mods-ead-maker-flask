@@ -1084,7 +1084,7 @@ fields:
             text:
               - type: value
                 values:
-                  - {type: col, header: partPublicationVolume, method: value}
+                  - {type: col, header: partPublicationVolume, method: num}
           - type: element
             name: caption
             text:
@@ -1100,7 +1100,7 @@ fields:
             text:
               - type: value
                 values:
-                  - {type: col, header: partPublicationIssue, method: value}
+                  - {type: col, header: partPublicationIssue, method: num}
           - type: element
             name: caption
             text:
@@ -1112,7 +1112,7 @@ fields:
         text:
           - type: value
             values:
-              - {type: col, header: partPublicationDate, method: value}
+              - {type: col, header: partPublicationDate, method: num}
 
 
   - type: element
@@ -1139,7 +1139,7 @@ fields:
             text:
               - type: value
                 values:
-                  - {type: col, header: hostPartNumber, method: value}
+                  - {type: col, header: hostPartNumber, method: num}
       - type: element
         name: part
         children:
@@ -1152,7 +1152,7 @@ fields:
                 text:
                   - type: value
                     values:
-                      - {type: col, header: hostPublicationVolume, method: value}
+                      - {type: col, header: hostPublicationVolume, method: num}
           - type: element
             name: detail
             attrs: {type: issue}
@@ -1162,13 +1162,13 @@ fields:
                 text:
                   - type: value
                     values:
-                      - {type: col, header: hostPublicationIssue, method: value}
+                      - {type: col, header: hostPublicationIssue, method: num}
           - type: element
             name: date
             text:
               - type: value
                 values:
-                  - {type: col, header: hostPublicationDate, method: value}
+                  - {type: col, header: hostPublicationDate, method: num}
 
   - type: repeating
     method: value
