@@ -150,12 +150,24 @@ fields:
             values:
               - {type: col, header: entry.appendTermOfAddress, method: value}
         - type: element
+          name: displayForm
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.displayForm, method: num}
+        - type: element
           name: namePart
           attrs: {type: date}
           text:
           - type: value
             values:
               - {type: col, header: entry.date, method: value}
+        - type: element
+          name: affiliation
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.affiliation, method: num}
         - type: element
           name: role
           children:
@@ -482,13 +494,32 @@ fields:
           - key: keyDate
             text: 
               - type: ifnotpresent
-                col: dateText
+                col: dateIssuedEncoded
                 values:
                   - {type: value, text: "yes"}
         text:
           - type: value
             values:
               - {type: col, header: dateIssuedText, method: num}
+      - type: element
+        name: dateIssued
+        attrs: {encoding: w3cdtf}
+        conditionalattrs:
+          - key: qualifier
+            text: 
+              - type: value
+                values:
+                  - {type: col, header: dateIssuedQualifier, method: value}
+          - key: keyDate
+            text: 
+              - type: ifnotpresent
+                col: dateText
+                values:
+                  - {type: value, text: "yes"}
+        text:
+          - type: value
+            values:
+              - {type: col, header: dateIssuedEncoded, method: num}
       - type: element
         name: dateCreated
         conditionalattrs:
@@ -1054,6 +1085,12 @@ fields:
               - type: value
                 values:
                   - {type: col, header: partPublicationVolume, method: value}
+          - type: element
+            name: caption
+            text:
+              - type: value
+                values:
+                  - {type: value, text: "Volume"}
       - type: element
         name: detail
         attrs: {type: issue}
@@ -1064,6 +1101,12 @@ fields:
               - type: value
                 values:
                   - {type: col, header: partPublicationIssue, method: value}
+          - type: element
+            name: caption
+            text:
+              - type: value
+                values:
+                  - {type: value, text: "Issue"}
       - type: element
         name: date
         text:
