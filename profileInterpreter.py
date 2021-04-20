@@ -6,6 +6,7 @@ import yaml
 import re
 import csv
 import os
+import json
 
 def convertArrayToDictWithMatchingKeyValues(array):
     dictionary = {}
@@ -84,6 +85,19 @@ def getTermsOfAddressPrependAndAppendStripped(name):
     
     return prependTermOfAddress, appendTermOfAddress
 
+def getAdditionalValues(name):
+    additionalValuesResults = re.findall("\[(.*)\]", name)
+    additionalValues = {}
+
+    if len(additionalValuesResults) > 0:
+        for result in additionalValuesResults:
+            additionalValue = yaml.safe_load(result)
+            
+            for key, value in additionalValue.items():
+                additionalValues["entry." + key] = value
+    
+    return additionalValues, additionalValuesResults
+
 def getValueUri(name):
     uris = re.findall("(?P<url>https?://[^\s]+)", name)
 
@@ -123,13 +137,23 @@ def getMetadataFromEntry(entry):
     entry = entry.replace(valueUri, "")
     value = normalizeString(entry)
 
+    additionalValues, additionalValuesResults = getAdditionalValues(entry)
+    additionalValuesResults = re.findall("(\[.*\])", entry)
+    for additionalValuesResult in additionalValuesResults:
+        entry = entry.replace(additionalValuesResult, "")
+
     prependTermOfAddress, appendTermOfAddress = getTermsOfAddressPrependAndAppendStripped(entry)
     entry = entry.replace("{{" + prependTermOfAddress + "}}", "")
     entry = entry.replace("{{" + appendTermOfAddress + "}}", "")
 
     name, date, role = getNameDateRoleFromEntry(entry)
 
-    return {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
+    metadata = {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
+    
+    if additionalValues:
+        metadata.update(additionalValues)
+
+    return metadata
 
 
 def normalizeString(string):
@@ -137,6 +161,7 @@ def normalizeString(string):
         string = string.replace('\n', ' ').replace('\r', ' ')
         string = string.replace('<title>', '').replace('</title>', '')
         string = string.replace('<geogname>', '- ').replace('</geogname>', '')
+        string = string.replace('|', "")
         return(' '.join(str(string).split()))
     else:
         return string
