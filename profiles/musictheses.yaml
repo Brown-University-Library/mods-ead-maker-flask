@@ -1,0 +1,645 @@
+attrqname: 
+  uri: http://www.w3.org/2001/XMLSchema-instance
+  tag: schemaLocation
+schemalocation: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"
+nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-instance, xlink: http://www.w3.org/1999/xlink}
+elementnamespace: '{http://www.loc.gov/mods/v3}'
+parenttag: 'mods'
+
+skipif:
+ - recordgroupTitle
+ - subgroupTitle
+ - seriesTitle
+ - subSeriesTitle
+ - Ignore
+
+filenamecolumn: identifierBDR
+fileextension: ".mods.xml"
+
+keepblanktextelements:
+  - {elementxpath: '//mods:accessCondition[@type="logo"][@xlink:href]'}
+
+fields:
+  - type: element 
+    name: titleInfo
+    children:
+      - type: element 
+        name: title
+        text:
+          - type: value
+            values:
+              - {type: col, header: Project title, method: value}
+      - type: element 
+        name: subTitle
+        text:
+          - type: value
+            values:
+              - {type: col, header: subTitle, method: value}
+      - type: element 
+        name: partNumber
+        text:
+          - type: value
+            values:
+              - {type: col, header: itemTitlePartNumber, method: num}
+      - type: element 
+        name: partName
+        text:
+          - type: value
+            values:
+              - {type: col, header: itemTitlePartName, method: value}
+
+  - type: element
+    name: abstract
+    text:
+      - type: value
+        values:
+          - {type: col, header: Abstract, method: value}
+
+  - type: repeating
+    method: name
+    cols:
+      - Author name
+    defaults: {entry.role: creator}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: displayForm
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.displayForm, method: num}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: affiliation
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.affiliation, method: num}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {authority: marcrelator, authorityURI: http://id.loc.gov/vocabulary/relators, valueURI: http://id.loc.gov/vocabulary/relators/cre}
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: repeating
+    method: name
+    cols:
+      - First reader
+    defaults: {entry.role: reader}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: repeating
+    method: name
+    cols:
+      - Thesis advisor
+    defaults: {entry.role: thesis advisor}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {authority: marcrelator, authorityURI: http://id.loc.gov/vocabulary/relators, valueURI: http://id.loc.gov/vocabulary/relators/ths}
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: repeating
+    method: name
+    cols:
+      - Second reader
+    defaults: {entry.role: reader}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: element
+    name: name
+    attrs: {type: corporate}
+    children:
+      - type: element
+        name: namePart
+        text:
+          - type: value
+            values:
+              - {type: value, text: Brown University. Department of Music}
+      - type: element
+        name: role
+        children: 
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            text:
+              - type: value
+                values:
+                  - {type: value, text: sponsor}
+
+  - type: element
+    name: originInfo
+    children:
+      - type: element
+        name: copyrightDate
+        text:
+          - type: value
+            values:
+              - {type: col, header: Date, method: num}      
+
+  - type: element 
+    name: typeOfResource 
+    text:
+      - type: value
+        values:
+          - {type: col, header: Type of resource, method: value}
+
+  - type: element
+    name: physicalDescription
+    children:
+      - type: element
+        name: digitalOrigin
+        text:
+          - type: value
+            values:
+              - {type: value, text: born digital}        
+
+  - type: element
+    name: language
+    children:
+      - type: element
+        name: languageTerm
+        attrs: {authority: iso639-2b, type: text, authorityURI: http://id.loc.gov/vocabulary/iso639-2.html, valueURI: http://id.loc.gov/vocabulary/iso639-2/eng}
+        text:
+          - type: value
+            values:
+              - {type: value, text: English}        
+
+  - type: element
+    name: note
+    attrs: {type: thesis}
+    text:
+      - type: value
+        values:
+          - {type: value, text: "Senior thesis (AB)--Brown University, "}   
+          - {type: col, header: Date , method: num}   
+
+  - type: element
+    name: note
+    attrs: {displayLabel: Concentration}
+    text:
+      - type: value
+        values:
+          - {type: col, header: Concentration, method: value}  
+
+  - type: element
+    name: genre
+    attrs: {authority: aat}
+    text:
+      - type: value
+        values:
+          - {type: value, text: theses}  
+
+  - type: repeating
+    method: value
+    cols:
+      - Keywords
+    defaults: {entry.authority: local}
+    element:
+      name: subject
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+        - key: displayLabel
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.displayLabel, method: value}
+      children:
+        - type: element
+          name: topic
+          text:
+            - type: value
+              values:
+                - {type: col, header: entry.value, method: value}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: use and reproduction}
+    conditionalattrs:
+      - key: "{http://www.w3.org/1999/xlink}href"
+        text: 
+          - type: value
+            values:
+              - {type: col, header: License URI, method: value}
+    text:
+      - type: value
+        values:
+          - {type: col, header: License name, method: value}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: logo}
+    conditionalattrs:
+      - key: "{http://www.w3.org/1999/xlink}href"
+        text: 
+          - type: value
+            values:
+              - {type: col, header: License icon URL, method: value}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: rights statement}
+    conditionalattrs:
+      - key: "{http://www.w3.org/1999/xlink}href"
+        text: 
+          - type: value
+            values:
+              - {type: value, text: http://rightsstatements.org/vocab/InC/1.0/}
+    text:
+      - type: value
+        values:
+          - {type: value, text: In Copyright}
+
+  - type: element
+    name: accessCondition
+    conditions:
+      - {type: startswith, col: License preference, text: All rights}
+    attrs: {type: use and reproduction}
+    text:
+      - type: value
+        values: 
+          - {type: value, text: "This work is licensed under an All rights reserved license."}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: restriction on access}
+    text:
+      - type: ifhas
+        col: License preference
+        text: All rights 
+        values: 
+          - {type: value, text: "All rights reserved. "}
+      - type: value
+        values: 
+          - {type: value, text: "Collection is open for research."}
+
+  - type: element
+    name: accessCondition
+    attrs: {type: restriction on access}
+    text:
+      - type: value
+        values: 
+          - {type: col, header: restrictionOnAccess, method: value}
+
+  - type: element
+    name: relatedItem
+    attrs: {type: host}
+    children:
+      - type: element
+        name: titleInfo
+        children:
+          - type: element
+            name: title
+            text:
+              - type: value
+                values:
+                  - {type: col, header: collection, method: value}
+      - type: element
+        name: originInfo
+        children: 
+          - type: element
+            name: dateCreated
+            text:
+              - type: value
+                values:
+                  - {type: col, header: dateTextParent, method: num}
+      - type: element
+        name: identifier
+        attrs: {type: local}
+        text:
+          - type: value
+            values:
+              - {type: col, header: callNumber, method: value}
+      - type: element
+        name: location
+        children:
+          - type: element
+            name: physicalLocation
+            text:
+              - type: value
+                values:
+                  - {type: col, header: repository, method: value}
+          - type: element
+            name: url
+            text:
+              - type: value
+                values:
+                  - {type: col, header: findingAid, method: value}
+          - type: element
+            name: holdingSimple
+            children:
+              - type: element
+                name: copyInformation
+                children: 
+                  - type: element
+                    name: shelfLocator
+                    text:
+                      - type: ifpresent
+                        col: shelfLocator1
+                        values: 
+                          - {type: col, header: shelfLocator1, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator1ID, method: num}
+                      - type: ifpresent
+                        col: shelfLocator2
+                        values: 
+                          - {type: value, text: ", "}
+                          - {type: col, header: shelfLocator2, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator2ID, method: num}
+                      - type: ifpresent
+                        col: shelfLocator3
+                        values: 
+                          - {type: value, text: ", "}
+                          - {type: col, header: shelfLocator3, method: value}
+                          - {type: value, text: " "}
+                          - {type: col, header: shelfLocator3ID, method: num}
+                      - type: action
+                        action: leftstriprightstrip
+                        leftstriprightstriptext: ", "
+
+  - type: element
+    name: relatedItem
+    attrs: {type: host}
+    children:
+      - type: element
+        name: titleInfo
+        children:
+          - type: element
+            name: title
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationTitle, method: value}
+          - type: element
+            name: subTitle
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationSubTitle, method: value}
+          - type: element
+            name: partNumber
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPartNumber, method: value}
+      - type: element
+        name: part
+        children:
+          - type: element
+            name: detail
+            attrs: {type: volume}
+            children:
+              - type: element
+                name: number
+                text:
+                  - type: value
+                    values:
+                      - {type: col, header: hostPublicationVolume, method: value}
+          - type: element
+            name: detail
+            attrs: {type: issue}
+            children:
+              - type: element
+                name: number
+                text:
+                  - type: value
+                    values:
+                      - {type: col, header: hostPublicationIssue, method: value}
+          - type: element
+            name: date
+            text:
+              - type: value
+                values:
+                  - {type: col, header: hostPublicationDate, method: value}
+
+
+samplevalues:
+  identifierBDR: "bdr:12345"
+  language: "English|rus"
+  License preference: "All rights reserved"

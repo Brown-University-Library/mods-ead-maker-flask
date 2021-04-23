@@ -166,7 +166,10 @@ def normalizeString(string):
     else:
         return string
 
-def clearEmptyElementsFromEtree(parentElement):
+def clearEmptyElementsFromEtree(parentElement, keepElementXpaths):
+
+    if parentElement == None:
+        return etree.Element("blank")
     # start cleanup
     # remove any element tails
     for element in parentElement.iter():
@@ -189,6 +192,12 @@ def clearEmptyElementsFromEtree(parentElement):
     def recursively_empty(e):
         if e.text:
             return False
+        for xpath in keepElementXpaths:
+            for element in clean.xpath(xpath.get("elementxpath", None), namespaces=parentElement.nsmap):
+                print(etree.tostring(element))
+            if e in clean.xpath(xpath.get("elementxpath", None), namespaces=parentElement.nsmap):
+                print("Skipping because of xpath")
+                return
         return all((recursively_empty(c) for c in e.iterchildren()))
 
     context = etree.iterwalk(clean)
@@ -216,9 +225,10 @@ class Profile():
         self.profileFields = self.profile.get("fields", [])
         self.colSuffixes = self.profile.get("authorities")
         self.profileSorts = self.profile.get("sort", [])
+        self.profileKeepElementXpaths = self.profile.get("keepblanktextelements", [])
         self.profileSampleValues = self.profile.get("samplevalues", {})
 
-        self.profileGlobalConditions = self.profile.get("globalconditions")
+        self.profileGlobalConditions = self.profile.get("globalconditions", [])
         self.globalConditionsSet = globalConditions
 
         self.profileFilenameColumn = self.profile.get("filenamecolumn", "")
@@ -316,6 +326,7 @@ class Profile():
             textUnitType = textUnit.get("type","")
             textUnitColumn = textUnit.get("col", None)
             textUnitValues = textUnit.get("values","")
+            textUnitText = textUnit.get("text","")
 
             if  textUnitType == "ifpresent":
                 if row.get(textUnitColumn):
@@ -323,6 +334,10 @@ class Profile():
                     text = text + newText
             if  textUnitType == "ifnotpresent":
                 if row.get(textUnitColumn) == None or row.get(textUnitColumn) == "":
+                    newText = self.processTextUnitValues(textUnitValues, row)
+                    text = text + newText
+            if  textUnitType == "ifhas":
+                if textUnitText in row.get(textUnitColumn, ""):
                     newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
             if  textUnitType == "value":
@@ -489,7 +504,7 @@ class Profile():
             return 'Only appears if the text in column "' + condition.get("col", "") + '" contains "' + condition.get("text", "") + '".'
 
     def createExampleElementTextFromEtree(self, element):
-        cleanedElement = clearEmptyElementsFromEtree(element)
+        cleanedElement = clearEmptyElementsFromEtree(element, self.profileKeepElementXpaths)
         objectify.deannotate(cleanedElement, cleanup_namespaces=True, xsi_nil=True)
         elementString = etree.tostring(cleanedElement, pretty_print=True, encoding="UTF-8").decode("utf-8")
 
@@ -637,7 +652,7 @@ class Profile():
             if profileFieldType == "repeating":
                 self.processRepeatingTypeField(profileField, self.colSuffixes, row, parentElement) 
 
-        cleanedUpEtree = clearEmptyElementsFromEtree(parentElement)
+        cleanedUpEtree = clearEmptyElementsFromEtree(parentElement, self.profileKeepElementXpaths)
 
         for profileSort in self.profileSorts:
             self.processSort(cleanedUpEtree, profileSort)
