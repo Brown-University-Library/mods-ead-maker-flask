@@ -1088,7 +1088,8 @@ fields:
           - type: element
             name: caption
             text:
-              - type: value
+              - type: ifpresent
+                col: partPublicationVolume
                 values:
                   - {type: value, text: "Volume"}
       - type: element
@@ -1104,7 +1105,8 @@ fields:
           - type: element
             name: caption
             text:
-              - type: value
+              - type: ifpresent
+                col: partPublicationIssue
                 values:
                   - {type: value, text: "Issue"}
       - type: element
