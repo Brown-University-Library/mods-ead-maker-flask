@@ -432,10 +432,10 @@ class Profile():
                     colHeader = colPrefix + colSuffix.get("suffix", "")
                     colSuffixDefaults = colSuffix.get("defaults",{})
                     colSuffixDefaults.update(repeatingDefaults)
-                    rowString = row.get(colHeader, "")
+                    rowString = row.get(colHeader, "").replace(';','|')
                     self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
             for colHeader in colHeaders:
-                rowString = row.get(colHeader, "")
+                rowString = row.get(colHeader, "").replace(';','|')
                 self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
 
     def processSort(self,parentElement, sort):

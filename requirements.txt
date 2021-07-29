@@ -3,3 +3,4 @@ XlsxWriter == 1.2.6
 openpyxl == 3.0.0 
 flask
 pyyaml     
+lxml

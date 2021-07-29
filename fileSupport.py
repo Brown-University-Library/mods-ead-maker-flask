@@ -26,9 +26,9 @@ def convertXlsxToDictList(fileContents, sheetname):
                 #If the value is a number, turn it into a string.
                 newvalue = ''
                 if sheet.cell(row,column).ctype > 1:
-                    newvalue = str(sheet.cell_value(row,column)).replace(';','|')
+                    newvalue = str(sheet.cell_value(row,column))
                 else:
-                    newvalue = sheet.cell_value(row,column).replace(';','|')
+                    newvalue = sheet.cell_value(row,column)
 
                 #If the column is repeating, serialize the row values.
                 if rowdictionary.get(sheet.cell_value(0,column), '') != '':
@@ -40,7 +40,7 @@ def convertXlsxToDictList(fileContents, sheetname):
         return rowarray
 
 def cleanStringForFilename(string):
-    invalidCharacters = '<>:"/\|?* '
+    invalidCharacters = '<>:"/\|?*'
 
     for character in invalidCharacters:
         string = string.replace(character, '')
