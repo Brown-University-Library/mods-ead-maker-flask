@@ -36,6 +36,7 @@
             font-family: monospace; 
             white-space: pre-wrap; 
             color:black;
+            font-size: 14px;
         }
 
         .buttons {
@@ -77,6 +78,25 @@
             float: left;
         }
 
+        .form-preview-column {
+            position: sticky;
+            height: 99vh;
+            top: 1vh;
+        }
+
+        .form-preview {
+            height: 100%;
+            overflow: scroll;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        .form-download-button {
+            width: 100%;
+        }
+
     </style>
 </head>
 
@@ -90,6 +110,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link{% if title == "Profiles" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('displayProfileList')}}">Profiles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link{% if title == "Forms" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('displayFormsList')}}">Forms</a>
       </li>
       <li class="nav-item">
         <a class="nav-link{% if title == "Resources" %} active" aria-current="page" {% else %} " {% endif %} href="{{url_for('renderResources')}}">Resources</a>

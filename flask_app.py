@@ -145,6 +145,55 @@ def downloadYaml(profileFilename):
     path = os.path.join("profiles", profileFilename + ".yaml")
     return flask.send_file(path, as_attachment=True)
 
+####Forms
+
+@app.route("/forms/", methods=["GET"])
+def displayFormsList():
+    if request.method == "GET":
+        files = glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", "*.yaml"))
+        profileList = []
+        for file in files:
+            profileList.append(os.path.basename(file).replace(".yaml", ""))
+        return render_template('forms/forms.html', profiles=profileList, title="Forms")
+
+@app.route("/forms/profile/<string:profileFilename>", methods=["GET", "POST"])
+def displayProfileForm(profileFilename):
+    if request.method == "POST":
+        metadata = request.form.to_dict()
+        globalConditions = dict.fromkeys(metadata, True)
+        xmlFile, filename = fileSupport.createFileFromRow(metadata, os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml"), globalConditions)
+        response = make_response(xmlFile)
+        response.headers["Content-Disposition"] = "attachment; filename=" + filename
+        return response
+    if request.method == "GET":
+        profile = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
+        fieldList = profile.getFieldList()
+
+        allHeaders = {}
+
+        for index, field in enumerate(fieldList):
+            headers = field.get("headers", [])
+
+            for header in headers:
+
+                if allHeaders.get(header, None):
+                    headers.remove(header)
+                    fieldList[index]["headers"] = headers
+                else:
+                   allHeaders[header] = "here"
+
+        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
+            
+        return render_template('forms/form.html', fieldList=fieldList, profilename=profileFilename, globalconditions=profile.profileGlobalConditions, title="Forms")
+
+@app.route("/forms/profile/<string:profileFilename>/preview", methods=["POST"])
+def getFormPreview(profileFilename):
+    if request.method == "POST":
+        metadata = request.form.to_dict()
+        globalConditions = dict.fromkeys(metadata, True)
+        preview = fileSupport.createPreviewFromRows([metadata], os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml"), globalConditions)
+        return jsonify(preview)
+
 @app.route("/resources", methods=["GET"])
 def renderResources():
     return render_template('resources.html', title="Resources")

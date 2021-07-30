@@ -74,8 +74,27 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     
     return zipBuffer.getvalue(), sheetName + '.zip'
 
+def createFileFromRow(row, profilePath, globalConditions):
+    profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
+
+    xmlString = profile.convertRowToXmlString(row)
+    filename = getFilenameFromRow(row, 0, profile.profileFilenameColumn) + profile.profileFileExtension
+
+    fileBuffer = io.StringIO()
+
+    if xmlString != None:
+        fileBuffer.write(xmlString)
+            
+    return fileBuffer.getvalue(), filename
+
 def getPreview(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
+
+    allXmlString = createPreviewFromRows(rows, profilePath, globalConditions)
+
+    return allXmlString
+
+def createPreviewFromRows(rows, profilePath, globalConditions):
     profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
 
     allXmlString = ""
@@ -88,5 +107,5 @@ def getPreview(excelFile, sheetName, profilePath, globalConditions):
         if xmlString:
             allXmlString = allXmlString + "\n\n" + filename + profile.profileFileExtension + "\n\n" + xmlString
             allXmlString = allXmlString.lstrip("\n\n")
-
+    
     return allXmlString

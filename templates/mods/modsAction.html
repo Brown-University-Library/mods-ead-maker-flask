@@ -11,15 +11,7 @@
 
     <select style="margin-bottom: 15px;" class="form-select" name="sheetlist" id="sheetlist" method="GET" action="/">
     </select>
-    {% for globalcondition in globalconditions %}
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" value="" name="{{globalcondition.get('code','')}}"
-        id="{{globalcondition.get('code','')}}" {% if globalcondition.get('defaultvalue', False) %} checked {% endif %}>
-      <label class="form-check-label" for="defaultsCheckbox">
-        {{globalcondition.get("explanation","")}}
-      </label>
-    </div>
-    {% endfor %}
+    {% include 'globalconditions.html' %}
 
     <div class="buttons">
       <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
