@@ -13,8 +13,15 @@
     {% include 'forms/profileFieldForm.html' %}
 </div>
 <div class="col-6 form-preview-column">
-  <div class="buttons">
-      <button type="submit" class="btn btn-primary form-download-button" form="field-form"><i class="bi bi-download"></i> Download MODS</button>
+  <div class="" style="margin-bottom: 15px;">
+    <button type="submit" class="btn btn-primary form-download-button" form="field-form"><i class="bi bi-download"></i> Download MODS</button>
+</div>
+  <div class="card mb-3">
+    <div class="card-header">File Viewer</div>
+    <div class="card-body text-secondary">
+    <input class="form-control" type="file" name="input_file" id="file-input" />
+  <iframe class="file-preview" id="file-preview"></iframe>
+  </div>
 </div>
   <div class="form-preview">
 {% include 'preview.html' %}
@@ -36,21 +43,49 @@
 
   function retrievePreview() {
 
-    const previewDiv = document.getElementById("preview")
-    // previewDiv.innerText = ""
+    function timer(){
 
-    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
-    var globalConditions = {}
+      const previewDiv = document.getElementById("preview")
+      // previewDiv.innerText = ""
 
-    var formData = new FormData(document.querySelector('form'))
+      const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+      var globalConditions = {}
 
-    fetch("/forms/profile/{{profilename}}/preview", { method: "POST", body: formData })
-      .then(response => response.json())
-      .then(function (data) {
-        previewDiv.innerText = data.trim()
-      }
-      );
+      var formData = new FormData(document.querySelector('form'))
 
+      fetch("/forms/profile/{{profilename}}/preview", { method: "POST", body: formData })
+        .then(response => response.json())
+        .then(function (data) {
+          previewDiv.innerText = data.trim()
+        }
+        );
+    }
+
+    setTimeout(timer,1000);   
+
+  }
+</script>
+
+<script>
+
+  document.getElementById("file-input").addEventListener("change", onFileSelected)
+
+  function onFileSelected(event) {
+    console.log("File selected")
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.getElementById("file-preview");
+    imgtag.title = selectedFile.name;
+
+    document.getElementById("{{filenameColumn}}").value = selectedFile.name.replace(/\.[^/.]+$/, "")
+    retrievePreview()
+
+    reader.onload = function(event) {
+      imgtag.src = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
   }
 </script>
 

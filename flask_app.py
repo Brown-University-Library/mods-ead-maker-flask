@@ -182,9 +182,9 @@ def displayProfileForm(profileFilename):
                 else:
                    allHeaders[header] = "here"
 
-        yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
+        filenameColumn = profile.profileFilenameColumn
             
-        return render_template('forms/form.html', fieldList=fieldList, profilename=profileFilename, globalconditions=profile.profileGlobalConditions, title="Forms")
+        return render_template('forms/form.html', fieldList=fieldList, profilename=profileFilename, globalconditions=profile.profileGlobalConditions, filenameColumn=filenameColumn, title="Forms")
 
 @app.route("/forms/profile/<string:profileFilename>/preview", methods=["POST"])
 def getFormPreview(profileFilename):

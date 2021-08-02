@@ -1,8 +1,11 @@
 
 <form id="field-form" method="post" action="{{url_for('displayProfileForm', profileFilename=profilename)}}" enctype="multipart/form-data">
+        {% if globalconditions %}
+
         <h4>Global conditions</h4>
        {% include 'globalconditions.html' %}
         <br/>
+        {% endif %}
        <h4>Fields</h4>
         {%for field in fieldList%}
         
