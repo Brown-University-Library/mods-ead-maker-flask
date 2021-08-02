@@ -1,20 +1,17 @@
 
 <form id="field-form" method="post" action="{{url_for('displayProfileForm', profileFilename=profilename)}}" enctype="multipart/form-data">
         {% if globalconditions %}
-
-        <h4>Global conditions</h4>
        {% include 'globalconditions.html' %}
         <br/>
         {% endif %}
-       <h4>Fields</h4>
         {%for field in fieldList%}
         
             <div>
                     {%for column in field["headers"] %}
                     <div class=" mb-3">
-                        <label for={{column}} class="form-label">{{column}}</label>
+                        <label for="{{column}}" class="form-label">{{column}}</label>
                         <div class="">
-                            <input name={{column}} type="text" class="form-control" id={{column}} aria-describedby={{column}}>
+                            <input name="{{column}}" type="text" class="form-control" id="{{column}}" aria-describedby="{{column}}">
                         </div>
                     </div>
                     {% endfor %}
