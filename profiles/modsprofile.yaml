@@ -414,7 +414,7 @@ fields:
     text:
       - type: value
         values:
-          - {type: col, header: noteHistoricalClassYear, method: value}
+          - {type: col, header: noteHistoricalClassYear, method: num}
 
   - type: element
     name: note
