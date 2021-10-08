@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{url_for('displayFormsList')}}">Forms</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{profilename}}</li>
+  </ol>
+</nav>
+<h3>{{profilename}}</h3>
+<div class="form-container">
+  <div class="row">
+<div class="col-6" id="profile-form" aria-labelledby="profile-form">
+    {% include 'forms/profileFieldForm.html' %}
+</div>
+<div class="col-6 form-preview-column">
+  <div class="" style="margin-bottom: 15px;">
+    <button type="submit" class="btn btn-primary form-download-button" form="field-form"><i class="bi bi-download"></i> Download MODS</button>
+</div>
+  <div class="form-preview">
+{% include 'preview.html' %}
+</div>
+<div class="card mb-3">
+  <div class="card-header">File Viewer</div>
+  <div class="card-body text-secondary">
+  <input class="form-control" type="file" name="input_file" id="file-input" />
+<iframe class="file-preview" id="file-preview"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+  inputElements = document.getElementsByTagName("input")
+  
+  for (var inputElement of inputElements) {
+    addEventListener('keyup', retrievePreview);
+  }
+
+  const previewParentDiv = document.getElementById("previewparent")
+  previewParentDiv.style.display = "inherit"
+
+  function retrievePreview() {
+
+    function timer(){
+
+      const previewDiv = document.getElementById("preview")
+      // previewDiv.innerText = ""
+
+      const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+      var globalConditions = {}
+
+      var formData = new FormData(document.querySelector('form'))
+
+      fetch("/forms/profile/{{profilename}}/preview", { method: "POST", body: formData })
+        .then(response => response.json())
+        .then(function (data) {
+          previewDiv.innerText = data.trim()
+        }
+        );
+    }
+
+    setTimeout(timer,1000);   
+
+  }
+</script>
+
+<script>
+
+  document.getElementById("file-input").addEventListener("change", onFileSelected)
+
+  function onFileSelected(event) {
+    console.log("File selected")
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.getElementById("file-preview");
+    imgtag.title = selectedFile.name;
+
+    document.getElementById("{{filenameColumn}}").value = selectedFile.name.replace(/\.[^/.]+$/, "")
+    retrievePreview()
+
+    reader.onload = function(event) {
+      imgtag.src = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
+  }
+</script>
+
+{%endblock%}

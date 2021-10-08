@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class="list-group list-group-flush">
+
+  {% for profile in profiles %}
+  <li class="list-group-item">
+
+    <a class="text-decoration-none" href="{{url_for('displayProfileForm', profileFilename=profile)}}">
+      <h3>{{profile}} <i class="bi bi-arrow-right-circle"></i></h3>
+    </a>
+  </li>
+  {% endfor %}
+  
+</ul>
+
+{%endblock%}

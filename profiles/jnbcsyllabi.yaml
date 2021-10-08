@@ -1,0 +1,227 @@
+attrqname: 
+  uri: http://www.w3.org/2001/XMLSchema-instance
+  tag: schemaLocation
+schemalocation: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"
+nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-instance, xlink: http://www.w3.org/1999/xlink}
+elementnamespace: '{http://www.loc.gov/mods/v3}'
+parenttag: 'mods'
+
+skipif:
+ - recordgroupTitle
+ - subgroupTitle
+ - seriesTitle
+ - subSeriesTitle
+ - Ignore
+
+filenamecolumn: fileno
+fileextension: ".mods.xml"
+
+fields:
+  - type: element 
+    name: titleInfo
+    children:
+      - type: element 
+        name: title
+        text:
+          - type: value
+            values:
+              - {type: col, header: courseTitle, method: value}
+      - type: element 
+        name: subTitle
+        text:
+          - type: value
+            values:
+              - {type: col, header: subTitle, method: value}
+      - type: element 
+        name: partNumber
+        text:
+          - type: value
+            values:
+              - {type: col, header: itemTitlePartNumber, method: num}
+      - type: element 
+        name: partName
+        text:
+          - type: value
+            values:
+              - {type: col, header: itemTitlePartName, method: value}
+
+  - type: element
+    name: abstract
+    text:
+      - type: value
+        values:
+          - {type: col, header: Abstract, method: value}
+
+  - type: repeating
+    method: name
+    cols:
+      - instructor (invert name)
+    defaults: {entry.role: creator}
+    element:
+      name: name
+      attrs: {type: personal}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.prependTermOfAddress, method: value}
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: namePart
+          attrs: {type: termsOfAddress}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.appendTermOfAddress, method: value}
+        - type: element
+          name: displayForm
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.displayForm, method: num}
+        - type: element
+          name: namePart
+          attrs: {type: date}
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.date, method: value}
+        - type: element
+          name: affiliation
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.affiliation, method: num}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {authority: marcrelator, authorityURI: http://id.loc.gov/vocabulary/relators, valueURI: http://id.loc.gov/vocabulary/relators/cre}
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: element
+    name: name
+    attrs: {type: corporate}
+    children:
+      - type: element
+        name: namePart
+        text:
+          - type: value
+            values:
+              - {type: value, text: John Nicholas Brown Center for Public Humanities and Cultural Heritage}
+      - type: element
+        name: role
+        children: 
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            text:
+              - type: value
+                values:
+                  - {type: value, text: sponsor}
+
+  - type: element 
+    name: typeOfResource 
+    text:
+      - type: value
+        values:
+          - {type: value, text: text, method: value}
+
+  - type: element
+    name: genre
+    attrs: {authority: aat}
+    text:
+      - type: value
+        values:
+          - {type: value, text: syllabi}  
+
+  - type: element
+    name: originInfo
+    children:
+      - type: element
+        name: dateCreated
+        text:
+          - type: value
+            values:
+              - {type: col, header: semester, method: num}      
+      - type: element
+        name: dateCreated
+        attrs: {keyDate: "yes", encoding: w3cdtf}
+        text:
+          - type: value
+            values:
+              - {type: col, header: semester machine, method: num}   
+
+  - type: repeating
+    method: value
+    cols:
+      - language
+    element:
+      type: element
+      name: language
+      children:
+        - type: element
+          name: languageTerm
+          attrs: {type: code, authority: iso639-2b}
+          text:
+            - type: value
+              values:
+                - {type: value, text: eng, method: lang}
+
+  - type: element
+    name: physicalDescription
+    children:
+      - type: element
+        name: extent
+        text:
+          - type: value
+            values:
+              - {type: value, text: 1 PDF}                  
+
+  - type: element
+    name: abstract
+    text:
+      - type: value
+        values:
+          - {type: col, header: description, method: value}
+
+  - type: element
+    name: note
+    attrs: {displayLabel: Course no.}
+    text:
+      - type: value
+        values:
+          - {type: col, header: courseno, method: value}  
+
+samplevalues:
+  identifierBDR: "bdr:12345"
+  language: "English|rus"
+  License preference: "All rights reserved"

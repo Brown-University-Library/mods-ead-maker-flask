@@ -15,6 +15,7 @@ skipif:
 
 globalconditions:
   - {code: includeBrownDefaults, defaultvalue: true, explanation: "Include default Brown University archival fields."}
+  - {code: includePreferredCitation, defaultvalue: true, explanation: "Include preferred citation note."}
 filenamecolumn: identifierBDR
 fileextension: ".mods.xml"
 
@@ -320,6 +321,7 @@ fields:
 
   - type: element 
     name: typeOfResource 
+    attrs: {authority: primo, authorityURI: "https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/020Primo_VE/Primo_VE_(English)/100Loading_Records_from_External_Sources_into_Primo_VE/Configuring_Normalization_Rules_for_External_Resources_(Primo_VE)#Supported_Resource_Types_in_Primo_VE" }
     text:
       - type: value
         values:
@@ -412,7 +414,7 @@ fields:
     text:
       - type: value
         values:
-          - {type: col, header: noteHistoricalClassYear, method: value}
+          - {type: col, header: noteHistoricalClassYear, method: num}
 
   - type: element
     name: note
@@ -449,7 +451,7 @@ fields:
   - type: element
     name: note
     conditions:
-      - {type: global, code: includeBrownDefaults}
+      - {type: global, code: includePreferredCitation}
     attrs: {type: preferredcitation}
     text:
       - type: ifpresent
@@ -1088,7 +1090,8 @@ fields:
           - type: element
             name: caption
             text:
-              - type: value
+              - type: ifpresent
+                col: partPublicationVolume
                 values:
                   - {type: value, text: "Volume"}
       - type: element
@@ -1104,7 +1107,8 @@ fields:
           - type: element
             name: caption
             text:
-              - type: value
+              - type: ifpresent
+                col: partPublicationIssue
                 values:
                   - {type: value, text: "Issue"}
       - type: element

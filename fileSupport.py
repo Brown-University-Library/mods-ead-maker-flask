@@ -26,9 +26,9 @@ def convertXlsxToDictList(fileContents, sheetname):
                 #If the value is a number, turn it into a string.
                 newvalue = ''
                 if sheet.cell(row,column).ctype > 1:
-                    newvalue = str(sheet.cell_value(row,column)).replace(';','|')
+                    newvalue = str(sheet.cell_value(row,column))
                 else:
-                    newvalue = sheet.cell_value(row,column).replace(';','|')
+                    newvalue = sheet.cell_value(row,column)
 
                 #If the column is repeating, serialize the row values.
                 if rowdictionary.get(sheet.cell_value(0,column), '') != '':
@@ -40,7 +40,7 @@ def convertXlsxToDictList(fileContents, sheetname):
         return rowarray
 
 def cleanStringForFilename(string):
-    invalidCharacters = '<>:"/\|?* '
+    invalidCharacters = '<>:"/\|?*'
 
     for character in invalidCharacters:
         string = string.replace(character, '')
@@ -74,8 +74,27 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     
     return zipBuffer.getvalue(), sheetName + '.zip'
 
+def createFileFromRow(row, profilePath, globalConditions):
+    profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
+
+    xmlString = profile.convertRowToXmlString(row)
+    filename = getFilenameFromRow(row, 0, profile.profileFilenameColumn) + profile.profileFileExtension
+
+    fileBuffer = io.StringIO()
+
+    if xmlString != None:
+        fileBuffer.write(xmlString)
+            
+    return fileBuffer.getvalue(), filename
+
 def getPreview(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
+
+    allXmlString = createPreviewFromRows(rows, profilePath, globalConditions)
+
+    return allXmlString
+
+def createPreviewFromRows(rows, profilePath, globalConditions):
     profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
 
     allXmlString = ""
@@ -88,5 +107,5 @@ def getPreview(excelFile, sheetName, profilePath, globalConditions):
         if xmlString:
             allXmlString = allXmlString + "\n\n" + filename + profile.profileFileExtension + "\n\n" + xmlString
             allXmlString = allXmlString.lstrip("\n\n")
-
+    
     return allXmlString

@@ -789,7 +789,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #    floatbarcode = float(row.get("barcode", ''))
 
         if row.get("barcode", '') != '':
-            barcodestring = ' [' + xmltext(row.get("barcode", '')).rstrip('.0') + ']'
+            barcodestring = ' [' + xmltext(row.get("barcode", '')).replace(".0", "") + ']'
 
         if row.get("shelfLocator1", '') != "":
             # , "label": ' '.join(row.get("shelfLocator1", '').split()) , "label": xmltext(shelfLocator1)

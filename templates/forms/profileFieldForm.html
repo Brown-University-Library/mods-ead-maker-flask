@@ -1,0 +1,43 @@
+
+<form id="field-form" method="post" action="{{url_for('displayProfileForm', profileFilename=profilename)}}" enctype="multipart/form-data">
+        {% if globalconditions %}
+       {% include 'globalconditions.html' %}
+        <br/>
+        {% endif %}
+        {%for field in fieldList%}
+        
+            <div>
+                    {%for column in field["headers"] %}
+                    <div class=" mb-3">
+                        <label for="{{column}}" class="form-label">{{column}}</label>
+                        <div class="">
+                            <input name="{{column}}" type="text" class="form-control" id="{{column}}" aria-describedby="{{column}}">
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {%for conditionalattr in field["conditionalattrs"] %}
+                <ul class="list-group list-group-field-list">
+                    <li class="list-group-item">
+                        <p><small>{{conditionalattr["explanation"]}}</small></p>
+                        <div class="alert alert-light" role="alert">
+                            <div class="code">{{conditionalattr["attribute"]}}</div>
+                        </div>
+                    </li>
+
+                </ul>
+                {% endfor %}
+                <!-- {% if field.get("conditions") %}
+                {%for condition in field["conditions"] %}
+               
+                <ul class="list-group list-group-field-list">
+
+                    <div class="alert alert-warning" role="alert">
+                        <small>{{condition}}</small>
+
+                </ul>
+                {% endfor %}
+                {% endif %} -->
+        
+            </div>
+        {%endfor%}
+        </form>
