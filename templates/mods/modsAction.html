@@ -73,7 +73,7 @@
     formData.append("xlsx_file", selectedFile);
     formData.append("data", JSON.stringify(data))
 
-    fetch("/modsmaker/getpreview", { method: "POST", body: formData })
+    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
       .then(response => response.json())
       .then(function (data) {
         previewDiv.innerText = data.trim()

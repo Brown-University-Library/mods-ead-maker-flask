@@ -4,7 +4,7 @@
 <h6>Choose the Excel file you'd like to process.</h6>
 </p>
 
-<form method="post" action="/eadmaker" enctype="multipart/form-data">
+<form method="post" action="{{url_for('eadMakerHome')}}" enctype="multipart/form-data">
     {% include 'ead/fileInputButtonGroup.html' %}
 </form>
 {% endblock %}

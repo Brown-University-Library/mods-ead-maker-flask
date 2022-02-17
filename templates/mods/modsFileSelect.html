@@ -46,7 +46,7 @@
         fileTitle.innerText = "Loading file . . . "
 
         formData.append("xlsx_file", file);
-        fetch('/processfileupload', { method: "POST", body: formData })
+        fetch('{{url_for('processNewFile')}}', { method: "POST", body: formData })
             .then(response => response.json())
             .then(data => setUpActionCard(data));
     }

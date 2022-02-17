@@ -4,3 +4,7 @@ __pycache___
 .DS_Store
 legacy/cache/**
 !legacy/cache/.gitinclude
+tmp
+env3
+apache
+config

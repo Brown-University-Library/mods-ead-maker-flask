@@ -28,7 +28,7 @@
       })
     }
 
-    fetch("/eadmaker/getpreview", parameters)
+    fetch("{{url_for('eadMakerGetPreview')}}", parameters)
       .then(response => response.json())
       .then(function (data) {
         console.log(data)
