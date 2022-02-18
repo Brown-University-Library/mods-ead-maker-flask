@@ -53,7 +53,7 @@
 
       var formData = new FormData(document.querySelector('form'))
 
-      fetch("/forms/profile/{{profilename}}/preview", { method: "POST", body: formData })
+      fetch("{{url_for('getFormPreview', profileFilename=profilename)}}", { method: "POST", body: formData })
         .then(response => response.json())
         .then(function (data) {
           previewDiv.innerText = data.trim()
