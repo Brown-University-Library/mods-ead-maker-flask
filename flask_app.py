@@ -125,11 +125,11 @@ def eadMakerGetPreview():
 @app.route("/profiles/<string:profileFilename>", methods=["GET"])
 def displayProfile(profileFilename):
     if request.method == "GET":
-        modsMaker = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
-        fieldList = modsMaker.getFieldList()
+        profile = profileInterpreter.Profile(os.path.join("profiles", profileFilename + ".yaml"))
+        fieldList = profile.getFieldList()
         yaml = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml")).read()
             
-        return render_template('profiles/profile.html', fieldList=fieldList, profilename=profileFilename, yaml=yaml, title="Profiles")
+        return render_template('profiles/profile.html', fieldList=fieldList, profileFilename=profileFilename, yaml=yaml, title="Profiles")
 
 @app.route("/profiles/", methods=["GET"])
 def displayProfileList():

@@ -3,10 +3,10 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{url_for('displayProfileList')}}">Profiles</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{profilename}}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{profileFilename}}</li>
   </ol>
 </nav>
-<h3>{{profilename}}</h3>
+<h3>{{profileFilename}}</h3>
 {% include 'profiles/profileButtonGroup.html' %}
 <ul class="nav nav-tabs profile-tabs" role="tablist">
   <li class="nav-item" role="presentation">
