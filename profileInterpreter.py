@@ -1,12 +1,9 @@
 import csv
-import lxml
 from lxml import etree
 from lxml import objectify
 import yaml
 import re
-import csv
 import os
-import json
 
 def convertArrayToDictWithMatchingKeyValues(array):
     dictionary = {}
@@ -47,7 +44,7 @@ def hasNumbers(s):
 def hasYear(s):
     numbercount = 0
     for i in s:
-        if i.isdigit() == True:
+        if i.isdigit():
             numbercount = numbercount + 1
     if numbercount > 3:
         return True
@@ -55,12 +52,12 @@ def hasYear(s):
         return False
 
 def hasLetters(s):
-    return re.search('[a-zA-Z]', s)
+    return re.search('[a-zA-Z]', s) is not None
 
 def isAllLower(s):
     nonlowercase = 0
     for i in s.replace(' ', ''):
-        if i.islower() == False:
+        if not i.islower():
             nonlowercase = nonlowercase + 1
             break
     if nonlowercase > 0:
@@ -121,12 +118,12 @@ def getNameDateRoleFromEntry(entry):
         
         if textIndex == 0:
             name = name + normalizedText + ", "
-        elif hasYear(normalizedText) == True:
+        elif hasYear(normalizedText):
             date = date + normalizedText
             date = date.lstrip(',').rstrip(',')
-        elif isAllLower(normalizedText) == True:
+        elif isAllLower(normalizedText):
             role = text
-        elif hasLetters(normalizedText) != None:
+        elif hasLetters(normalizedText):
             name = name + normalizedText + " "
 
     return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
@@ -157,7 +154,7 @@ def getMetadataFromEntry(entry):
 
 
 def normalizeString(string):
-    if string != None:
+    if string is not None:
         string = string.replace('\n', ' ').replace('\r', ' ')
         string = string.replace('<title>', '').replace('</title>', '')
         string = string.replace('<geogname>', '- ').replace('</geogname>', '')
@@ -168,7 +165,7 @@ def normalizeString(string):
 
 def clearEmptyElementsFromEtree(parentElement, keepElementXpaths):
 
-    if parentElement == None:
+    if parentElement is None:
         return etree.Element("blank")
     # start cleanup
     # remove any element tails
@@ -255,7 +252,7 @@ class Profile():
     def createParentElement(self, nsMap):
         attrQname = etree.QName(self.profileQName.get("uri",""),self.profileQName.get("tag",""))
 
-        return lxml.etree.Element(self.profileNameSpace + self.profileParentTag, {attrQname: self.profileSchemaLocation}, nsmap=nsMap)
+        return etree.Element(self.profileNameSpace + self.profileParentTag, {attrQname: self.profileSchemaLocation}, nsmap=nsMap)
 
     def createSubElement(self, parentElement, elementName, elementAttrs, elementText):
         subElement = etree.SubElement(parentElement, self.profileNameSpace + elementName, elementAttrs)
@@ -304,7 +301,6 @@ class Profile():
         text = ""
         for value in textUnitValues:
             valueType = value.get("type","")
-            valueHeader = value.get("header",None)
             valueText = value.get("text","")
 
             if valueType == "value":
@@ -333,7 +329,7 @@ class Profile():
                     newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
             if  textUnitType == "ifnotpresent":
-                if row.get(textUnitColumn) == None or row.get(textUnitColumn) == "":
+                if row.get(textUnitColumn) is None or row.get(textUnitColumn) == "":
                     newText = self.processTextUnitValues(textUnitValues, row)
                     text = text + newText
             if  textUnitType == "ifhas":
@@ -386,7 +382,7 @@ class Profile():
 
         for condition in conditions:
             shouldCreateElement = self.shouldCreateElementBasedOnCondition(condition, row)
-            if shouldCreateElement == False:
+            if not shouldCreateElement:
                 return
         
         conditionalAttrs = profileField.get("conditionalattrs", [])
@@ -410,7 +406,7 @@ class Profile():
 
         for entry in entries:
             entryAdditions = getMetadataFromEntry(entry)
-            if areAllDictValuesEmpty(entryAdditions) == False:
+            if areAllDictValuesEmpty(entryAdditions) is False:
                 entryAdditions.update(repeatingDefaults)
                 entryAdditions.update(originalRow)
             element = self.processElementTypeField(profileElement, entryAdditions, parentElement)
@@ -439,7 +435,6 @@ class Profile():
                 self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
 
     def processSort(self,parentElement, sort):
-        nameSpace = {self.profileParentTag: self.profileNameSpace}
         elementXpath = sort.get("elementxpath", "")
         sortByXpath = sort.get("sortbyxpath", "")
 
