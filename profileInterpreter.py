@@ -121,7 +121,7 @@ def getNameDateRoleFromEntry(entry):
         elif hasYear(normalizedText):
             date = date + normalizedText
             date = date.lstrip(',').rstrip(',')
-        elif isAllLower(normalizedText):
+        elif normalizedText.islower():
             role = text
         elif hasLetters(normalizedText):
             name = name + normalizedText + " "
@@ -560,8 +560,8 @@ class Profile():
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
         if repeatingFieldMethod == "name":
-            rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second example identity, 1990-2000, presenter https://library.brown.edu"
-    
+            rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second, Example, 1900-1999, long-time president http://library.brown.edu"
+
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
         row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))
