@@ -93,29 +93,29 @@ def getValueUri(name):
     else: 
         return ""
 
-def getNameDateRoleFromEntry(entry):
+def getNameDateRoleFromEntry(entry:str):
+    '''
+    Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
+    like 'Value'and
+    returns 3 strings like 'Connor Murphy', '2023-2024', 'Library Technologist'
+    or 1 string like 'Value
+    '''
+    norm_entry = normalizeString(entry)
+    if not norm_entry:
+        return
+    
+    parts_list = norm_entry.split(',')
 
-    name = ""
-    date = ""
-    role = ""
+    if len(parts_list) == 1:
+        return parts_list[0], None, None
+    
+    for i in parts_list:
+        i = i.strip() if i is not None else i
 
-    for textIndex, text in enumerate(entry.split(',')):
-        normalizedText = normalizeString(text)
+    lname, fname, date, role = parts_list + ([None] * (4 - len(parts_list)))
+    name = f'{fname} {lname}'
 
-        if normalizedText == '':
-            continue
-        
-        if textIndex == 0:
-            name = name + normalizedText + ", "
-        elif hasYear(normalizedText):
-            date = date + normalizedText
-            date = date.lstrip(',').rstrip(',')
-        elif normalizedText.islower():
-            role = text
-        elif hasLetters(normalizedText):
-            name = name + normalizedText + " "
-
-    return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
+    return name, date, role
 
 
 def getMetadataFromEntry(entry):
@@ -549,7 +549,7 @@ class Profile():
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
         if repeatingFieldMethod == "name":
-            rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second, Example, 1900-1999, long-time president http://library.brown.edu"
+            rowString = "Identity, First Example, 1980-, Contributor https://www.brown.edu|Example, Second, 1900-1999, Long-time President http://library.brown.edu"
 
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
