@@ -369,7 +369,7 @@ fields:
           children:
           - type: element
             name: roleTerm
-            attrs: {type: text, authority: marcrelator}
+            attrs: {type: text}
             text:
             - type: value
               values:

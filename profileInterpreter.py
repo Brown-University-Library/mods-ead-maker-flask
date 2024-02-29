@@ -54,17 +54,6 @@ def hasYear(s):
 def hasLetters(s):
     return re.search('[a-zA-Z]', s) is not None
 
-def isAllLower(s):
-    nonlowercase = 0
-    for i in s.replace(' ', ''):
-        if not i.islower():
-            nonlowercase = nonlowercase + 1
-            break
-    if nonlowercase > 0:
-        return False
-    else:
-        return True
-
 def getTermsOfAddressPrependAndAppendStripped(name):
     appendTermOfAddress = ""
     prependTermOfAddress = ""
