@@ -102,7 +102,7 @@ def getNameDateRoleFromEntry(entry, method):
     '''
     norm_entry = normalizeString(entry)
     if not norm_entry:
-        return None, None, None
+        return "","",""
     if method == "value":
         return norm_entry, "", ""
     name, date, role = ["", "", ""]
@@ -118,9 +118,7 @@ def getNameDateRoleFromEntry(entry, method):
         lname, fname, *other_parts = parts_list
         name = f'{lname}, {fname}'
     for part in other_parts:
-        print(f"'{part}'")
         if re.match(r' \d{3,}',part):
-            print("i match")
             date = part
             continue
         if part:
