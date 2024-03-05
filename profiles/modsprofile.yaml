@@ -99,7 +99,7 @@ fields:
               - {type: col, header: itemTitleAlternatePembroke, method: value}
 
   - type: repeating
-    method: name
+    method: namePerson
     colprefix:
       - namePersonCreator
     colsuffixes:
@@ -181,7 +181,7 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: name
+    method: nameCorp
     colprefix:
       - nameCorpCreator
     colsuffixes:
@@ -251,7 +251,7 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: name
+    method: namePerson
     colprefix:
       - namePersonOther
     colsuffixes:
@@ -668,7 +668,7 @@ fields:
           - {type: col, header: restrictionOnAccess, method: value}
 
   - type: repeating
-    method: name
+    method: namePerson
     colprefix:
       - subjectNames
     colsuffixes:
@@ -740,7 +740,7 @@ fields:
                     - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: name
+    method: nameCorp
     colprefix:
       - subjectCorp
     colsuffixes:

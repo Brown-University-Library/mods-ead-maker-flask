@@ -93,32 +93,43 @@ def getValueUri(name):
     else: 
         return ""
 
-def getNameDateRoleFromEntry(entry:str):
+def getNameDateRoleFromEntry(entry, method):
     '''
     Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
     like 'Value'and
-    returns 3 strings like 'Connor Murphy', '2023-2024', 'Library Technologist'
-    or 1 string like 'Value
+    returns 3 strings like 'Murphy, Connor', '2023-2024', 'Library Technologist'
+    or 1 string like 'Value'
     '''
     norm_entry = normalizeString(entry)
     if not norm_entry:
-        return
-    
+        return None, None, None
+    if method == "value":
+        return norm_entry, "", ""
+    name, date, role = ["", "", ""]
     parts_list = norm_entry.split(',')
-
-    if len(parts_list) == 1:
-        return parts_list[0], None, None
-    
-    for i in parts_list:
-        i = i.strip() if i is not None else i
-
-    lname, fname, date, role = parts_list + ([None] * (4 - len(parts_list)))
-    name = f'{fname} {lname}'
+    for part in parts_list:
+        part = part.strip()
+    if method == "nameCorp":
+        name = parts_list[0]
+        other_parts = parts_list[1:]
+    if method == "namePerson":
+        if len(parts_list) == 1:
+            return parts_list[0], "", ""
+        lname, fname, *other_parts = parts_list
+        name = f'{lname}, {fname}'
+    for part in other_parts:
+        print(f"'{part}'")
+        if re.match(r' \d{3,}',part):
+            print("i match")
+            date = part
+            continue
+        if part:
+            role += part
 
     return name, date, role
 
 
-def getMetadataFromEntry(entry):
+def getMetadataFromEntry(entry, method):
     valueUri = getValueUri(entry)
     entry = entry.replace(valueUri, "")
     value = normalizeString(entry)
@@ -132,7 +143,7 @@ def getMetadataFromEntry(entry):
     entry = entry.replace("{{" + prependTermOfAddress + "}}", "")
     entry = entry.replace("{{" + appendTermOfAddress + "}}", "")
 
-    name, date, role = getNameDateRoleFromEntry(entry)
+    name, date, role = getNameDateRoleFromEntry(entry, method)
 
     metadata = {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
     
@@ -389,12 +400,12 @@ class Profile():
 
         return element
 
-    def handleRepeatingEntries(self, parentElement, entriesString, profileElement, repeatingDefaults, originalRow):
+    def handleRepeatingEntries(self, parentElement, entriesString, profileElement, repeatingDefaults, originalRow, method):
         entries = entriesString.split("|")
         elementsCreated = []
 
         for entry in entries:
-            entryAdditions = getMetadataFromEntry(entry)
+            entryAdditions = getMetadataFromEntry(entry, method)
             if areAllDictValuesEmpty(entryAdditions) is False:
                 entryAdditions.update(repeatingDefaults)
                 entryAdditions.update(originalRow)
@@ -411,17 +422,17 @@ class Profile():
         repeatingElement = profileField.get("element", {})
         repeatingDefaults = profileField.get("defaults", {})
 
-        if repeatingMethod  == "name" or repeatingMethod == "value":
+        if repeatingMethod in ["namePerson", "nameCorp", "value"]:
             for colPrefix in colPrefixes:
                 for colSuffix in colSuffixes:
                     colHeader = colPrefix + colSuffix.get("suffix", "")
                     colSuffixDefaults = colSuffix.get("defaults",{})
                     colSuffixDefaults.update(repeatingDefaults)
                     rowString = row.get(colHeader, "").replace(';','|')
-                    self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
+                    self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row, repeatingMethod)
             for colHeader in colHeaders:
                 rowString = row.get(colHeader, "").replace(';','|')
-                self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
+                self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row, repeatingMethod)
 
     def processSort(self,parentElement, sort):
         elementXpath = sort.get("elementxpath", "")
@@ -548,8 +559,10 @@ class Profile():
 
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
-        if repeatingFieldMethod == "name":
+        if repeatingFieldMethod == "namePerson":
             rowString = "Identity, First Example, 1980-, Contributor https://www.brown.edu|Example, Second, 1900-1999, Long-time President http://library.brown.edu"
+        if repeatingFieldMethod == "nameCorp":
+            rowString = "Corp Name, 1980-, Contributor https://www.brown.edu|Second Corp, 1900-1999, Long-time Funder http://library.brown.edu"
 
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
@@ -567,7 +580,7 @@ class Profile():
                     if self.profileSampleValues.get(colHeader):
                         rowString = self.profileSampleValues.get(colHeader)
 
-                    elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
+                    elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row, repeatingFieldMethod)
                     elementsCreated.extend(elements)
 
         for colHeader in colHeaders:
@@ -577,7 +590,7 @@ class Profile():
             if self.profileSampleValues.get(colHeader):
                 rowString = self.profileSampleValues.get(colHeader)
 
-            elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
+            elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row, repeatingFieldMethod)
             elementsCreated.extend(elements)
 
         columnHeaders.extend(textHeaders)
