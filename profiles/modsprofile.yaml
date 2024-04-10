@@ -1,7 +1,7 @@
 attrqname: 
   uri: http://www.w3.org/2001/XMLSchema-instance
   tag: schemaLocation
-schemalocation: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"
+schemalocation: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-8.xsd"
 nsmap: {mods: http://www.loc.gov/mods/v3, xsi: http://www.w3.org/2001/XMLSchema-instance, xlink: http://www.w3.org/1999/xlink}
 elementnamespace: '{http://www.loc.gov/mods/v3}'
 parenttag: 'mods'
@@ -16,7 +16,7 @@ skipif:
 globalconditions:
   - {code: includeBrownDefaults, defaultvalue: true, explanation: "Include default Brown University archival fields."}
   - {code: includePreferredCitation, defaultvalue: true, explanation: "Include preferred citation note."}
-filenamecolumn: identifierBDR
+filenamecolumn: identifierFileName
 fileextension: ".mods.xml"
 
 sort:
@@ -107,6 +107,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     defaults: {entry.role: creator}
@@ -189,6 +191,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     defaults: {entry.role: creator}
@@ -251,6 +255,56 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
+    method: nameCorp
+    colprefix:
+      - nameCorpOther
+    colsuffixes:
+      - suffix: LC
+        defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
+      - suffix: FAST
+        defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
+      - suffix: Local
+        defaults: {entry.authority: local}
+    element:
+      name: name
+      attrs: {type: corporate}
+      conditionalattrs: 
+        - key: authority
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authority, method: value}
+        - key: valueURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.valueURI, method: value}
+        - key: authorityURI
+          text: 
+            - type: value
+              values:
+                - {type: col, header: entry.authorityURI, method: value}
+      children:
+        - type: element
+          name: namePart
+          text:
+          - type: value
+            values:
+              - {type: col, header: entry.name, method: value}
+        - type: element
+          name: role
+          children:
+          - type: element
+            name: roleTerm
+            attrs: {type: text, authority: marcrelator}
+            text:
+            - type: value
+              values:
+                - {type: col, header: entry.role, method: value}
+
+  - type: repeating
     method: namePerson
     colprefix:
       - namePersonOther
@@ -259,6 +313,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     element:
@@ -571,7 +627,13 @@ fields:
         children:
           - type: element
             name: placeTerm
-            attrs: {type: text}
+            attrs: {type: text, authority: naf, authorityURI: http://id.loc.gov/authorities/names.html}
+            conditionalattrs:
+              - key: valueURI
+                text: 
+                  - type: value
+                    values:
+                      - {type: col, header: placeURI, method: value}
             text:
             - type: value
               values:
@@ -587,11 +649,18 @@ fields:
       children:
         - type: element
           name: languageTerm
-          attrs: {type: code, authority: iso639-2b}
+          attrs: {type: code, authority: iso639}
           text:
             - type: value
               values:
                 - {type: col, header: entry.value, method: lang}
+        - type: element
+          name: languageTerm
+          attrs: {type: text}
+          text:
+            - type: value
+              values:
+                - {type: col, header: entry.value, method: value}
 
   - type: element
     name: physicalDescription
@@ -676,6 +745,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     element:
@@ -748,6 +819,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     element:
@@ -904,6 +977,8 @@ fields:
         defaults: {entry.authority: lcsh, entry.authorityURI: http://id.loc.gov/authorities/subjects.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     element:
@@ -1073,6 +1148,12 @@ fields:
                       - type: action
                         action: leftstriprightstrip
                         leftstriprightstriptext: ", "
+                  - type: element
+                    name: electronicLocator
+                    text:
+                    - type: value
+                      values:
+                        - {type: col, header: itemURL, method: value}
 
   - type: element
     name: part
@@ -1117,7 +1198,6 @@ fields:
           - type: value
             values:
               - {type: col, header: partPublicationDate, method: num}
-
 
   - type: element
     name: relatedItem
@@ -1183,6 +1263,8 @@ fields:
         defaults: {entry.authority: naf, entry.authorityURI: http://id.loc.gov/authorities/names.html}
       - suffix: FAST
         defaults: {entry.authority: fast, entry.authorityURI: http://id.worldcat.org/fast}
+      - suffix: VIAF
+        defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
     element:
@@ -1284,19 +1366,11 @@ fields:
 
   - type: element
     name: identifier
-    conditions:
-      - {type: startswith, col: identifierBDR, text: bdr}
-    attrs: {type: local, displayLabel: MODS_ID}
+    attrs: {type: local, displayLabel: filename}
     text:
       - type: value
-        values: 
-          - {type: value, text: "bdr"}
-      - type: removetext
-        removetext: 
-          - "bdr:"
-          - bdr 
         values:
-          - {type: col, header: identifierBDR, method: value}
+          - {type: col, header: identifierFileName, method: value}
 
   - type: element
     name: note
@@ -1307,6 +1381,14 @@ fields:
       - type: value
         values: 
           - {type: value, text: "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"}
+
+  - type: element
+    name: note
+    attrs: {type: general}
+    text:
+      - type: value
+        values:
+          - {type: col, header: copyrightTakeDown, method: value}
 
 samplevalues:
   identifierBDR: "bdr:12345"
