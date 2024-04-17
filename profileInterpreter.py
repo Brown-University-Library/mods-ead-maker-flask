@@ -93,6 +93,29 @@ def getValueUri(name):
     else: 
         return ""
 
+def legacyGetNameDateRoleFromEntry(entry):
+    name = ""
+    date = ""
+    role = ""
+
+    for textIndex, text in enumerate(entry.split(',')):
+        normalizedText = normalizeString(text)
+
+        if normalizedText == '':
+            continue
+
+        if textIndex == 0:
+            name += normalizedText + ", "
+        elif hasYear(normalizedText):
+            date += normalizedText
+            date = date.lstrip(',').rstrip(',')
+        elif normalizedText.islower():
+            role = text
+        elif hasLetters(normalizedText) is not None:
+            name = name + normalizedText + " "
+
+    return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
+
 def getNameDateRoleFromEntry(entry, method):
     '''
     Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
@@ -101,6 +124,8 @@ def getNameDateRoleFromEntry(entry, method):
     or 1 string like 'Value'
     '''
     norm_entry = normalizeString(entry)
+    if method == "nameLegacy":
+        return legacyGetNameDateRoleFromEntry(norm_entry)
     if not norm_entry:
         return "","",""
     if method == "value":
