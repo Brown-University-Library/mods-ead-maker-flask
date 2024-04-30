@@ -119,7 +119,7 @@ def legacyGetNameDateRoleFromEntry(entry):
 def getNameDateRoleFromEntry(entry, method):
     '''
     Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
-    like 'Value'and
+    like 'Value' and
     returns 3 strings like 'Murphy, Connor', '2023-2024', 'Library Technologist'
     or 1 string like 'Value'
     '''
