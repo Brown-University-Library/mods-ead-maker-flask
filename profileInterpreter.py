@@ -126,28 +126,23 @@ def getNameDateRoleFromEntry(entry, method):
     norm_entry = normalizeString(entry)
     if method == "nameLegacy":
         return legacyGetNameDateRoleFromEntry(norm_entry)
+
     if not norm_entry:
         return "","",""
+
     if method == "value":
         return norm_entry, "", ""
+
     name, date, role = ["", "", ""]
-    parts_list = norm_entry.split(',')
-    for part in parts_list:
-        part = part.strip()
-    if method == "nameCorp":
-        name = parts_list[0]
-        other_parts = parts_list[1:]
-    if method == "namePerson":
-        if len(parts_list) == 1:
-            return parts_list[0], "", ""
-        lname, fname, *other_parts = parts_list
-        name = f'{lname}, {fname}'
-    for part in other_parts:
-        if re.match(r' \d{3,}',part):
-            date = part
-            continue
-        if part:
-            role += part
+    parts_list = [part.strip() for part in norm_entry.split(',')]
+
+    if method == "nameOther":
+        role = parts_list.pop()
+    if method == "nameCreator":
+        role = "Creator"
+    if re.match(r'\d{3,}',parts_list[-1]):
+        date = parts_list.pop()
+    name = ', '.join(parts_list)
 
     return name, date, role
 
@@ -445,7 +440,7 @@ class Profile():
         repeatingElement = profileField.get("element", {})
         repeatingDefaults = profileField.get("defaults", {})
 
-        if repeatingMethod in ["namePerson", "nameCorp", "value"]:
+        if repeatingMethod in ["nameCreator", "nameOther", "value"]:
             for colPrefix in colPrefixes:
                 for colSuffix in colSuffixes:
                     colHeader = colPrefix + colSuffix.get("suffix", "")
@@ -582,10 +577,10 @@ class Profile():
 
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
-        if repeatingFieldMethod == "namePerson":
-            rowString = "Identity, First Example, 1980-, Contributor https://www.brown.edu|Example, Second, 1900-1999, Long-time President http://library.brown.edu"
-        if repeatingFieldMethod == "nameCorp":
-            rowString = "Corp Name, 1980-, Contributor https://www.brown.edu|Second Corp, 1900-1999, Long-time Funder http://library.brown.edu"
+        if repeatingFieldMethod == "nameCreator":
+            rowString = "Identity, First Example, 1980- https://www.brown.edu|Example, Second, 1900-1999 http://library.brown.edu"
+        if repeatingFieldMethod == "nameOther":
+            rowString = "Name, Person's, Three Commas, 1980-, Contributor https://www.brown.edu|Corp Name, 1900-1999, Long-time Funder http://library.brown.edu"
 
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)

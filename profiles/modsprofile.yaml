@@ -99,7 +99,7 @@ fields:
               - {type: col, header: itemTitleAlternatePembroke, method: value}
 
   - type: repeating
-    method: namePerson
+    method: nameCreator
     colprefix:
       - namePersonCreator
     colsuffixes:
@@ -111,7 +111,6 @@ fields:
         defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
-    defaults: {entry.role: creator}
     element:
       name: name
       attrs: {type: personal}
@@ -183,7 +182,7 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: nameCorp
+    method: nameCreator
     colprefix:
       - nameCorpCreator
     colsuffixes:
@@ -195,7 +194,6 @@ fields:
         defaults: {entry.authority: viaf, entry.authorityURI: https://viaf.org}
       - suffix: Local
         defaults: {entry.authority: local}
-    defaults: {entry.role: creator}
     element:
       name: name
       attrs: {type: corporate}
@@ -255,7 +253,7 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: nameCorp
+    method: nameOther
     colprefix:
       - nameCorpOther
     colsuffixes:
@@ -305,7 +303,7 @@ fields:
                 - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: namePerson
+    method: nameOther
     colprefix:
       - namePersonOther
     colsuffixes:
@@ -748,7 +746,7 @@ fields:
           - {type: col, header: restrictionOnAccess, method: value}
 
   - type: repeating
-    method: namePerson
+    method: nameOther
     colprefix:
       - subjectNames
     colsuffixes:
@@ -822,7 +820,7 @@ fields:
                     - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: nameCorp
+    method: nameOther
     colprefix:
       - subjectCorp
     colsuffixes:
