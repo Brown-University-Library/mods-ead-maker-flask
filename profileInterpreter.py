@@ -93,38 +93,56 @@ def getValueUri(name):
     else: 
         return ""
 
+def legacyGetNameDateRoleFromEntry(entry):
+    name = ""
+    date = ""
+    role = ""
+
+    for textIndex, text in enumerate(entry.split(',')):
+        normalizedText = normalizeString(text)
+
+        if normalizedText == '':
+            continue
+
+        if textIndex == 0:
+            name += normalizedText + ", "
+        elif hasYear(normalizedText):
+            date += normalizedText
+            date = date.lstrip(',').rstrip(',')
+        elif normalizedText.islower():
+            role = text
+        elif hasLetters(normalizedText) is not None:
+            name = name + normalizedText + " "
+
+    return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
+
 def getNameDateRoleFromEntry(entry, method):
     '''
     Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
-    like 'Value'and
+    like 'Value' and
     returns 3 strings like 'Murphy, Connor', '2023-2024', 'Library Technologist'
     or 1 string like 'Value'
     '''
     norm_entry = normalizeString(entry)
+    if method == "nameLegacy":
+        return legacyGetNameDateRoleFromEntry(norm_entry)
+
     if not norm_entry:
-        return None, None, None
+        return "","",""
+
     if method == "value":
         return norm_entry, "", ""
+
     name, date, role = ["", "", ""]
-    parts_list = norm_entry.split(',')
-    for part in parts_list:
-        part = part.strip()
-    if method == "nameCorp":
-        name = parts_list[0]
-        other_parts = parts_list[1:]
-    if method == "namePerson":
-        if len(parts_list) == 1:
-            return parts_list[0], "", ""
-        lname, fname, *other_parts = parts_list
-        name = f'{lname}, {fname}'
-    for part in other_parts:
-        print(f"'{part}'")
-        if re.match(r' \d{3,}',part):
-            print("i match")
-            date = part
-            continue
-        if part:
-            role += part
+    parts_list = [part.strip() for part in norm_entry.split(',')]
+
+    if method == "nameOther":
+        role = parts_list.pop()
+    if method == "nameCreator":
+        role = "Creator"
+    if re.match(r'\d{3,}',parts_list[-1]):
+        date = parts_list.pop()
+    name = ', '.join(parts_list)
 
     return name, date, role
 
@@ -422,7 +440,7 @@ class Profile():
         repeatingElement = profileField.get("element", {})
         repeatingDefaults = profileField.get("defaults", {})
 
-        if repeatingMethod in ["namePerson", "nameCorp", "value"]:
+        if repeatingMethod in ["nameCreator", "nameOther", "value"]:
             for colPrefix in colPrefixes:
                 for colSuffix in colSuffixes:
                     colHeader = colPrefix + colSuffix.get("suffix", "")
@@ -559,10 +577,10 @@ class Profile():
 
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
-        if repeatingFieldMethod == "namePerson":
-            rowString = "Identity, First Example, 1980-, Contributor https://www.brown.edu|Example, Second, 1900-1999, Long-time President http://library.brown.edu"
-        if repeatingFieldMethod == "nameCorp":
-            rowString = "Corp Name, 1980-, Contributor https://www.brown.edu|Second Corp, 1900-1999, Long-time Funder http://library.brown.edu"
+        if repeatingFieldMethod == "nameCreator":
+            rowString = "Identity, First Example, 1980- https://www.brown.edu|Example, Second, 1900-1999 http://library.brown.edu"
+        if repeatingFieldMethod == "nameOther":
+            rowString = "Name, Person's, Three Commas, 1980-, Contributor https://www.brown.edu|Corp Name, 1900-1999, Long-time Funder http://library.brown.edu"
 
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
