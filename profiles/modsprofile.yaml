@@ -746,7 +746,7 @@ fields:
           - {type: col, header: restrictionOnAccess, method: value}
 
   - type: repeating
-    method: nameOther
+    method: name
     colprefix:
       - subjectNames
     colsuffixes:
@@ -820,7 +820,7 @@ fields:
                     - {type: col, header: entry.role, method: value}
 
   - type: repeating
-    method: nameOther
+    method: name
     colprefix:
       - subjectCorp
     colsuffixes:

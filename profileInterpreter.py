@@ -173,10 +173,12 @@ def getMetadataFromEntry(entry, method):
     role = ''
     key = ''
     val = ''
-    if "name" in method:
-        name, date, role = getNameDateRoleFromEntry(entry, method)
-    if method == "keyValue":
-        key, val = getKeyValueFromEntry(entry)
+
+    if entry:
+        if "name" in method:
+            name, date, role = getNameDateRoleFromEntry(entry, method)
+        if method == "keyValue":
+            key, val = getKeyValueFromEntry(entry)
 
     metadata = {
         "entry.value": value,
