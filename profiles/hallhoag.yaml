@@ -631,11 +631,22 @@ fields:
                 text:
                   - type: value
                     values:
-                      - {type: col, header: placeURI, method: value}
+                      - {type: col, header: placeNAFURI, method: value}
             text:
             - type: value
               values:
-                - {type: col, header: place, method: value}
+                - {type: col, header: placeNAF, method: value}
+      - type: element
+        name: place
+        children:
+          - type: element
+            name: placeTerm
+            attrs: {type: text, authority: local}
+            text:
+              - type: value
+                values:
+                  - {type: col, header: placeLocal, method: value}
+
 
   - type: repeating
     method: value
