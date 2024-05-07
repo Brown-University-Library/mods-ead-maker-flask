@@ -124,14 +124,15 @@ def getNameDateRoleFromEntry(entry, method):
     or 1 string like 'Value'
     '''
     norm_entry = normalizeString(entry)
+
+    if 'name' not in method:
+        return norm_entry, "", ""
+
     if method == "nameLegacy":
         return legacyGetNameDateRoleFromEntry(norm_entry)
 
     if not norm_entry:
         return "","",""
-
-    if method == "value":
-        return norm_entry, "", ""
 
     name, date, role = ["", "", ""]
     parts_list = [part.strip() for part in norm_entry.split(',')]
@@ -146,6 +147,12 @@ def getNameDateRoleFromEntry(entry, method):
 
     return name, date, role
 
+def getKeyValueFromEntry(string):
+    '''
+    Turns a string like key: value into two strings, key and value
+    '''
+    [key,val] = string.split(":")
+    return key.strip(), val.strip()
 
 def getMetadataFromEntry(entry, method):
     valueUri = getValueUri(entry)
@@ -161,10 +168,28 @@ def getMetadataFromEntry(entry, method):
     entry = entry.replace("{{" + prependTermOfAddress + "}}", "")
     entry = entry.replace("{{" + appendTermOfAddress + "}}", "")
 
-    name, date, role = getNameDateRoleFromEntry(entry, method)
+    name = ''
+    date = ''
+    role = ''
+    key = ''
+    val = ''
+    if "name" in method:
+        name, date, role = getNameDateRoleFromEntry(entry, method)
+    if method == "keyValue":
+        key, val = getKeyValueFromEntry(entry)
 
-    metadata = {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
-    
+    metadata = {
+        "entry.value": value,
+        "entry.valueURI":valueUri,
+        "entry.name": name,
+        "entry.date": date,
+        "entry.role": role,
+        "entry.prependTermOfAddress": prependTermOfAddress,
+        "entry.appendTermOfAddress":appendTermOfAddress,
+        "entry.key":key,
+        "entry.val":val
+    }
+
     if additionalValues:
         metadata.update(additionalValues)
 
@@ -440,7 +465,7 @@ class Profile():
         repeatingElement = profileField.get("element", {})
         repeatingDefaults = profileField.get("defaults", {})
 
-        if repeatingMethod in ["nameCreator", "nameOther", "value"]:
+        if repeatingMethod in ["nameCreator", "nameOther", "keyValue", "value"]:
             for colPrefix in colPrefixes:
                 for colSuffix in colSuffixes:
                     colHeader = colPrefix + colSuffix.get("suffix", "")
@@ -578,10 +603,11 @@ class Profile():
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
         if repeatingFieldMethod == "nameCreator":
-            rowString = "Identity, First Example, 1980- https://www.brown.edu|Example, Second, 1900-1999 http://library.brown.edu"
+            rowString = "Identity1, First Example, 1980- https://www.brown.edu|Example, Second, 1900-1999 http://library.brown.edu"
         if repeatingFieldMethod == "nameOther":
-            rowString = "Name, Person's, Three Commas, 1980-, Contributor https://www.brown.edu|Corp Name, 1900-1999, Long-time Funder http://library.brown.edu"
-
+            rowString = "Name, Person's, Three Commas, 1980-, Contributor&&Other Role https://www.brown.edu|Corp Name, 1900-1999, Long-time Funder http://library.brown.edu"
+        if repeatingFieldMethod == "keyValue":
+            rowString = "key1:value1|key2:value2"
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
         row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))

@@ -1381,6 +1381,25 @@ fields:
         values:
           - {type: col, header: identifierFileName, method: value}
 
+  - type: repeating
+    method: keyValue
+    cols:
+      - localIdentifier
+    element:
+      type: element
+      name: identifier
+      attrs: {type: local}
+      conditionalattrs:
+        - key: displayLabel
+          text:
+            - type: value
+              values:
+                - {type: col, header: entry.key, method: value}
+      text:
+        - type: value
+          values:
+            - {type: col, header: entry.val, method: value}
+
   - type: element
     name: note
     conditions:
