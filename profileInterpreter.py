@@ -422,12 +422,22 @@ class Profile():
         elementAttrs = profileField.get("attrs", {})
         element = self.createSubElement(parentElement, elementName, elementAttrs, "")
         conditions = profileField.get("conditions", [])
+        entryrole = row.get('entry.role','')
+
+        if re.search(r'&&',entryrole) and elementName == "roleTerm":
+            roles:list[str] = entryrole.split('&&')
+            for role in roles:
+                role.strip()
+                newrow = {**row}
+                newrow["entry.role"] = role
+                self.processElementTypeField(profileField, newrow, parentElement)
+            return element
 
         for condition in conditions:
             shouldCreateElement = self.shouldCreateElementBasedOnCondition(condition, row)
             if not shouldCreateElement:
                 return
-        
+
         conditionalAttrs = profileField.get("conditionalattrs", [])
         for conditionalAttr in conditionalAttrs:
             self.processConditionalAttrs(conditionalAttr, row, element)
