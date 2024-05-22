@@ -10,7 +10,7 @@ def convertArrayToDictWithMatchingKeyValues(array):
 
     for arrayItem in array:
         dictionary[arrayItem] = arrayItem
-    
+
     return dictionary
 
 def areAllDictValuesEmpty(dict={}):
@@ -35,7 +35,7 @@ def removeItemsWithPeriodFromList(array):
         if "." in item:
             continue
         returnArray.append(item)
-    
+
     return returnArray
 
 def hasNumbers(s):
@@ -63,12 +63,12 @@ def getTermsOfAddressPrependAndAppendStripped(name):
             appendTermsOfAddress = re.findall("(\{\{.*\}\})", text)
             if len(appendTermsOfAddress) > 0:
                 appendTermOfAddress = appendTermsOfAddress[0].replace("{{","").replace("}}","")
-        
+
         if textIndex == 1:
             prependTermsOfAddress = re.findall("(\{\{.*\}\})", text)
             if len(prependTermsOfAddress) > 0:
                 prependTermOfAddress = prependTermsOfAddress[0].replace("{{","").replace("}}","")
-    
+
     return prependTermOfAddress, appendTermOfAddress
 
 def getAdditionalValues(name):
@@ -78,10 +78,10 @@ def getAdditionalValues(name):
     if len(additionalValuesResults) > 0:
         for result in additionalValuesResults:
             additionalValue = yaml.safe_load(result)
-            
+
             for key, value in additionalValue.items():
                 additionalValues["entry." + key] = value
-    
+
     return additionalValues, additionalValuesResults
 
 def getValueUri(name):
@@ -90,11 +90,10 @@ def getValueUri(name):
     #If there's a URI
     if len(uris) > 0:
         return normalizeString(uris[0])
-    else: 
+    else:
         return ""
 
-def getNameDateRoleFromEntry(entry):
-
+def legacyGetNameDateRoleFromEntry(entry):
     name = ""
     date = ""
     role = ""
@@ -104,21 +103,58 @@ def getNameDateRoleFromEntry(entry):
 
         if normalizedText == '':
             continue
-        
+
         if textIndex == 0:
-            name = name + normalizedText + ", "
+            name += normalizedText + ", "
         elif hasYear(normalizedText):
-            date = date + normalizedText
+            date += normalizedText
             date = date.lstrip(',').rstrip(',')
         elif normalizedText.islower():
             role = text
-        elif hasLetters(normalizedText):
+        elif hasLetters(normalizedText) is not None:
             name = name + normalizedText + " "
 
     return normalizeString(name).rstrip(",").lstrip(", "), normalizeString(date), normalizeString(role)
 
+def getNameDateRoleFromEntry(entry, method):
+    '''
+    Expects a string like 'Murphy, Connor, 2023-2024, Library Technologist' or
+    like 'Value' and
+    returns 3 strings like 'Murphy, Connor', '2023-2024', 'Library Technologist'
+    or 1 string like 'Value'
+    '''
+    norm_entry = normalizeString(entry)
 
-def getMetadataFromEntry(entry):
+    if 'name' not in method:
+        return norm_entry, "", ""
+
+    if method == "nameLegacy":
+        return legacyGetNameDateRoleFromEntry(norm_entry)
+
+    if not norm_entry:
+        return "","",""
+
+    name, date, role = ["", "", ""]
+    parts_list = [part.strip() for part in norm_entry.split(',')]
+
+    if method == "nameOther":
+        role = parts_list.pop()
+    if method == "nameCreator":
+        role = "Creator"
+    if re.match(r'\d{3,}',parts_list[-1]):
+        date = parts_list.pop()
+    name = ', '.join(parts_list)
+
+    return name, date, role
+
+def getKeyValueFromEntry(string):
+    '''
+    Turns a string like key: value into two strings, key and value
+    '''
+    [key,val] = string.split(":")
+    return key.strip(), val.strip()
+
+def getMetadataFromEntry(entry, method):
     valueUri = getValueUri(entry)
     entry = entry.replace(valueUri, "")
     value = normalizeString(entry)
@@ -132,10 +168,30 @@ def getMetadataFromEntry(entry):
     entry = entry.replace("{{" + prependTermOfAddress + "}}", "")
     entry = entry.replace("{{" + appendTermOfAddress + "}}", "")
 
-    name, date, role = getNameDateRoleFromEntry(entry)
+    name = ''
+    date = ''
+    role = ''
+    key = ''
+    val = ''
 
-    metadata = {"entry.value": value, "entry.valueURI":valueUri, "entry.name": name, "entry.date": date, "entry.role": role, "entry.prependTermOfAddress": prependTermOfAddress, "entry.appendTermOfAddress":appendTermOfAddress}
-    
+    if entry:
+        if "name" in method:
+            name, date, role = getNameDateRoleFromEntry(entry, method)
+        if method == "keyValue":
+            key, val = getKeyValueFromEntry(entry)
+
+    metadata = {
+        "entry.value": value,
+        "entry.valueURI":valueUri,
+        "entry.name": name,
+        "entry.date": date,
+        "entry.role": role,
+        "entry.prependTermOfAddress": prependTermOfAddress,
+        "entry.appendTermOfAddress":appendTermOfAddress,
+        "entry.key":key,
+        "entry.val":val
+    }
+
     if additionalValues:
         metadata.update(additionalValues)
 
@@ -248,7 +304,7 @@ class Profile():
         subElement.text = normalizeString(elementText)
 
         return subElement
-    
+
     def processLanguageTextValue(self, language):
         if len(normalizeString(language)) > 3:
             if normalizeString(language) in self.languageCodes:
@@ -297,7 +353,7 @@ class Profile():
 
             if valueType == "col":
                 text = text + self.processColumnTextValue(value, row)
-        
+
         return text
 
     def performTextAction(self, textAction, text):
@@ -368,12 +424,22 @@ class Profile():
         elementAttrs = profileField.get("attrs", {})
         element = self.createSubElement(parentElement, elementName, elementAttrs, "")
         conditions = profileField.get("conditions", [])
+        entryrole = row.get('entry.role','')
+
+        if re.search(r'&&',entryrole) and elementName == "roleTerm":
+            roles:list[str] = entryrole.split('&&')
+            for role in roles:
+                role.strip()
+                newrow = {**row}
+                newrow["entry.role"] = role
+                self.processElementTypeField(profileField, newrow, parentElement)
+            return element
 
         for condition in conditions:
             shouldCreateElement = self.shouldCreateElementBasedOnCondition(condition, row)
             if not shouldCreateElement:
                 return
-        
+
         conditionalAttrs = profileField.get("conditionalattrs", [])
         for conditionalAttr in conditionalAttrs:
             self.processConditionalAttrs(conditionalAttr, row, element)
@@ -381,7 +447,7 @@ class Profile():
         childrenKeyFields = profileField.get("children", {})
         for childKeyField in childrenKeyFields:
             self.processElementTypeField(childKeyField, row, element)
-        
+
         textKeyField = profileField.get("text", [])
         text = self.processTextUnit(textKeyField, row)
         if text:
@@ -389,18 +455,18 @@ class Profile():
 
         return element
 
-    def handleRepeatingEntries(self, parentElement, entriesString, profileElement, repeatingDefaults, originalRow):
+    def handleRepeatingEntries(self, parentElement, entriesString, profileElement, repeatingDefaults, originalRow, method):
         entries = entriesString.split("|")
         elementsCreated = []
 
         for entry in entries:
-            entryAdditions = getMetadataFromEntry(entry)
+            entryAdditions = getMetadataFromEntry(entry, method)
             if areAllDictValuesEmpty(entryAdditions) is False:
                 entryAdditions.update(repeatingDefaults)
                 entryAdditions.update(originalRow)
             element = self.processElementTypeField(profileElement, entryAdditions, parentElement)
             elementsCreated.append(element)
-        
+
         return elementsCreated
 
     def processRepeatingTypeField(self, profileField, keyAuthorities, row, parentElement):
@@ -411,17 +477,17 @@ class Profile():
         repeatingElement = profileField.get("element", {})
         repeatingDefaults = profileField.get("defaults", {})
 
-        if repeatingMethod  == "name" or repeatingMethod == "value":
+        if repeatingMethod in ["nameCreator", "nameOther", "keyValue", "value"]:
             for colPrefix in colPrefixes:
                 for colSuffix in colSuffixes:
                     colHeader = colPrefix + colSuffix.get("suffix", "")
                     colSuffixDefaults = colSuffix.get("defaults",{})
                     colSuffixDefaults.update(repeatingDefaults)
                     rowString = row.get(colHeader, "").replace(';','|')
-                    self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
+                    self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row, repeatingMethod)
             for colHeader in colHeaders:
                 rowString = row.get(colHeader, "").replace(';','|')
-                self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
+                self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row, repeatingMethod)
 
     def processSort(self,parentElement, sort):
         elementXpath = sort.get("elementxpath", "")
@@ -429,7 +495,7 @@ class Profile():
 
         allMatchingElements = parentElement.xpath(elementXpath, namespaces=parentElement.nsmap)
         firstElementIndex = 0
-        
+
         if len(allMatchingElements) > 0:
             firstElementIndex = parentElement.getchildren().index(allMatchingElements[0])
 
@@ -449,7 +515,7 @@ class Profile():
                 if textFieldValue.get("type") == "col":
                     header = textFieldValue.get("header", "")
                     textHeaders.append(header)
-        
+
         return textHeaders
 
     def getFieldListInfoFromConditionalAttr(self, conditionalAttr, name):
@@ -480,11 +546,11 @@ class Profile():
         return textHeaders, conditionalAttrConditions
 
     def getFieldListInfoFromCondition(self, condition):
-        if condition.get("type","") == "global":    
+        if condition.get("type","") == "global":
             return 'Only appears if the "' + condition.get("code", "") + '" condition is set.'
-        if condition.get("type","") == "startswith":    
+        if condition.get("type","") == "startswith":
             return 'Only appears if the text in column "' + condition.get("col", "") + '" starts with "' + condition.get("text", "") + '".'
-        if condition.get("type","") == "has":    
+        if condition.get("type","") == "has":
             return 'Only appears if the text in column "' + condition.get("col", "") + '" contains "' + condition.get("text", "") + '".'
 
     def createExampleElementTextFromEtree(self, element):
@@ -509,13 +575,13 @@ class Profile():
         for condition in profileField.get("conditions",[]):
             conditionText = self.getFieldListInfoFromCondition(condition)
             conditions.append(conditionText)
-        
+
         conditionalAttrs = profileField.get("conditionalattrs", [])
         for conditionalAttr in conditionalAttrs:
             conditionalAttrTextHeaders, conditionalAttrCondition = self.getFieldListInfoFromConditionalAttr(conditionalAttr, name)
             textHeaders.extend(conditionalAttrTextHeaders)
             conditionalAttrConditions.extend(conditionalAttrCondition)
-        
+
         for child in profileField.get("children",[]):
             childTextHeaders, childConditionalAttrsHeaders, elementString, childConditions = self.getFieldListInfoFromElementField(child)
             textHeaders.extend(childTextHeaders)
@@ -527,7 +593,7 @@ class Profile():
 
         element = self.processElementTypeField(profileField, textHeaderRow, parentElement)
         elementString = self.createExampleElementTextFromEtree(element)
-                
+
         return removeDuplicatesFromArray(textHeaders), conditionalAttrConditions, elementString, conditions
 
     def getFieldListInfoFromRepeatingField(self, profileField):
@@ -548,13 +614,16 @@ class Profile():
 
         if repeatingFieldMethod == "value":
             rowString = "Example one https://www.brown.edu|Example two https://www.google.com"
-        if repeatingFieldMethod == "name":
-            rowString = "First example identity, 1980-, contributor https://www.brown.edu|Second, Example, 1900-1999, long-time president http://library.brown.edu"
-
+        if repeatingFieldMethod == "nameCreator":
+            rowString = "Identity1, First Example, 1980- https://www.brown.edu|Example, Second, 1900-1999 http://library.brown.edu"
+        if repeatingFieldMethod == "nameOther":
+            rowString = "Name, Person's, Three Commas, 1980-, Contributor&&Other Role https://www.brown.edu|Corp Name, 1900-1999, Long-time Funder http://library.brown.edu"
+        if repeatingFieldMethod == "keyValue":
+            rowString = "key1:value1|key2:value2"
         element = profileField.get("element",[])
         textHeaders, conditionalAttrsHeaders, singleElementString, conditions = self.getFieldListInfoFromElementField(element)
         row = convertArrayToDictWithMatchingKeyValues(removeItemsWithPeriodFromList(textHeaders))
-        
+
         for colPrefix in colPrefixes:
             for (index, colSuffix) in enumerate(colSuffixes):
                 colHeader = colPrefix + colSuffix.get("suffix", "")
@@ -567,7 +636,7 @@ class Profile():
                     if self.profileSampleValues.get(colHeader):
                         rowString = self.profileSampleValues.get(colHeader)
 
-                    elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row)
+                    elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, colSuffixDefaults, row, repeatingFieldMethod)
                     elementsCreated.extend(elements)
 
         for colHeader in colHeaders:
@@ -577,7 +646,7 @@ class Profile():
             if self.profileSampleValues.get(colHeader):
                 rowString = self.profileSampleValues.get(colHeader)
 
-            elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row)
+            elements = self.handleRepeatingEntries(parentElement, rowString, repeatingElement, repeatingDefaults, row, repeatingFieldMethod)
             elementsCreated.extend(elements)
 
         columnHeaders.extend(textHeaders)
@@ -587,7 +656,7 @@ class Profile():
                 singleElementString = self.createExampleElementTextFromEtree(element)
                 elementString = elementString + "\n" + singleElementString
                 elementString = elementString.lstrip("\n").rstrip("\n")
-        
+
         columnHeaders = removeDuplicatesFromArray( removeItemsWithPeriodFromList(columnHeaders))
 
         return columnHeaders, conditionalAttrsHeaders, elementString, rowString, sampleCol, conditions
@@ -617,14 +686,14 @@ class Profile():
         for field in fieldList:
             for header in field.get("headers", []):
                 allHeaders.append(header)
-        
+
         return removeDuplicatesFromArray(allHeaders)
 
 
     def convertRowToXmlString(self, row):
         if self.shouldSkipRow(row):
             return
-        
+
         parentElement = self.createParentElement(self.profileNsMap)
 
         for profileField in self.profileFields:
@@ -634,7 +703,7 @@ class Profile():
                 self.processElementTypeField(profileField, row, parentElement)
 
             if profileFieldType == "repeating":
-                self.processRepeatingTypeField(profileField, self.colSuffixes, row, parentElement) 
+                self.processRepeatingTypeField(profileField, self.colSuffixes, row, parentElement)
 
         cleanedUpEtree = clearEmptyElementsFromEtree(parentElement, self.profileKeepElementXpaths)
 
