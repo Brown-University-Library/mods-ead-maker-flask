@@ -1417,7 +1417,16 @@ fields:
       - type: value
         values:
           - {type: col, header: copyrightTakeDown, method: value}
-
+  - type: element
+    name: recordInfo
+    children:
+      - type: element
+        name: recordInfoNote
+        attrs: {type: HallHoagOrgLevelRecord}
+        text:
+          - type: value
+            values:
+              - {type: value, text: "Organization Record"}
 samplevalues:
   identifierBDR: "bdr:12345"
   language: "English|rus"
