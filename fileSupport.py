@@ -50,8 +50,8 @@ def cleanStringForFilename(string):
 def getFilenameFromRow(row, index, filenameColumn):
     if row.get(filenameColumn):
         return cleanStringForFilename(row.get(filenameColumn))
-    else:
-        return "default" + str(index)
+    
+    return "default" + str(index)
 
 def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
