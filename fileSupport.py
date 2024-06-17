@@ -61,31 +61,27 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     zipObj = ZipFile(zipBuffer, 'w')
 
     for (index, row) in enumerate(rows):
-        xmlString = profile.convertRowToXmlString(row)
-        filename = getFilenameFromRow(row, index, profile.profileFilenameColumn)
+        xmlString, fileBuffer, filename = createFileFromRow(row, index, profilePath, globalConditions)
 
-        fileBuffer = io.StringIO()
-
-        if xmlString != None:
-                fileBuffer.write(xmlString)
+        if xmlString is not None:
                 zipObj.writestr(filename + profile.profileFileExtension, fileBuffer.getvalue())
             
     zipObj.close()
     
     return zipBuffer.getvalue(), sheetName + '.zip'
 
-def createFileFromRow(row, profilePath, globalConditions):
+def createFileFromRow(row, index, profilePath, globalConditions):
     profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
 
     xmlString = profile.convertRowToXmlString(row)
-    filename = getFilenameFromRow(row, 0, profile.profileFilenameColumn) + profile.profileFileExtension
+    filename = getFilenameFromRow(row, index, profile.profileFilenameColumn) + profile.profileFileExtension
 
     fileBuffer = io.StringIO()
 
-    if xmlString != None:
+    if xmlString is not None:
         fileBuffer.write(xmlString)
             
-    return fileBuffer.getvalue(), filename
+    return xmlString, fileBuffer.getvalue(), filename
 
 def getPreview(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)

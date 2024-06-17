@@ -161,7 +161,7 @@ def displayProfileForm(profileFilename):
     if request.method == "POST":
         metadata = request.form.to_dict()
         globalConditions = dict.fromkeys(metadata, True)
-        xmlFile, filename = fileSupport.createFileFromRow(metadata, os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml"), globalConditions)
+        xmlFile, filename = fileSupport.createFileFromRow(metadata, 0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "profiles", profileFilename + ".yaml"), globalConditions)
         response = make_response(xmlFile)
         response.headers["Content-Disposition"] = "attachment; filename=" + filename
         return response
