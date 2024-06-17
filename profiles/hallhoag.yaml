@@ -16,7 +16,7 @@ skipif:
 globalconditions:
   - {code: includeBrownDefaults, defaultvalue: true, explanation: "Include default Brown University archival fields."}
   - {code: includePreferredCitation, defaultvalue: true, explanation: "Include preferred citation note."}
-filenamecolumn: identifierFileName
+filenamecolumn: IdentifierFileName
 fileextension: ".mods.xml"
 
 sort:
