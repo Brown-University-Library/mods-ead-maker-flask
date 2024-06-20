@@ -61,10 +61,10 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     zipObj = ZipFile(zipBuffer, 'w')
 
     for (index, row) in enumerate(rows):
-        xmlString, fileBuffer, filename = createFileFromRow(row, index, profilePath, globalConditions)
+        xmlString, fileBufferValue, filename = createFileFromRow(row, index, profilePath, globalConditions)
 
         if xmlString is not None:
-                zipObj.writestr(filename + profile.profileFileExtension, fileBuffer.getvalue())
+                zipObj.writestr(filename + profile.profileFileExtension, fileBufferValue)
             
     zipObj.close()
     
