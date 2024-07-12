@@ -283,6 +283,22 @@ HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 print("._. EAD Maker ._.", file=sys.stderr)
 
+def make_dao_element(ctelement, cunittitle, role, href):
+    default_dao_attributes = {
+        "{http://www.w3.org/1999/xlink}actuate":"onRequest",
+        "{http://www.w3.org/1999/xlink}show":"embed",
+        "{http://www.w3.org/1999/xlink}title": cunittitle.text
+    }
+    dao_dict = {
+        **default_dao_attributes,
+        "{http://www.w3.org/1999/xlink}role": role,
+        "{http://www.w3.org/1999/xlink}href": href
+    }
+    daomodselement = etree.SubElement(ctelement, "dao", dao_dict)
+    daomodsdescelement = etree.SubElement(daomodselement, "daodesc")
+    daomodspelement = etree.SubElement(daomodsdescelement, "p")
+    daomodspelement.text = cunittitle.text
+
 def processExceltoEAD(chosenfile, chosensheet, id):
 
     if not os.path.exists(CACHEDIR + id):
@@ -1035,28 +1051,17 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         #dao fields
         if row.get("identifierBDR", '') != "":
-            daomodselement = etree.SubElement(ctelement, "dao", {"{http://www.w3.org/1999/xlink}actuate":"onRequest","{http://www.w3.org/1999/xlink}show":"embed","{http://www.w3.org/1999/xlink}title": cunittitle.text, "{http://www.w3.org/1999/xlink}role":"MODS_ID","{http://www.w3.org/1999/xlink}href":'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':','')})
-            daomodsdescelement = etree.SubElement(daomodselement, "daodesc")
-            daomodspelement = etree.SubElement(daomodsdescelement, "p")
-            daomodspelement.text = cunittitle.text
-
-            daobdrelement = etree.SubElement(ctelement, "dao", {"{http://www.w3.org/1999/xlink}actuate":"onRequest","{http://www.w3.org/1999/xlink}show":"embed","{http://www.w3.org/1999/xlink}title": cunittitle.text, "{http://www.w3.org/1999/xlink}role":"BDR_PID","{http://www.w3.org/1999/xlink}href":'bdr:'+ ' '.join(row.get("identifierBDR", '').split()).lstrip('bdr').replace(':','')})
-            daobdrdescelement = etree.SubElement(daobdrelement, "daodesc")
-            daobdrpelement = etree.SubElement(daobdrdescelement, "p")
-            daobdrpelement.text = cunittitle.text
+            make_dao_element(ctelement,cunittitle, "MODS_ID", 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':',''))
+            make_dao_element(ctelement,cunittitle, "BDR_PID", 'bdr:'+ ' '.join(row.get("identifierBDR", '').split()).lstrip('bdr').replace(':',''))
 
         if row.get("identifierNormalized", '') != "":
-            daomodselement = etree.SubElement(ctelement, "dao", {"{http://www.w3.org/1999/xlink}actuate":"onRequest","{http://www.w3.org/1999/xlink}show":"embed","{http://www.w3.org/1999/xlink}title": cunittitle.text, "{http://www.w3.org/1999/xlink}role":"NORMALIZEDFILE_ID","{http://www.w3.org/1999/xlink}href": xmltext(row.get("identifierNormalized", '')).lstrip('bdr')})
-            daomodsdescelement = etree.SubElement(daomodselement, "daodesc")
-            daomodspelement = etree.SubElement(daomodsdescelement, "p")
-            daomodspelement.text = cunittitle.text
+            make_dao_element(ctelement,cunittitle,"NORMALIZEDFILE_ID", xmltext(row.get("identifierNormalized", '')).lstrip('bdr'))
 
         if row.get("identifierWebArchive", '') != "":
-            daomodselement = etree.SubElement(ctelement, "dao", {"{http://www.w3.org/1999/xlink}actuate":"onRequest","{http://www.w3.org/1999/xlink}show":"embed","{http://www.w3.org/1999/xlink}title": cunittitle.text, "{http://www.w3.org/1999/xlink}role":"WEBARCHIVEURL","{http://www.w3.org/1999/xlink}href":xmltext(row.get("identifierWebArchive", '')).lstrip('bdr')})
-            daomodsdescelement = etree.SubElement(daomodselement, "daodesc")
-            daomodspelement = etree.SubElement(daomodsdescelement, "p")
-            daomodspelement.text = cunittitle.text
+            make_dao_element(ctelement,cunittitle,"WEBARCHIVEURL",xmltext(row.get("identifierWebArchive", '')).lstrip('bdr'))
 
+        if row.get("identifierFileName", '') != "":
+            make_dao_element(ctelement,cunittitle,"BDR_PID",xmltext(row.get("identifierFileName", '')))
 
         #MODS: lastnote
         #digitalObjectMadeelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}note", {"displayLabel":"Digital object made available by"})
