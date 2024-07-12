@@ -55,7 +55,6 @@ def getFilenameFromRow(row, index, filenameColumn):
 
 def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
-    profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)
 
     zipBuffer = io.BytesIO()
     zipObj = ZipFile(zipBuffer, 'w')
@@ -64,7 +63,7 @@ def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
         xmlString, fileBufferValue, filename = createFileFromRow(row, index, profilePath, globalConditions)
 
         if xmlString is not None:
-                zipObj.writestr(filename + profile.profileFileExtension, fileBufferValue)
+                zipObj.writestr(filename, fileBufferValue)
             
     zipObj.close()
     
