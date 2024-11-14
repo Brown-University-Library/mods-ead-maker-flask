@@ -1,16 +1,11 @@
-import os, csv, xlsxwriter
+import os
 from lxml import etree
 from openpyxl import load_workbook
-import openpyxl
-from lxml.builder import ElementMaker
-import string, codecs
-import chardet
 import datetime
 import re
 import xlrd
 from copy import copy
 import sys
-import traceback
 
 xlrd.xlsx.ensure_elementtree_imported(False, None)
 xlrd.xlsx.Element_has_iter = True
