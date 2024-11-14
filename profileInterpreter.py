@@ -257,7 +257,7 @@ def clearEmptyElementsFromEtree(parentElement, keepElementXpaths):
         element.getparent().remove(element)
 
     return clean
-
+# test
 class Profile():
 
     def __init__(self, profileDirectory, globalConditions={}):

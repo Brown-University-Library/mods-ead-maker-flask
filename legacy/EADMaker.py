@@ -21,8 +21,8 @@ langcodeopp = {}
 scriptcode = {}
 langissue = False
 
-def getSplitCharacter(string):
-    if ";" in string:
+def getSplitCharacter(input_str):
+    if ";" in input_str:
         return(";")
     else:
         return("|")
@@ -32,7 +32,7 @@ def messageToUser(messagetitle, message):
     print(messagetitle, file=sys.stderr)
     print(message, file=sys.stderr)
     try:
-        raw_input("Press Enter to continue . . .")
+        input("Press Enter to continue . . .")
     except SyntaxError:
         print("Syntax Error", file=sys.stderr)
     except TypeError:
@@ -88,11 +88,11 @@ def repeatingNameField(parentElement, elementName, rowString, assignedRole, sour
 
             if index == 0:
                 currentname = currentname + namefieldrevised + ", "
-            elif hasYear(namefieldrevised) == True:
+            elif hasYear(namefieldrevised):
                 currentname = currentname + namefieldrevised
-            elif isAllLower(namefieldrevised) == True:
+            elif isAllLower(namefieldrevised):
                 currentrole = namefieldrevised
-            elif hasLetters(namefieldrevised) != None:
+            elif hasLetters(namefieldrevised) is not None:
                 currentname = currentname + namefieldrevised + ", "
 
         if currentrole:
@@ -152,7 +152,7 @@ def hasLetters(s):
 def hasYear(s):
     numbercount = 0
     for i in s:
-        if i.isdigit() == True:
+        if i.isdigit():
             numbercount = numbercount + 1
     if numbercount > 3:
         return True
@@ -162,7 +162,7 @@ def hasYear(s):
 def isAllLower(s):
     nonlowercase = 0
     for i in s.replace(' ', ''):
-        if i.islower() == False:
+        if not i.islower():
             nonlowercase = nonlowercase + 1
             break
     if nonlowercase > 0:
@@ -320,7 +320,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     missingcolumns = []
     for column in requiredcolumns:
-        if (column in columnsinsheet) == False:
+        if column not in columnsinsheet:
             #print("Missing spreadsheet column: " + column + '\n')
             missingcolumns.append(column)
 
@@ -558,7 +558,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     coldescgrpcontrolaccessnamesheadelement = etree.SubElement(coldescgrpnamescontrolaccesselement, "head")
     if cldata.get("addedEntryPersonLC", '') != '' or cldata.get("addedEntryPersonLocal", '') != '' or cldata.get("addedEntryCorporateLC", '') != '' or cldata.get("addedEntryCorporateLocal", '') != '':
-    	coldescgrpcontrolaccessnamesheadelement.text = "Names"
+        coldescgrpcontrolaccessnamesheadelement.text = "Names"
 
     repeatingsubjectfield(coldescgrpnamescontrolaccesselement, cldata, 'addedEntryPersonLC', 'persname', {'source':'lcnaf'})
     repeatingsubjectfield(coldescgrpnamescontrolaccesselement, cldata, 'addedEntryPersonLocal', 'persname', {'source':'local'})
@@ -569,7 +569,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     coldescgrpsubjectscontrolaccesselement = etree.SubElement(coldescgrpcatalogingelement, "controlaccess")
     coldescgrpcontrolaccesssubjectheadelement = etree.SubElement(coldescgrpsubjectscontrolaccesselement, "head")
     if cldata.get("addedEntrySubjectLC", '') != '' or cldata.get("addedEntrySubjectLocal", '') != '' or cldata.get("addedEntrySubjectFAST", '') != '' or cldata.get("addedEntryGeographicLC", '') != '' or cldata.get("addedEntryGeographicLocal", '') != '':
-    	coldescgrpcontrolaccesssubjectheadelement.text = "Subjects"
+        coldescgrpcontrolaccesssubjectheadelement.text = "Subjects"
 
     repeatingsubjectfield(coldescgrpsubjectscontrolaccesselement, cldata, 'addedEntrySubjectLC', 'subject', {'source':'lcsh'})
     repeatingsubjectfield(coldescgrpsubjectscontrolaccesselement, cldata, 'addedEntrySubjectLocal', 'subject', {'source':'local'})
@@ -581,7 +581,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     coldescgrpoccupationscontrolaccesselement = etree.SubElement(coldescgrpcatalogingelement, "controlaccess")
     coldescgrpcontrolaccessoccupationheadelement = etree.SubElement(coldescgrpoccupationscontrolaccesselement, "head")
     if cldata.get("addedEntryOccupationLC", '') != '' or cldata.get("addedEntryOccupationLocal", '') != '':
-    	coldescgrpcontrolaccessoccupationheadelement.text = "Occupations"
+        coldescgrpcontrolaccessoccupationheadelement.text = "Occupations"
 
     repeatingsubjectfield(coldescgrpoccupationscontrolaccesselement, cldata, 'addedEntryOccupationLC', 'occupation', {'source':'lcsh'})
     repeatingsubjectfield(coldescgrpoccupationscontrolaccesselement, cldata, 'addedEntryOccupationLocal', 'occupation', {'source':'local'})
@@ -589,7 +589,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     coldescgrpmaterialscontrolaccesselement = etree.SubElement(coldescgrpcatalogingelement, "controlaccess")
     coldescgrpcontrolaccessgenreheadelement = etree.SubElement(coldescgrpmaterialscontrolaccesselement, "head")
     if cldata.get("addedEntryGenreAAT", '') != '' or cldata.get("addedEntryGenreLCSH", '') != '' or cldata.get("addedEntryGenreTGM", '') != '' or cldata.get("addedEntryGenreRBGENR", '') != '' or cldata.get("addedEntryGenreLocal", '') != '':
-    	coldescgrpcontrolaccessgenreheadelement.text = "Types of Materials"
+        coldescgrpcontrolaccessgenreheadelement.text = "Types of Materials"
 
     repeatingsubjectfield(coldescgrpmaterialscontrolaccesselement, cldata, 'addedEntryGenreAAT', 'genreform', {'source':'aat'})
     repeatingsubjectfield(coldescgrpmaterialscontrolaccesselement, cldata, 'addedEntryGenreLCSH', 'genreform', {'source':'lcsh'})
@@ -600,14 +600,14 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     coldescgrptitlescontrolaccesselement = etree.SubElement(coldescgrpcatalogingelement, "controlaccess")
     coldescgrpcontrolaccesstitleheadelement = etree.SubElement(coldescgrptitlescontrolaccesselement, "head")
     if cldata.get("addedEntryTitle", '') != '':
-    	coldescgrpcontrolaccesstitleheadelement.text = "Titles"
+        coldescgrpcontrolaccesstitleheadelement.text = "Titles"
 
     repeatingsubjectfield(coldescgrptitlescontrolaccesselement, cldata, 'addedEntryTitle', 'title', {})
 
     coldescgrpriamcoscontrolaccesselement = etree.SubElement(coldescgrpcatalogingelement, "controlaccess")
     coldescgrpcontrolaccessriamcoheadelement = etree.SubElement(coldescgrpriamcoscontrolaccesselement, "head")
     if cldata.get("RIAMCOBrowsingTerm", '') != '':
-    	coldescgrpcontrolaccessriamcoheadelement.text = "RIAMCO Browsing Term"
+        coldescgrpcontrolaccessriamcoheadelement.text = "RIAMCO Browsing Term"
 
     repeatingsubjectfield(coldescgrpriamcoscontrolaccesselement, cldata, 'RIAMCOBrowsingTerm', 'subject', {'altrender':'nodisplay','source':'riamco'})
 
@@ -633,7 +633,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             onlySeriesRows = False
             break
 
-    if onlySeriesRows == True:
+    if onlySeriesRows:
         arrangementnoteseriespelement = etree.SubElement(colarrangementelement, "p")
         cserieslist = etree.SubElement(arrangementnoteseriespelement, "list")
         print("Only series rows is True.", file=sys.stderr)
@@ -836,7 +836,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         unitdateinclusiveattributes = {"type":"inclusive"}
         if inclusivedatestart != '' and inclusivedateend != '':
-        	unitdateinclusiveattributes["normal"] = inclusivedatestart +"/"+inclusivedateend
+            unitdateinclusiveattributes["normal"] = inclusivedatestart +"/"+inclusivedateend
         if row.get("dateQualifier", '') != "":
             unitdateinclusiveattributes["certainty"] = xmltext(row.get("dateQualifier", ''))
         unitdatebulkattributes = {"type":"bulk","normal":(bulkdatestart +"/"+bulkdateend)}
@@ -1050,17 +1050,17 @@ def processExceltoEAD(chosenfile, chosensheet, id):
      #   hostshelfLocatorelement.text = ' '.join(shelfLocatorstring.split())
 
         #dao fields
-        if row.get("identifierBDR", '') != "":
+        if row.get("identifierBDR", ''):
             make_dao_element(ctelement,cunittitle, "MODS_ID", 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':',''))
             make_dao_element(ctelement,cunittitle, "BDR_PID", 'bdr:'+ ' '.join(row.get("identifierBDR", '').split()).lstrip('bdr').replace(':',''))
 
-        if row.get("identifierNormalized", '') != "":
+        if row.get("identifierNormalized", ''):
             make_dao_element(ctelement,cunittitle,"NORMALIZEDFILE_ID", xmltext(row.get("identifierNormalized", '')).lstrip('bdr'))
 
-        if row.get("identifierWebArchive", '') != "":
+        if row.get("identifierWebArchive", ''):
             make_dao_element(ctelement,cunittitle,"WEBARCHIVEURL",xmltext(row.get("identifierWebArchive", '')).lstrip('bdr'))
 
-        if row.get("identifierFileName", '') != "":
+        if row.get("identifierFileName", ''):
             make_dao_element(ctelement,cunittitle,"BDR_PID",xmltext(row.get("identifierFileName", '')))
 
         #MODS: lastnote
@@ -1202,7 +1202,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     with open(CACHEDIR + id + "/" + finalfilename, 'rb') as f:
         return(f.read(), returndict)
 
-    if langissue == True:
+    if langissue:
         #print("")
         print("*Language Field Error*\n", file=sys.stderr)
         print("There were one or more issues with language fields in your spreadsheet. Please check your spelling in all language fields. You may also manually correct your XML file, consult the SupportedLanguages.xlsx file in the data folder for supported languages, and/or adjust the SupportedLanguages.xlsx spreadsheet to suit your project.\n", file=sys.stderr)
