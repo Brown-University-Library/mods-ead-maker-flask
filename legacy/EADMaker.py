@@ -1051,7 +1051,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         #dao fields
         if row.get("identifierBDR", ''):
-            make_dao_element(ctelement,cunittitle, "MODS_ID", 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':',''))
+            # make_dao_element(ctelement,cunittitle, "MODS_ID", 'bdr'+ xmltext(row.get("identifierBDR", '')).lstrip('bdr').replace(':',''))
             make_dao_element(ctelement,cunittitle, "BDR_PID", 'bdr:'+ ' '.join(row.get("identifierBDR", '').split()).lstrip('bdr').replace(':',''))
 
         if row.get("identifierNormalized", ''):
