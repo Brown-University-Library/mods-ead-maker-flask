@@ -192,31 +192,30 @@ def copyworkbook(path1, path2):
 
     for row in ws1:
         for cell in row:
-            ws2[cell.coordinate].value = cell.value
+            copycell = ws2[cell.coordinate]
+            copycell.value = cell.value
             if cell.has_style:
-                ws2[cell.coordinate].font = copy(cell.font)
-                ws2[cell.coordinate].border = copy(cell.border)
-                ws2[cell.coordinate].fill = copy(cell.fill)
-                ws2[cell.coordinate].number_format = copy(cell.number_format)
-                ws2[cell.coordinate].protection = copy(cell.protection)
-                ws2[cell.coordinate].alignment = copy(cell.alignment)
+                copycell.font = copy(cell.font)
+                copycell.border = copy(cell.border)
+                copycell.fill = copy(cell.fill)
+                copycell.number_format = copy(cell.number_format)
+                copycell.protection = copy(cell.protection)
+                copycell.alignment = copy(cell.alignment)
 
     wb2.save(path2)
 
 def convertEncoding(from_encode,to_encode,old_filepath,target_file):
-    f1=open(old_filepath)
-    content2=[]
-    while True:
-        line=f1.readline()
-        content2.append(line.decode(from_encode).encode(to_encode))
-        if len(line) ==0:
-            break
+    with open(old_filepath) as f1:
+        content2=[]
+        while True:
+            line=f1.readline()
+            content2.append(line.decode(from_encode).encode(to_encode))
+            if len(line) ==0:
+                break
 
-    f1.close()
-    f2=open(target_file,'w')
-    f2.writelines(content2)
-    f2.close()
-
+    with open(target_file,'w') as f2:
+        f2.writelines(content2)
+    return
 
 def let_user_pick(message, options):
     print("", file=sys.stderr)
@@ -281,41 +280,26 @@ def XLSDictReaderVertical(file, sheetname):
                 verticaldictionary[key] = verticaldictionary[key] + ';' + value
         return(verticaldictionary)
 
-def XLSDictReaderLanguageCode(file, sheetname):
-        book    = xlrd.open_workbook(file)
-        sheet   = book.sheet_by_name(sheetname)
+def GetXLSDictReaderCodes(file, sheetname):
+    book    = xlrd.open_workbook(file)
+    sheet   = book.sheet_by_name(sheetname)
 
-        langcode = {}
+    langcode = {}
+    langcodeopp = {}
+    scriptcode = {}
 
-        for row in range(sheet.nrows):
-            key = sheet.cell_value(row, 0)
-            value = sheet.cell_value(row, 1)
-            langcode[key] = value
-        return(langcode)
+    for row in range(sheet.nrows):
+        for codename, tuple in {"langcode":(0,1),"langcodeopp":(1,0),"scriptcode":(0,2)}.items():
+            key = sheet.cell_value(row, tuple[0])
+            value = sheet.cell_value(row, tuple[1])
+            if codename == "langcode":
+                langcode[key] = value
+            elif codename == "langcodeopp":
+                langcodeopp[key] = value
+            else:
+                scriptcode[key] = value
 
-def XLSDictReaderLanguageCodeOpp(file, sheetname):
-        book    = xlrd.open_workbook(file)
-        sheet   = book.sheet_by_name(sheetname)
-
-        langcode = {}
-
-        for row in range(sheet.nrows):
-            key = sheet.cell_value(row, 1)
-            value = sheet.cell_value(row, 0)
-            langcode[key] = value
-        return(langcode)
-
-def XLSDictReaderScriptCode(file, sheetname):
-        book    = xlrd.open_workbook(file)
-        sheet   = book.sheet_by_name(sheetname)
-
-        scriptcode = {}
-
-        for row in range(sheet.nrows):
-            key = sheet.cell_value(row, 0)
-            value = sheet.cell_value(row, 2)
-            scriptcode[key] = value
-        return(scriptcode)
+    return(langcode, langcodeopp, scriptcode)
 
 def getSheetNames(chosenfile):
     excel = xlrd.open_workbook(chosenfile)
@@ -346,9 +330,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             os.mkdir(CACHEDIR + id)
 
     #Get all languages codes and script codes.
-    langcode = XLSDictReaderLanguageCode(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
-    langcodeopp = XLSDictReaderLanguageCodeOpp(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
-    scriptcode = XLSDictReaderScriptCode(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
+    langcode, langcodeopp, scriptcode = GetXLSDictReaderCodes(HOMEDIR + "SupportedLanguages.xlsx","languages xlsx")
 
     csvdata = {}
     cldata = {}
@@ -359,11 +341,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     selectedsheet = excel.sheet_by_name(chosensheet)
     columnsinsheet = [str(cell.value) for cell in selectedsheet.row(0)]
 
-    missingcolumns = []
-    for column in requiredcolumns:
-        if column not in columnsinsheet:
-            #print("Missing spreadsheet column: " + column + '\n')
-            missingcolumns.append(column)
+    missingcolumns = [ col for col in requiredcolumns if col not in columnsinsheet]
 
     if len(missingcolumns) != 0:
         print("*Missing Columns Detected*" + '\n', file=sys.stderr)
@@ -847,19 +825,13 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         if row.get("barcode", '') != '':
             barcodestring = ' [' + xmltext(row.get("barcode", '')).replace(".0", "") + ']'
 
-        if row.get("shelfLocator1", '') != "":
-            # , "label": ' '.join(row.get("shelfLocator1", '').split()) , "label": xmltext(shelfLocator1)
-            shelflocator1attributes = {"type":' '.join(row.get("shelfLocator1", '').split()).lower().replace(' ', '_'), "label": xmltext(row.get("shelfLocator1", '').title()) + barcodestring}
-            shelflocator1element = etree.SubElement(cdid, "container", shelflocator1attributes)
-            shelflocator1element.text = ' '.join(str(row.get("shelfLocator1ID", '')).split()).replace('.0','')
-        if row.get("shelfLocator2", '') != "":
-            shelflocator2attributes = {"type":' '.join(row.get("shelfLocator2", '').split()).lower().replace(' ', '_'), "label": xmltext(row.get("shelfLocator2", '').title())}
-            shelflocator2element = etree.SubElement(cdid, "container", shelflocator2attributes)
-            shelflocator2element.text = ' '.join(str(row.get("shelfLocator2ID", '')).split()).replace('.0','')
-        if row.get("shelfLocator3", '') != "":
-            shelflocator3attributes = {"type":' '.join(row.get("shelfLocator3", '').split()).lower().replace(' ', '_'), "label": xmltext(row.get("shelfLocator3", '').title())}
-            shelflocator3element = etree.SubElement(cdid, "container", shelflocator3attributes)
-            shelflocator3element.text = ' '.join(str(row.get("shelfLocator3ID", '')).split()).replace('.0','')
+        for i in 1,2,3:
+            colname = "shelfLocator" + str(i)
+            cell = row.get(colname, '')
+            if cell:
+                shelflocatorattrs = {"type":' '.join(cell.split()).lower().replace(' ', '_'), "label": xmltext(cell.title()) + barcodestring}
+                shelflocatorelement = etree.SubElement(cdid, "container", shelflocatorattrs)
+                shelflocatorelement.text = ' '.join(str(row.get(colname + "ID", '')).split()).replace('.0','')
 
         #dates
         #Test for a YYYY - YYYY and remove dates if so.
@@ -912,10 +884,21 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         extentSpeedelement.text = ' '.join(row.get("extentSpeed", '').split())
 
         genreformphyscdescelement = etree.SubElement(cdid, "physdesc")
-        repeatingsubjectfield(genreformphyscdescelement, row, 'genreAAT', 'genreform',{"source":"aat"})
-        repeatingsubjectfield(genreformphyscdescelement, row, 'genreLCSH', 'genreform',{"source":"lcsh"})
-        repeatingsubjectfield(genreformphyscdescelement, row, 'genreLocal', 'genreform',{"source":"local"})
-        repeatingsubjectfield(genreformphyscdescelement, row, 'genreRBGENR', 'genreform',{"source":"rbgenr"})
+        genreSources = {
+            'genreAAT': "aat",
+            'genreLCSH': "lcsh",
+            'genreLocal': "local",
+            'genreRBGENR': "rbgenr"
+        }
+
+        for genre, source in genreSources.items():
+            repeatingsubjectfield(
+                parentelement = genreformphyscdescelement,
+                refdict = row,
+                originalfieldname = genre,
+                eadfieldname = 'genreform',
+                eadattributes = {"source":source}
+            )
 
         #materialspec
         formelement = etree.SubElement(cdid, "materialspec")
@@ -969,27 +952,29 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         noteaccessionelement = etree.SubElement(noteaccessionpelement, "num", {"type":"accession"})
         noteaccessionelement.text = ' '.join(row.get("noteAccession", '').split())
 
-        #useAndReproduction
-        #useAndReproductionelement = etree.SubElement(ctelement, "userestrict")
-        #useAndReproductionelementlines = row.get("useAndReproduction", '').splitlines()
-        #for line in useAndReproductionelementlines:
-        #    pelement = etree.SubElement(useAndReproductionelement, "p")
-        #    pelement.text = ' '.join(line.split())
-
         #controlaccess and name fields
         ccontrolaccess = etree.SubElement(ctelement, "controlaccess")
 
-        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLC", ''), "creator", "naf")
-        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorLocal", ''), "creator", "local")
-        repeatingNameField(originationelement, "persname", row.get("namePersonCreatorFAST", ''), "creator", "fast")
+        namefields = [
+            {"field":'namePersonCreatorLC', "nametype":'persname', "role":'creator', "source":'naf'},
+            {"field":'namePersonCreatorLocal', "nametype":'persname', "role":'creator', "source":'local'},
+            {"field":'namePersonCreatorFAST', "nametype":'persname', "role":'creator', "source":'fast'},
+            {"field":'nameCorpCreatorLC', "nametype":'corpname', "role":'creator', "source":'naf'},
+            {"field":'nameCorpCreatorLocal', "nametype":'corpname', "role":'creator', "source":'local'},
+            {"field":'nameCorpCreatorFAST', "nametype":'corpname', "role":'creator', "source":'fast'},
+            {"field":'namePersonOtherLC', "nametype":'persname', "role":'', "source":'naf'},
+            {"field":'namePersonOtherLocal', "nametype":'persname', "role":'', "source":'local'},
+            {"field":'namePersonOtherFAST', "nametype":'persname', "role":'', "source":'fast'}
+        ]
 
-        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLC", ''), "creator", "naf")
-        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorLocal", ''), "creator", "local")
-        repeatingNameField(originationelement, "corpname", row.get("nameCorpCreatorFAST", ''), "creator", "fast")
-
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLC", ''), "", "naf")
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherLocal", ''), "", "local")
-        repeatingNameField(ccontrolaccess, "persname", row.get("namePersonOtherFAST", ''), "", "fast")
+        for nf in namefields:
+            repeatingNameField(
+                parentElement=originationelement,
+                elementName=nf['nameType'],
+                rowString=row.get(nf['field'], ''),
+                assignedRole=nf['role'],
+                source=nf['namesource']
+            )
 
         notegeneralelement = etree.SubElement(ctelement, "odd")
         scopelines = row.get("noteGeneral", '').splitlines()
@@ -1039,26 +1024,21 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #restrictionOnAccesselement.text = "Collection is open for research."
 
         #subject
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesLC', 'persname',{"source":"naf"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesLocal', 'persname',{"source":"local"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectNamesFAST', 'persname',{"source":"fast"})
+        subjectRows = {
+            'subjectNamesLC': {'type': 'persname', 'source': 'naf'},
+            'subjectNamesLocal': {'type': 'persname', 'source': 'local'},
+            'subjectNamesFAST': {'type': 'persname', 'source': 'fast'},
 
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpLC', 'corpname',{"source":"naf"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpLocal', 'corpname',{"source":"local"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectCorpFAST', 'corpname',{"source":"fast"})
+            'subjectCorpLC': {'type': 'corpname', 'source': 'naf'},
+            'subjectCorpLocal': {'type': 'corpname', 'source': 'local'},
+            'subjectCorpFAST': {'type': 'corpname', 'source': 'fast'},
 
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsLC', 'subject',{"source":"lcsh"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsLocal', 'subject',{"source":"local"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTopicsFAST', 'subject',{"source":"fast"})
+            'subjectTopicsLC': {'type': 'subject', 'source': 'naf'},
+            'subjectTopicsLocal': {'type': 'subject', 'source': 'local'},
+            'subjectTopicsFAST': {'type': 'subject', 'source': 'fast'},
 
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoLC', 'geogname',{"source":"lcsh"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectGeoFAST', 'geogname',{"source":"fast"})
-
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTemporalLC', 'subject',{"source":"lcsh"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTemporalFAST', 'subject',{"source":"fast"})
-
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleLC', 'title',{"source":"lcsh"})
-        repeatingsubjectfield(ccontrolaccess, row, 'subjectTitleFAST', 'title',{"source":"fast"})
+            'subjectGeoLC': {'type': 'geogname', 'source': 'lcsh'},
+            'subjectGeoFAST': {'type': 'geogname', 'source': 'fast'},
 
         #for index, temporal in enumerate(row.get("subjectTemporalLC", '').split('|')):
         #    subjectelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}subject", {"authority":"local"})
@@ -1066,10 +1046,24 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #        continue
         #    temporalelement = etree.SubElement(subjectelement, "{http://www.loc.gov/mods/v3}temporal")
         #    temporalelement.text = ' '.join(temporal.split())
+            'subjectTemporalLC': {'type': 'subject', 'source': 'lcsh'},
+            'subjectTemporalFAST': {'type': 'subject', 'source': 'fast'},
 
         ###
+            'subjectTitleLC': {'type': 'title', 'source': 'lcsh'},
+            'subjectTitleFAST': {'type': 'title', 'source': 'fast'}
+        }
 
-        #hostlocationelement = etree.SubElement(relatedItemelement, "{http://www.loc.gov/mods/v3}location")
+        for subjectRow in subjectRows:
+            rowtype = subjectRows[subjectRow]['type']
+            source = subjectRows[subjectRow]['source']
+            repeatingsubjectfield(
+                parentelement = ccontrolaccess,
+                refdict = row,
+                originalfieldname = subjectRow,
+                eadfieldname = rowtype,
+                eadattributes = {"source": source}
+            )
 
         #hostphysicalLocationelement = etree.SubElement(hostlocationelement, "{http://www.loc.gov/mods/v3}physicalLocation")
         #hostphysicalLocationelement.text = ' '.join(row.get("repository", '').split())
