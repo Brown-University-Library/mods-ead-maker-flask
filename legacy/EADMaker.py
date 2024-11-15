@@ -1,7 +1,6 @@
 import os
 from lxml import etree
 from openpyxl import load_workbook
-import datetime
 import re
 import xlrd
 from copy import copy
@@ -101,17 +100,6 @@ def getSplitCharacter(input_str):
     else:
         return("|")
 
-def messageToUser(messagetitle, message):
-    print("", file=sys.stderr)
-    print(messagetitle, file=sys.stderr)
-    print(message, file=sys.stderr)
-    try:
-        input("Press Enter to continue . . .")
-    except SyntaxError:
-        print("Syntax Error", file=sys.stderr)
-    except TypeError:
-        print("Type Error", file=sys.stderr)
-
 def multilinefield(refdict, parentelement, originalfieldname, eadfieldname):
     newelement = etree.SubElement(parentelement, eadfieldname)
     lines = refdict.get(originalfieldname, '').splitlines()
@@ -203,32 +191,6 @@ def copyworkbook(path1, path2):
                 copycell.alignment = copy(cell.alignment)
 
     wb2.save(path2)
-
-def convertEncoding(from_encode,to_encode,old_filepath,target_file):
-    with open(old_filepath) as f1:
-        content2=[]
-        while True:
-            line=f1.readline()
-            content2.append(line.decode(from_encode).encode(to_encode))
-            if len(line) ==0:
-                break
-
-    with open(target_file,'w') as f2:
-        f2.writelines(content2)
-    return
-
-def let_user_pick(message, options):
-    print("", file=sys.stderr)
-    print(message, file=sys.stderr)
-    for idx, element in enumerate(options):
-        print("{}) {}".format(idx+1,element), file=sys.stderr)
-    i = input("Enter number: ")
-    try:
-        if 0 < int(i) <= len(options):
-            return options[i-1]
-    except:
-        pass
-    return None
 
 def XLSDictReader(file, sheetname):
         book    = xlrd.open_workbook(file)
