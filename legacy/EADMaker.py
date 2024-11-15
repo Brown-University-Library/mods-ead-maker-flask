@@ -16,9 +16,7 @@ langcodeopp = {}
 scriptcode = {}
 langissue = False
 CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
-#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 def getSplitCharacter(input_str):
     if ";" in input_str:
@@ -193,22 +191,33 @@ def getSheetNames(chosenfile):
 
 print("._. EAD Maker ._.", file=sys.stderr)
 
-def make_dao_element(ctelement, cunittitle, role, href):
-    default_dao_attributes = {
-        "{http://www.w3.org/1999/xlink}actuate":"onRequest",
-        "{http://www.w3.org/1999/xlink}show":"embed",
-        "{http://www.w3.org/1999/xlink}title": cunittitle.text
-    }
-    dao_dict = {
-        **default_dao_attributes,
-        "{http://www.w3.org/1999/xlink}role": role,
-        "{http://www.w3.org/1999/xlink}href": href
-    }
-    daomodselement = etree.SubElement(ctelement, "dao", dao_dict)
-    daomodsdescelement = etree.SubElement(daomodselement, "daodesc")
-    daomodspelement = etree.SubElement(daomodsdescelement, "p")
-    daomodspelement.text = cunittitle.text
+def make_dao_element(parent:etree.Element, title:etree.Element, role, href):
+    '''
+    Create a <dao> subelement inside parent
+    '''
 
+    element = etree.fromstring(
+       f'<dao'
+       f'  xmlns="http://www.w3.org/1999/xlink"'
+       f'  actuate="onRequest"'
+       f'  show="embed"'
+       f'  title="{title.text}"'
+       f'  role="{role}"'
+       f'  href="{href}"'
+       f'>'
+       f'   <daodesc>'
+       f'       <p>{title.text}</p>'
+       f'   </daodesc>'
+       f'</dao>'
+    )
+    parent.append(element)
+
+def validate_excel(chosenfile, chosensheet):
+    excel = xlrd.open_workbook(chosenfile)
+    sheetnames = excel.sheet_names()
+    if "Collection-Level Data" not in sheetnames:
+        copyworkbook(HOMEDIR + "Collection-Level Data.xlsx", chosenfile)
+        excel = xlrd.open_workbook(chosenfile)
 def processExceltoEAD(chosenfile, chosensheet, id):
     #Create a cache directory for the current EAD file.
     if not os.path.exists(CACHEDIR + id):
