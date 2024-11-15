@@ -6,6 +6,7 @@ import re
 import xlrd
 from copy import copy
 import sys
+from stringbools import hasLetters, hasNumbers, hasYear, isAllLower
 
 xlrd.xlsx.ensure_elementtree_imported(False, None)
 xlrd.xlsx.Element_has_iter = True
@@ -137,34 +138,6 @@ def convertEncoding(from_encode,to_encode,old_filepath,target_file):
     f2=open(target_file,'w')
     f2.writelines(content2)
     f2.close()
-
-def hasNumbers(s):
-    return any(i.isdigit() for i in s)
-
-def hasLetters(s):
-    return re.search('[a-zA-Z]', s)
-
-def hasYear(s):
-    numbercount = 0
-    for i in s:
-        if i.isdigit():
-            numbercount = numbercount + 1
-    if numbercount > 3:
-        return True
-    else:
-        return False
-
-def isAllLower(s):
-    nonlowercase = 0
-    for i in s.replace(' ', ''):
-        if not i.islower():
-            nonlowercase = nonlowercase + 1
-            break
-    if nonlowercase > 0:
-        return False
-    else:
-        return True
-
 
 
 def let_user_pick(message, options):
