@@ -869,10 +869,10 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         for nf in namefields:
             repeatingNameField(
                 parentElement=originationelement,
-                elementName=nf['nameType'],
+                elementName=nf['nametype'],
                 rowString=row.get(nf['field'], ''),
                 assignedRole=nf['role'],
-                source=nf['namesource']
+                source=nf['source']
             )
 
         notegeneralelement = etree.SubElement(ctelement, "odd")
