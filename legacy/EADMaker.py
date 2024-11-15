@@ -263,7 +263,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     #Set up namespaces and attributes for XML.
     attr_qname = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
     ns_map = {"ead":"urn:isbn:1-931666-22-9", "ns2" : "http://www.w3.org/1999/xlink", "xsi" : "http://www.w3.org/2001/XMLSchema-instance"}
-    ns_map2 = {"ns2":"http://www.w3.org/1999/xlink"}
     #Create top elements for EAD.
     eadtop = etree.Element("ead", {attr_qname: "urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd", "audience":"external","relatedencoding":"MARC21", "xmlns":"urn:isbn:1-931666-22-9"}, nsmap=ns_map)
     eadheaderelement = etree.SubElement(eadtop, "eadheader", {"audience":"external","countryencoding":"iso3166-1","dateencoding":"iso8601","scriptencoding":"iso15924", "relatedencoding":"MARC21", "repositoryencoding":"iso15511","langencoding":"iso639-2b"})
@@ -500,7 +499,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     csubgroupelement = dscelement
     cserieselement = dscelement
     csubserieselement = dscelement
-    csubsubserieselement = dscelement
     cfileelement = dscelement
     rowindex = 2
     onlySeriesRows = True
@@ -645,16 +643,9 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             titleelement = etree.SubElement(cdid, "unittitle")
             titleelement.text = ' '.join(row.get("itemTitle", '').split())
             cunittitle = titleelement
-            #Needs attention: Item ID.
-            #itemIDelement = etree.SubElement(didelement, "unitid", {"type":"subseries"})
-            #itemIDelement.text = cseriesID + ". Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','')
 
         #container
-        shelfLocatorstring = ""
         barcodestring = ''
-
-        #if row.get("barcode", '') != '':
-        #    floatbarcode = float(row.get("barcode", ''))
 
         if row.get("barcode", '') != '':
             barcodestring = ' [' + normalize_whitespace(row.get("barcode", '')).replace(".0", "") + ']'
