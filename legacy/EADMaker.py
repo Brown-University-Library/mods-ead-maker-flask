@@ -49,7 +49,7 @@ def repeatingsubjectfield(parentelement, refdict, originalfieldname, eadfieldnam
             #Remove it from the addedentry
             addedentry = addedentry.replace(uri[0],"")
             #Add it as a valueURI attribute
-            customAttributes["authfilenumber"] = xmltext(uri[0])
+            customAttributes["authfilenumber"] = normalize_whitespace(uri[0])
 
         namecontrolaccesselement = etree.SubElement(parentelement, eadfieldname, customAttributes)
         namecontrolaccesselement.text = ' '.join(addedentry.replace("|d", "").replace("|e", "").split())
@@ -69,10 +69,10 @@ def repeatingNameField(parentElement, elementName, rowString, assignedRole, sour
             #Remove it from the addedentry
             name = name.replace(uri[0],"")
             #Add it as a valueURI attribute
-            attributes["authfilenumber"] = xmltext(uri[0])
+            attributes["authfilenumber"] = normalize_whitespace(uri[0])
 
         for index, namefield in enumerate(name.split(',')):
-            namefieldrevised = xmltext(namefield)
+            namefieldrevised = normalize_whitespace(namefield)
 
             if index == 0:
                 currentname = currentname + namefieldrevised + ", "
@@ -91,10 +91,10 @@ def repeatingNameField(parentElement, elementName, rowString, assignedRole, sour
         attributes['source'] = source
 
         nameelement = etree.SubElement(parentElement, elementName, attributes)
-        nameelement.text = xmltext(currentname).rstrip(',').lstrip(',')
+        nameelement.text = normalize_whitespace(currentname).rstrip(',').lstrip(',')
 
-def xmltext(text):
-    return(' '.join(str(text).split()))
+def normalize_whitespace(text, replace_with=' '):
+    return(replace_with.join(str(text).split()))
 
 def copyworkbook(path1, path2):
 
@@ -278,25 +278,25 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     #Collection-level description in the archdesc element.
     primaryunittitle = etree.SubElement(coldidelement, "unittitle", {"type":"primary"})
-    primaryunittitle.text = xmltext(cldata.get("title", ''))
+    primaryunittitle.text = normalize_whitespace(cldata.get("title", ''))
 
     filingunittitle = etree.SubElement(coldidelement, "unittitle", {"type":"filing"})
-    filingunittitle.text = xmltext(cldata.get("filingTitle", ''))
+    filingunittitle.text = normalize_whitespace(cldata.get("filingTitle", ''))
 
-    colunitidelement = etree.SubElement(coldidelement, "unitid", {"countrycode":"US","repositorycode":"US-"+xmltext(cldata.get("MARCRepositoryCode", '')),"type":"collection"})
-    colunitidelement.text = xmltext(cldata.get("callNumber", ''))
+    colunitidelement = etree.SubElement(coldidelement, "unitid", {"countrycode":"US","repositorycode":"US-"+normalize_whitespace(cldata.get("MARCRepositoryCode", '')),"type":"collection"})
+    colunitidelement.text = normalize_whitespace(cldata.get("callNumber", ''))
 
     colrepositoryelement = etree.SubElement(coldidelement, "repository")
     repositorycorpelement = etree.SubElement(colrepositoryelement, "corpname")
-    repositorycorpelement.text = xmltext(cldata.get("repositoryCorporateName", ''))
+    repositorycorpelement.text = normalize_whitespace(cldata.get("repositoryCorporateName", ''))
     repositorysubarea = etree.SubElement(repositorycorpelement, "subarea")
-    repositorysubarea.text = xmltext(cldata.get("repositoryCorporateSubarea", ''))
+    repositorysubarea.text = normalize_whitespace(cldata.get("repositoryCorporateSubarea", ''))
 
     coladdresselement = etree.SubElement(colrepositoryelement, "address")
     coladdresslines = cldata.get("repositoryAddress", '').splitlines()
     for line in coladdresslines:
         addresselement = etree.SubElement(coladdresselement, "addressline")
-        addresselement.text = xmltext(line)
+        addresselement.text = normalize_whitespace(line)
 
     collangmaterial = etree.SubElement(coldidelement, "langmaterial")
     collangmaterialsplitchar = getSplitCharacter(cldata.get("materialLanguage", ''))
@@ -304,39 +304,39 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     for language in cldata.get("materialLanguage", '').split(collangmaterialsplitchar):
         if language == "":
              continue
-        if xmltext(language) in langcode:
-             langusagelangelement = etree.SubElement(collangmaterial, "language", {"langcode":langcode[xmltext(language)], "scriptcode":scriptcode[xmltext(language)]})
-             langusagelangelement.text =  xmltext(language)
+        if normalize_whitespace(language) in langcode:
+             langusagelangelement = etree.SubElement(collangmaterial, "language", {"langcode":langcode[normalize_whitespace(language)], "scriptcode":scriptcode[normalize_whitespace(language)]})
+             langusagelangelement.text =  normalize_whitespace(language)
 
              if scriptcode == "N/A":
                  langissue = True
         else:
              langusagelangelement = etree.SubElement(collangmaterial, "language", {"langcode":"***", "scriptcode":"***"})
-             langusagelangelement.text =  xmltext(language)
+             langusagelangelement.text =  normalize_whitespace(language)
 
              langissue = True
 
     colphysdescelement = etree.SubElement(coldidelement, "physdesc")
-    colextentelement = etree.SubElement(colphysdescelement, "extent").text = xmltext(cldata.get("sizeExtent", ''))
+    colextentelement = etree.SubElement(colphysdescelement, "extent").text = normalize_whitespace(cldata.get("sizeExtent", ''))
 
-    inclusivedateattributes = {"type":"inclusive", "era":"ce","calendar":"gregorian","normal":xmltext(cldata.get("inclusiveDates", '')).replace('-','/').replace(' ','')}
+    inclusivedateattributes = {"type":"inclusive", "era":"ce","calendar":"gregorian","normal":normalize_whitespace(cldata.get("inclusiveDates", '')).replace('-','/').replace(' ','')}
     inclusivedateelement = etree.SubElement(coldidelement, "unitdate", inclusivedateattributes)
-    inclusivedateelement.text = xmltext(cldata.get("inclusiveDates", '').replace(' ',''))
+    inclusivedateelement.text = normalize_whitespace(cldata.get("inclusiveDates", '').replace(' ',''))
 
-    bulkdateattributes = {"type":"bulk", "era":"ce","calendar":"gregorian","normal":xmltext(cldata.get("bulkDates", '')).replace('-','/').replace(' ','')}
+    bulkdateattributes = {"type":"bulk", "era":"ce","calendar":"gregorian","normal":normalize_whitespace(cldata.get("bulkDates", '')).replace('-','/').replace(' ','')}
     bulkdateelement = etree.SubElement(coldidelement, "unitdate", bulkdateattributes)
-    bulkdateelement.text = "(bulk "+ xmltext(cldata.get("bulkDates", '').replace(' ','')) + ")"
+    bulkdateelement.text = "(bulk "+ normalize_whitespace(cldata.get("bulkDates", '').replace(' ','')) + ")"
 
     coloriginationelement = etree.SubElement(coldidelement, "origination", {"label":"creator"})
 
     colpersoncreatorelement = etree.SubElement(coloriginationelement, "persname", {"role":"creator"})
-    colpersoncreatorelement.text = xmltext(cldata.get("creatorPerson", '')).replace('|d','')
+    colpersoncreatorelement.text = normalize_whitespace(cldata.get("creatorPerson", '')).replace('|d','')
 
     colcorporatecreatorelement = etree.SubElement(coloriginationelement, "corpname", {"role":"creator"})
-    colcorporatecreatorelement.text = xmltext(cldata.get("creatorCorporate", ''))
+    colcorporatecreatorelement.text = normalize_whitespace(cldata.get("creatorCorporate", ''))
 
     colabstractelement = etree.SubElement(coldidelement, "abstract")
-    colabstractelement.text = xmltext(cldata.get("abstract", ''))
+    colabstractelement.text = normalize_whitespace(cldata.get("abstract", ''))
 
     #After the collection's did element.
     colbioghistelement = etree.SubElement(archdescelement, "bioghist")
@@ -381,7 +381,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     colarrangementelement = etree.SubElement(coldescgrpdescriptiveelement, "arrangement")
     arrangementnotepelement = etree.SubElement(colarrangementelement, "p")
-    arrangementnotepelement.text = xmltext(cldata.get("arrangementNote", ''))
+    arrangementnotepelement.text = normalize_whitespace(cldata.get("arrangementNote", ''))
     conlyserieslist = etree.SubElement(colarrangementelement, "list")
 
     #administrative descgrp
@@ -653,13 +653,13 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #    floatbarcode = float(row.get("barcode", ''))
 
         if row.get("barcode", '') != '':
-            barcodestring = ' [' + xmltext(row.get("barcode", '')).replace(".0", "") + ']'
+            barcodestring = ' [' + normalize_whitespace(row.get("barcode", '')).replace(".0", "") + ']'
 
         for i in 1,2,3:
             colname = "shelfLocator" + str(i)
             cell = row.get(colname, '')
             if cell:
-                shelflocatorattrs = {"type":' '.join(cell.split()).lower().replace(' ', '_'), "label": xmltext(cell.title()) + barcodestring}
+                shelflocatorattrs = {"type":' '.join(cell.split()).lower().replace(' ', '_'), "label": normalize_whitespace(cell.title()) + barcodestring}
                 shelflocatorelement = etree.SubElement(cdid, "container", shelflocatorattrs)
                 shelflocatorelement.text = ' '.join(str(row.get(colname + "ID", '')).split()).replace('.0','')
 
@@ -667,20 +667,20 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         #Test for a YYYY - YYYY and remove dates if so.
         match = re.search(u"(\d{4}\s-\s\d{4})", row.get("dateText", ''))
 
-        inclusivedatetext= xmltext(row.get("dateText", '')).replace('.0','') #' '.join(row.get("dateText", '').split()).replace('.0','')
+        inclusivedatetext= normalize_whitespace(row.get("dateText", '')).replace('.0','') #' '.join(row.get("dateText", '').split()).replace('.0','')
         if match:
             inclusivedatetext = inclusivedatetext.replace(' ','')
-        inclusivedatestart = xmltext(row.get("dateStart", '')).replace('.0','') #' '.join(row.get("dateStart", '').split()).replace('.0','')
-        inclusivedateend = xmltext(row.get("dateEnd", '')).replace('.0','') #' '.join(row.get("dateEnd", '').split()).replace('.0','')
+        inclusivedatestart = normalize_whitespace(row.get("dateStart", '')).replace('.0','') #' '.join(row.get("dateStart", '').split()).replace('.0','')
+        inclusivedateend = normalize_whitespace(row.get("dateEnd", '')).replace('.0','') #' '.join(row.get("dateEnd", '').split()).replace('.0','')
 
-        bulkdatestart = xmltext(row.get("dateBulkStart", '')).replace('.0','') # ' '.join(row.get("dateBulkStart", '').split()).replace('.0','')
-        bulkdateend = xmltext(row.get("dateBulkEnd", '')).replace('.0','') #' '.join(row.get("dateBulkEnd", '').split()).replace('.0','')
+        bulkdatestart = normalize_whitespace(row.get("dateBulkStart", '')).replace('.0','') # ' '.join(row.get("dateBulkStart", '').split()).replace('.0','')
+        bulkdateend = normalize_whitespace(row.get("dateBulkEnd", '')).replace('.0','') #' '.join(row.get("dateBulkEnd", '').split()).replace('.0','')
 
         unitdateinclusiveattributes = {"type":"inclusive"}
         if inclusivedatestart != '' and inclusivedateend != '':
             unitdateinclusiveattributes["normal"] = inclusivedatestart +"/"+inclusivedateend
         if row.get("dateQualifier", '') != "":
-            unitdateinclusiveattributes["certainty"] = xmltext(row.get("dateQualifier", ''))
+            unitdateinclusiveattributes["certainty"] = normalize_whitespace(row.get("dateQualifier", ''))
         unitdatebulkattributes = {"type":"bulk","normal":(bulkdatestart +"/"+bulkdateend)}
 
         inclusivedateelement = etree.SubElement(cdid, "unitdate", unitdateinclusiveattributes)
@@ -704,7 +704,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         extentQuantityelement = etree.SubElement(extentquantityphysdescelement, "extent", {"altrender":"materialtype spaceoccupied"})
         extentQuantityelement.text = ' '.join(row.get("extentQuantity", '').split())
         containerSummaryelement = etree.SubElement(extentquantityphysdescelement, "extent",{"altrender":"carrier"})
-        containerSummaryelement.text = xmltext(row.get("containerSummary",''))
+        containerSummaryelement.text = normalize_whitespace(row.get("containerSummary",''))
 
         extentsizephysdescelement = etree.SubElement(cdid, "physdesc")
         extentSizeelement = etree.SubElement(extentsizephysdescelement, "dimensions")
@@ -741,17 +741,17 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         for language in row.get("language", '').split(langmaterialelementsplitchar):
             if language == "":
                 continue
-            if len(xmltext(language)) < 4:
+            if len(normalize_whitespace(language)) < 4:
                 language = langcodeopp.get(language, '')
-            if xmltext(language) in langcode:
-                langusagelangelement = etree.SubElement(langmaterialelement, "language", {"langcode":langcode[xmltext(language)], "scriptcode":scriptcode[xmltext(language)]})
-                langusagelangelement.text =  xmltext(language)
+            if normalize_whitespace(language) in langcode:
+                langusagelangelement = etree.SubElement(langmaterialelement, "language", {"langcode":langcode[normalize_whitespace(language)], "scriptcode":scriptcode[normalize_whitespace(language)]})
+                langusagelangelement.text =  normalize_whitespace(language)
 
                 if scriptcode == "N/A":
                     langissue = True
             else:
                 langusagelangelement = etree.SubElement(langmaterialelement, "language", {"langcode":"***", "scriptcode":"***"})
-                langusagelangelement.text =  xmltext(language)
+                langusagelangelement.text =  normalize_whitespace(language)
 
                 langissue = True
 
@@ -859,76 +859,76 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             make_dao_element(ctelement,cunittitle, "BDR_PID", 'bdr:'+ ' '.join(row.get("identifierBDR", '').split()).lstrip('bdr').replace(':',''))
 
         if row.get("identifierNormalized", ''):
-            make_dao_element(ctelement,cunittitle,"NORMALIZEDFILE_ID", xmltext(row.get("identifierNormalized", '')).lstrip('bdr'))
+            make_dao_element(ctelement,cunittitle,"NORMALIZEDFILE_ID", normalize_whitespace(row.get("identifierNormalized", '')).lstrip('bdr'))
 
         if row.get("identifierWebArchive", ''):
-            make_dao_element(ctelement,cunittitle,"WEBARCHIVEURL",xmltext(row.get("identifierWebArchive", '')).lstrip('bdr'))
+            make_dao_element(ctelement,cunittitle,"WEBARCHIVEURL",normalize_whitespace(row.get("identifierWebArchive", '')).lstrip('bdr'))
 
         if row.get("identifierFileName", ''):
-            make_dao_element(ctelement,cunittitle,"BDR_PID",xmltext(row.get("identifierFileName", '')))
+            make_dao_element(ctelement,cunittitle,"BDR_PID",normalize_whitespace(row.get("identifierFileName", '')))
 
         rowindex = rowindex + 1
 
     #Create the collection-level data.
-    eadidattributes = {"countrycode":"US", "mainagencycode":"US-" + xmltext(cldata.get("MARCRepositoryCode", '')), "identifier":xmltext(cldata.get("callNumber", '')).lower()+'.xml'}
+    eadidattributes = {"countrycode":"US", "mainagencycode":"US-" + normalize_whitespace(cldata.get("MARCRepositoryCode", '')), "identifier":normalize_whitespace(cldata.get("callNumber", '')).lower()+'.xml'}
     eadidelement = etree.SubElement(eadheaderelement, "eadid", eadidattributes)
-    eadidelement.text = "US-"+xmltext(cldata.get("MARCRepositoryCode", ''))+"-"+xmltext(cldata.get("callNumber", '')).lower()
+    eadidelement.text = "US-"+normalize_whitespace(cldata.get("MARCRepositoryCode", ''))+"-"+normalize_whitespace(cldata.get("callNumber", '')).lower()
 
     filedescelement = etree.SubElement(eadheaderelement, "filedesc")
 
     #titlestmt
     titlestmtelement = etree.SubElement(filedescelement, "titlestmt")
     titleproperelement = etree.SubElement(titlestmtelement, "titleproper")
-    titleproperelement.text = "Guide to the " + xmltext(cldata.get("title", ''))
+    titleproperelement.text = "Guide to the " + normalize_whitespace(cldata.get("title", ''))
 
-    inclusivedateattributes = {"type":"inclusive", "era":"ce","calendar":"gregorian","normal":xmltext(cldata.get("inclusiveDates", '')).replace('-','/').replace(' ','')}
+    inclusivedateattributes = {"type":"inclusive", "era":"ce","calendar":"gregorian","normal":normalize_whitespace(cldata.get("inclusiveDates", '')).replace('-','/').replace(' ','')}
     inclusivedateelement = etree.SubElement(titleproperelement, "date", inclusivedateattributes)
-    inclusivedateelement.text = xmltext(cldata.get("inclusiveDates", '').replace(' ',''))
+    inclusivedateelement.text = normalize_whitespace(cldata.get("inclusiveDates", '').replace(' ',''))
 
-    bulkdateattributes = {"type":"bulk", "era":"ce","calendar":"gregorian","normal":xmltext(cldata.get("bulkDates", '')).replace('-','/').replace(' ','')}
+    bulkdateattributes = {"type":"bulk", "era":"ce","calendar":"gregorian","normal":normalize_whitespace(cldata.get("bulkDates", '')).replace('-','/').replace(' ','')}
     bulkdateelement = etree.SubElement(titleproperelement, "date", bulkdateattributes)
-    bulkdateelement.text = "(bulk "+ xmltext(cldata.get("bulkDates", '')).replace(' ','') + ")"
+    bulkdateelement.text = "(bulk "+ normalize_whitespace(cldata.get("bulkDates", '')).replace(' ','') + ")"
 
-    authorelement = etree.SubElement(titlestmtelement, "author").text = "Finding aid prepared by " + xmltext(cldata.get("author", ''))
+    authorelement = etree.SubElement(titlestmtelement, "author").text = "Finding aid prepared by " + normalize_whitespace(cldata.get("author", ''))
 
-    sponsorelement = etree.SubElement(titlestmtelement, "sponsor").text = xmltext(cldata.get("sponsor", ''))
+    sponsorelement = etree.SubElement(titlestmtelement, "sponsor").text = normalize_whitespace(cldata.get("sponsor", ''))
 
     #publicationstmt
     publicationstmtelement = etree.SubElement(filedescelement, "publicationstmt")
 
     publisherelement = etree.SubElement(publicationstmtelement, "publisher")
-    publisherelement.text = xmltext(cldata.get("publisher", ''))
+    publisherelement.text = normalize_whitespace(cldata.get("publisher", ''))
 
     pubaddresselement = etree.SubElement(publicationstmtelement, "address")
 
     pubaddresslines = cldata.get("address", '').splitlines()
     for line in pubaddresslines:
         addresselement = etree.SubElement(pubaddresselement, "addressline")
-        addresselement.text = xmltext(line)
+        addresselement.text = normalize_whitespace(line)
 
-    creationdateelement = etree.SubElement(publicationstmtelement, "date", {"era":"ce","calendar":"gregorian", "normal":xmltext(cldata.get("creationDate", ''))[:4], "type":"publication"})
-    creationdateelement.text = xmltext(cldata.get("creationDate", '').replace('.0',''))
+    creationdateelement = etree.SubElement(publicationstmtelement, "date", {"era":"ce","calendar":"gregorian", "normal":normalize_whitespace(cldata.get("creationDate", ''))[:4], "type":"publication"})
+    creationdateelement.text = normalize_whitespace(cldata.get("creationDate", '').replace('.0',''))
 
     #profiledesc
     profiledescelement = etree.SubElement(eadheaderelement, "profiledesc")
 
     creationelement = etree.SubElement(profiledescelement, "creation")
     creationelement.text = "This finding aid was produced using the RIAMCO EAD spreadsheet, "
-    creationdatecreationelement = etree.SubElement(creationelement, "date", {"era":"ce","calendar":"gregorian", "normal":xmltext(cldata.get("creationDate", ''))[:4], "type":"publication"})
-    creationdatecreationelement.text = xmltext(cldata.get("creationDate", '').replace('.0',''))
+    creationdatecreationelement = etree.SubElement(creationelement, "date", {"era":"ce","calendar":"gregorian", "normal":normalize_whitespace(cldata.get("creationDate", ''))[:4], "type":"publication"})
+    creationdatecreationelement.text = normalize_whitespace(cldata.get("creationDate", '').replace('.0',''))
 
     #langusage
     langusageelement = etree.SubElement(profiledescelement, "langusage")
 
-    if xmltext(cldata.get("findingAidLanguage", '')) in langcode:
-        langusagelangelement = etree.SubElement(langusageelement, "language", {"langcode":langcode[xmltext(cldata.get("findingAidLanguage", ''))], "scriptcode":scriptcode[xmltext(cldata.get("findingAidLanguage", ''))]})
-        langusagelangelement.text = xmltext(cldata.get("findingAidLanguage", ''))
+    if normalize_whitespace(cldata.get("findingAidLanguage", '')) in langcode:
+        langusagelangelement = etree.SubElement(langusageelement, "language", {"langcode":langcode[normalize_whitespace(cldata.get("findingAidLanguage", ''))], "scriptcode":scriptcode[normalize_whitespace(cldata.get("findingAidLanguage", ''))]})
+        langusagelangelement.text = normalize_whitespace(cldata.get("findingAidLanguage", ''))
 
         if scriptcode == "N/A":
             langissue = True
     else:
         langusagelangelement = etree.SubElement(langusageelement, "language", {"langcode":"***", "scriptcode":"***"})
-        langusagelangelement.text = xmltext(cldata.get("findingAidLanguage", ''))
+        langusagelangelement.text = normalize_whitespace(cldata.get("findingAidLanguage", ''))
 
         langissue = True
 
