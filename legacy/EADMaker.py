@@ -257,16 +257,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
     csvdata = XLSDictReader(chosenfile, chosensheet)
 
-    if "Collection-Level Data" not in sheetnames:
-        copyworkbook(HOMEDIR + "Collection-Level Data.xlsx", chosenfile)
-        excel = xlrd.open_workbook(chosenfile)
-
-        print("*Collection-Level Data Missing*\n", file=sys.stderr)
-        print("Collection-level data is missing from your spreadsheet. A sheet titled Collection-Level Data has been automatically added. Enter data in this sheet to add collection-level data to your EAD file.\n", file=sys.stderr)
-
-
-        print('\n\n', file=sys.stderr)
-
     cldata = XLSDictReaderVertical(chosenfile, "Collection-Level Data")
     chosenfile = chosensheet
 
