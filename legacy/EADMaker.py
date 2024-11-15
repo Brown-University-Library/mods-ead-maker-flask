@@ -218,6 +218,29 @@ def validate_excel(chosenfile, chosensheet):
     if "Collection-Level Data" not in sheetnames:
         copyworkbook(HOMEDIR + "Collection-Level Data.xlsx", chosenfile)
         excel = xlrd.open_workbook(chosenfile)
+
+        print("*Collection-Level Data Missing*\n", file=sys.stderr)
+        print("Collection-level data is missing from your spreadsheet. A sheet titled Collection-Level Data has been automatically added. Enter data in this sheet to add collection-level data to your EAD file.\n", file=sys.stderr)
+
+
+        print('\n\n', file=sys.stderr)
+    selectedsheet = excel.sheet_by_name(chosensheet)
+    columnsinsheet = [str(cell.value) for cell in selectedsheet.row(0)]
+
+    # Check for missing cols.
+    missingcols = [ col for col in requiredcolumns if col not in columnsinsheet]
+    if missingcols:
+        print(
+            "*Missing Required Columns Detected*\n",
+            "The required columns below are missing from your spreadsheet. The script will continue without them.\n\n",
+            file=sys.stderr
+        )
+
+        for column in missingcols:
+            print(f"   {column}\n", file=sys.stderr)
+
+        print('\n\n', file=sys.stderr)
+
 def processExceltoEAD(chosenfile, chosensheet, id):
     #Create a cache directory for the current EAD file.
     if not os.path.exists(CACHEDIR + id):
@@ -230,24 +253,7 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     cldata = {}
     langissue = False
 
-    excel = xlrd.open_workbook(chosenfile)
-    sheetnames = excel.sheet_names()
-    selectedsheet = excel.sheet_by_name(chosensheet)
-    columnsinsheet = [str(cell.value) for cell in selectedsheet.row(0)]
-
-    # Check for missing columns.
-    missingcolumns = [ col for col in requiredcolumns if col not in columnsinsheet]
-    if missingcolumns:
-        print(
-            "*Missing Required Columns Detected*\n",
-            "The required columns below are missing from your spreadsheet. The script will continue without them.\n\n",
-            file=sys.stderr
-        )
-
-        for column in missingcolumns:
-            print(f"   {column}\n", file=sys.stderr)
-
-        print('\n\n', file=sys.stderr)
+    validate_excel(chosenfile, chosensheet)
 
     csvdata = XLSDictReader(chosenfile, chosensheet)
 
