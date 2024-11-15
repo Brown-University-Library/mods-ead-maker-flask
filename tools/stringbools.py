@@ -15,14 +15,3 @@ def hasYear(s):
         return True
     else:
         return False
-
-def isAllLower(s):
-    nonlowercase = 0
-    for i in s.replace(' ', ''):
-        if not i.islower():
-            nonlowercase = nonlowercase + 1
-            break
-    if nonlowercase > 0:
-        return False
-    else:
-        return True

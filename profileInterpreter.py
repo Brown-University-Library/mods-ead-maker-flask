@@ -4,6 +4,7 @@ from lxml import objectify
 import yaml
 import re
 import os
+from tools.stringbools import hasLetters, hasYear
 
 def convertArrayToDictWithMatchingKeyValues(array):
     dictionary = {}
@@ -37,22 +38,6 @@ def removeItemsWithPeriodFromList(array):
         returnArray.append(item)
 
     return returnArray
-
-def hasNumbers(s):
-    return any(i.isdigit() for i in s)
-
-def hasYear(s):
-    numbercount = 0
-    for i in s:
-        if i.isdigit():
-            numbercount = numbercount + 1
-    if numbercount > 3:
-        return True
-    else:
-        return False
-
-def hasLetters(s):
-    return re.search('[a-zA-Z]', s) is not None
 
 def getTermsOfAddressPrependAndAppendStripped(name):
     appendTermOfAddress = ""

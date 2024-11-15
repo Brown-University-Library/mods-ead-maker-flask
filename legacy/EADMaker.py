@@ -5,7 +5,7 @@ import re
 import xlrd
 from copy import copy
 import sys
-from stringbools import hasLetters, hasNumbers, hasYear, isAllLower
+from tools.stringbools import hasLetters, hasYear
 
 xlrd.xlsx.ensure_elementtree_imported(False, None)
 xlrd.xlsx.Element_has_iter = True
