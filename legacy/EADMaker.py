@@ -359,42 +359,14 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         copyworkbook(HOMEDIR + "Collection-Level Data.xlsx", chosenfile)
         excel = xlrd.open_workbook(chosenfile)
 
-        #if originalfile != '':
-        #    copyworkbook(os.path.dirname(os.path.abspath(__file__)) + "/data/Collection-Level Data.xlsx", originalfile)
-
-        #print("")
         print("*Collection-Level Data Missing*\n", file=sys.stderr)
         print("Collection-level data is missing from your spreadsheet. A sheet titled Collection-Level Data has been automatically added. Enter data in this sheet to add collection-level data to your EAD file.\n", file=sys.stderr)
 
 
         print('\n\n', file=sys.stderr)
 
-
-        #try:
-        #    raw_input("Press Enter to continue . . . ")
-        #except SyntaxError:
-        #    raw_input = 0
-        #except TypeError:
-        #    raw_input = 0
-
     cldata = XLSDictReaderVertical(chosenfile, "Collection-Level Data")
     chosenfile = chosensheet
-
-    #Create the output directory and save the path to the output_path variable.
-    now = datetime.datetime.now()
-
-    #try:
-   #      os.mkdir(output_path + '/'+ chosenfile + " " + now.strftime("%m-%d-%Y %H %M " + str(now.second)))
-   # except OSError:
-   #      print ("")
-   # else:
-#    print ("")
-   #    output_path = output_path + '/'+ chosenfile + " " + now.strftime("%m-%d-%Y %H %M " + str(now.second))
-
-    #Create the error CSV.
-    #errorfile = open(output_path + '/Error Report ' + now.strftime("%m-%d-%Y %H %M " + str(now.second)) + '.csv', mode='wb')
-    #errorcsvwriter = csv.writer(errorfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    #errorcsvwriter.writerow(['Spreadsheet Row', 'BDR Number', 'Column Name', 'Column Contents', 'Potential Issue'])
 
     #Set up namespaces and attributes for XML.
     attr_qname = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
@@ -657,7 +629,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
         print("Only series rows is True.", file=sys.stderr)
 
     for row in csvdata:
-        #eadtop = etree.Element("{http://www.loc.gov/mods/v3}mods", {attr_qname: "http://www.loc.gov/mods/v3 http://www.loc.gov/mods/v3/mods-3-7.xsd"}, nsmap=ns_map)
 
         if row.get('Ignore', '') != '':
             continue
@@ -680,9 +651,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             seriesIDelement = etree.SubElement(cdid, "unitid", {"type":"recordgrp"})
             cseriesID = "Record Group " + ' '.join(str(row.get("recordgroupID", '')).split()).replace('.0','')
             seriesIDelement.text = cseriesID
-
-            #MODS: subtitle = etree.SubElement(titleinfo, "subTitle")
-            #MODS: subtitle.text = ' '.join(row.get("subTitle", '').split())
 
             #Add the series to the Arrangement Note.
             arrangementnotepaddition = etree.SubElement(colarrangementelement, "p")
@@ -711,9 +679,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             cseriesID = "Subgroup " + ' '.join(str(row.get("subgroupID", '')).split()).replace('.0','')
             seriesIDelement.text = cseriesID
 
-            #MODS: subtitle = etree.SubElement(titleinfo, "subTitle")
-            #MODS: subtitle.text = ' '.join(row.get("subTitle", '').split())
-
             #Add the series to the Arrangement Note.
             arrangementnotepaddition = etree.SubElement(colarrangementelement, "p")
             arrangementnotepaddition.text = cseriesID + ". " + titleelement.text
@@ -740,14 +705,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             cseriesID = "Series " + ' '.join(str(row.get("seriesID", '')).split()).replace('.0','')
             seriesIDelement.text = cseriesID
 
-            #MODS: subtitle = etree.SubElement(titleinfo, "subTitle")
-            #MODS: subtitle.text = ' '.join(row.get("subTitle", '').split())
-
-            #Add the series to the Arrangement Note.
-            #arrangementnotepaddition = etree.SubElement(colarrangementelement, "p")
-            #arrangementnotepaddition.text = cseriesID + ". " + titleelement.text
-            #csubserieslist = etree.SubElement(colarrangementelement, "list")
-
             seriesarrangementelement = etree.SubElement(cserieslist, "item")
             seriesarrangementelement.text = cseriesID + ". " + titleelement.text
 
@@ -770,12 +727,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             subseriesIDelement = etree.SubElement(cdid, "unitid", {"type":"subseries"})
             subseriesIDelement.text = cseriesID + ". Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','')
 
-            #MODS: subtitle = etree.SubElement(titleinfo, "subTitle")
-            #MODS: subtitle.text = ' '.join(row.get("subTitle", '').split())
-
-            #arrangementnotepaddition = etree.SubElement(csubserieslist, "item")
-            #arrangementnotepaddition.text =  "Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','') + ". " + titleelement.text
-
             subseriesarrangementelement = etree.SubElement(csubserieslist, "item")
             subseriesarrangementelement.text = "Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','') + ". " + titleelement.text
         #Create a top level file element if the title cell is not blank.
@@ -790,15 +741,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             titleelement = etree.SubElement(cdid, "unittitle")
             titleelement.text = ' '.join(row.get("fileTitle", '').split())
             cunittitle = titleelement
-
-            #subseriesIDelement = etree.SubElement(cdid, "unitid", {"type":"subseries"})
-            #subseriesIDelement.text = cseriesID + ". Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','')
-
-            #MODS: subtitle = etree.SubElement(titleinfo, "subTitle")
-            #MODS: subtitle.text = ' '.join(row.get("subTitle", '').split())
-
-            #arrangementnotepaddition = etree.SubElement(csubserieslist, "item")
-            #arrangementnotepaddition.text =  "Subseries " + ' '.join(str(row.get("subSeriesID", '')).split()).replace('.0','') + ". " + titleelement.text
 
         #Create a top level item element if the title cell is not blank.
         elif row.get("itemTitle", '') != "":
@@ -929,11 +871,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         originationelement = etree.SubElement(cdid, "origination")
 
-        #typeOfResource
-        #Needs attention: Instance Type/typeOfResource.
-        #typeofresource = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}typeOfResource")
-        #typeofresource.text = ' '.join(row.get("typeOfResource", '').split())
-
         #note
         notescopeelement = etree.SubElement(ctelement, "scopecontent")
         scopelines = row.get("noteScope", '').splitlines()
@@ -988,40 +925,9 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             pelement = etree.SubElement(notealtformelement, "p")
             pelement.text = ' '.join(line.split())
 
-        #noteAccessionelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}note", {"type":"acquisition", "displayLabel":"Immediate form of acquisition"})
-        #noteAccessionelement.text = ' '.join(row.get("noteAccession", '').split())
-
-        #noteHistoricalClassYearelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}note", {"type":"biographical/historical", "displayLabel":"Class year"})
-        #noteHistoricalClassYearelement.text = ' '.join(row.get("noteHistoricalClassYear", '').split())
-
-        #notePreferredCitation = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}note", {"type":"preferredCitation"})
-        #notePreferredCitationstring = ' '.join(row.get("title", '').split()).rstrip('.')
-        #if row.get("collection", '') != "":
-        #    notePreferredCitationstring = notePreferredCitationstring + ", " + ' '.join(row.get("collection", '').split())
-        #if row.get("callNumber", '') != "":
-        #    notePreferredCitationstring = notePreferredCitationstring + ", " + ' '.join(row.get("callNumber", '').split())
-        #notePreferredCitation.text = notePreferredCitationstring + ', Brown University Library'
-
-        #originInfo
-
-        #MODS: publisherelement = etree.SubElement(originInfoelement, "{http://www.loc.gov/mods/v3}publisher")
-        #MODS: publisherelement.text = ' '.join(row.get("publisher", '').split())
-
-        #dateQualifierAttribute = {}
-
-        #if row.get("dateQualifier", '') != "":
-        #    dateQualifierAttribute = {"qualifier": row.get("dateQualifier", '')}
-
-
         #geogname
         geognameelement = etree.SubElement(cunittitle, "geogname")
         geognameelement.text = ' '.join(row.get("place", '').split())
-
-        #rightsStatementelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"rightsStatement","{http://www.w3.org/1999/xlink}href":row.get("rightsStatementURI", '')})
-        #rightsStatementelement.text = ' '.join(row.get("rightsStatementText", '').split())
-
-        #restrictionOnAccesselement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}accessCondition", {"type":"restrictionOnAccess"})
-        #restrictionOnAccesselement.text = "Collection is open for research."
 
         #subject
         subjectRows = {
@@ -1040,16 +946,9 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             'subjectGeoLC': {'type': 'geogname', 'source': 'lcsh'},
             'subjectGeoFAST': {'type': 'geogname', 'source': 'fast'},
 
-        #for index, temporal in enumerate(row.get("subjectTemporalLC", '').split('|')):
-        #    subjectelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}subject", {"authority":"local"})
-        #    if temporal == "":
-        #        continue
-        #    temporalelement = etree.SubElement(subjectelement, "{http://www.loc.gov/mods/v3}temporal")
-        #    temporalelement.text = ' '.join(temporal.split())
             'subjectTemporalLC': {'type': 'subject', 'source': 'lcsh'},
             'subjectTemporalFAST': {'type': 'subject', 'source': 'fast'},
 
-        ###
             'subjectTitleLC': {'type': 'title', 'source': 'lcsh'},
             'subjectTitleFAST': {'type': 'title', 'source': 'fast'}
         }
@@ -1065,23 +964,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
                 eadattributes = {"source": source}
             )
 
-        #hostphysicalLocationelement = etree.SubElement(hostlocationelement, "{http://www.loc.gov/mods/v3}physicalLocation")
-        #hostphysicalLocationelement.text = ' '.join(row.get("repository", '').split())
-
-        #hosturlelement = etree.SubElement(hostlocationelement, "{http://www.loc.gov/mods/v3}url")
-        #hosturlelement.text = ' '.join(row.get("findingAid", '').split())
-
-        #hostholdingSimpleelement = etree.SubElement(hostlocationelement, "{http://www.loc.gov/mods/v3}holdingSimple")
-        #hostcopyInformationelement = etree.SubElement(hostholdingSimpleelement, "{http://www.loc.gov/mods/v3}copyInformation")
-        #hostshelfLocatorelement = etree.SubElement(hostcopyInformationelement, "{http://www.loc.gov/mods/v3}shelfLocator")
-
-
-      #  if row.get("shelfLocator2", '') != "":
-     #       shelfLocatorstring = shelfLocatorstring + ', ' + ' '.join(row.get("shelfLocator2", '').split()) + ' ' + ' '.join(str(row.get("shelfLocator2ID", '')).split()).replace('.0','')
-      #  if row.get("shelfLocator3", '') != "":
-      #      shelfLocatorstring = shelfLocatorstring + ', ' + ' '.join(row.get("shelfLocator3", '').split()) + ' ' + ' '.join(str(row.get("shelfLocator3ID", '')).split()).replace('.0','')
-
-     #   hostshelfLocatorelement.text = ' '.join(shelfLocatorstring.split())
 
         #dao fields
         if row.get("identifierBDR", ''):
@@ -1096,10 +978,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         if row.get("identifierFileName", ''):
             make_dao_element(ctelement,cunittitle,"BDR_PID",xmltext(row.get("identifierFileName", '')))
-
-        #MODS: lastnote
-        #digitalObjectMadeelement = etree.SubElement(eadtop, "{http://www.loc.gov/mods/v3}note", {"displayLabel":"Digital object made available by"})
-        #digitalObjectMadeelement.text = "Brown University Library, John Hay Library, University Archives and Manuscripts, Box A, Brown University, Providence, RI, 02912, U.S.A., (http://library.brown.edu/)"
 
         rowindex = rowindex + 1
 
@@ -1208,12 +1086,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     # remove nodes with attribute "null"
     for element in clean.xpath(".//*[@*='null']"):
         element.getparent().remove(element)
-
-    # finished cleanup
-    # write out to intermediate file
-    #with open(os.path.dirname(os.path.abspath(__file__)) + '/cache/clean.xml', 'wb') as f:
-    #    f.write(etree.tostring(clean))
-    #print "XML is now clean"
 
     completestring = etree.tostring(clean, pretty_print = True, encoding="unicode")
     completestring = completestring.replace('&lt;','<')
