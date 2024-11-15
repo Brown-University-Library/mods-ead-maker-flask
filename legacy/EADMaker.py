@@ -61,11 +61,8 @@ def repeatingNameField(parentElement, elementName, rowString, assignedRole, sour
         attributes = {}
 
         #Extract URI
-
         uri = re.findall("(?P<url>https?://[^\s]+)", name)
-
-        #If there's a URI
-        if len(uri) > 0:
+        if uri:
             #Remove it from the addedentry
             name = name.replace(uri[0],"")
             #Add it as a valueURI attribute
@@ -78,7 +75,7 @@ def repeatingNameField(parentElement, elementName, rowString, assignedRole, sour
                 currentname = currentname + namefieldrevised + ", "
             elif hasYear(namefieldrevised):
                 currentname = currentname + namefieldrevised
-            elif isAllLower(namefieldrevised):
+            elif namefieldrevised.islower():
                 currentrole = namefieldrevised
             elif hasLetters(namefieldrevised) is not None:
                 currentname = currentname + namefieldrevised + ", "
@@ -213,7 +210,7 @@ def make_dao_element(ctelement, cunittitle, role, href):
     daomodspelement.text = cunittitle.text
 
 def processExceltoEAD(chosenfile, chosensheet, id):
-
+    #Create a cache directory for the current EAD file.
     if not os.path.exists(CACHEDIR + id):
             os.mkdir(CACHEDIR + id)
 
@@ -229,17 +226,19 @@ def processExceltoEAD(chosenfile, chosensheet, id):
     selectedsheet = excel.sheet_by_name(chosensheet)
     columnsinsheet = [str(cell.value) for cell in selectedsheet.row(0)]
 
+    # Check for missing columns.
     missingcolumns = [ col for col in requiredcolumns if col not in columnsinsheet]
-
-    if len(missingcolumns) != 0:
-        print("*Missing Columns Detected*" + '\n', file=sys.stderr)
-        print("The columns below are missing from your spreadsheet. The script will continue without them." + '\n\n', file=sys.stderr)
+    if missingcolumns:
+        print(
+            "*Missing Required Columns Detected*\n",
+            "The required columns below are missing from your spreadsheet. The script will continue without them.\n\n",
+            file=sys.stderr
+        )
 
         for column in missingcolumns:
-            print("   " + column + '\n', file=sys.stderr)
+            print(f"   {column}\n", file=sys.stderr)
 
-    print('\n\n', file=sys.stderr)
-
+        print('\n\n', file=sys.stderr)
 
     csvdata = XLSDictReader(chosenfile, chosensheet)
 
