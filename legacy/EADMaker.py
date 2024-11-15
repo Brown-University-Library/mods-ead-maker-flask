@@ -11,11 +11,89 @@ from stringbools import hasLetters, hasNumbers, hasYear, isAllLower
 xlrd.xlsx.ensure_elementtree_imported(False, None)
 xlrd.xlsx.Element_has_iter = True
 
-requiredcolumns = ["barcode","subgroupTitle", "subgroupID", "recordgroupTitle", "recordgroupID", "locationCopies", "subjectTopicsFAST","Ignore", "seriesTitle", "seriesID", "subSeriesTitle", "subSeriesID", "fileTitle", "itemTitle", "subTitle", "place","dateText","dateStart","dateEnd","dateBulkStart","dateBulkEnd","dateQualifier", "shelfLocator1", "shelfLocator1ID", "shelfLocator2", "shelfLocator2ID", "shelfLocator3","shelfLocator3ID","typeOfResource","genreAAT","genreLCSH","genreLocal","genreRBGENR","extentQuantity","extentSize","extentSpeed","form","noteScope","noteHistorical","noteHistoricalClassYear","noteGeneral","language","noteAccession","identifierBDR","publisher","namePersonCreatorLC","namePersonCreatorLocal","nameCorpCreatorLC","nameCorpCreatorLocal","namePersonOtherLC","namePersonOtherLocal","subjectNamesLC","subjectNamesLocal","subjectCorpLC","subjectCorpLocal","subjectTopicsLC","subjectTopicsLocal","subjectGeoLC","subjectTemporalLC","subjectTitleLC","collection","dateTextParent","callNumber","repository","findingAid","digitalOrigin","rightsStatementText","rightsStatementURI", "useAndReproduction", "coordinates", "scale", "projection", "containerSummary"]
+requiredcolumns = [
+    "barcode",
+    "subgroupTitle",
+    "subgroupID",
+    "recordgroupTitle",
+    "recordgroupID",
+    "locationCopies",
+    "subjectTopicsFAST",
+    "Ignore",
+    "seriesTitle",
+    "seriesID",
+    "subSeriesTitle",
+    "subSeriesID",
+    "fileTitle",
+    "itemTitle",
+    "subTitle",
+    "place",
+    "dateText",
+    "dateStart",
+    "dateEnd",
+    "dateBulkStart",
+    "dateBulkEnd",
+    "dateQualifier",
+    "shelfLocator1",
+    "shelfLocator1ID",
+    "shelfLocator2",
+    "shelfLocator2ID",
+    "shelfLocator3",
+    "shelfLocator3ID",
+    "typeOfResource",
+    "genreAAT",
+    "genreLCSH",
+    "genreLocal",
+    "genreRBGENR",
+    "extentQuantity",
+    "extentSize",
+    "extentSpeed",
+    "form",
+    "noteScope",
+    "noteHistorical",
+    "noteHistoricalClassYear",
+    "noteGeneral",
+    "language",
+    "noteAccession",
+    "identifierBDR",
+    "publisher",
+    "namePersonCreatorLC",
+    "namePersonCreatorLocal",
+    "nameCorpCreatorLC",
+    "nameCorpCreatorLocal",
+    "namePersonOtherLC",
+    "namePersonOtherLocal",
+    "subjectNamesLC",
+    "subjectNamesLocal",
+    "subjectCorpLC",
+    "subjectCorpLocal",
+    "subjectTopicsLC",
+    "subjectTopicsLocal",
+    "subjectGeoLC",
+    "subjectTemporalLC",
+    "subjectTitleLC",
+    "collection",
+    "dateTextParent",
+    "callNumber",
+    "repository",
+    "findingAid",
+    "digitalOrigin",
+    "rightsStatementText",
+    "rightsStatementURI",
+    "useAndReproduction",
+    "coordinates",
+    "scale",
+    "projection",
+    "containerSummary"
+]
 langcode = {}
 langcodeopp = {}
 scriptcode = {}
 langissue = False
+CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
+#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 def getSplitCharacter(input_str):
     if ";" in input_str:
@@ -244,11 +322,6 @@ def getSheetNames(chosenfile):
     sheetnames = excel.sheet_names()
     return(sheetnames)
 
-CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
-#CACHEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-#HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-
 print("._. EAD Maker ._.", file=sys.stderr)
 
 def make_dao_element(ctelement, cunittitle, role, href):
@@ -298,7 +371,6 @@ def processExceltoEAD(chosenfile, chosensheet, id):
 
         for column in missingcolumns:
             print("   " + column + '\n', file=sys.stderr)
-
 
     print('\n\n', file=sys.stderr)
 
