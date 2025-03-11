@@ -72,13 +72,14 @@ def getTermsOfAddressPrependAndAppendStripped(name):
     return prependTermOfAddress, appendTermOfAddress
 
 def getAdditionalValues(name):
-    additionalValuesResults = re.findall("\[(.*)\]", name)
+    additionalValuesResults = re.findall("\[(.*: .*)\]", name)
     additionalValues = {}
 
     if len(additionalValuesResults) > 0:
         for result in additionalValuesResults:
             additionalValue = yaml.safe_load(result)
-
+            if type(additionalValue) is not dict:
+                continue
             for key, value in additionalValue.items():
                 additionalValues["entry." + key] = value
 
@@ -160,7 +161,6 @@ def getMetadataFromEntry(entry, method):
     value = normalizeString(entry)
 
     additionalValues, additionalValuesResults = getAdditionalValues(entry)
-    additionalValuesResults = re.findall("(\[.*\])", entry)
     for additionalValuesResult in additionalValuesResults:
         entry = entry.replace(additionalValuesResult, "")
 
