@@ -73,7 +73,7 @@ def getValueUri(name):
     uris = re.findall("(?P<url>https?://[^\s]+)", name)
 
     #If there's a URI
-    if len(uris) > 0:
+    if uris:
         return normalizeString(uris[0])
     else:
         return ""
