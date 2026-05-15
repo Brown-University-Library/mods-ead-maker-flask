@@ -5,6 +5,8 @@ Flask app for generating MODS and EAD XML files from spreadsheet metadata.
 ## Contents
 
 - [Overview](#overview)
+- [How the MODS Maker works: brief overview](#how-the-mods-maker-works-brief-overview)
+- [How the MODS Maker works: more info](#how-the-mods-maker-works-more-info)
 - [Requirements](#requirements)
 - [Local installation](#local-installation)
 - [Local usage](#local-usage)
@@ -24,6 +26,116 @@ The app provides browser-based tools for:
 - Filling out profile-based forms that generate MODS XML.
 
 The main Flask entry point is `flask_app.py`. Core spreadsheet, XML, ZIP, preview, and filename helpers live in `fileSupport.py`. YAML profile interpretation and MODS XML generation live in `profileInterpreter.py`. Legacy EAD/MODS code lives under `legacy/`.
+
+
+## How the MODS Maker works: brief overview
+
+The MODS Maker turns spreadsheet rows into MODS XML files. Users choose a profile-specific route, upload an `.xlsx` file, select a sheet, preview the generated XML, and download a ZIP of `.mods.xml` files.
+
+The important idea is that the spreadsheet does not directly define the XML structure. The YAML profile does. Each profile in `profiles/` describes which spreadsheet columns to read and how those values should become MODS elements, attributes, filenames, repeated fields, names, subjects, rights statements, and other metadata.
+
+
+## How the MODS Maker works: more info
+
+The MODS Maker is a spreadsheet-to-MODS-XML generator where the YAML profile defines the mapping rules.
+
+At a high level:
+
+1. User opens a profile-specific route, for example:
+
+```text
+/modsmaker/modsprofile
+/modsmaker/musictheses
+/modsmaker/jnbcsyllabi
+```
+
+2. `flask_app.py` loads the matching YAML file:
+
+```text
+profiles/modsprofile.yaml
+profiles/musictheses.yaml
+profiles/jnbcsyllabi.yaml
+```
+
+The route name maps directly to the YAML filename.
+
+3. User uploads an `.xlsx` spreadsheet and chooses a sheet.
+
+4. `fileSupport.py` reads the spreadsheet rows into dictionaries:
+
+```python
+{
+    'identifierFileName': 'demo_image_0001',
+    'fileTitle': 'Front entrance',
+    'typeOfResource': 'still image',
+}
+```
+
+5. `profileInterpreter.Profile` loads the YAML profile and uses it to decide:
+
+- what the MODS root element should be
+- which spreadsheet column names to read
+- which MODS elements to create
+- which attributes to add
+- how repeated fields are split
+- how names, roles, URIs, dates, and subjects are parsed
+- which rows to skip
+- which filename column to use
+- what file extension to append
+
+For example, in `modsprofile.yaml`:
+
+```yaml
+filenamecolumn: identifierFileName
+fileextension: ".mods.xml"
+```
+
+means a row with:
+
+```text
+identifierFileName = demo_image_0001
+```
+
+generates:
+
+```text
+demo_image_0001.mods.xml
+```
+
+The `fields:` section is the core mapping. A simplified example:
+
+```yaml
+fields:
+  - type: element
+    name: titleInfo
+    children:
+      - type: element
+        name: title
+        text:
+          - type: value
+            values:
+              - {type: col, header: fileTitle, method: value}
+```
+
+That says: create a MODS `<titleInfo>` element, then a child `<title>`, and fill its text from the spreadsheet column `fileTitle`.
+
+So this row:
+
+```text
+fileTitle = Front entrance of the sample building
+```
+
+becomes roughly:
+
+```xml
+<mods:titleInfo>
+  <mods:title>Front entrance of the sample building</mods:title>
+</mods:titleInfo>
+```
+
+Repeating fields are also profile-driven. A YAML block can say "read this column, split multiple values, parse each entry, and create one MODS element per entry." That is how creator names, subjects, genres, and authority URIs get expanded.
+
+The Flask app itself does not contain much MODS logic. It mostly handles upload, preview, and download. The YAML profile is where the metadata model lives, and `profileInterpreter.py` is the engine that interprets that profile into XML.
 
 
 ## Requirements
