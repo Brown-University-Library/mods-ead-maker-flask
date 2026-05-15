@@ -8,7 +8,7 @@ The MODS Maker should be able to generate an image accessibility note from a spr
 <mods:note type="image_accessibility_alt_text">The image accessibility text.</mods:note>
 ```
 
-The existing profile interpreter already supports creating `mods:note` elements from YAML profile fields, so the smallest implementation is profile-driven: add a new column mapping to the relevant MODS YAML profile or profiles. The main open question is how strongly the 250-character workshop rule should be enforced in the webapp, because the current app has no general profile-validation or row-error reporting layer.
+The existing profile interpreter already supports creating `mods:note` elements from YAML profile fields, so the MODS output mapping can be profile-driven. The 250-character rule should also be profile-driven by adding a generic `validations:` section to the active YAML profile. Python should implement the validation engine once, while each profile declares which spreadsheet columns have limits or conditional requirements.
 
 ## Contents
 
@@ -17,7 +17,8 @@ The existing profile interpreter already supports creating `mods:note` elements 
 - [Recommended Implementation](#recommended-implementation)
 - [YAML Profile Change](#yaml-profile-change)
 - [Spreadsheet Column](#spreadsheet-column)
-- [Character Limit Handling](#character-limit-handling)
+- [YAML Validation Design](#yaml-validation-design)
+- [Validation Behavior](#validation-behavior)
 - [Tests](#tests)
 - [Documentation Updates](#documentation-updates)
 - [Decision Points](#decision-points)
@@ -47,7 +48,12 @@ The existing profile interpreter already supports creating `mods:note` elements 
 
 ## Recommended Implementation
 
-Add the alt-text note as a normal YAML-driven MODS field first. This keeps the mapping transparent, profile-specific, and consistent with the rest of the app.
+Add the alt-text note as a normal YAML-driven MODS field, and add a profile-level `validations:` section that enforces the 250-character limit before preview or download output is produced.
+
+This keeps two responsibilities separate:
+
+- `fields:` controls generated MODS XML.
+- `validations:` controls spreadsheet-row rules.
 
 Recommended output:
 
@@ -63,9 +69,20 @@ imageAccessibilityAltText
 
 This column name is explicit enough to distinguish front-end alt-text display data from general descriptive notes.
 
+Recommended validation approach:
+
+```yaml
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+```
+
 ## YAML Profile Change
 
-Add this field to each profile that should support image accessibility alt text:
+Add this output field to each profile that should support image accessibility alt text:
 
 ```yaml
 - type: element
@@ -92,6 +109,34 @@ Placement recommendation:
 - Put the new field near the other `note` fields in each profile.
 - Do not make it conditional on `typeOfResource` in the first pass unless the team wants non-image rows to reject or ignore the column. A blank column will naturally produce no note.
 
+Add this validation block near the existing top-level profile settings, alongside keys such as `globalconditions`, `filenamecolumn`, and `fileextension`:
+
+```yaml
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+```
+
+If requiredness for image rows should also be enforced in-app, extend the same section with a conditional required rule:
+
+```yaml
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+  - type: required
+    col: imageAccessibilityAltText
+    severity: error
+    conditions:
+      - {type: equals, col: typeOfResource, text: "still image"}
+    message: "Image accessibility alt text is required for still image records."
+```
+
 ## Spreadsheet Column
 
 Add `imageAccessibilityAltText` to relevant templates and demo spreadsheets.
@@ -108,35 +153,83 @@ Recommended demo update:
 - Add values under 250 characters.
 - Update `spreadsheet_demos/README.md` to mention that the TIFF image demo includes the accessibility note field.
 
-## Character Limit Handling
+## YAML Validation Design
 
-The 250-character rule can be handled at three possible levels.
+Add a small generic validation engine that reads a top-level `validations:` list from the active YAML profile.
 
-Option A: Documentation-only first pass
+Recommended first supported rule:
 
-- Add the YAML mapping and document the limit.
-- Keep current generation behavior unchanged.
-- Fastest and lowest-risk option.
-- Risk: records over 250 characters will still generate XML unless checked outside the app.
+```yaml
+- type: maxchars
+  col: imageAccessibilityAltText
+  maxchars: 250
+  severity: error
+  message: "Image accessibility alt text must be 250 characters or fewer."
+```
 
-Option B: Test/demo enforcement only
+Useful near-term extension:
 
-- Add tests that confirm demo values stay at or below 250 characters.
-- Keep app behavior unchanged for arbitrary user uploads.
-- Useful for workshop materials, but not true user-input enforcement.
+```yaml
+- type: required
+  col: imageAccessibilityAltText
+  severity: error
+  conditions:
+    - {type: equals, col: typeOfResource, text: "still image"}
+  message: "Image accessibility alt text is required for still image records."
+```
 
-Option C: App-level validation
+Recommended validation result shape:
 
-- Add validation before preview/download that checks configured profile constraints.
-- For `imageAccessibilityAltText`, block or warn when a non-empty value exceeds 250 characters.
-- This requires designing how row-level errors are returned in preview and download flows.
-- Best long-term enforcement, but larger scope than a simple profile mapping.
+```python
+{
+    "row_index": 2,
+    "spreadsheet_row": 3,
+    "col": "imageAccessibilityAltText",
+    "type": "maxchars",
+    "severity": "error",
+    "message": "Image accessibility alt text must be 250 characters or fewer.",
+    "value": "...",
+    "limit": 250,
+}
+```
 
-Recommended path:
+Design notes:
 
-1. Implement Option A plus tests that confirm the XML output.
-2. Decide whether the workshop needs hard blocking before launch.
-3. If hard blocking is needed, implement a small profile-aware validation layer rather than hard-coding this one column deeply inside XML generation.
+- Count Python string characters with `len(value)` after converting spreadsheet values to strings.
+- Trim surrounding whitespace before length checks unless the team explicitly wants pasted leading/trailing spaces counted.
+- Do not truncate values automatically.
+- Keep validation separate from XML generation so the same rules can run before preview and before ZIP download.
+- Start with `maxchars`; add `required` and condition support if requiredness needs to be enforced by the app.
+
+Potential implementation locations:
+
+- Add `self.profileValidations = self.profile.get("validations", [])` to `profileInterpreter.Profile`.
+- Add a method such as `validateRow(row, rowIndex)` or `validateRows(rows)`.
+- Alternatively, create a small `profileValidation.py` helper if this starts to grow beyond a few rule types.
+
+## Validation Behavior
+
+Enforce validation before producing preview or download output.
+
+Preview flow:
+
+- `/modsmaker/getpreview` reads the workbook rows for the selected sheet.
+- The app validates rows against the active profile.
+- If validation errors exist, return structured JSON containing errors instead of generated XML.
+- The front end displays the errors in the preview area or a nearby alert.
+
+Download flow:
+
+- `POST /modsmaker/<profileFilename>` reads the workbook rows for the selected sheet.
+- The app validates rows against the active profile.
+- If validation errors exist, render an error page or return a user-readable validation page instead of downloading the ZIP.
+- If no errors exist, continue generating the ZIP.
+
+Recommended first UI behavior:
+
+- Treat `severity: error` as blocking for both preview and download.
+- Include spreadsheet row numbers, column names, and messages.
+- Avoid warning-only behavior until the error path is clear.
 
 ## Tests
 
@@ -147,12 +240,15 @@ Recommended tests:
 - `profileInterpreter.Profile('profiles/modsprofile.yaml').convertRowToXmlString(...)` creates a `mods:note` with `type="image_accessibility_alt_text"` when `imageAccessibilityAltText` is present.
 - The generated XML does not contain that note when `imageAccessibilityAltText` is blank or absent.
 - `fileSupport.createZipFromExcel()` preserves the note when processing an uploaded workbook.
-- If app-level validation is implemented, add route tests for preview/download responses when the value exceeds 250 characters.
+- The profile validation method returns no errors for values at or below 250 characters.
+- The profile validation method returns a blocking error for values over 250 characters.
+- Preview route returns validation errors instead of XML when `imageAccessibilityAltText` exceeds 250 characters.
+- Download route does not return a ZIP when `imageAccessibilityAltText` exceeds 250 characters.
 
 For the demo spreadsheet:
 
 - Extend `tests/test_spreadsheet_demos.py` so the TIFF image demo verifies the generated XML includes the new note.
-- Optionally assert all demo `imageAccessibilityAltText` values are `<= 250` characters.
+- Assert all demo `imageAccessibilityAltText` values are `<= 250` characters.
 
 ## Documentation Updates
 
@@ -165,7 +261,7 @@ Update:
 Suggested documentation language:
 
 ```text
-For image records, include an imageAccessibilityAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Workshop image records should keep this value at or below 250 characters.
+For image records, include an imageAccessibilityAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Values over 250 characters are blocked by profile validation.
 ```
 
 ## Decision Points
@@ -184,18 +280,22 @@ Alternatives:
 
 Decide whether to add the field only to `modsprofile.yaml` or to every active MODS profile.
 
-3. Enforcement level
+3. Validation rule format
 
-Decide whether the 250-character limit is:
+Confirm the top-level YAML shape for profile validation rules. Recommended:
 
-- documented only,
-- tested only for demos/templates,
-- a warning in preview,
-- or a blocking error for preview/download.
+```yaml
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+```
 
 4. Requiredness
 
-Decide whether "required for images" is enforced by:
+Decide whether "required for images" is also enforced by:
 
 - workshop/template review,
 - app validation when `typeOfResource` indicates an image,
@@ -212,14 +312,7 @@ If requiredness is app-enforced, define exactly what counts as an image row. Pos
 
 6. Over-limit behavior
 
-If a value is longer than 250 characters, decide whether to:
-
-- block generation,
-- show a warning but generate XML,
-- truncate automatically,
-- or leave the value unchanged.
-
-Recommendation: do not truncate automatically. It can silently change cataloging intent.
+Recommendation: block preview and download when `severity: error` validation fails. Do not truncate automatically; it can silently change cataloging intent.
 
 7. Backup profile handling
 
@@ -228,12 +321,15 @@ Decide whether `modsprofile_backup2024.yaml` should stay historical or receive t
 ## Implementation Order
 
 1. Confirm the column name and target profile list.
-2. Add the YAML field to `profiles/modsprofile.yaml`.
-3. Add or update tests proving the new note appears in generated MODS XML.
-4. Update the TIFF demo spreadsheet with `imageAccessibilityAltText` values.
-5. Update demo tests and README documentation.
-6. Decide whether to add validation for the 250-character limit.
-7. If validation is needed, add a small profile-aware validation mechanism and route tests.
+2. Confirm the `validations:` YAML shape.
+3. Add the YAML field and `maxchars` validation to `profiles/modsprofile.yaml`.
+4. Add generic profile validation support for `maxchars`.
+5. Run validation before preview and ZIP download generation.
+6. Add or update tests proving the new note appears in generated MODS XML.
+7. Add validation tests for values at, below, and above 250 characters.
+8. Update the TIFF demo spreadsheet with `imageAccessibilityAltText` values.
+9. Update demo tests and README documentation.
+10. Decide whether to add conditional `required` validation for image rows.
 
 ## Original Prompt
 
