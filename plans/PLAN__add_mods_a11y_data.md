@@ -19,6 +19,7 @@ The existing profile interpreter already supports creating `mods:note` elements 
 - [Spreadsheet Column](#spreadsheet-column)
 - [YAML Validation Design](#yaml-validation-design)
 - [Validation Behavior](#validation-behavior)
+- [Feedback Incorporated](#feedback-incorporated)
 - [Tests](#tests)
 - [Documentation Updates](#documentation-updates)
 - [Decision Points](#decision-points)
@@ -78,6 +79,12 @@ validations:
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be 250 characters or fewer."
+  - type: required
+    col: imageAccessibilityAltText
+    severity: error
+    conditions:
+      - {type: equals, col: typeOfResource, text: "still image"}
+    message: "Image accessibility alt text is required when typeOfResource is still image."
 ```
 
 ## YAML Profile Change
@@ -94,20 +101,26 @@ Add this output field to each profile that should support image accessibility al
         - {type: col, header: imageAccessibilityAltText, method: value}
 ```
 
-Recommended first target:
+Recommended target scope:
+
+- every active MODS profile
+
+Likely active profile files:
 
 - `profiles/modsprofile.yaml`
+- `profiles/hallhoag.yaml`
+- `profiles/jnbcsyllabi.yaml`
+- `profiles/musictheses.yaml`
+- `profiles/musicdoctoraldissertation.yaml`
 
-Potential additional targets:
+Explicitly excluded:
 
-- `profiles/hallhoag.yaml`, if Hall-Hoag image MODS will use the same workflow.
-- `profiles/jnbcsyllabi.yaml`, `profiles/musictheses.yaml`, and `profiles/musicdoctoraldissertation.yaml` only if those profiles may describe image resources or the workshop expects a consistent column across all MODS profiles.
-- Avoid editing `profiles/modsprofile_backup2024.yaml` unless the backup file is intentionally maintained as a live profile.
+- `profiles/modsprofile_backup2024.yaml`
 
 Placement recommendation:
 
 - Put the new field near the other `note` fields in each profile.
-- Do not make it conditional on `typeOfResource` in the first pass unless the team wants non-image rows to reject or ignore the column. A blank column will naturally produce no note.
+- Keep the output field itself unconditional. A blank or missing `imageAccessibilityAltText` column will naturally produce no note after XML cleanup. Requiredness belongs in `validations:`, not in the output mapping.
 
 Add this validation block near the existing top-level profile settings, alongside keys such as `globalconditions`, `filenamecolumn`, and `fileextension`:
 
@@ -120,7 +133,7 @@ validations:
     message: "Image accessibility alt text must be 250 characters or fewer."
 ```
 
-If requiredness for image rows should also be enforced in-app, extend the same section with a conditional required rule:
+Enforce requiredness for image rows with a conditional required rule:
 
 ```yaml
 validations:
@@ -134,7 +147,7 @@ validations:
     severity: error
     conditions:
       - {type: equals, col: typeOfResource, text: "still image"}
-    message: "Image accessibility alt text is required for still image records."
+    message: "Image accessibility alt text is required when typeOfResource is still image."
 ```
 
 FEEDBACK: Do add the validation that if the typeOfResource is "still image" then the imageAccessibilityAltText is required.
@@ -169,7 +182,7 @@ Recommended first supported rule:
   message: "Image accessibility alt text must be 250 characters or fewer."
 ```
 
-Useful near-term extension:
+Second supported rule:
 
 ```yaml
 - type: required
@@ -177,7 +190,7 @@ Useful near-term extension:
   severity: error
   conditions:
     - {type: equals, col: typeOfResource, text: "still image"}
-  message: "Image accessibility alt text is required for still image records."
+  message: "Image accessibility alt text is required when typeOfResource is still image."
 ```
 
 FEEDBACK: incorporate the typeOfResource check -- it's not a near-term extension; it's part of the requirement.
@@ -201,9 +214,13 @@ Design notes:
 
 - Count Python string characters with `len(value)` after converting spreadsheet values to strings.
 - Trim surrounding whitespace before length checks unless the team explicitly wants pasted leading/trailing spaces counted.
+- Trim surrounding whitespace before condition comparisons.
+- Compare `equals` condition values case-insensitively.
+- For the `typeOfResource` requirement, the normalized value must be exactly `still image`. Values such as `still image|text`, `still image; text`, `moving image`, or any other non-exact value should waive the required alt-text rule.
+- If the `typeOfResource` column is missing or blank, the required alt-text condition is false.
 - Do not truncate values automatically.
 - Keep validation separate from XML generation so the same rules can run before preview and before ZIP download.
-- Start with `maxchars`; add `required` and condition support if requiredness needs to be enforced by the app.
+- Support `maxchars`, `required`, and `equals` conditions in the first implementation.
 
 Potential implementation locations:
 
@@ -235,6 +252,17 @@ Recommended first UI behavior:
 - Include spreadsheet row numbers, column names, and messages.
 - Avoid warning-only behavior until the error path is clear.
 
+## Feedback Incorporated
+
+Feedback decisions now reflected in this plan:
+
+- Add the MODS alt-text output mapping broadly to active MODS profiles. If a spreadsheet does not include `imageAccessibilityAltText`, generation should continue normally and no empty note should remain in the cleaned XML.
+- Do not apply this change to `profiles/modsprofile_backup2024.yaml`.
+- Add `maxchars` validation broadly to active MODS profiles. Missing or blank `imageAccessibilityAltText` values pass `maxchars`.
+- Require `imageAccessibilityAltText` only if the row's `typeOfResource` value is exactly `still image` after trimming whitespace and normalizing case.
+- If `typeOfResource` is missing, blank, or anything other than exactly `still image`, waive the required alt-text rule.
+- Do not treat multiple-value strings as matches for the required rule. For example, `still image|text` and `still image; text` are not exactly `still image`, so they do not trigger required alt text.
+
 ## Tests
 
 Add focused tests around the default MODS profile.
@@ -246,6 +274,9 @@ Recommended tests:
 - `fileSupport.createZipFromExcel()` preserves the note when processing an uploaded workbook.
 - The profile validation method returns no errors for values at or below 250 characters.
 - The profile validation method returns a blocking error for values over 250 characters.
+- The profile validation method requires `imageAccessibilityAltText` when `typeOfResource` is `still image`.
+- The required validation trims whitespace and is case-insensitive for `typeOfResource`, so values like ` Still Image ` trigger the requirement.
+- The required validation does not trigger when `typeOfResource` is missing, blank, `moving image`, or a multiple-value string such as `still image|text`.
 - Preview route returns validation errors instead of XML when `imageAccessibilityAltText` exceeds 250 characters.
 - Download route does not return a ZIP when `imageAccessibilityAltText` exceeds 250 characters.
 
@@ -265,14 +296,18 @@ Update:
 Suggested documentation language:
 
 ```text
-For image records, include an imageAccessibilityAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Values over 250 characters are blocked by profile validation.
+For image records, include an imageAccessibilityAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Values over 250 characters are blocked by profile validation. The column is required when typeOfResource is still image, using trimmed and case-insensitive comparison.
 ```
 
 ## Decision Points
 
+No open policy decisions remain for the planned implementation.
+
+Resolved decisions:
+
 1. Column name
 
-Recommended: `imageAccessibilityAltText`.
+Use `imageAccessibilityAltText`.
 
 FEEDBACK: This is good.
 
@@ -284,11 +319,11 @@ Alternatives:
 
 2. Profile scope
 
-Decide whether to add the field only to `modsprofile.yaml` or to every active MODS profile.
+Add the output mapping and validation rules to every active MODS profile. Do not modify `profiles/modsprofile_backup2024.yaml`.
 
 3. Validation rule format
 
-Confirm the top-level YAML shape for profile validation rules. Recommended:
+Use this top-level YAML shape for profile validation rules:
 
 ```yaml
 validations:
@@ -301,41 +336,42 @@ validations:
 
 4. Requiredness
 
-Decide whether "required for images" is also enforced by:
+Enforce requiredness in the app when `typeOfResource` is exactly `still image` after trimming whitespace and normalizing case.
 
-- workshop/template review,
-- app validation when `typeOfResource` indicates an image,
-- or downstream indexing/QA.
+If `typeOfResource` is missing, blank, or any value other than exactly `still image`, `imageAccessibilityAltText` is not required.
 
 5. Image detection
 
-If requiredness is app-enforced, define exactly what counts as an image row. Possible signals:
+For this validation rule, an image row is only a row whose normalized `typeOfResource` value is exactly `still image`.
 
-- `typeOfResource` equals `still image`,
-- TIFF/image-specific workflow spreadsheet,
-- route/profile selection,
-- a new explicit spreadsheet column.
+Do not treat multiple-value strings as matches. Values such as `still image|text` or `still image; text` waive the required alt-text rule because they are not exactly `still image`.
 
 6. Over-limit behavior
 
-Recommendation: block preview and download when `severity: error` validation fails. Do not truncate automatically; it can silently change cataloging intent.
+Block preview and download when `severity: error` validation fails. Do not truncate automatically; it can silently change cataloging intent.
 
 7. Backup profile handling
 
-Decide whether `modsprofile_backup2024.yaml` should stay historical or receive the same mapping.
+Do not apply the change to `profiles/modsprofile_backup2024.yaml`.
+
+Implementation details still to choose during coding:
+
+- Whether validation helper code lives directly on `profileInterpreter.Profile` or in a small `profileValidation.py` module.
+- Exact front-end presentation for preview validation errors.
+- Exact non-preview error page/template used when download validation fails.
 
 ## Implementation Order
 
-1. Confirm the column name and target profile list.
-2. Confirm the `validations:` YAML shape.
-3. Add the YAML field and `maxchars` validation to `profiles/modsprofile.yaml`.
-4. Add generic profile validation support for `maxchars`.
+1. Add the YAML field, `maxchars` validation, and conditional `required` validation to every active MODS profile except `profiles/modsprofile_backup2024.yaml`.
+2. Add generic profile validation support for `maxchars`, `required`, and `equals` conditions.
+3. Implement trimmed, case-insensitive `equals` condition matching.
+4. Ensure the `typeOfResource` required condition only matches exactly `still image` after normalization.
 5. Run validation before preview and ZIP download generation.
 6. Add or update tests proving the new note appears in generated MODS XML.
 7. Add validation tests for values at, below, and above 250 characters.
-8. Update the TIFF demo spreadsheet with `imageAccessibilityAltText` values.
-9. Update demo tests and README documentation.
-10. Decide whether to add conditional `required` validation for image rows.
+8. Add validation tests for `typeOfResource` requiredness, including missing, blank, case/whitespace variants, non-image values, and multiple-value strings.
+9. Update the TIFF demo spreadsheet with `imageAccessibilityAltText` values.
+10. Update demo tests and README documentation.
 
 ## Original Prompt
 
