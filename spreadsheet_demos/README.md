@@ -20,6 +20,7 @@ Notes:
 
 - Each workbook has two sample records.
 - Generated output is downloaded as a ZIP containing one `.mods.xml` file per generated record.
+- Still-image rows include `imageAccessibilityAltText`; the MODS Maker requires that column when `typeOfResource` is `still image`.
 - The TIFF image demo uses `identifierFileName` values like `demo_image_0001`, intended to pair conceptually with source files such as `demo_image_0001.tif`.
 - The sample metadata is fictional and intended only for demonstration.
 - EAD demo spreadsheets are not included yet; they can be added later after a minimal EAD example is confirmed.

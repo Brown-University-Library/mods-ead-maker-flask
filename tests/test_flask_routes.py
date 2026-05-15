@@ -21,6 +21,23 @@ def make_xlsx_file():
     return output
 
 
+def make_invalid_alt_text_xlsx_file():
+    output = io.BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet('Records')
+    worksheet.write(0, 0, 'identifierFileName')
+    worksheet.write(0, 1, 'fileTitle')
+    worksheet.write(0, 2, 'typeOfResource')
+    worksheet.write(0, 3, 'imageAccessibilityAltText')
+    worksheet.write(1, 0, 'sample-record')
+    worksheet.write(1, 1, 'Sample title')
+    worksheet.write(1, 2, 'still image')
+    worksheet.write(1, 3, '')
+    workbook.close()
+    output.seek(0)
+    return output
+
+
 class TestFlaskRoutes(unittest.TestCase):
 
     def setUp(self):
@@ -113,6 +130,43 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual('preview text', response.get_json())
         mock_get_preview.assert_called_once()
+
+    def test_modsmaker_get_preview_returns_validation_errors(self):
+        """
+        Checks that MODS preview returns validation errors instead of XML for invalid spreadsheet rows.
+        """
+        response = self.client.post(
+            '/modsmaker/getpreview',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'globalconditions': {'includeBrownDefaults': True},
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('required', response.get_json()['errors'][0]['type'])
+
+    def test_modsmaker_post_with_validation_error_does_not_return_zip(self):
+        """
+        Checks that MODS downloads are blocked when spreadsheet validation fails.
+        """
+        response = self.client.post(
+            '/modsmaker/modsprofile',
+            data={
+                'input_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'sheetlist': 'Records',
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertNotIn('Content-Disposition', response.headers)
+        self.assertIn(b'Image accessibility alt text is required', response.data)
 
     def test_modsmaker_post_with_non_xlsx_returns_error(self):
         """

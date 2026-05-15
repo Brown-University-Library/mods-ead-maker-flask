@@ -73,13 +73,19 @@
     formData.append("xlsx_file", selectedFile);
     formData.append("data", JSON.stringify(data))
 
-    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
-      .then(response => response.json())
-      .then(function (data) {
-        previewDiv.innerText = data.trim()
-        previewSpinner.style.display = "none"
-      }
-      );
+	    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
+	      .then(response => response.json())
+	      .then(function (data) {
+	        if (data.errors) {
+	          previewDiv.innerText = data.errors.map(function (error) {
+	            return "Row " + error.spreadsheet_row + ", column \"" + error.col + "\": " + error.message
+	          }).join("\n")
+	        } else {
+	          previewDiv.innerText = data.trim()
+	        }
+	        previewSpinner.style.display = "none"
+	      }
+	      );
 
   }
 </script>

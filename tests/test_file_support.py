@@ -105,6 +105,35 @@ class TestFileSupport(unittest.TestCase):
         root = etree.fromstring(xml_bytes)
         self.assertEqual('{http://www.loc.gov/mods/v3}mods', root.tag)
 
+    def test_create_zip_from_excel_preserves_image_accessibility_note(self):
+        """
+        Checks that image accessibility alt text is included in generated MODS files.
+        """
+        workbook_bytes = make_xlsx_bytes([
+            ('Records', [
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['sample-record', 'Sample title', 'still image', 'Photograph of a campus building entrance.'],
+            ]),
+        ])
+
+        zip_bytes, filename = fileSupport.createZipFromExcel(
+            workbook_bytes,
+            'Records',
+            'profiles/modsprofile.yaml',
+            {'includeBrownDefaults': True, 'includePreferredCitation': True},
+        )
+
+        self.assertEqual('Records.zip', filename)
+        with zipfile.ZipFile(io.BytesIO(zip_bytes)) as zip_file:
+            xml_bytes = zip_file.read('sample-record.mods.xml')
+
+        root = etree.fromstring(xml_bytes)
+        namespaces = {'mods': 'http://www.loc.gov/mods/v3'}
+        self.assertEqual(
+            ['Photograph of a campus building entrance.'],
+            root.xpath('mods:note[@type="image_accessibility_alt_text"]/text()', namespaces=namespaces),
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

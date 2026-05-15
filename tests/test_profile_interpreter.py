@@ -117,6 +117,43 @@ class TestProfileInterpreterXml(unittest.TestCase):
 
         self.assertIsNone(xml_string)
 
+    def test_profile_convert_row_to_xml_string_creates_image_accessibility_note(self):
+        """
+        Checks that image accessibility alt text is written as a typed MODS note.
+        """
+        profile = profileInterpreter.Profile('profiles/modsprofile.yaml')
+
+        xml_string = profile.convertRowToXmlString({
+            'identifierFileName': 'sample-record',
+            'fileTitle': 'Sample title',
+            'imageAccessibilityAltText': 'Photograph of a campus building entrance.',
+        })
+
+        root = etree.fromstring(xml_string.encode('utf-8'))
+        namespaces = {'mods': 'http://www.loc.gov/mods/v3'}
+
+        self.assertEqual(
+            ['Photograph of a campus building entrance.'],
+            root.xpath('mods:note[@type="image_accessibility_alt_text"]/text()', namespaces=namespaces),
+        )
+
+    def test_profile_convert_row_to_xml_string_omits_blank_image_accessibility_note(self):
+        """
+        Checks that blank image accessibility alt text does not leave an empty note.
+        """
+        profile = profileInterpreter.Profile('profiles/modsprofile.yaml')
+
+        xml_string = profile.convertRowToXmlString({
+            'identifierFileName': 'sample-record',
+            'fileTitle': 'Sample title',
+            'imageAccessibilityAltText': '',
+        })
+
+        root = etree.fromstring(xml_string.encode('utf-8'))
+        namespaces = {'mods': 'http://www.loc.gov/mods/v3'}
+
+        self.assertEqual([], root.xpath('mods:note[@type="image_accessibility_alt_text"]', namespaces=namespaces))
+
     def test_create_file_from_row_uses_profile_filename_extension_and_xml(self):
         """
         Checks that a row generates a MODS filename and parseable XML.

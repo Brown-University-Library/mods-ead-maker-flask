@@ -1,4 +1,4 @@
-from flask import jsonify, Flask, make_response, request, render_template, redirect, g, url_for
+from flask import jsonify, Flask, make_response, request, render_template, redirect, url_for
 import flask
 from legacy.EADMaker import processExceltoEAD
 from legacy.EADMaker import getSheetNames
@@ -8,6 +8,7 @@ import uuid
 import os
 import json
 import fileSupport
+import profileValidation
 from glob import glob
 
 app = Flask(__name__)
@@ -35,7 +36,10 @@ def modsMakerHome(profileFilename):
             globalConditions[formInput] = True
 
         if ".xlsx" in filename:
-            zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, os.path.join("profiles", profileFilename + ".yaml"),globalConditions)
+            try:
+                zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, os.path.join("profiles", profileFilename + ".yaml"),globalConditions)
+            except profileValidation.ValidationError as error:
+                return render_template('error.html', error=fileSupport.getValidationErrorText(error.errors), title="Error")
             response = make_response(zipFile)
             response.headers["Content-Disposition"] = "attachment; filename=" + filename
             return response
@@ -67,7 +71,10 @@ def modsMakerGetPreview():
         sheetName = requestDict.get("sheetname")
         profileFilename = requestDict.get("profile")
         globalConditions = requestDict.get("globalconditions", {})
-        preview = fileSupport.getPreview(inputFile.read(), sheetName, os.path.join("profiles", profileFilename + ".yaml"), globalConditions)
+        try:
+            preview = fileSupport.getPreview(inputFile.read(), sheetName, os.path.join("profiles", profileFilename + ".yaml"), globalConditions)
+        except profileValidation.ValidationError as error:
+            return(jsonify({"errors": error.errors}))
         return(jsonify(preview))
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])

@@ -38,6 +38,8 @@ Then, users upload an `.xlsx` file, select a sheet, preview the generated XML, a
 
 The important idea is that the spreadsheet does not directly define the XML structure. The YAML profile does. Each profile in `profiles/` describes which spreadsheet columns to read and how those values should become MODS elements, attributes, filenames, repeated fields, names, subjects, rights statements, and other metadata.
 
+For image records, include an `imageAccessibilityAltText` column. When `typeOfResource` is `still image`, the MODS Maker requires that column to contain 250 characters or fewer and writes it as `<mods:note type="image_accessibility_alt_text">...</mods:note>`.
+
 _(EAD documentation to come)_
 
 

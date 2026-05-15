@@ -1,10 +1,9 @@
 import xlrd
 import profileInterpreter
+import profileValidation
 from zipfile import ZipFile
 import os
 import io
-import uuid
-from lxml import etree
 
 CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
 HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -53,8 +52,25 @@ def getFilenameFromRow(row, index, filenameColumn):
     
     return "default" + str(index)
 
+def validateRowsForProfile(rows, profilePath):
+    profile = profileInterpreter.Profile(profilePath)
+    errors = []
+
+    for rowIndex, row in enumerate(rows):
+        if not profile.shouldSkipRow(row):
+            errors.extend(profileValidation.validateRow(row, rowIndex, profile.profileValidations))
+
+    if errors:
+        raise profileValidation.ValidationError(errors)
+
+    return profile
+
+def getValidationErrorText(errors):
+    return profileValidation.formatValidationErrors(errors)
+
 def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
+    validateRowsForProfile(rows, profilePath)
 
     zipBuffer = io.BytesIO()
     zipObj = ZipFile(zipBuffer, 'w')
@@ -84,6 +100,7 @@ def createFileFromRow(row, index, profilePath, globalConditions):
 
 def getPreview(excelFile, sheetName, profilePath, globalConditions):
     rows = convertXlsxToDictList(excelFile, sheetName)
+    validateRowsForProfile(rows, profilePath)
 
     allXmlString = createPreviewFromRows(rows, profilePath, globalConditions)
 

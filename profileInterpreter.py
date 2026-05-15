@@ -269,6 +269,7 @@ class Profile():
         self.profileSorts = self.profile.get("sort", [])
         self.profileKeepElementXpaths = self.profile.get("keepblanktextelements", [])
         self.profileSampleValues = self.profile.get("samplevalues", {})
+        self.profileValidations = self.profile.get("validations", [])
 
         self.profileGlobalConditions = self.profile.get("globalconditions", [])
         self.globalConditionsSet = globalConditions
