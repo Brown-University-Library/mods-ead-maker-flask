@@ -150,8 +150,6 @@ validations:
     message: "Image accessibility alt text is required when typeOfResource is still image."
 ```
 
-FEEDBACK: Do add the validation that if the typeOfResource is "still image" then the imageAccessibilityAltText is required.
-
 ## Spreadsheet Column
 
 Add `imageAccessibilityAltText` to relevant templates and demo spreadsheets.
@@ -192,8 +190,6 @@ Second supported rule:
     - {type: equals, col: typeOfResource, text: "still image"}
   message: "Image accessibility alt text is required when typeOfResource is still image."
 ```
-
-FEEDBACK: incorporate the typeOfResource check -- it's not a near-term extension; it's part of the requirement.
 
 Recommended validation result shape:
 
@@ -308,14 +304,6 @@ Resolved decisions:
 1. Column name
 
 Use `imageAccessibilityAltText`.
-
-FEEDBACK: This is good.
-
-Alternatives:
-
-- `imageAltText`
-- `altText`
-- `noteImageAccessibilityAltText`
 
 2. Profile scope
 
