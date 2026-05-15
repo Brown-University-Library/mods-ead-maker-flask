@@ -2,6 +2,13 @@
 
 Goal: add a small set of spreadsheet files that let users quickly see the MODS Maker workflow in action.
 
+Status:
+
+- Done: created the four recommended MODS demo spreadsheets in `spreadsheet_demos/`.
+- Done: created `spreadsheet_demos/README.md`.
+- Done: validated each spreadsheet through `fileSupport.createZipFromExcel()` and confirmed generated MODS XML parses.
+- Next: add EAD demo spreadsheets later, after a minimal EAD workbook is confirmed.
+
 
 ## Recommendation
 
