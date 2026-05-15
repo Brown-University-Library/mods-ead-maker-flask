@@ -1,0 +1,16 @@
+[project]
+name = "script-project-template"
+version = "0.0.0"
+description = "A template for python scripts."
+readme = "coming"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "httpx~=0.28.0",
+    "python-dotenv~=1.2.0",
+    "trio~=0.32.0",
+]
+
+[dependency-groups]
+local = []
+staging = []
+prod = []
