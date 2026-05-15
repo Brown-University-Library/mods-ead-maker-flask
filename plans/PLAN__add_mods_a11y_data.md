@@ -345,6 +345,9 @@ Do not apply the change to `profiles/modsprofile_backup2024.yaml`.
 Implementation details still to choose during coding:
 
 - Whether validation helper code lives directly on `profileInterpreter.Profile` or in a small `profileValidation.py` module.
+
+FEEDBACK: add a profileValidation.py module.
+
 - Exact front-end presentation for preview validation errors.
 - Exact non-preview error page/template used when download validation fails.
 
