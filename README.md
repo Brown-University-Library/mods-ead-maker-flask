@@ -34,6 +34,8 @@ The MODS Maker turns spreadsheet rows into MODS XML files. Users choose a profil
 
 The important idea is that the spreadsheet does not directly define the XML structure. The YAML profile does. Each profile in `profiles/` describes which spreadsheet columns to read and how those values should become MODS elements, attributes, filenames, repeated fields, names, subjects, rights statements, and other metadata.
 
+_(EAD documentation to come)_
+
 
 ## How the MODS Maker works: more info
 
@@ -137,6 +139,8 @@ Repeating fields are also profile-driven. A YAML block can say "read this column
 
 The Flask app itself does not contain much MODS logic. It mostly handles upload, preview, and download. The YAML profile is where the metadata model lives, and `profileInterpreter.py` is the engine that interprets that profile into XML.
 
+_(EAD documentation to come)_
+
 
 ## Requirements
 
@@ -217,9 +221,9 @@ uv run ./run_tests.py
 Run a specific test module, class, or method:
 
 ```sh
-uv run ./run_tests.py tests.test
-uv run ./run_tests.py tests.test.TestMain
-uv run ./run_tests.py tests.test.TestMain.test_name
+uv run ./run_tests.py tests.test_file_support
+uv run ./run_tests.py tests.test_file_support.TestFileSupport
+uv run ./run_tests.py tests.test_file_support.TestFileSupport.test_clean_string_for_filename_removes_invalid_characters
 ```
 
 Increase test output verbosity:
@@ -228,4 +232,4 @@ Increase test output verbosity:
 uv run ./run_tests.py --verbose
 ```
 
-The test runner exists, but the test suite may still contain incomplete or template tests while `uv` support and project modernization are underway.
+---
