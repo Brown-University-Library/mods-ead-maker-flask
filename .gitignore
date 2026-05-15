@@ -1,6 +1,4 @@
 __pycache__
-!/tmp/restart.txt
-!legacy/cache/.gitinclude
 .DS_Store
 .venv
 .vscode/**
@@ -10,3 +8,4 @@ apache
 config
 env3
 legacy/cache/**
+tmp
