@@ -194,6 +194,8 @@ For example, the default MODS Maker route redirects to the `modsprofile` profile
 http://127.0.0.1:5000/modsmaker/modsprofile
 ```
 
+For MODS spreadsheet uploads, the route URL selects the mapping profile. For example, `/modsmaker/musictheses` uses `profiles/musictheses.yaml`. The upload form does not choose or detect a profile from the spreadsheet file.
+
 
 ## Spreadsheet demos
 
@@ -206,6 +208,8 @@ To try one:
 3. Upload the matching `.xlsx` file.
 4. Select the listed sheet.
 5. Preview the generated MODS XML or download the ZIP of `.mods.xml` files.
+
+The listed route is part of the demo setup: it determines which YAML mapping profile will be applied to the uploaded spreadsheet.
 
 The demos include basic MODS records, repeated names/subjects, TIFF-oriented image records, John Nicholas Brown Center syllabi records, and music thesis records.
 
