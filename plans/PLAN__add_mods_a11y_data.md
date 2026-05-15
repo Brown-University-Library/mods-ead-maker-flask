@@ -137,6 +137,8 @@ validations:
     message: "Image accessibility alt text is required for still image records."
 ```
 
+FEEDBACK: Do add the validation that if the typeOfResource is "still image" then the imageAccessibilityAltText is required.
+
 ## Spreadsheet Column
 
 Add `imageAccessibilityAltText` to relevant templates and demo spreadsheets.
@@ -177,6 +179,8 @@ Useful near-term extension:
     - {type: equals, col: typeOfResource, text: "still image"}
   message: "Image accessibility alt text is required for still image records."
 ```
+
+FEEDBACK: incorporate the typeOfResource check -- it's not a near-term extension; it's part of the requirement.
 
 Recommended validation result shape:
 
@@ -269,6 +273,8 @@ For image records, include an imageAccessibilityAltText column. When present, th
 1. Column name
 
 Recommended: `imageAccessibilityAltText`.
+
+FEEDBACK: This is good.
 
 Alternatives:
 
