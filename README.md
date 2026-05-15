@@ -30,7 +30,11 @@ The main Flask entry point is `flask_app.py`. Core spreadsheet, XML, ZIP, previe
 
 ## How the MODS Maker works: brief overview
 
-The MODS Maker turns spreadsheet rows into MODS XML files. Users choose a profile-specific route, upload an `.xlsx` file, select a sheet, preview the generated XML, and download a ZIP of `.mods.xml` files.
+The MODS Maker turns spreadsheet rows into MODS XML files. 
+
+First, users choose a url that determines which mapping-profile to apply to the spreadsheet. For example, `/modsmaker/modsprofile` will apply the `modsprofile.yaml` profile to the uploaded spreadsheet.
+
+Then, users upload an `.xlsx` file, select a sheet, preview the generated XML, and download a ZIP of `.mods.xml` files.
 
 The important idea is that the spreadsheet does not directly define the XML structure. The YAML profile does. Each profile in `profiles/` describes which spreadsheet columns to read and how those values should become MODS elements, attributes, filenames, repeated fields, names, subjects, rights statements, and other metadata.
 
