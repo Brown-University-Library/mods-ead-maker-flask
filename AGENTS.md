@@ -1,130 +1,116 @@
-# AGENTS.md — Repository Agent Instructions (Source of Truth)
+# AGENTS.md - Repository Agent Instructions
 
-This file defines the canonical coding directives for this repository.
-
-If other instruction files exist (Copilot, IDE rules, contributor docs) and conflict with this file, follow this file and treat the others as stale.
-
-
-## Project basics
-
-- Primary language: Python
-- Target runtime: Python 3.12
-- Dependency / execution tool: `uv`
-- Project-root is the directory containing this file (and `.git/`, and `.gitignore`).
+This file defines the coding guidance for LLM coding agents working in this repository.
+When these instructions conflict with older IDE, Copilot, or contributor notes, prefer this file.
 
 
-## How to run code
+## Project Basics
 
-- Assume user is in the project-root directory.
-- Do not use `python` to run scripts.
-- Run a script via: `uv run ./path_to_script.py --help`
-- Run tests via:
-    - `uv run ./run_tests.py`
-        - Note that `run_tests.py` has usage instructions about how to run more granular tests.
-- Run django management scripts via: `uv run ./manage.py THE-COMMAND`
+- Primary language: Python.
+- Application framework: Flask.
+- App entry point: `flask_app.py`.
+- Production-compatible Python runtime: Python `>=3.8,<3.9`, matching `pyproject.toml`.
+- Dependency pins in `pyproject.toml` reflect the versions currently expected for production compatibility.
+- Project root is the directory containing this file, `.git/`, `pyproject.toml`, and `flask_app.py`.
 
 
-## Coding directives (Python)
+## Current Tooling Status
 
-### Type hints and imports
+- This project is being prepared to use `uv`; prefer `uv` commands when the environment supports them.
+- `run_tests.py` exists and is intended to be the test runner, but the test suite may still contain template or incomplete tests.
+- If `uv` is unavailable in the current environment, state that clearly before using a local fallback.
+- Do not assume there is a `main.py`; this is a Flask app centered on `flask_app.py`.
 
-- Use Python 3.12 type hints everywhere (functions and important variables).
-- Prefer builtin generics (e.g., `list[str]`, `dict[str, int]`) over `typing.List` / `typing.Dict`.
-- Prefer PEP 604 unions (e.g., `str | None`) over `Optional[str]`.
-- Avoid `typing` and `annotations` imports unless strictly necessary.
 
-### Script structure
+## How To Run
 
-- Structure runnable modules as:
-  - `def main() -> None: ...`
-  - `if __name__ == '__main__': main()`
-- Keep `main()` simple: parse args / orchestrate calls only.
-- Put real logic into top-level helper functions and modules (no nested function definitions).
+- Assume commands run from the project root.
+- Start the development Flask app with:
+  - `./runflaskappindebug.sh`
+- Run all tests with:
+  - `uv run ./run_tests.py`
+- Run a narrower unittest target with:
+  - `uv run ./run_tests.py tests.test`
+  - `uv run ./run_tests.py tests.test.TestMain`
+  - `uv run ./run_tests.py tests.test.TestMain.test_name`
 
-### Functions and control flow
 
-- Prefer single-return functions (use local variables and a final return).
-- Do not define functions inside other functions.
+## Coding Directives
+
+### Python Compatibility
+
+- Write code compatible with Python 3.8.
+- Do not use Python 3.9+ only syntax such as builtin generic type annotations (`list[str]`, `dict[str, int]`).
+- Do not use Python 3.10+ only syntax such as PEP 604 unions (`str | None`) or `match` statements.
+- If adding type hints, use Python 3.8-compatible forms such as `typing.List`, `typing.Dict`, and `typing.Optional`.
+- Keep dependency choices compatible with the pinned package versions in `pyproject.toml`.
+
+
+### Style
+
+- Inspect `ruff.toml` before broad edits.
+- Current formatting expectations include:
+  - max line length: 125
+  - indentation: 4 spaces
+  - quote style: single quotes
+  - Ruff target version: `py38`
 - Favor clarity and explicitness over cleverness.
-
-### HTTP and networking
-
-- Use `httpx` for all HTTP calls.
-- Do not introduce alternate HTTP libraries (e.g., `requests`, `aiohttp`) unless the repository already depends on them and there is a documented reason.
-
-### Docstrings
-
-- Use triple-quoted docstrings.
-- Write docstrings in present tense, with triple-quotes on their own lines.
-  - Good: 
-    ```
-    """
-    Parses ...
-    """
-    ```
-  - Avoid: `"""Parse ..."""`
-- The last line of non-test function-docstrings should be: `Called by: the_caller_function()` (or, if in another class/module, `Called by: module.Class.the_caller_function()`)
-- Start test-function docstring-text with "Checks..."
-- For header-comments, in functions, start the comment with two hashes (e.g., `## does this`).
-
-### Additonal coding directives
-
-- inspect the `/ruff.toml` for additional coding directives, such as `max-line-length` and `quote-style`.
+- Prefer small, focused functions with straightforward control flow.
+- Do not define functions inside other functions unless there is a specific local reason.
 
 
-## Django architecture conventions
+### Flask Architecture
 
-### View-layer responsibilities
-
-- `project/app/views.py` should contain **only** view functions that directly handle URL endpoints.
-- Every view function in `project/app/views.py` should correspond to an entry in `project/config/urls.py`.
-- Views should act as **manager/orchestrator** functions:
-  - Parse request input (query params, POST body, files)
-  - Perform minimal validation and shaping of inputs
-  - Delegate substantive work to modules under `project/app/lib/`
-  - Convert returned results into the appropriate `HttpResponse` (HTML, JSON, redirects)
-
-### Business logic placement
-
-- Put domain logic, integrations, and reusable operations in `project/app/lib/` (not in `views.py`).
-- If multiple endpoints share logic, move that shared logic into `project/app/lib/` and keep each view thin.
-- Prefer pure, testable functions in `project/app/lib/` that accept plain Python values (not Django request objects)
-  unless passing the request is necessary for a narrow, well-justified reason.
-
-### Imports and dependencies
-
-- `views.py` should primarily import:
-  - Django primitives (`HttpRequest`, `HttpResponse`, `render`, `redirect`, etc.)
-  - The minimal set of functions/classes from `project/app/lib/` needed for each endpoint
-- Avoid creating a secondary abstraction layer inside `views.py` (no view-helper utilities); place helpers in `project/app/lib/`.
+- `flask_app.py` contains the Flask route handlers.
+- Route handlers should act as managers:
+  - Parse request input.
+  - Perform minimal validation and shaping.
+  - Delegate MODS, EAD, profile, Excel, XML, and file-generation work to helper modules.
+  - Convert returned values into Flask responses, redirects, rendered templates, downloads, or JSON.
+- Keep reusable domain logic out of route handlers where practical.
+- Prefer pure helper functions that accept plain Python values instead of Flask request objects.
+- Existing helper modules include:
+  - `fileSupport.py` for spreadsheet, XML, ZIP, preview, and file-output helpers.
+  - `profileInterpreter.py` for YAML profile interpretation and MODS XML generation.
+  - `legacy/EADMaker.py` and `legacy/MODSMaker.py` for legacy EAD/MODS behavior.
+- Do not add Django conventions, Django management commands, or Django directory assumptions to this project.
 
 
-## Tests
+### Templates And Profiles
 
-- Use the standard library `unittest` framework (not pytest) for non-Django projects.
-- Use Django's test framework for Django projects.
-- New behavior should usually come with a focused test covering:
+- HTML templates live under `templates/`.
+- YAML metadata profiles live under `profiles/`.
+- Preserve existing profile behavior unless the task explicitly changes profile semantics.
+- Be careful with XML output formatting and filenames; these are user-facing export behavior.
+
+
+### Tests
+
+- Use the standard library `unittest` framework.
+- Add or update focused tests for behavior changes when practical.
+- Prefer tests that cover:
   - the happy path
-  - at least one failure / edge case
+  - at least one failure or edge case
+- Run `uv run ./run_tests.py` after changes when the environment supports it.
+- If tests cannot be run, state the exact command that should be run and why it was not run.
 
 
-## Change workflow expectations
+## Change Workflow Expectations
 
-When implementing a change (especially from an issue/task):
+When implementing a change:
 
 1. Read relevant surrounding code and match existing conventions.
 2. Make the smallest correct change that satisfies the request.
-3. Update tests and run: `uv run ./run_tests.py`
-4. If you cannot run tests in your environment, still write/adjust tests and state what you would run.
+3. Keep production compatibility with Python `>=3.8,<3.9` and pinned dependencies.
+4. Update tests when the change affects behavior.
+5. Run `uv run ./run_tests.py` when feasible.
 
 
-## If instructions are missing or ambiguous
+## If Instructions Are Missing Or Ambiguous
 
-- Do not ask questions unless absolutely necessary to proceed.
-- Make reasonable assumptions, state them explicitly, then implement.
+- Do not ask questions unless the ambiguity blocks safe progress.
+- Make reasonable assumptions, state them explicitly, and continue.
 - If blocked, provide:
   - what you tried
   - what you found in the repo
-  - a concrete next step (command, file to edit, or minimal decision needed)
-
----
+  - a concrete next step
