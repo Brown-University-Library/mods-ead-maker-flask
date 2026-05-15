@@ -24,7 +24,7 @@ spreadsheet_demos/
   README.md
   mods_default_basic.xlsx
   mods_default_repeating_fields.xlsx
-  mods_jnbc_syllabi_basic.xlsx
+  mods_john_nicholas_brown_center_syllabi_basic.xlsx
   mods_music_theses_basic.xlsx
 ```
 
@@ -143,7 +143,7 @@ What it demonstrates:
 - Local versus authority-backed values.
 
 
-## Demo 3: `mods_jnbc_syllabi_basic.xlsx`
+## Demo 3: `mods_john_nicholas_brown_center_syllabi_basic.xlsx`
 
 Profile to use:
 
@@ -246,7 +246,7 @@ Suggested README table:
 | --- | --- | --- | --- |
 | `mods_default_basic.xlsx` | `/modsmaker/modsprofile` | `basic_records` | Basic MODS fields and download flow |
 | `mods_default_repeating_fields.xlsx` | `/modsmaker/modsprofile` | `repeating_fields` | Names, subjects, repeated values, URIs |
-| `mods_jnbc_syllabi_basic.xlsx` | `/modsmaker/jnbcsyllabi` | `syllabi` | JNBC syllabi profile |
+| `mods_john_nicholas_brown_center_syllabi_basic.xlsx` | `/modsmaker/jnbcsyllabi` | `syllabi` | John Nicholas Brown Center syllabi profile |
 | `mods_music_theses_basic.xlsx` | `/modsmaker/musictheses` | `music_theses` | Music thesis metadata profile |
 ```
 
