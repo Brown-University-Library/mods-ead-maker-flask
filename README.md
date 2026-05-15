@@ -24,17 +24,12 @@ The pinned Python packages are listed in `pyproject.toml`. `uv` support is still
 
 ## Local Installation With uv
 
+This repository assumes a valid `uv.lock` file is already present. Use the lockfile as the source of truth for local installs.
+
 From the repository root:
 
 ```sh
-uv sync
-```
-
-If the project does not yet have a lockfile in your checkout, create or refresh one with:
-
-```sh
-uv lock
-uv sync
+uv sync --locked
 ```
 
 To run commands inside the managed environment:
@@ -42,6 +37,8 @@ To run commands inside the managed environment:
 ```sh
 uv run flask --version
 ```
+
+Do not run `uv lock` as part of routine local setup. Only refresh the lockfile intentionally when updating project dependencies.
 
 
 ## Local Usage With uv
