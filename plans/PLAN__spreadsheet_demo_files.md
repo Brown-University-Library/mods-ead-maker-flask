@@ -4,7 +4,8 @@ Goal: add a small set of spreadsheet files that let users quickly see the MODS M
 
 Status:
 
-- Done: created the four recommended MODS demo spreadsheets in `spreadsheet_demos/`.
+- Done: created the recommended MODS demo spreadsheets in `spreadsheet_demos/`.
+- Done: added `mods_default_tiff_images_basic.xlsx` for still-image/TIFF-oriented MODS experiments.
 - Done: created `spreadsheet_demos/README.md`.
 - Done: validated each spreadsheet through `fileSupport.createZipFromExcel()` and confirmed generated MODS XML parses.
 - Next: add EAD demo spreadsheets later, after a minimal EAD workbook is confirmed.
@@ -31,6 +32,7 @@ spreadsheet_demos/
   README.md
   mods_default_basic.xlsx
   mods_default_repeating_fields.xlsx
+  mods_default_tiff_images_basic.xlsx
   mods_john_nicholas_brown_center_syllabi_basic.xlsx
   mods_music_theses_basic.xlsx
 ```
@@ -150,7 +152,62 @@ What it demonstrates:
 - Local versus authority-backed values.
 
 
-## Demo 3: `mods_john_nicholas_brown_center_syllabi_basic.xlsx`
+## Demo 3: `mods_default_tiff_images_basic.xlsx`
+
+Profile to use:
+
+- `/modsmaker/modsprofile`
+
+Purpose:
+
+- Demonstrates default-profile MODS records shaped around TIFF/still-image metadata.
+- Gives users a concrete starting point for experimenting with MODS records that conceptually pair with source image files.
+
+Suggested sheet name:
+
+- `tiff_images`
+
+Suggested row count:
+
+- 2 records
+
+Suggested columns:
+
+- `identifierFileName`
+- `fileTitle`
+- `itemTitle`
+- `dateText`
+- `dateStart`
+- `dateEnd`
+- `typeOfResource`
+- `genreAAT`
+- `digitalOrigin`
+- `form`
+- `extentQuantity`
+- `extentSize`
+- `language`
+- `abstract`
+- `noteGeneral`
+- `subjectTopicsLocal`
+- `subjectGeoLC`
+- `identifierBDR`
+- `identifierLocal`
+- `collection`
+- `repository`
+- `findingAid`
+- `rightsStatementText`
+- `rightsStatementURI`
+- `useAndReproduction`
+
+What it demonstrates:
+
+- `identifierFileName` values that align with source TIFF basenames, such as `demo_image_0001`.
+- Still-image resource metadata.
+- TIFF-oriented form and extent fields.
+- Image rights, repository, collection, and local identifier fields.
+
+
+## Demo 4: `mods_john_nicholas_brown_center_syllabi_basic.xlsx`
 
 Profile to use:
 
@@ -189,7 +246,7 @@ What it demonstrates:
 - Course number and description metadata.
 
 
-## Demo 4: `mods_music_theses_basic.xlsx`
+## Demo 5: `mods_music_theses_basic.xlsx`
 
 Profile to use:
 
@@ -253,6 +310,7 @@ Suggested README table:
 | --- | --- | --- | --- |
 | `mods_default_basic.xlsx` | `/modsmaker/modsprofile` | `basic_records` | Basic MODS fields and download flow |
 | `mods_default_repeating_fields.xlsx` | `/modsmaker/modsprofile` | `repeating_fields` | Names, subjects, repeated values, URIs |
+| `mods_default_tiff_images_basic.xlsx` | `/modsmaker/modsprofile` | `tiff_images` | Still-image/TIFF-oriented MODS fields |
 | `mods_john_nicholas_brown_center_syllabi_basic.xlsx` | `/modsmaker/jnbcsyllabi` | `syllabi` | John Nicholas Brown Center syllabi profile |
 | `mods_music_theses_basic.xlsx` | `/modsmaker/musictheses` | `music_theses` | Music thesis metadata profile |
 ```
