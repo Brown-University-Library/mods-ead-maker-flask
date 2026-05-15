@@ -2,7 +2,11 @@
 
 These demo spreadsheets contain fictional sample metadata for trying the MODS Maker locally.
 
-Start the app, open the route listed below, upload the spreadsheet, select the listed sheet, preview the output, then download the ZIP of generated `.mods.xml` files.
+To try a spreadsheet upload:
+- Start the webapp
+- Go to the "route" url listed below -- it's the url-route that selects the mapping-profile
+- Upload the spreadsheet, and select the listed sheet
+- Preview the output, and optionally download the ZIP of generated `.mods.xml` files
 
 | File | Route | Sheet | Demonstrates |
 | --- | --- | --- | --- |
