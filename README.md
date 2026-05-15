@@ -1,6 +1,18 @@
-# MODS EAD Maker Flask
+# MODS EAD maker flask
 
 Flask app for generating MODS and EAD XML files from spreadsheet metadata.
+
+## Contents
+
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Local installation](#local-installation)
+- [Local usage](#local-usage)
+- [Spreadsheet demos](#spreadsheet-demos)
+- [Running tests](#running-tests)
+
+
+## Overview
 
 The app provides browser-based tools for:
 
@@ -16,19 +28,15 @@ The main Flask entry point is `flask_app.py`. Core spreadsheet, XML, ZIP, previe
 
 ## Requirements
 
-- Python `>=3.8,<3.9`
-- `uv`
-
-The pinned Python packages are listed in `pyproject.toml`. `uv` support is still being built out, so some local setup details may continue to change as the project is modernized.
+- [uv](https://docs.astral.sh/uv/#installation)
 
 
-## Local Installation With uv
-
-This repository assumes a valid `uv.lock` file is already present. Use the lockfile as the source of truth for local installs.
-
-From the repository root:
+## Local installation
 
 ```sh
+cd /path/to/mods-ead-maker-flask-stuff/
+git clone git@github.com:Brown-University-Library/mods-ead-maker-flask.git
+cd mods-ead-maker-flask
 uv sync --locked
 ```
 
@@ -38,10 +46,8 @@ To run commands inside the managed environment:
 uv run flask --version
 ```
 
-Do not run `uv lock` as part of routine local setup. Only refresh the lockfile intentionally when updating project dependencies.
 
-
-## Local Usage With uv
+## Local usage
 
 Start the Flask development server:
 
@@ -73,7 +79,22 @@ http://127.0.0.1:5000/modsmaker/modsprofile
 ```
 
 
-## Running Tests With uv
+## Spreadsheet demos
+
+Demo spreadsheets are available in `spreadsheet_demos/`.
+
+To try one:
+
+1. Start the Flask development server.
+2. Open the route listed in `spreadsheet_demos/README.md`.
+3. Upload the matching `.xlsx` file.
+4. Select the listed sheet.
+5. Preview the generated MODS XML or download the ZIP of `.mods.xml` files.
+
+The demos include basic MODS records, repeated names/subjects, TIFF-oriented image records, John Nicholas Brown Center syllabi records, and music thesis records.
+
+
+## Running tests
 
 Run the full unittest suite:
 
