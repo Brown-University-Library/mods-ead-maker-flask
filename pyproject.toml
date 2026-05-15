@@ -1,13 +1,24 @@
 [project]
-name = "script-project-template"
+name = "mods-ead-maker-flask"
 version = "0.0.0"
-description = "A template for python scripts."
+description = "Flask app for generating MODS and EAD XML files from spreadsheet metadata."
 readme = "coming"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.8,<3.9"
 dependencies = [
-    "httpx~=0.28.0",
-    "python-dotenv~=1.2.0",
-    "trio~=0.32.0",
+    "chardet==4.0.0",
+    "click==8.0.3",
+    "et-xmlfile==1.1.0",
+    "Flask==2.0.3",
+    "itsdangerous==2.0.1",
+    "jdcal==1.4.1",
+    "Jinja2==3.0.3",
+    "lxml==4.8.0",
+    "MarkupSafe==2.0.1",
+    "openpyxl==3.0.0",
+    "PyYAML==6.0",
+    "Werkzeug==2.0.3",
+    "xlrd==1.2.0",
+    "XlsxWriter==1.2.6",
 ]
 
 [dependency-groups]
