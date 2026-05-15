@@ -46,14 +46,10 @@ Do not run `uv lock` as part of routine local setup. Only refresh the lockfile i
 Start the Flask development server:
 
 ```sh
-uv run ./runflaskappindebug.sh
+FLASK_APP=flask_app.py FLASK_ENV=development FLASK_DEBUG=1 uv run flask run
 ```
 
-The script sets:
-
-- `FLASK_APP=flask_app.py`
-- `FLASK_ENV=development`
-- `FLASK_DEBUG=1`
+This starts `flask_app.py` in debug mode inside the `uv` environment. The environment-variable form is used because the project pins Flask 2.0.x.
 
 By default, Flask serves the app at:
 
