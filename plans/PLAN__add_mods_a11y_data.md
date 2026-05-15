@@ -20,6 +20,7 @@ The existing profile interpreter already supports creating `mods:note` elements 
 - [YAML Validation Design](#yaml-validation-design)
 - [Validation Behavior](#validation-behavior)
 - [Feedback Incorporated](#feedback-incorporated)
+- [Implementation Context](#implementation-context)
 - [Tests](#tests)
 - [Documentation Updates](#documentation-updates)
 - [Decision Points](#decision-points)
@@ -221,8 +222,8 @@ Design notes:
 Potential implementation locations:
 
 - Add `self.profileValidations = self.profile.get("validations", [])` to `profileInterpreter.Profile`.
-- Add a method such as `validateRow(row, rowIndex)` or `validateRows(rows)`.
-- Alternatively, create a small `profileValidation.py` helper if this starts to grow beyond a few rule types.
+- Add a new `profileValidation.py` module for the generic validation engine.
+- Have that module expose a small function such as `validateRows(rows, validations)` or `validateRows(rows, profile)` that returns structured validation errors.
 
 ## Validation Behavior
 
@@ -258,6 +259,25 @@ Feedback decisions now reflected in this plan:
 - Require `imageAccessibilityAltText` only if the row's `typeOfResource` value is exactly `still image` after trimming whitespace and normalizing case.
 - If `typeOfResource` is missing, blank, or anything other than exactly `still image`, waive the required alt-text rule.
 - Do not treat multiple-value strings as matches for the required rule. For example, `still image|text` and `still image; text` are not exactly `still image`, so they do not trigger required alt text.
+- Implement validation in a new `profileValidation.py` module.
+
+## Implementation Context
+
+Useful repo context for a future implementation session:
+
+- Main Flask routes live in `flask_app.py`.
+- MODS upload/download is handled by `modsMakerHome(profileFilename)` at `/modsmaker/<profileFilename>`.
+- MODS preview is handled by `modsMakerGetPreview()` at `/modsmaker/getpreview`.
+- Spreadsheet parsing and ZIP/preview helpers live in `fileSupport.py`.
+- YAML profile loading and MODS XML generation live in `profileInterpreter.py`.
+- The current profile constructor reads top-level YAML keys such as `fields`, `globalconditions`, `filenamecolumn`, and `fileextension`; add `validations` alongside those.
+- Existing MODS output mapping is YAML-driven, and empty generated elements are removed after XML generation.
+- Add the new validation engine in `profileValidation.py`, not directly inside `profileInterpreter.py`.
+- Active MODS profiles to update: `profiles/modsprofile.yaml`, `profiles/hallhoag.yaml`, `profiles/jnbcsyllabi.yaml`, `profiles/musictheses.yaml`, and `profiles/musicdoctoraldissertation.yaml`.
+- Do not update `profiles/modsprofile_backup2024.yaml`.
+- Existing tests are under `tests/`; relevant files include `tests/test_profile_interpreter.py`, `tests/test_file_support.py`, `tests/test_flask_routes.py`, and `tests/test_spreadsheet_demos.py`.
+- Test runner documented in the README: `uv run ./run_tests.py`.
+- Demo spreadsheets live in `spreadsheet_demos/`; the TIFF image demo is the most relevant demo to update for alt text.
 
 ## Tests
 
@@ -344,17 +364,13 @@ Do not apply the change to `profiles/modsprofile_backup2024.yaml`.
 
 Implementation details still to choose during coding:
 
-- Whether validation helper code lives directly on `profileInterpreter.Profile` or in a small `profileValidation.py` module.
-
-FEEDBACK: add a profileValidation.py module.
-
 - Exact front-end presentation for preview validation errors.
 - Exact non-preview error page/template used when download validation fails.
 
 ## Implementation Order
 
 1. Add the YAML field, `maxchars` validation, and conditional `required` validation to every active MODS profile except `profiles/modsprofile_backup2024.yaml`.
-2. Add generic profile validation support for `maxchars`, `required`, and `equals` conditions.
+2. Add `profileValidation.py` with generic validation support for `maxchars`, `required`, and `equals` conditions.
 3. Implement trimmed, case-insensitive `equals` condition matching.
 4. Ensure the `typeOfResource` required condition only matches exactly `still image` after normalization.
 5. Run validation before preview and ZIP download generation.
