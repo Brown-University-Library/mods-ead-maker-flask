@@ -2,6 +2,13 @@
 
 Goal: add useful tests without refactoring production code.
 
+Status:
+
+- Done: ran `uv run ./run_tests.py`; 27 tests pass.
+- Done: reviewed `AGENTS.md`; no new test dependencies are needed because mocking uses `unittest.mock`.
+- Done: replaced the template `tests/test.py` with real test modules for file helpers, profile parsing, MODS XML generation, and Flask routes.
+- Next: add deeper EAD smoke tests and more upload/ZIP edge cases when useful.
+
 The most-used project path appears to be the MODS Maker workflow:
 
 1. User opens `/modsmaker` or `/modsmaker/<profile>`.
@@ -39,6 +46,8 @@ Use `unittest.mock.patch` for route tests that do not need to exercise the full 
 
 ## Phase 1: Replace Template Test
 
+Status: implemented and verified.
+
 Create a real test module structure, for example:
 
 - `tests/test_file_support.py`
@@ -55,6 +64,8 @@ uv run ./run_tests.py
 
 
 ## Phase 2: File Helper Tests
+
+Status: implemented and verified.
 
 Target: `fileSupport.py`
 
@@ -76,6 +87,8 @@ Why this matters:
 
 ## Phase 3: Profile Parsing Tests
 
+Status: implemented and verified.
+
 Target: `profileInterpreter.py`
 
 High-value tests:
@@ -96,6 +109,8 @@ Why this matters:
 
 
 ## Phase 4: MODS XML Generation Tests
+
+Status: implemented and verified.
 
 Target: `profileInterpreter.Profile` and `fileSupport.createFileFromRow()`
 
@@ -119,6 +134,8 @@ Why this matters:
 
 
 ## Phase 5: Flask Route Tests
+
+Status: implemented and verified.
 
 Target: `flask_app.py`
 
@@ -148,6 +165,8 @@ Why this matters:
 
 
 ## Phase 6: EAD Smoke Tests
+
+Status: not implemented yet; recommended next test layer.
 
 Target: EAD routes in `flask_app.py` and selected `legacy/EADMaker.py` helpers.
 
