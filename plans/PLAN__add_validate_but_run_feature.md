@@ -23,7 +23,7 @@ Default state: checked.
 - [Warning Display](#warning-display)
 - [Tests](#tests)
 - [Documentation Updates](#documentation-updates)
-- [Open Decisions](#open-decisions)
+- [Resolved Decisions](#resolved-decisions)
 - [Implementation Order](#implementation-order)
 
 ## Current Behavior
@@ -49,7 +49,7 @@ When `Enforce validations` is checked:
 When `Enforce validations` is unchecked:
 
 - Preview still generates MODS preview output.
-- Download still generates the ZIP.
+- Download shows validation warnings before ZIP generation, then still allows ZIP generation.
 - Validation failures are shown as warnings, not blocking errors.
 - Warning text should be visible near the preview/output workflow and should include wording like:
 
@@ -84,6 +84,13 @@ For async preview requests:
 - Existing JavaScript already sends a JSON `data` payload.
 - Include `enforce_validations: true/false` in that payload.
 - Keep JS responsibility limited to reading the checkbox and displaying the returned response.
+
+For Download:
+
+- Add a lightweight server-side validation/preflight endpoint used before form submission.
+- The endpoint should return server-formatted error/warning text.
+- JavaScript should only call that endpoint, render the returned text, and either stop or continue the normal form submission.
+- Keep validation rules, message formatting, and enforcement decisions in Flask/Python.
 
 Backend behavior:
 
@@ -142,12 +149,18 @@ Preview route response when enforcement is enabled and errors exist:
 
 Download behavior when enforcement is disabled and warnings exist:
 
-- A normal file download response cannot also display warnings in the current same-page UI.
-- To keep JavaScript minimal, add a preview/validate preflight for Download only if the current UI already relies on async validation.
-- If the working tree does not have a `/modsmaker/validate` endpoint, avoid adding a large JS workflow just for this feature. Instead, use a simple server-side approach first:
-  - checked: current error page on validation failure.
-  - unchecked: download ZIP even with warnings.
-- If visible download warnings are required before download starts, add a lightweight `/modsmaker/validate` endpoint and minimal JS in a later pass.
+- Direct Download must show warnings before the ZIP download starts.
+- Add a lightweight `/modsmaker/validate` endpoint for preflight validation.
+- Keep this endpoint Python-owned:
+  - parse workbook rows,
+  - run YAML validation,
+  - decide whether failures are blocking errors or non-blocking warnings,
+  - format display text server-side.
+- Keep JavaScript minimal:
+  - read the `Enforce validations` checkbox,
+  - call `/modsmaker/validate`,
+  - render returned `error_text` or `warning_text`,
+  - submit the existing form only when processing may continue.
 
 ## Template Changes
 
@@ -188,9 +201,10 @@ Implementation options:
 
 For Download:
 
-- If avoiding a larger JS flow, unchecked enforcement should allow the ZIP to download even if warnings exist.
-- The warning state will be visible in Preview but not during a direct Download click.
-- If direct Download warning visibility is important, add a small preflight endpoint and display warnings before submitting.
+- Direct Download must show warning text before ZIP generation when enforcement is off and validation warnings exist.
+- Use the same display area and server-formatted warning text as Preview.
+- After warning text is displayed, continue normal form submission automatically if validations are not enforced.
+- When enforcement is on, validation failures should display as errors and stop form submission.
 
 ## Tests
 
@@ -206,6 +220,8 @@ Flask route tests:
 
 - `/modsmaker/getpreview` with invalid spreadsheet and `enforce_validations: true` returns `errors`.
 - `/modsmaker/getpreview` with invalid spreadsheet and `enforce_validations: false` returns preview text plus `warnings` or `warning_text`.
+- `/modsmaker/validate` with invalid spreadsheet and `enforce_validations: true` returns blocking `errors` and `error_text`.
+- `/modsmaker/validate` with invalid spreadsheet and `enforce_validations: false` returns non-blocking `warnings`, `warning_text`, and a continue/process flag.
 - `POST /modsmaker/<profile>` with invalid spreadsheet and checked checkbox returns validation error page.
 - `POST /modsmaker/<profile>` with invalid spreadsheet and unchecked checkbox returns a ZIP.
 
@@ -228,56 +244,56 @@ Suggested language:
 By default, MODS validation errors stop Preview and Download. To inspect generated MODS despite validation failures, uncheck Enforce validations. The app will continue processing and show validation warnings, but generated MODS may not work in the Workshop.
 ```
 
-## Open Decisions
+## Resolved Decisions
+
+No policy decisions remain open.
+
+Resolved behavior:
 
 1. Download warning display
 
-Decide whether unchecked Download must show warnings before starting the ZIP download.
-
-Recommendation for smallest implementation:
-
-- Do not add a larger JavaScript preflight flow yet.
-- Let unchecked Download create the ZIP.
-- Rely on Preview for visible warning review.
-
-Recommendation for best UX:
-
-- Add or restore a lightweight `/modsmaker/validate` endpoint so Download can show warnings before submitting.
+- Direct Download must show validation warnings before starting ZIP generation when validation enforcement is disabled.
+- Use a lightweight `/modsmaker/validate` endpoint for this preflight.
 - Keep JavaScript minimal by having Flask return server-formatted warning text.
 
 2. Wording
 
-Recommended checkbox label:
+Use this checkbox label:
 
 ```text
 Enforce validations
 ```
 
-Recommended warning sentence:
+Use this warning sentence:
 
 ```text
 Processing continued because validations are not being enforced. MODS created with failed validation may not work in the Workshop.
 ```
 
-3. Response shape
+3. JavaScript scope
 
-Decide whether preview responses should remain string-or-error-object mixed, or move to a consistent object response.
+- JavaScript may coordinate browser-only flow: collect the selected file, call `/modsmaker/validate`, render server-formatted text, and submit the form.
+- Validation rules, error/warning classification, and message formatting should remain in Flask/Python.
 
-Recommendation:
+4. Response shape
 
-- For minimal disruption, keep existing successful preview string response in strict mode.
-- Return an object only when warnings are present.
-- A future cleanup can normalize preview responses.
+- For minimal disruption, keep existing successful preview string response in strict mode if practical.
+- Return an object when warnings are present.
+- `/modsmaker/validate` should always return a consistent object.
+- A future cleanup can normalize all preview responses.
 
 ## Implementation Order
 
 1. Add checkbox to `templates/mods/modsAction.html` or adjacent upload controls, default checked.
-2. Add minimal JS to include `enforce_validations` in preview request data.
-3. Parse `enforce_validations` in `modsMakerGetPreview()`.
-4. Parse `enforce_validations` in `modsMakerHome()` from normal form data.
-5. Add non-raising validation helper in `fileSupport.py`.
-6. Update `getPreview()` and `createZipFromExcel()` to support strict and warning-only modes.
-7. Update preview rendering so warning text appears before generated MODS when enforcement is off.
-8. Add route/helper tests for strict versus warning-only modes.
-9. Update README and spreadsheet demo documentation.
-10. Run `uv run ./run_tests.py`.
+2. Add a small `/modsmaker/validate` endpoint that returns server-formatted errors or warnings.
+3. Add minimal JS to include `enforce_validations` in preview and validation request data.
+4. Parse `enforce_validations` in `modsMakerGetPreview()`.
+5. Parse `enforce_validations` in `modsMakerValidate()`.
+6. Parse `enforce_validations` in `modsMakerHome()` from normal form data.
+7. Add non-raising validation helper in `fileSupport.py`.
+8. Update `getPreview()` and `createZipFromExcel()` to support strict and warning-only modes.
+9. Update Preview flow so warning text appears before generated MODS when enforcement is off.
+10. Update Download flow so it calls `/modsmaker/validate`, displays server-formatted warnings, and then submits the form when enforcement is off.
+11. Add route/helper tests for strict versus warning-only modes.
+12. Update README and spreadsheet demo documentation.
+13. Run `uv run ./run_tests.py`.
