@@ -38,10 +38,20 @@
 </div>
 
 <script>
+  // Form state helpers ---------------------------------------------
+
+  /**
+   * Returns whether validation failures should stop MODS processing.
+   * Called by: getModsRequestData().
+   */
   function getEnforceValidations() {
     return document.getElementById("enforce_validations").checked
   }
 
+  /**
+   * Builds an object of checked global-condition controls for the MODS request.
+   * Called by: getModsRequestData().
+   */
   function getGlobalConditions() {
     const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
     var globalConditions = {}
@@ -59,14 +69,10 @@
     return globalConditions
   }
 
-  function showPreviewText(text) {
-    const previewDiv = document.getElementById("preview")
-    previewDiv.innerText = text
-
-    const previewParentDiv = document.getElementById("previewparent")
-    previewParentDiv.style.display = "inherit"
-  }
-
+  /**
+   * Builds the shared request payload for Preview and Download validation requests.
+   * Called by: retrievePreview(), validateModsDownload().
+   */
   function getModsRequestData() {
     return {
       "sheetname": document.getElementById("sheetlist").value,
@@ -76,6 +82,10 @@
     }
   }
 
+  /**
+   * Returns the selected XLSX file, or null when no valid XLSX is selected.
+   * Called by: retrievePreview(), validateModsDownload().
+   */
   function getSelectedXlsxFile() {
     fileInput = document.getElementById("input_file")
     if (fileInput.files[0] == undefined) {
@@ -91,6 +101,24 @@
     return selectedFile
   }
 
+  // Preview display helpers ----------------------------------------
+
+  /**
+   * Shows text in the shared Preview panel.
+   * Called by: showPreviewResponse(), validateModsDownload().
+   */
+  function showPreviewText(text) {
+    const previewDiv = document.getElementById("preview")
+    previewDiv.innerText = text
+
+    const previewParentDiv = document.getElementById("previewparent")
+    previewParentDiv.style.display = "inherit"
+  }
+
+  /**
+   * Renders Preview endpoint output, including validation errors or warnings.
+   * Called by: retrievePreview().
+   */
   function showPreviewResponse(data) {
     if (data.errors && data.errors.length > 0) {
       showPreviewText(data.error_text)
@@ -101,6 +129,12 @@
     }
   }
 
+  // Download validation flow ---------------------------------------
+
+  /**
+   * Runs server-side validation before allowing the Download MODS form to submit.
+   * Called by: submitForm.addEventListener() in modsFileSelect.html.
+   */
   function validateModsDownload(event) {
     const form = document.getElementById("submit_mods")
 
@@ -138,6 +172,12 @@
       });
   }
 
+  // Preview request flow -------------------------------------------
+
+  /**
+   * Sends the selected workbook and form options to the Preview endpoint.
+   * Called by: setUpActionCard() in modsFileSelect.html.
+   */
   function retrievePreview(id) {
 
     var previewSpinner = document.getElementById("previewspinner")

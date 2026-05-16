@@ -26,6 +26,12 @@
 
     clearActionSheet()
 
+    // File selection and upload flow -------------------------------
+
+    /**
+     * Clears the sheet/action UI, then starts workbook inspection for selected XLSX files.
+     * Called by: fileInput.addEventListener().
+     */
     function handleFileInputChange() {
 
         clearActionSheet()
@@ -42,6 +48,10 @@
         }
     }
 
+    /**
+     * Uploads the selected workbook to retrieve available sheet names.
+     * Called by: handleFileInputChange().
+     */
     function handleUpload(file) {
         let formData = new FormData();
         fileSpinner.style.display = "inherit"
@@ -53,6 +63,12 @@
             .then(data => setUpActionCard(data));
     }
 
+    // Sheet/action-card setup --------------------------------------
+
+    /**
+     * Populates the sheet selector and enables Preview and Download controls.
+     * Called by: handleUpload().
+     */
     function setUpActionCard(response) {
         fileName = response['filename']
         sheetNames = response['sheetnames']
@@ -76,6 +92,10 @@
         fileSpinner.style.display = "none"
     }
 
+    /**
+     * Creates one sheet-selector option for an Excel sheet name.
+     * Called by: setUpActionCard().
+     */
     function createSheetOptionElement(sheetName) {
         newSheetOption = document.createElement("option")
         newSheetOption.setAttribute("value", sheetName)
@@ -83,6 +103,12 @@
         return newSheetOption
     }
 
+    // Action-card reset --------------------------------------------
+
+    /**
+     * Resets the action card, sheet selector, and preview area to the no-file state.
+     * Called by: initial script setup in modsFileSelect.html, handleFileInputChange().
+     */
     function clearActionSheet() {
 
         fileTitle.innerText = "No file selected"
