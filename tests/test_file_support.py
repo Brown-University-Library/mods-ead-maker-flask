@@ -134,6 +134,52 @@ class TestFileSupport(unittest.TestCase):
             root.xpath('mods:note[@type="image_accessibility_alt_text"]/text()', namespaces=namespaces),
         )
 
+    def test_get_preview_with_disabled_validation_returns_warnings_and_preview(self):
+        """
+        Checks that warning-only validation returns generated preview text with validation warnings.
+        """
+        workbook_bytes = make_xlsx_bytes([
+            ('Records', [
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['sample-record', 'Sample title', 'still image', ''],
+            ]),
+        ])
+
+        preview_result = fileSupport.getPreviewResult(
+            workbook_bytes,
+            'Records',
+            'profiles/modsprofile.yaml',
+            {'includeBrownDefaults': True, 'includePreferredCitation': True},
+            enforceValidations=False,
+        )
+
+        self.assertEqual(1, len(preview_result['warnings']))
+        self.assertIn('Processing continued because validations are not being enforced', preview_result['warning_text'])
+        self.assertIn('sample-record.mods.xml', preview_result['preview'])
+
+    def test_create_zip_from_excel_with_disabled_validation_returns_zip(self):
+        """
+        Checks that warning-only validation allows ZIP creation despite validation failures.
+        """
+        workbook_bytes = make_xlsx_bytes([
+            ('Records', [
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['sample-record', 'Sample title', 'still image', ''],
+            ]),
+        ])
+
+        zip_bytes, filename = fileSupport.createZipFromExcel(
+            workbook_bytes,
+            'Records',
+            'profiles/modsprofile.yaml',
+            {'includeBrownDefaults': True, 'includePreferredCitation': True},
+            enforceValidations=False,
+        )
+
+        self.assertEqual('Records.zip', filename)
+        with zipfile.ZipFile(io.BytesIO(zip_bytes)) as zip_file:
+            self.assertEqual(['sample-record.mods.xml'], zip_file.namelist())
+
 
 if __name__ == '__main__':
     unittest.main()

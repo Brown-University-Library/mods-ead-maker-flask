@@ -113,7 +113,10 @@ class TestFlaskRoutes(unittest.TestCase):
         """
         Checks that MODS preview route returns the generated preview text as JSON.
         """
-        with patch('flask_app.fileSupport.getPreview', return_value='preview text') as mock_get_preview:
+        with patch(
+            'flask_app.fileSupport.getPreviewResult',
+            return_value={'preview': 'preview text', 'warnings': []},
+        ) as mock_get_preview:
             response = self.client.post(
                 '/modsmaker/getpreview',
                 data={
@@ -150,6 +153,80 @@ class TestFlaskRoutes(unittest.TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual('required', response.get_json()['errors'][0]['type'])
+        self.assertIn('Image accessibility alt text is required', response.get_json()['error_text'])
+
+    def test_modsmaker_get_preview_with_disabled_validation_returns_warnings_and_preview(self):
+        """
+        Checks that disabled enforcement returns warnings while still generating preview output.
+        """
+        response = self.client.post(
+            '/modsmaker/getpreview',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'globalconditions': {'includeBrownDefaults': True},
+                    'enforce_validations': False,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('required', response_json['warnings'][0]['type'])
+        self.assertIn('Processing continued because validations are not being enforced', response_json['warning_text'])
+        self.assertIn('sample-record.mods.xml', response_json['preview'])
+
+    def test_modsmaker_validate_with_enforcement_returns_blocking_errors(self):
+        """
+        Checks that validation preflight blocks processing when enforcement is enabled.
+        """
+        response = self.client.post(
+            '/modsmaker/validate',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'enforce_validations': True,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertFalse(response_json['can_continue'])
+        self.assertEqual('required', response_json['errors'][0]['type'])
+        self.assertIn('Image accessibility alt text is required', response_json['error_text'])
+
+    def test_modsmaker_validate_with_disabled_enforcement_returns_warnings(self):
+        """
+        Checks that validation preflight returns non-blocking warnings when enforcement is disabled.
+        """
+        response = self.client.post(
+            '/modsmaker/validate',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'enforce_validations': False,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(response_json['can_continue'])
+        self.assertEqual('required', response_json['warnings'][0]['type'])
+        self.assertIn('Processing continued because validations are not being enforced', response_json['warning_text'])
 
     def test_modsmaker_post_with_validation_error_does_not_return_zip(self):
         """
@@ -167,6 +244,23 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(200, response.status_code)
         self.assertNotIn('Content-Disposition', response.headers)
         self.assertIn(b'Image accessibility alt text is required', response.data)
+
+    def test_modsmaker_post_with_disabled_validation_returns_zip(self):
+        """
+        Checks that MODS downloads can continue when validation enforcement is disabled.
+        """
+        response = self.client.post(
+            '/modsmaker/modsprofile',
+            data={
+                'input_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'sheetlist': 'Records',
+                'enforce_validations': 'false',
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('attachment; filename=Records.zip', response.headers['Content-Disposition'])
 
     def test_modsmaker_post_with_non_xlsx_returns_error(self):
         """

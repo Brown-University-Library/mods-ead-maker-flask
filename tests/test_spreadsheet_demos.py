@@ -154,6 +154,27 @@ class TestSpreadsheetDemos(unittest.TestCase):
         self.assertIn(b'Row 5, column', response.data)
         self.assertIn(b'imageAccessibilityAltText', response.data)
 
+    def test_validation_example_spreadsheet_downloads_zip_when_validation_is_not_enforced(self):
+        """
+        Checks that the validation example workbook can still generate a ZIP when enforcement is disabled.
+        """
+        workbook_path = DEMO_DIR / VALIDATION_EXAMPLE['filename']
+        response = self.client.post(
+            '/modsmaker/%s' % VALIDATION_EXAMPLE['profile'],
+            data={
+                'input_file': (io.BytesIO(workbook_path.read_bytes()), VALIDATION_EXAMPLE['filename']),
+                'sheetlist': VALIDATION_EXAMPLE['sheet'],
+                'enforce_validations': 'false',
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(
+            'attachment; filename=%s.zip' % VALIDATION_EXAMPLE['sheet'],
+            response.headers['Content-Disposition'],
+        )
+
     def assert_generated_zip_matches_demo(self, zip_bytes, demo):
         """
         Checks that a generated demo ZIP contains parseable MODS files with expected names.

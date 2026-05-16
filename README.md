@@ -40,6 +40,8 @@ The important idea is that the spreadsheet does not directly define the XML stru
 
 For image records, include an `imageAccessibilityAltText` column. When `typeOfResource` is `still image`, the MODS Maker requires that column to contain 250 characters or fewer and writes it as `<mods:note type="image_accessibility_alt_text">...</mods:note>`.
 
+By default, MODS validation errors stop Preview and Download. To inspect generated MODS despite validation failures, uncheck `Enforce validations`. The app will continue processing and show validation warnings, but generated MODS may not work in the Workshop.
+
 _(EAD documentation to come)_
 
 
@@ -201,6 +203,8 @@ http://127.0.0.1:5000/modsmaker/modsprofile
 ```
 
 For MODS spreadsheet uploads, the route URL selects the mapping profile. For example, `/modsmaker/musictheses` uses `profiles/musictheses.yaml`. The upload form does not choose or detect a profile from the spreadsheet file.
+
+The upload form checks `Enforce validations` by default. Leave it checked to stop Preview and Download when validation errors are found. Uncheck it to continue processing while showing validation warnings.
 
 
 ## Spreadsheet demos

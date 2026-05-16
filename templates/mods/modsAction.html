@@ -13,6 +13,13 @@
     </select>
     {% include 'globalconditions.html' %}
 
+    <div class="form-check" style="margin-bottom: 15px;">
+      <input type="hidden" name="enforce_validations" value="false">
+      <input class="form-check-input" type="checkbox" name="enforce_validations" id="enforce_validations" value="true" checked>
+      <label class="form-check-label" for="enforce_validations">Enforce validations</label>
+      <div class="form-text">When unchecked, Preview and Download continue even if validation warnings are found.</div>
+    </div>
+
     <div class="buttons">
       <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
       <div style="margin-left: 5px; display:inline-block" id="preview_button" class="btn btn-secondary">
@@ -31,6 +38,106 @@
 </div>
 
 <script>
+  function getEnforceValidations() {
+    return document.getElementById("enforce_validations").checked
+  }
+
+  function getGlobalConditions() {
+    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+    var globalConditions = {}
+
+    for (globalConditionCheckbox of globalConditionCheckboxes) {
+      if (globalConditionCheckbox.id == "enforce_validations") {
+        continue
+      }
+      if (globalConditionCheckbox.checked) {
+        elementId = globalConditionCheckbox.id
+        globalConditions[elementId] = true
+      }
+    }
+
+    return globalConditions
+  }
+
+  function showPreviewText(text) {
+    const previewDiv = document.getElementById("preview")
+    previewDiv.innerText = text
+
+    const previewParentDiv = document.getElementById("previewparent")
+    previewParentDiv.style.display = "inherit"
+  }
+
+  function getModsRequestData() {
+    return {
+      "sheetname": document.getElementById("sheetlist").value,
+      "globalconditions": getGlobalConditions(),
+      "profile": "{{profilename}}",
+      "enforce_validations": getEnforceValidations()
+    }
+  }
+
+  function getSelectedXlsxFile() {
+    fileInput = document.getElementById("input_file")
+    if (fileInput.files[0] == undefined) {
+      return null
+    }
+
+    let selectedFile = fileInput.files[0]
+
+    if (!selectedFile.name.includes(".xlsx")) {
+      return null
+    }
+
+    return selectedFile
+  }
+
+  function showPreviewResponse(data) {
+    if (data.errors && data.errors.length > 0) {
+      showPreviewText(data.error_text)
+    } else if (data.warnings && data.warnings.length > 0) {
+      showPreviewText(data.warning_text + "\n\n" + data.preview.trim())
+    } else {
+      showPreviewText(data.trim())
+    }
+  }
+
+  function validateModsDownload(event) {
+    const form = document.getElementById("submit_mods")
+
+    if (form.dataset.validationChecked == "true") {
+      delete form.dataset.validationChecked
+      return
+    }
+
+    let selectedFile = getSelectedXlsxFile()
+    if (selectedFile == null) {
+      return
+    }
+
+    event.preventDefault()
+
+    const data = getModsRequestData()
+    let formData = new FormData();
+    formData.append("xlsx_file", selectedFile);
+    formData.append("data", JSON.stringify(data))
+
+    fetch("{{url_for('modsMakerValidate')}}", { method: "POST", body: formData })
+      .then(response => response.json())
+      .then(function (data) {
+        if (data.errors && data.errors.length > 0) {
+          showPreviewText(data.error_text)
+          return
+        }
+        if (data.warnings && data.warnings.length > 0) {
+          showPreviewText(data.warning_text)
+        }
+        if (data.can_continue) {
+          form.dataset.validationChecked = "true"
+          form.requestSubmit()
+        }
+      });
+  }
+
   function retrievePreview(id) {
 
     var previewSpinner = document.getElementById("previewspinner")
@@ -42,32 +149,12 @@
     const previewParentDiv = document.getElementById("previewparent")
     previewParentDiv.style.display = "inherit"
 
-    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
-    var globalConditions = {}
-
-    for (globalConditionCheckbox of globalConditionCheckboxes) {
-      if (globalConditionCheckbox.checked) {
-        elementId = globalConditionCheckbox.id
-        globalConditions[elementId] = true
-      }
-    }
-
-    fileInput = document.getElementById("input_file")
-    if (fileInput.files[0] == undefined) {
+    let selectedFile = getSelectedXlsxFile()
+    if (selectedFile == null) {
       return
     }
 
-    let selectedFile = fileInput.files[0]
-
-    if (!selectedFile.name.includes(".xlsx")) {
-      return
-    }
-
-    const data = {
-      "sheetname": document.getElementById("sheetlist").value,
-      "globalconditions": globalConditions,
-      "profile": "{{profilename}}"
-    }
+    const data = getModsRequestData()
 
     let formData = new FormData();
     formData.append("xlsx_file", selectedFile);
@@ -76,13 +163,7 @@
 	    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
 	      .then(response => response.json())
 	      .then(function (data) {
-	        if (data.errors) {
-	          previewDiv.innerText = data.errors.map(function (error) {
-	            return "Row " + error.spreadsheet_row + ", column \"" + error.col + "\": " + error.message
-	          }).join("\n")
-	        } else {
-	          previewDiv.innerText = data.trim()
-	        }
+	        showPreviewResponse(data)
 	        previewSpinner.style.display = "none"
 	      }
 	      );

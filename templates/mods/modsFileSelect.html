@@ -22,6 +22,8 @@
     actionCard = document.getElementById("action_card")
     fileSpinner = document.getElementById("filespinner")
 
+    submitForm.addEventListener('submit', validateModsDownload)
+
     clearActionSheet()
 
     function handleFileInputChange() {

@@ -14,6 +14,23 @@ from glob import glob
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
+def getBooleanFromJson(value, default=True):
+    if value is None:
+        return default
+
+    if isinstance(value, bool):
+        return value
+
+    return str(value).lower() in ['1', 'true', 'yes', 'on']
+
+def getEnforceValidationsFromForm(form):
+    values = form.getlist('enforce_validations')
+
+    if not values:
+        return True
+
+    return 'true' in [str(value).lower() for value in values]
+
 @app.errorhandler(404)
 def handle404(error):
     return redirect(url_for("modsMakerHome", profileFilename="modsprofile"))
@@ -30,14 +47,22 @@ def modsMakerHome(profileFilename):
         input_file = request.files["input_file"]
         filename = request.files["input_file"].filename
         selectedSheet = request.form.get('sheetlist')
+        enforceValidations = getEnforceValidationsFromForm(request.form)
 
         globalConditions = {}
         for formInput in request.form:
-            globalConditions[formInput] = True
+            if formInput not in ['sheetlist', 'enforce_validations']:
+                globalConditions[formInput] = True
 
         if ".xlsx" in filename:
             try:
-                zipFile, filename = fileSupport.createZipFromExcel(input_file.read(), selectedSheet, os.path.join("profiles", profileFilename + ".yaml"),globalConditions)
+                zipFile, filename = fileSupport.createZipFromExcel(
+                    input_file.read(),
+                    selectedSheet,
+                    os.path.join("profiles", profileFilename + ".yaml"),
+                    globalConditions,
+                    enforceValidations,
+                )
             except profileValidation.ValidationError as error:
                 return render_template('error.html', error=fileSupport.getValidationErrorText(error.errors), title="Error")
             response = make_response(zipFile)
@@ -71,11 +96,38 @@ def modsMakerGetPreview():
         sheetName = requestDict.get("sheetname")
         profileFilename = requestDict.get("profile")
         globalConditions = requestDict.get("globalconditions", {})
+        enforceValidations = getBooleanFromJson(requestDict.get("enforce_validations"), True)
         try:
-            preview = fileSupport.getPreview(inputFile.read(), sheetName, os.path.join("profiles", profileFilename + ".yaml"), globalConditions)
+            previewResult = fileSupport.getPreviewResult(
+                inputFile.read(),
+                sheetName,
+                os.path.join("profiles", profileFilename + ".yaml"),
+                globalConditions,
+                enforceValidations,
+            )
         except profileValidation.ValidationError as error:
-            return(jsonify({"errors": error.errors}))
-        return(jsonify(preview))
+            return(jsonify({"errors": error.errors, "error_text": fileSupport.getValidationErrorText(error.errors)}))
+
+        if previewResult.get('warnings'):
+            return jsonify(previewResult)
+
+        return(jsonify(previewResult['preview']))
+
+@app.route("/modsmaker/validate", methods=["POST"])
+def modsMakerValidate():
+    if request.method == "POST":
+        inputFile = request.files.get("xlsx_file") or request.files.get("input_file")
+        requestDict = json.loads(request.form["data"])
+        sheetName = requestDict.get("sheetname")
+        profileFilename = requestDict.get("profile")
+        enforceValidations = getBooleanFromJson(requestDict.get("enforce_validations"), True)
+        validationStatus = fileSupport.getValidationStatusFromExcel(
+            inputFile.read(),
+            sheetName,
+            os.path.join("profiles", profileFilename + ".yaml"),
+            enforceValidations,
+        )
+        return jsonify(validationStatus)
 
 @app.route("/modsmakerapi", methods=["GET", "POST"])
 def modsMakerAPI():
