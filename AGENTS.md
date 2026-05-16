@@ -22,6 +22,27 @@ When these instructions conflict with older IDE, Copilot, or contributor notes, 
 - Do not assume there is a `main.py`; this is a Flask app centered on `flask_app.py`.
 
 
+## Application Index
+
+- Main Flask routes live in `flask_app.py`.
+- MODS upload/download route: `/modsmaker/<profileFilename>`, handled by `modsMakerHome(profileFilename)`.
+- Default MODS route: `/modsmaker`, which redirects to `/modsmaker/modsprofile`.
+- MODS file-inspection route: `/processfileupload`, which returns workbook sheet names for the selected `.xlsx`.
+- MODS preview route: `/modsmaker/getpreview`, which returns generated preview text as JSON.
+- EAD upload route: `/eadmaker`; EAD processing is legacy code in `legacy/EADMaker.py`.
+- Profile browsing routes live under `/profiles/`; profile-based MODS forms live under `/forms/`.
+- MODS profile selection is route-driven. For example, `/modsmaker/musictheses` uses `profiles/musictheses.yaml`.
+- Uploaded spreadsheets do not select or autodetect their profile.
+- Spreadsheet parsing, MODS ZIP generation, preview assembly, filename cleanup, and validation orchestration belong in `fileSupport.py`.
+- YAML profile loading, field interpretation, and MODS XML generation belong in `profileInterpreter.py`.
+- YAML metadata profiles live in `profiles/`; `profiles/modsprofile_backup2024.yaml` is a backup profile and should not be changed unless explicitly requested.
+- MODS upload templates live in `templates/mods/`, especially `modsFileSelect.html` and `modsAction.html`.
+- Shared preview markup lives in `templates/preview.html`.
+- Demo spreadsheets live in `spreadsheet_demos/`; their expected behavior is documented in `spreadsheet_demos/README.md`.
+- Planning documents live in `plans/`.
+- Core tests live in `tests/test_profile_interpreter.py`, `tests/test_file_support.py`, `tests/test_flask_routes.py`, and `tests/test_spreadsheet_demos.py`.
+
+
 ## How To Run
 
 - Assume commands run from the project root.
@@ -73,12 +94,14 @@ When these instructions conflict with older IDE, Copilot, or contributor notes, 
   - `fileSupport.py` for spreadsheet, XML, ZIP, preview, and file-output helpers.
   - `profileInterpreter.py` for YAML profile interpretation and MODS XML generation.
   - `legacy/EADMaker.py` and `legacy/MODSMaker.py` for legacy EAD/MODS behavior.
+- Keep JavaScript as small as practical. Add new behavior in Flask/Python helper code wherever possible, and use JavaScript mainly for browser-only concerns such as file selection, in-page rendering, and small UI state changes.
 - Do not add Django conventions, Django management commands, or Django directory assumptions to this project.
 
 
 ### Templates And Profiles
 
 - HTML templates live under `templates/`.
+- Template JavaScript should stay thin and should not become the primary home for validation, profile interpretation, XML generation, spreadsheet parsing, or other application rules.
 - YAML metadata profiles live under `profiles/`.
 - Preserve existing profile behavior unless the task explicitly changes profile semantics.
 - Be careful with XML output formatting and filenames; these are user-facing export behavior.
