@@ -11,6 +11,11 @@ import flask_app
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEMO_DIR = PROJECT_ROOT / 'spreadsheet_demos'
+VALIDATION_EXAMPLE = {
+    'filename': 'mods_default_tiff_images_validation_examples.xlsx',
+    'profile': 'modsprofile',
+    'sheet': 'tiff_images',
+}
 
 DEMO_SPREADSHEETS = [
     {
@@ -106,6 +111,48 @@ class TestSpreadsheetDemos(unittest.TestCase):
                 )
                 self.assert_generated_zip_matches_demo(response.data, demo)
                 self.assert_demo_alt_text_values_are_within_limit(workbook_path, demo['sheet'])
+
+    def test_validation_example_spreadsheet_returns_preview_errors(self):
+        """
+        Checks that the validation example workbook demonstrates expected preview errors.
+        """
+        workbook_path = DEMO_DIR / VALIDATION_EXAMPLE['filename']
+        response = self.client.post(
+            '/modsmaker/getpreview',
+            data={
+                'xlsx_file': (io.BytesIO(workbook_path.read_bytes()), VALIDATION_EXAMPLE['filename']),
+                'data': '{"sheetname": "tiff_images", "profile": "modsprofile", "globalconditions": {}}',
+            },
+            content_type='multipart/form-data',
+        )
+
+        errors = response.get_json()['errors']
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(3, len(errors))
+        self.assertEqual([2, 4, 5], [error['spreadsheet_row'] for error in errors])
+        self.assertEqual(['required', 'maxchars', 'required'], [error['type'] for error in errors])
+
+    def test_validation_example_spreadsheet_does_not_download_zip(self):
+        """
+        Checks that the validation example workbook is intentionally invalid for ZIP download.
+        """
+        workbook_path = DEMO_DIR / VALIDATION_EXAMPLE['filename']
+        response = self.client.post(
+            '/modsmaker/%s' % VALIDATION_EXAMPLE['profile'],
+            data={
+                'input_file': (io.BytesIO(workbook_path.read_bytes()), VALIDATION_EXAMPLE['filename']),
+                'sheetlist': VALIDATION_EXAMPLE['sheet'],
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertNotIn('Content-Disposition', response.headers)
+        self.assertIn(b'Row 2, column', response.data)
+        self.assertIn(b'Row 4, column', response.data)
+        self.assertIn(b'Row 5, column', response.data)
+        self.assertIn(b'imageAccessibilityAltText', response.data)
 
     def assert_generated_zip_matches_demo(self, zip_bytes, demo):
         """

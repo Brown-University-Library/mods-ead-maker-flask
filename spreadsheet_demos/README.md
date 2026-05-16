@@ -24,3 +24,17 @@ Notes:
 - The TIFF image demo uses `identifierFileName` values like `demo_image_0001`, intended to pair conceptually with source files such as `demo_image_0001.tif`.
 - The sample metadata is fictional and intended only for demonstration.
 - EAD demo spreadsheets are not included yet; they can be added later after a minimal EAD example is confirmed.
+
+## Validation Examples
+
+Use `mods_default_tiff_images_validation_examples.xlsx` with route `/modsmaker/modsprofile` and sheet `tiff_images` to see validation messages. This workbook is intentionally invalid and should not download a ZIP.
+
+Expected row behavior:
+
+- Row 2: missing `imageAccessibilityAltText` with `typeOfResource` set to `still image`; should fail required alt-text validation.
+- Row 3: missing `typeOfResource`; should pass the conditional required rule.
+- Row 4: `imageAccessibilityAltText` is longer than 250 characters; should fail max-length validation.
+- Row 5: `typeOfResource` is ` Still Image ` with extra whitespace and different case; should fail required alt-text validation.
+- Row 6: `typeOfResource` is `still image|text`; should pass because the rule only matches exactly `still image`.
+- Row 7: normal still-image row with valid alt text; should pass.
+- Row 8: normal non-image row with blank alt text; should pass.
