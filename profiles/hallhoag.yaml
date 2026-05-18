@@ -18,6 +18,18 @@ globalconditions:
   - {code: includePreferredCitation, defaultvalue: true, explanation: "Include preferred citation note."}
 filenamecolumn: identifierFileName
 fileextension: ".mods.xml"
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+  - type: required
+    col: imageAccessibilityAltText
+    severity: error
+    conditions:
+      - {type: equals, col: typeOfResource, text: "still image"}
+    message: "Image accessibility alt text is required when typeOfResource is still image."
 
 sort:
   #Creator personal and name fields
@@ -461,6 +473,14 @@ fields:
       - type: value
         values:
           - {type: col, header: noteGeneral, method: value}
+
+  - type: element
+    name: note
+    attrs: {type: image_accessibility_alt_text}
+    text:
+      - type: value
+        values:
+          - {type: col, header: imageAccessibilityAltText, method: value}
 
   - type: element
     name: note

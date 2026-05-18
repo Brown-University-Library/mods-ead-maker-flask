@@ -1,0 +1,294 @@
+import io
+import json
+import unittest
+from unittest.mock import patch
+
+import xlsxwriter
+
+import flask_app
+
+
+def make_xlsx_file():
+    output = io.BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet('Records')
+    worksheet.write(0, 0, 'identifierFileName')
+    worksheet.write(0, 1, 'fileTitle')
+    worksheet.write(1, 0, 'sample-record')
+    worksheet.write(1, 1, 'Sample title')
+    workbook.close()
+    output.seek(0)
+    return output
+
+
+def make_invalid_alt_text_xlsx_file():
+    output = io.BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet('Records')
+    worksheet.write(0, 0, 'identifierFileName')
+    worksheet.write(0, 1, 'fileTitle')
+    worksheet.write(0, 2, 'typeOfResource')
+    worksheet.write(0, 3, 'imageAccessibilityAltText')
+    worksheet.write(1, 0, 'sample-record')
+    worksheet.write(1, 1, 'Sample title')
+    worksheet.write(1, 2, 'still image')
+    worksheet.write(1, 3, '')
+    workbook.close()
+    output.seek(0)
+    return output
+
+
+class TestFlaskRoutes(unittest.TestCase):
+
+    def setUp(self):
+        flask_app.app.config['TESTING'] = True
+        self.client = flask_app.app.test_client()
+
+    def test_modsmaker_redirects_to_default_profile(self):
+        """
+        Checks that the default MODS Maker route redirects to the default profile.
+        """
+        response = self.client.get('/modsmaker')
+
+        self.assertEqual(302, response.status_code)
+        self.assertIn('/modsmaker/modsprofile', response.headers['Location'])
+
+    def test_modsmaker_profile_get_returns_success(self):
+        """
+        Checks that the default MODS Maker profile page renders.
+        """
+        response = self.client.get('/modsmaker/modsprofile')
+
+        self.assertEqual(200, response.status_code)
+
+    def test_profile_list_returns_success_and_known_profile(self):
+        """
+        Checks that the profile list page renders known profiles.
+        """
+        response = self.client.get('/profiles/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn(b'modsprofile', response.data)
+
+    def test_forms_list_returns_success_and_known_profile(self):
+        """
+        Checks that the forms list page renders known profiles.
+        """
+        response = self.client.get('/forms/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn(b'modsprofile', response.data)
+
+    def test_resources_returns_success(self):
+        """
+        Checks that the resources page renders.
+        """
+        response = self.client.get('/resources')
+
+        self.assertEqual(200, response.status_code)
+
+    def test_unknown_route_redirects_to_default_modsmaker_profile(self):
+        """
+        Checks that unknown routes use the default 404 redirect.
+        """
+        response = self.client.get('/missing-route')
+
+        self.assertEqual(302, response.status_code)
+        self.assertIn('/modsmaker/modsprofile', response.headers['Location'])
+
+    def test_process_file_upload_returns_filename_and_sheet_names(self):
+        """
+        Checks that uploaded workbooks return JSON sheet metadata.
+        """
+        response = self.client.post(
+            '/processfileupload',
+            data={'xlsx_file': (make_xlsx_file(), 'records.xlsx')},
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual({'filename': 'records.xlsx', 'sheetnames': ['Records']}, response.get_json())
+
+    def test_modsmaker_get_preview_returns_json_preview_text(self):
+        """
+        Checks that MODS preview route returns the generated preview text as JSON.
+        """
+        with patch(
+            'flask_app.fileSupport.getPreviewResult',
+            return_value={'preview': 'preview text', 'warnings': []},
+        ) as mock_get_preview:
+            response = self.client.post(
+                '/modsmaker/getpreview',
+                data={
+                    'xlsx_file': (make_xlsx_file(), 'records.xlsx'),
+                    'data': json.dumps({
+                        'sheetname': 'Records',
+                        'profile': 'modsprofile',
+                        'globalconditions': {'includeBrownDefaults': True},
+                    }),
+                },
+                content_type='multipart/form-data',
+            )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('preview text', response.get_json())
+        mock_get_preview.assert_called_once()
+
+    def test_modsmaker_get_preview_returns_validation_errors(self):
+        """
+        Checks that MODS preview returns validation errors instead of XML for invalid spreadsheet rows.
+        """
+        response = self.client.post(
+            '/modsmaker/getpreview',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'globalconditions': {'includeBrownDefaults': True},
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('required', response.get_json()['errors'][0]['type'])
+        self.assertIn('Image accessibility alt text is required', response.get_json()['error_text'])
+
+    def test_modsmaker_get_preview_with_disabled_validation_returns_warnings_and_preview(self):
+        """
+        Checks that disabled enforcement returns warnings while still generating preview output.
+        """
+        response = self.client.post(
+            '/modsmaker/getpreview',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'globalconditions': {'includeBrownDefaults': True},
+                    'enforce_validations': False,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('required', response_json['warnings'][0]['type'])
+        self.assertIn('Processing continued because validations are not being enforced', response_json['warning_text'])
+        self.assertIn('sample-record.mods.xml', response_json['preview'])
+
+    def test_modsmaker_validate_with_enforcement_returns_blocking_errors(self):
+        """
+        Checks that validation preflight blocks processing when enforcement is enabled.
+        """
+        response = self.client.post(
+            '/modsmaker/validate',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'enforce_validations': True,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertFalse(response_json['can_continue'])
+        self.assertEqual('required', response_json['errors'][0]['type'])
+        self.assertIn('Image accessibility alt text is required', response_json['error_text'])
+
+    def test_modsmaker_validate_with_disabled_enforcement_returns_warnings(self):
+        """
+        Checks that validation preflight returns non-blocking warnings when enforcement is disabled.
+        """
+        response = self.client.post(
+            '/modsmaker/validate',
+            data={
+                'xlsx_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'data': json.dumps({
+                    'sheetname': 'Records',
+                    'profile': 'modsprofile',
+                    'enforce_validations': False,
+                }),
+            },
+            content_type='multipart/form-data',
+        )
+
+        response_json = response.get_json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(response_json['can_continue'])
+        self.assertEqual('required', response_json['warnings'][0]['type'])
+        self.assertIn('Processing continued because validations are not being enforced', response_json['warning_text'])
+
+    def test_modsmaker_post_with_validation_error_does_not_return_zip(self):
+        """
+        Checks that MODS downloads are blocked when spreadsheet validation fails.
+        """
+        response = self.client.post(
+            '/modsmaker/modsprofile',
+            data={
+                'input_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'sheetlist': 'Records',
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertNotIn('Content-Disposition', response.headers)
+        self.assertIn(b'Image accessibility alt text is required', response.data)
+
+    def test_modsmaker_post_with_disabled_validation_returns_zip(self):
+        """
+        Checks that MODS downloads can continue when validation enforcement is disabled.
+        """
+        response = self.client.post(
+            '/modsmaker/modsprofile',
+            data={
+                'input_file': (make_invalid_alt_text_xlsx_file(), 'records.xlsx'),
+                'sheetlist': 'Records',
+                'enforce_validations': 'false',
+            },
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('attachment; filename=Records.zip', response.headers['Content-Disposition'])
+
+    def test_modsmaker_post_with_non_xlsx_returns_error(self):
+        """
+        Checks that non-XLSX MODS uploads render an error response.
+        """
+        response = self.client.post(
+            '/modsmaker/modsprofile',
+            data={'input_file': (io.BytesIO(b'not a workbook'), 'records.txt')},
+            content_type='multipart/form-data',
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn(b'Please go back and select a .XLSX Excel file to proceed.', response.data)
+
+    def test_form_preview_returns_json_preview_text(self):
+        """
+        Checks that profile form previews return generated preview text as JSON.
+        """
+        with patch('flask_app.fileSupport.createPreviewFromRows', return_value='preview text') as mock_preview:
+            response = self.client.post(
+                '/forms/profile/modsprofile/preview',
+                data={'identifierFileName': 'sample-record', 'fileTitle': 'Sample title'},
+            )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('preview text', response.get_json())
+        mock_preview.assert_called_once()
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,10 +1,9 @@
 import xlrd
 import profileInterpreter
+import profileValidation
 from zipfile import ZipFile
 import os
 import io
-import uuid
-from lxml import etree
 
 CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
 HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -53,8 +52,90 @@ def getFilenameFromRow(row, index, filenameColumn):
     
     return "default" + str(index)
 
-def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions):
+def validateRowsForProfile(rows, profilePath):
+    errors = getValidationErrorsForProfile(rows, profilePath)
+
+    if errors:
+        raise profileValidation.ValidationError(errors)
+
+    return profileInterpreter.Profile(profilePath)
+
+def getValidationErrorsForProfile(rows, profilePath):
+    profile = profileInterpreter.Profile(profilePath)
+    errors = []
+
+    for rowIndex, row in enumerate(rows):
+        if not profile.shouldSkipRow(row):
+            errors.extend(profileValidation.validateRow(row, rowIndex, profile.profileValidations))
+
+    return errors
+
+def getValidationErrorText(errors):
+    return profileValidation.formatValidationErrors(errors)
+
+def getValidationWarningText(errors):
+    warningText = (
+        'Validation warnings were found. Processing continued because validations are not being enforced. '
+        'MODS created with failed validation may not work in the Workshop.'
+    )
+    errorText = getValidationErrorText(errors)
+
+    if errorText:
+        return warningText + '\n\n' + errorText
+
+    return warningText
+
+def getValidationResultFromExcel(excelFile, sheetName, profilePath, enforceValidations=True):
     rows = convertXlsxToDictList(excelFile, sheetName)
+    errors = getValidationErrorsForProfile(rows, profilePath)
+
+    if errors and enforceValidations:
+        raise profileValidation.ValidationError(errors)
+
+    return rows, errors
+
+def getValidationStatusFromExcel(excelFile, sheetName, profilePath, enforceValidations=True):
+    rows = convertXlsxToDictList(excelFile, sheetName)
+    errors = getValidationErrorsForProfile(rows, profilePath)
+
+    if errors and enforceValidations:
+        return {
+            'can_continue': False,
+            'errors': errors,
+            'error_text': getValidationErrorText(errors),
+        }
+
+    if errors:
+        return {
+            'can_continue': True,
+            'warnings': errors,
+            'warning_text': getValidationWarningText(errors),
+        }
+
+    return {
+        'can_continue': True,
+        'errors': [],
+        'warnings': [],
+    }
+
+def getPreviewResult(excelFile, sheetName, profilePath, globalConditions, enforceValidations=True):
+    rows, errors = getValidationResultFromExcel(excelFile, sheetName, profilePath, enforceValidations)
+    preview = createPreviewFromRows(rows, profilePath, globalConditions)
+
+    if errors:
+        return {
+            'preview': preview,
+            'warnings': errors,
+            'warning_text': getValidationWarningText(errors),
+        }
+
+    return {
+        'preview': preview,
+        'warnings': [],
+    }
+
+def createZipFromExcel(excelFile, sheetName, profilePath, globalConditions, enforceValidations=True):
+    rows, errors = getValidationResultFromExcel(excelFile, sheetName, profilePath, enforceValidations)
 
     zipBuffer = io.BytesIO()
     zipObj = ZipFile(zipBuffer, 'w')
@@ -82,12 +163,9 @@ def createFileFromRow(row, index, profilePath, globalConditions):
             
     return xmlString, fileBuffer.getvalue(), filename
 
-def getPreview(excelFile, sheetName, profilePath, globalConditions):
-    rows = convertXlsxToDictList(excelFile, sheetName)
-
-    allXmlString = createPreviewFromRows(rows, profilePath, globalConditions)
-
-    return allXmlString
+def getPreview(excelFile, sheetName, profilePath, globalConditions, enforceValidations=True):
+    previewResult = getPreviewResult(excelFile, sheetName, profilePath, globalConditions, enforceValidations)
+    return previewResult['preview']
 
 def createPreviewFromRows(rows, profilePath, globalConditions):
     profile = profileInterpreter.Profile(profilePath, globalConditions=globalConditions)

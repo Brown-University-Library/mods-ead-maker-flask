@@ -15,6 +15,18 @@ skipif:
 
 filenamecolumn: fileno
 fileextension: ".mods.xml"
+validations:
+  - type: maxchars
+    col: imageAccessibilityAltText
+    maxchars: 250
+    severity: error
+    message: "Image accessibility alt text must be 250 characters or fewer."
+  - type: required
+    col: imageAccessibilityAltText
+    severity: error
+    conditions:
+      - {type: equals, col: typeOfResource, text: "still image"}
+    message: "Image accessibility alt text is required when typeOfResource is still image."
 
 fields:
   - type: element 
@@ -220,6 +232,14 @@ fields:
       - type: value
         values:
           - {type: col, header: courseno, method: value}  
+
+  - type: element
+    name: note
+    attrs: {type: image_accessibility_alt_text}
+    text:
+      - type: value
+        values:
+          - {type: col, header: imageAccessibilityAltText, method: value}
 
 samplevalues:
   identifierBDR: "bdr:12345"

@@ -13,6 +13,13 @@
     </select>
     {% include 'globalconditions.html' %}
 
+    <div class="form-check" style="margin-bottom: 15px;">
+      <input type="hidden" name="enforce_validations" value="false">
+      <input class="form-check-input" type="checkbox" name="enforce_validations" id="enforce_validations" value="true" checked>
+      <label class="form-check-label" for="enforce_validations">Enforce validations</label>
+      <div class="form-text">When unchecked, Preview and Download continue even if validation warnings are found.</div>
+    </div>
+
     <div class="buttons">
       <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i> Download MODS</button>
       <div style="margin-left: 5px; display:inline-block" id="preview_button" class="btn btn-secondary">
@@ -31,6 +38,146 @@
 </div>
 
 <script>
+  // Form state helpers ---------------------------------------------
+
+  /**
+   * Returns whether validation failures should stop MODS processing.
+   * Called by: getModsRequestData().
+   */
+  function getEnforceValidations() {
+    return document.getElementById("enforce_validations").checked
+  }
+
+  /**
+   * Builds an object of checked global-condition controls for the MODS request.
+   * Called by: getModsRequestData().
+   */
+  function getGlobalConditions() {
+    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
+    var globalConditions = {}
+
+    for (globalConditionCheckbox of globalConditionCheckboxes) {
+      if (globalConditionCheckbox.id == "enforce_validations") {
+        continue
+      }
+      if (globalConditionCheckbox.checked) {
+        elementId = globalConditionCheckbox.id
+        globalConditions[elementId] = true
+      }
+    }
+
+    return globalConditions
+  }
+
+  /**
+   * Builds the shared request payload for Preview and Download validation requests.
+   * Called by: retrievePreview(), validateModsDownload().
+   */
+  function getModsRequestData() {
+    return {
+      "sheetname": document.getElementById("sheetlist").value,
+      "globalconditions": getGlobalConditions(),
+      "profile": "{{profilename}}",
+      "enforce_validations": getEnforceValidations()
+    }
+  }
+
+  /**
+   * Returns the selected XLSX file, or null when no valid XLSX is selected.
+   * Called by: retrievePreview(), validateModsDownload().
+   */
+  function getSelectedXlsxFile() {
+    fileInput = document.getElementById("input_file")
+    if (fileInput.files[0] == undefined) {
+      return null
+    }
+
+    let selectedFile = fileInput.files[0]
+
+    if (!selectedFile.name.includes(".xlsx")) {
+      return null
+    }
+
+    return selectedFile
+  }
+
+  // Preview display helpers ----------------------------------------
+
+  /**
+   * Shows text in the shared Preview panel.
+   * Called by: showPreviewResponse(), validateModsDownload().
+   */
+  function showPreviewText(text) {
+    const previewDiv = document.getElementById("preview")
+    previewDiv.innerText = text
+
+    const previewParentDiv = document.getElementById("previewparent")
+    previewParentDiv.style.display = "inherit"
+  }
+
+  /**
+   * Renders Preview endpoint output, including validation errors or warnings.
+   * Called by: retrievePreview().
+   */
+  function showPreviewResponse(data) {
+    if (data.errors && data.errors.length > 0) {
+      showPreviewText(data.error_text)
+    } else if (data.warnings && data.warnings.length > 0) {
+      showPreviewText(data.warning_text + "\n\n" + data.preview.trim())
+    } else {
+      showPreviewText(data.trim())
+    }
+  }
+
+  // Download validation flow ---------------------------------------
+
+  /**
+   * Runs server-side validation before allowing the Download MODS form to submit.
+   * Called by: submitForm.addEventListener() in modsFileSelect.html.
+   */
+  function validateModsDownload(event) {
+    const form = document.getElementById("submit_mods")
+
+    if (form.dataset.validationChecked == "true") {
+      delete form.dataset.validationChecked
+      return
+    }
+
+    let selectedFile = getSelectedXlsxFile()
+    if (selectedFile == null) {
+      return
+    }
+
+    event.preventDefault()
+
+    const data = getModsRequestData()
+    let formData = new FormData();
+    formData.append("xlsx_file", selectedFile);
+    formData.append("data", JSON.stringify(data))
+
+    fetch("{{url_for('modsMakerValidate')}}", { method: "POST", body: formData })
+      .then(response => response.json())
+      .then(function (data) {
+        if (data.errors && data.errors.length > 0) {
+          showPreviewText(data.error_text)
+          return
+        }
+        if (data.warnings && data.warnings.length > 0) {
+          showPreviewText(data.warning_text)
+        }
+        if (data.can_continue) {
+          form.dataset.validationChecked = "true"
+          form.requestSubmit()
+        }
+      });
+  }
+
+  // Preview request flow -------------------------------------------
+
+  /**
+   * Sends the selected workbook and form options to the Preview endpoint.
+   * Called by: setUpActionCard() in modsFileSelect.html.
+   */
   function retrievePreview(id) {
 
     var previewSpinner = document.getElementById("previewspinner")
@@ -42,44 +189,24 @@
     const previewParentDiv = document.getElementById("previewparent")
     previewParentDiv.style.display = "inherit"
 
-    const globalConditionCheckboxes = document.getElementsByClassName("form-check-input")
-    var globalConditions = {}
-
-    for (globalConditionCheckbox of globalConditionCheckboxes) {
-      if (globalConditionCheckbox.checked) {
-        elementId = globalConditionCheckbox.id
-        globalConditions[elementId] = true
-      }
-    }
-
-    fileInput = document.getElementById("input_file")
-    if (fileInput.files[0] == undefined) {
+    let selectedFile = getSelectedXlsxFile()
+    if (selectedFile == null) {
       return
     }
 
-    let selectedFile = fileInput.files[0]
-
-    if (!selectedFile.name.includes(".xlsx")) {
-      return
-    }
-
-    const data = {
-      "sheetname": document.getElementById("sheetlist").value,
-      "globalconditions": globalConditions,
-      "profile": "{{profilename}}"
-    }
+    const data = getModsRequestData()
 
     let formData = new FormData();
     formData.append("xlsx_file", selectedFile);
     formData.append("data", JSON.stringify(data))
 
-    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
-      .then(response => response.json())
-      .then(function (data) {
-        previewDiv.innerText = data.trim()
-        previewSpinner.style.display = "none"
-      }
-      );
+	    fetch("{{url_for('modsMakerGetPreview')}}", { method: "POST", body: formData })
+	      .then(response => response.json())
+	      .then(function (data) {
+	        showPreviewResponse(data)
+	        previewSpinner.style.display = "none"
+	      }
+	      );
 
   }
 </script>
