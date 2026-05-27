@@ -1,6 +1,6 @@
 import unittest
 
-import profileValidation
+from lib import profileValidation
 
 
 VALIDATIONS = [

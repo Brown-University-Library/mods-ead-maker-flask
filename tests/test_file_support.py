@@ -5,7 +5,7 @@ import zipfile
 from lxml import etree
 import xlsxwriter
 
-import fileSupport
+from lib import fileSupport
 
 
 def make_xlsx_bytes(sheets):

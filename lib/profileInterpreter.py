@@ -261,7 +261,8 @@ def clearEmptyElementsFromEtree(parentElement, keepElementXpaths):
 class Profile():
 
     def __init__(self, profileDirectory, globalConditions={}):
-        self.profile = yaml.safe_load(open(os.path.join( os.path.dirname(os.path.abspath(__file__)), profileDirectory)))
+        appDirectory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.profile = yaml.safe_load(open(os.path.join(appDirectory, profileDirectory)))
 
         self.profileSkips = self.profile.get("skipif", [])
         self.profileFields = self.profile.get("fields", [])
@@ -283,7 +284,7 @@ class Profile():
         self.profileSchemaLocation = self.profile.get("schemalocation", [])
         self.profileNsMap = self.profile.get("nsmap", {})
 
-        with open(os.path.join( os.path.dirname(os.path.abspath(__file__)),"SupportedLanguages.csv")) as langCsv:
+        with open(os.path.join(appDirectory, "SupportedLanguages.csv")) as langCsv:
             languageToLanguageCodes = {}
             csvReader = csv.reader(langCsv)
             for row in csvReader:

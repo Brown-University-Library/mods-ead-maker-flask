@@ -1,12 +1,12 @@
 import xlrd
-import profileInterpreter
-import profileValidation
+from lib import profileInterpreter
+from lib import profileValidation
 from zipfile import ZipFile
 import os
 import io
 
-CACHEDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache") + "/"
-HOMEDIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+HOMEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/"
+CACHEDIR = os.path.join(HOMEDIR, "cache") + "/"
 
 def getSheetNamesFromXlsx(fileContents):
     excel = xlrd.open_workbook(file_contents=fileContents)
