@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from lib import profileValidation
 
@@ -9,7 +10,7 @@ VALIDATIONS = [
         'col': 'imageAccessibilityAltText',
         'maxchars': 250,
         'severity': 'error',
-        'message': 'Image accessibility alt text must be 250 characters or fewer.',
+        'message': 'Image accessibility alt text must be {maxchars} characters or fewer.',
     },
     {
         'type': 'required',
@@ -24,6 +25,16 @@ VALIDATIONS = [
 
 
 class TestProfileValidation(unittest.TestCase):
+
+    def setUp(self):
+        self.environPatcher = patch.dict('os.environ', {}, clear=True)
+        self.dotenvPatcher = patch('lib.profileValidation.dotenv_values', return_value={})
+        self.environPatcher.start()
+        self.dotenvPatcher.start()
+
+    def tearDown(self):
+        self.dotenvPatcher.stop()
+        self.environPatcher.stop()
 
     def test_validate_rows_allows_alt_text_at_character_limit(self):
         """
@@ -51,6 +62,38 @@ class TestProfileValidation(unittest.TestCase):
 
         self.assertEqual(1, len(errors))
         self.assertEqual('maxchars', errors[0]['type'])
+        self.assertEqual(250, errors[0]['limit'])
+        self.assertEqual('Image accessibility alt text must be 250 characters or fewer.', errors[0]['message'])
+
+    def test_validate_rows_uses_dotenv_alt_text_character_limit_override(self):
+        """
+        Checks that the parent .env alt text limit overrides the profile limit.
+        """
+        with patch('lib.profileValidation.dotenv_values', return_value={
+            'IMAGE_ACCESSIBILITY_ALT_TEXT_MAXCHARS': '100',
+        }):
+            errors = profileValidation.validateRows([{
+                'typeOfResource': 'text',
+                'imageAccessibilityAltText': 'a' * 101,
+            }], VALIDATIONS)
+
+        self.assertEqual(1, len(errors))
+        self.assertEqual(100, errors[0]['limit'])
+        self.assertEqual('Image accessibility alt text must be 100 characters or fewer.', errors[0]['message'])
+
+    def test_validate_rows_uses_profile_limit_when_dotenv_alt_text_limit_is_invalid(self):
+        """
+        Checks that invalid .env alt text limits fall back to the profile limit.
+        """
+        with patch('lib.profileValidation.dotenv_values', return_value={
+            'IMAGE_ACCESSIBILITY_ALT_TEXT_MAXCHARS': 'not-a-number',
+        }):
+            errors = profileValidation.validateRows([{
+                'typeOfResource': 'text',
+                'imageAccessibilityAltText': 'a' * 251,
+            }], VALIDATIONS)
+
+        self.assertEqual(1, len(errors))
         self.assertEqual(250, errors[0]['limit'])
 
     def test_validate_rows_requires_alt_text_for_still_image(self):
