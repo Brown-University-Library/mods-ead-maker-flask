@@ -2,13 +2,13 @@ from flask import jsonify, Flask, make_response, request, render_template, redir
 import flask
 from legacy.EADMaker import processExceltoEAD
 from legacy.EADMaker import getSheetNames
-import profileInterpreter
+from lib import fileSupport
+from lib import profileInterpreter
+from lib import profileValidation
 import sys
 import uuid
 import os
 import json
-import fileSupport
-import profileValidation
 from glob import glob
 
 app = Flask(__name__)

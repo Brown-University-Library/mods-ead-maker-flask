@@ -33,8 +33,8 @@ When these instructions conflict with older IDE, Copilot, or contributor notes, 
 - Profile browsing routes live under `/profiles/`; profile-based MODS forms live under `/forms/`.
 - MODS profile selection is route-driven. For example, `/modsmaker/musictheses` uses `profiles/musictheses.yaml`.
 - Uploaded spreadsheets do not select or autodetect their profile.
-- Spreadsheet parsing, MODS ZIP generation, preview assembly, filename cleanup, and validation orchestration belong in `fileSupport.py`.
-- YAML profile loading, field interpretation, and MODS XML generation belong in `profileInterpreter.py`.
+- Spreadsheet parsing, MODS ZIP generation, preview assembly, filename cleanup, and validation orchestration belong in `lib/fileSupport.py`.
+- YAML profile loading, field interpretation, and MODS XML generation belong in `lib/profileInterpreter.py`.
 - YAML metadata profiles live in `profiles/`; `profiles/modsprofile_backup2024.yaml` is a backup profile and should not be changed unless explicitly requested.
 - MODS upload templates live in `templates/mods/`, especially `modsFileSelect.html` and `modsAction.html`.
 - Shared preview markup lives in `templates/preview.html`.
@@ -91,8 +91,8 @@ When these instructions conflict with older IDE, Copilot, or contributor notes, 
 - Keep reusable domain logic out of route handlers where practical.
 - Prefer pure helper functions that accept plain Python values instead of Flask request objects.
 - Existing helper modules include:
-  - `fileSupport.py` for spreadsheet, XML, ZIP, preview, and file-output helpers.
-  - `profileInterpreter.py` for YAML profile interpretation and MODS XML generation.
+  - `lib/fileSupport.py` for spreadsheet, XML, ZIP, preview, and file-output helpers.
+  - `lib/profileInterpreter.py` for YAML profile interpretation and MODS XML generation.
   - `legacy/EADMaker.py` and `legacy/MODSMaker.py` for legacy EAD/MODS behavior.
 - Keep JavaScript as small as practical. Add new behavior in Flask/Python helper code wherever possible, and use JavaScript mainly for browser-only concerns such as file selection, in-page rendering, and small UI state changes.
 - Do not add Django conventions, Django management commands, or Django directory assumptions to this project.

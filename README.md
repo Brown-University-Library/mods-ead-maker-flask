@@ -25,7 +25,7 @@ The app provides browser-based tools for:
 - Viewing and downloading YAML metadata profiles.
 - Filling out profile-based forms that generate MODS XML.
 
-The main Flask entry point is `flask_app.py`. Core spreadsheet, XML, ZIP, preview, and filename helpers live in `fileSupport.py`. YAML profile interpretation and MODS XML generation live in `profileInterpreter.py`. Legacy EAD/MODS code lives under `legacy/`.
+The main Flask entry point is `flask_app.py`. Core spreadsheet, XML, ZIP, preview, and filename helpers live in `lib/fileSupport.py`. YAML profile interpretation and MODS XML generation live in `lib/profileInterpreter.py`. Legacy EAD/MODS code lives under `legacy/`.
 
 
 ## How the MODS Maker works: brief overview
@@ -71,7 +71,7 @@ The route name maps directly to the YAML filename.
 
 3. User uploads an `.xlsx` spreadsheet and chooses a sheet.
 
-4. `fileSupport.py` reads the spreadsheet rows into dictionaries:
+4. `lib/fileSupport.py` reads the spreadsheet rows into dictionaries:
 
 ```python
 {
@@ -81,7 +81,7 @@ The route name maps directly to the YAML filename.
 }
 ```
 
-5. `profileInterpreter.Profile` loads the YAML profile and uses it to decide:
+5. `lib.profileInterpreter.Profile` loads the YAML profile and uses it to decide:
 
 - what the MODS root element should be
 - which spreadsheet column names to read
@@ -145,7 +145,7 @@ becomes roughly:
 
 Repeating fields are also profile-driven. A YAML block can say "read this column, split multiple values, parse each entry, and create one MODS element per entry." That is how creator names, subjects, genres, and authority URIs get expanded.
 
-The Flask app itself does not contain much MODS logic. It mostly handles upload, preview, and download. The YAML profile is where the metadata model lives, and `profileInterpreter.py` is the engine that interprets that profile into XML.
+The Flask app itself does not contain much MODS logic. It mostly handles upload, preview, and download. The YAML profile is where the metadata model lives, and `lib/profileInterpreter.py` is the engine that interprets that profile into XML.
 
 _(EAD documentation to come)_
 

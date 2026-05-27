@@ -2,8 +2,8 @@ import unittest
 
 from lxml import etree
 
-import fileSupport
-import profileInterpreter
+from lib import fileSupport
+from lib import profileInterpreter
 
 
 class TestProfileInterpreterParsing(unittest.TestCase):
