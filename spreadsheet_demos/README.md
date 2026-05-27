@@ -34,7 +34,7 @@ Expected row behavior:
 
 - Row 2: missing `imageAccessibilityAltText` with `typeOfResource` set to `still image`; should fail required alt-text validation.
 - Row 3: missing `typeOfResource`; should pass the conditional required rule.
-- Row 4: `imageAccessibilityAltText` is longer than 250 characters; should fail max-length validation.
+- Row 4: `imageAccessibilityAltText` is longer than the configured character limit; should fail max-length validation.
 - Row 5: `typeOfResource` is ` Still Image ` with extra whitespace and different case; should fail required alt-text validation.
 - Row 6: `typeOfResource` is `still image|text`; should pass because the rule only matches exactly `still image`.
 - Row 7: normal still-image row with valid alt text; should pass.

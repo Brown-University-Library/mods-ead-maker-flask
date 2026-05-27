@@ -23,7 +23,7 @@ validations:
     col: imageAccessibilityAltText
     maxchars: 250
     severity: error
-    message: "Image accessibility alt text must be 250 characters or fewer."
+    message: "Image accessibility alt text must be {maxchars} characters or fewer."
   - type: required
     col: imageAccessibilityAltText
     severity: error
