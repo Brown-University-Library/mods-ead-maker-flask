@@ -4,6 +4,12 @@ This file defines the coding guidance for LLM coding agents working in this repo
 When these instructions conflict with older IDE, Copilot, or contributor notes, prefer this file.
 
 
+## Codex
+
+- Append each prompt and main response to the bottom of the file `mods-ead-maker-flask/misc/recent_prompts.md`, followed by a blank-line, then `---`, then another blank-line.
+    - Use only relative paths in the saved-response.
+
+
 ## Project Basics
 
 - Primary language: Python.
