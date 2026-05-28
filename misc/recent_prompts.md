@@ -25,6 +25,33 @@ Implemented `IMAGE_ACCESSIBILITY_ALT_TEXT_MAXCHARS` support for the image alt-te
 
 Prompt:
 
+starting over.... Goal: Build out the `mods-ead-maker-flask.wiki`.
+Context:
+
+- Review the `mods-ead-maker-flask/README.md` to understand the purpose of the project.
+
+- Review the `mods-ead-maker-flask.wiki/Home.md` nearly empty wiki home-page.
+
+- The wiki home page is for staff -- not for developers.
+
+- github wiki documentation is at <https://docs.github.com/en/communities/documenting-your-project-with-wikis>
+
+- Staff are likely interested in numerous aspects of the wiki; I know they're interested in its validation features.
+
+Tasks:
+
+- Review the github wiki documentation.
+
+- Build out the `mods-ead-maker-flask.wiki/`, starting with links on the home-page at `mods-ead-maker-flask.wiki/Home.md` -- for the purpose of providing useful info for Library staff.
+
+Response:
+
+Built out the staff-facing wiki in `mods-ead-maker-flask.wiki/`. Replaced the nearly empty `Home.md` with a landing page and task-oriented links, added `_Sidebar.md` for GitHub wiki navigation, and created pages for getting started, choosing a MODS profile, preparing spreadsheets, validation, image accessibility alt text, previewing/downloading MODS, demo spreadsheets, and troubleshooting. The documentation focuses on Library staff workflows rather than developer setup. No tests were run because this was Markdown-only documentation work.
+
+---
+
+Prompt:
+
 Goal: Update the list of "noteImageAltText" values that will trigger an image_accessibility_alt_text validation check.
 
 Context:
