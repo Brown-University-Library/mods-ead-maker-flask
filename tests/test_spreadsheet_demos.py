@@ -152,7 +152,7 @@ class TestSpreadsheetDemos(unittest.TestCase):
         self.assertIn(b'Row 2, column', response.data)
         self.assertIn(b'Row 4, column', response.data)
         self.assertIn(b'Row 5, column', response.data)
-        self.assertIn(b'imageAccessibilityAltText', response.data)
+        self.assertIn(b'noteImageAltText', response.data)
 
     def test_validation_example_spreadsheet_downloads_zip_when_validation_is_not_enforced(self):
         """
@@ -201,10 +201,10 @@ class TestSpreadsheetDemos(unittest.TestCase):
         sheet = workbook.sheet_by_name(sheet_name)
         headers = [sheet.cell_value(0, column_index) for column_index in range(sheet.ncols)]
 
-        if 'imageAccessibilityAltText' not in headers:
+        if 'noteImageAltText' not in headers:
             return
 
-        alt_text_column = headers.index('imageAccessibilityAltText')
+        alt_text_column = headers.index('noteImageAltText')
         for row_index in range(1, sheet.nrows):
             alt_text = sheet.cell_value(row_index, alt_text_column).strip()
             self.assertLessEqual(len(alt_text), 250)

@@ -66,7 +66,7 @@ Recommended output:
 Recommended spreadsheet column:
 
 ```text
-imageAccessibilityAltText
+noteImageAltText
 ```
 
 This column name is explicit enough to distinguish front-end alt-text display data from general descriptive notes.
@@ -76,12 +76,12 @@ Recommended validation approach:
 ```yaml
 validations:
   - type: maxchars
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be 250 characters or fewer."
   - type: required
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     severity: error
     conditions:
       - {type: equals, col: typeOfResource, text: "still image"}
@@ -99,7 +99,7 @@ Add this output field to each profile that should support image accessibility al
   text:
     - type: value
       values:
-        - {type: col, header: imageAccessibilityAltText, method: value}
+        - {type: col, header: noteImageAltText, method: value}
 ```
 
 Recommended target scope:
@@ -121,14 +121,14 @@ Explicitly excluded:
 Placement recommendation:
 
 - Put the new field near the other `note` fields in each profile.
-- Keep the output field itself unconditional. A blank or missing `imageAccessibilityAltText` column will naturally produce no note after XML cleanup. Requiredness belongs in `validations:`, not in the output mapping.
+- Keep the output field itself unconditional. A blank or missing `noteImageAltText` column will naturally produce no note after XML cleanup. Requiredness belongs in `validations:`, not in the output mapping.
 
 Add this validation block near the existing top-level profile settings, alongside keys such as `globalconditions`, `filenamecolumn`, and `fileextension`:
 
 ```yaml
 validations:
   - type: maxchars
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be 250 characters or fewer."
@@ -139,12 +139,12 @@ Enforce requiredness for image rows with a conditional required rule:
 ```yaml
 validations:
   - type: maxchars
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be 250 characters or fewer."
   - type: required
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     severity: error
     conditions:
       - {type: equals, col: typeOfResource, text: "still image"}
@@ -153,7 +153,7 @@ validations:
 
 ## Spreadsheet Column
 
-Add `imageAccessibilityAltText` to relevant templates and demo spreadsheets.
+Add `noteImageAltText` to relevant templates and demo spreadsheets.
 
 For image workflows, the workshop should document:
 
@@ -175,7 +175,7 @@ Recommended first supported rule:
 
 ```yaml
 - type: maxchars
-  col: imageAccessibilityAltText
+  col: noteImageAltText
   maxchars: 250
   severity: error
   message: "Image accessibility alt text must be 250 characters or fewer."
@@ -185,7 +185,7 @@ Second supported rule:
 
 ```yaml
 - type: required
-  col: imageAccessibilityAltText
+  col: noteImageAltText
   severity: error
   conditions:
     - {type: equals, col: typeOfResource, text: "still image"}
@@ -198,7 +198,7 @@ Recommended validation result shape:
 {
     "row_index": 2,
     "spreadsheet_row": 3,
-    "col": "imageAccessibilityAltText",
+    "col": "noteImageAltText",
     "type": "maxchars",
     "severity": "error",
     "message": "Image accessibility alt text must be 250 characters or fewer.",
@@ -253,10 +253,10 @@ Recommended first UI behavior:
 
 Feedback decisions now reflected in this plan:
 
-- Add the MODS alt-text output mapping broadly to active MODS profiles. If a spreadsheet does not include `imageAccessibilityAltText`, generation should continue normally and no empty note should remain in the cleaned XML.
+- Add the MODS alt-text output mapping broadly to active MODS profiles. If a spreadsheet does not include `noteImageAltText`, generation should continue normally and no empty note should remain in the cleaned XML.
 - Do not apply this change to `profiles/modsprofile_backup2024.yaml`.
-- Add `maxchars` validation broadly to active MODS profiles. Missing or blank `imageAccessibilityAltText` values pass `maxchars`.
-- Require `imageAccessibilityAltText` only if the row's `typeOfResource` value is exactly `still image` after trimming whitespace and normalizing case.
+- Add `maxchars` validation broadly to active MODS profiles. Missing or blank `noteImageAltText` values pass `maxchars`.
+- Require `noteImageAltText` only if the row's `typeOfResource` value is exactly `still image` after trimming whitespace and normalizing case.
 - If `typeOfResource` is missing, blank, or anything other than exactly `still image`, waive the required alt-text rule.
 - Do not treat multiple-value strings as matches for the required rule. For example, `still image|text` and `still image; text` are not exactly `still image`, so they do not trigger required alt text.
 - Implement validation in a new `profileValidation.py` module.
@@ -285,34 +285,34 @@ Add focused tests around the default MODS profile.
 
 Recommended tests:
 
-- `profileInterpreter.Profile('profiles/modsprofile.yaml').convertRowToXmlString(...)` creates a `mods:note` with `type="image_accessibility_alt_text"` when `imageAccessibilityAltText` is present.
-- The generated XML does not contain that note when `imageAccessibilityAltText` is blank or absent.
+- `profileInterpreter.Profile('profiles/modsprofile.yaml').convertRowToXmlString(...)` creates a `mods:note` with `type="image_accessibility_alt_text"` when `noteImageAltText` is present.
+- The generated XML does not contain that note when `noteImageAltText` is blank or absent.
 - `fileSupport.createZipFromExcel()` preserves the note when processing an uploaded workbook.
 - The profile validation method returns no errors for values at or below 250 characters.
 - The profile validation method returns a blocking error for values over 250 characters.
-- The profile validation method requires `imageAccessibilityAltText` when `typeOfResource` is `still image`.
+- The profile validation method requires `noteImageAltText` when `typeOfResource` is `still image`.
 - The required validation trims whitespace and is case-insensitive for `typeOfResource`, so values like ` Still Image ` trigger the requirement.
 - The required validation does not trigger when `typeOfResource` is missing, blank, `moving image`, or a multiple-value string such as `still image|text`.
-- Preview route returns validation errors instead of XML when `imageAccessibilityAltText` exceeds 250 characters.
-- Download route does not return a ZIP when `imageAccessibilityAltText` exceeds 250 characters.
+- Preview route returns validation errors instead of XML when `noteImageAltText` exceeds 250 characters.
+- Download route does not return a ZIP when `noteImageAltText` exceeds 250 characters.
 
 For the demo spreadsheet:
 
 - Extend `tests/test_spreadsheet_demos.py` so the TIFF image demo verifies the generated XML includes the new note.
-- Assert all demo `imageAccessibilityAltText` values are `<= 250` characters.
+- Assert all demo `noteImageAltText` values are `<= 250` characters.
 
 ## Documentation Updates
 
 Update:
 
 - Main `README.md`: mention the alt-text column in the MODS Maker overview or spreadsheet guidance.
-- `spreadsheet_demos/README.md`: mention which demo includes `imageAccessibilityAltText`.
+- `spreadsheet_demos/README.md`: mention which demo includes `noteImageAltText`.
 - Any workshop instructions or external spreadsheet templates.
 
 Suggested documentation language:
 
 ```text
-For image records, include an imageAccessibilityAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Values over 250 characters are blocked by profile validation. The column is required when typeOfResource is still image, using trimmed and case-insensitive comparison.
+For image records, include a noteImageAltText column. When present, the MODS Maker writes it as <mods:note type="image_accessibility_alt_text">...</mods:note>. Values over 250 characters are blocked by profile validation. The column is required when typeOfResource is still image, using trimmed and case-insensitive comparison.
 ```
 
 ## Decision Points
@@ -323,7 +323,7 @@ Resolved decisions:
 
 1. Column name
 
-Use `imageAccessibilityAltText`.
+Use `noteImageAltText`.
 
 2. Profile scope
 
@@ -336,7 +336,7 @@ Use this top-level YAML shape for profile validation rules:
 ```yaml
 validations:
   - type: maxchars
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be 250 characters or fewer."
@@ -346,7 +346,7 @@ validations:
 
 Enforce requiredness in the app when `typeOfResource` is exactly `still image` after trimming whitespace and normalizing case.
 
-If `typeOfResource` is missing, blank, or any value other than exactly `still image`, `imageAccessibilityAltText` is not required.
+If `typeOfResource` is missing, blank, or any value other than exactly `still image`, `noteImageAltText` is not required.
 
 5. Image detection
 
@@ -377,7 +377,7 @@ Implementation details still to choose during coding:
 6. Add or update tests proving the new note appears in generated MODS XML.
 7. Add validation tests for values at, below, and above 250 characters.
 8. Add validation tests for `typeOfResource` requiredness, including missing, blank, case/whitespace variants, non-image values, and multiple-value strings.
-9. Update the TIFF demo spreadsheet with `imageAccessibilityAltText` values.
+9. Update the TIFF demo spreadsheet with `noteImageAltText` values.
 10. Update demo tests and README documentation.
 
 ## Original Prompt

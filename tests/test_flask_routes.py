@@ -28,7 +28,7 @@ def make_invalid_alt_text_xlsx_file():
     worksheet.write(0, 0, 'identifierFileName')
     worksheet.write(0, 1, 'fileTitle')
     worksheet.write(0, 2, 'typeOfResource')
-    worksheet.write(0, 3, 'imageAccessibilityAltText')
+    worksheet.write(0, 3, 'noteImageAltText')
     worksheet.write(1, 0, 'sample-record')
     worksheet.write(1, 1, 'Sample title')
     worksheet.write(1, 2, 'still image')

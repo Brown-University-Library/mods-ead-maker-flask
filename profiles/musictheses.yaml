@@ -17,12 +17,12 @@ filenamecolumn: identifierBDR
 fileextension: ".mods.xml"
 validations:
   - type: maxchars
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     maxchars: 250
     severity: error
     message: "Image accessibility alt text must be {maxchars} characters or fewer."
   - type: required
-    col: imageAccessibilityAltText
+    col: noteImageAltText
     severity: error
     conditions:
       - {type: equals, col: typeOfResource, text: "still image"}
@@ -411,7 +411,7 @@ fields:
     text:
       - type: value
         values:
-          - {type: col, header: imageAccessibilityAltText, method: value}
+          - {type: col, header: noteImageAltText, method: value}
 
   - type: element
     name: genre

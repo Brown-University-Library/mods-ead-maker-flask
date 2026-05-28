@@ -7,14 +7,14 @@ from lib import profileValidation
 VALIDATIONS = [
     {
         'type': 'maxchars',
-        'col': 'imageAccessibilityAltText',
+        'col': 'noteImageAltText',
         'maxchars': 250,
         'severity': 'error',
         'message': 'Image accessibility alt text must be {maxchars} characters or fewer.',
     },
     {
         'type': 'required',
-        'col': 'imageAccessibilityAltText',
+        'col': 'noteImageAltText',
         'severity': 'error',
         'conditions': [
             {'type': 'equals', 'col': 'typeOfResource', 'text': 'still image'},
@@ -42,7 +42,7 @@ class TestProfileValidation(unittest.TestCase):
         """
         row = {
             'typeOfResource': 'still image',
-            'imageAccessibilityAltText': 'a' * 250,
+            'noteImageAltText': 'a' * 250,
         }
 
         errors = profileValidation.validateRows([row], VALIDATIONS)
@@ -55,7 +55,7 @@ class TestProfileValidation(unittest.TestCase):
         """
         row = {
             'typeOfResource': 'text',
-            'imageAccessibilityAltText': 'a' * 251,
+            'noteImageAltText': 'a' * 251,
         }
 
         errors = profileValidation.validateRows([row], VALIDATIONS)
@@ -74,7 +74,7 @@ class TestProfileValidation(unittest.TestCase):
         }):
             errors = profileValidation.validateRows([{
                 'typeOfResource': 'text',
-                'imageAccessibilityAltText': 'a' * 101,
+                'noteImageAltText': 'a' * 101,
             }], VALIDATIONS)
 
         self.assertEqual(1, len(errors))
@@ -90,7 +90,7 @@ class TestProfileValidation(unittest.TestCase):
         }):
             errors = profileValidation.validateRows([{
                 'typeOfResource': 'text',
-                'imageAccessibilityAltText': 'a' * 251,
+                'noteImageAltText': 'a' * 251,
             }], VALIDATIONS)
 
         self.assertEqual(1, len(errors))

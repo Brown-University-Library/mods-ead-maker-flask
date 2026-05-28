@@ -111,7 +111,7 @@ class TestFileSupport(unittest.TestCase):
         """
         workbook_bytes = make_xlsx_bytes([
             ('Records', [
-                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'noteImageAltText'],
                 ['sample-record', 'Sample title', 'still image', 'Photograph of a campus building entrance.'],
             ]),
         ])
@@ -140,7 +140,7 @@ class TestFileSupport(unittest.TestCase):
         """
         workbook_bytes = make_xlsx_bytes([
             ('Records', [
-                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'noteImageAltText'],
                 ['sample-record', 'Sample title', 'still image', ''],
             ]),
         ])
@@ -163,7 +163,7 @@ class TestFileSupport(unittest.TestCase):
         """
         workbook_bytes = make_xlsx_bytes([
             ('Records', [
-                ['identifierFileName', 'fileTitle', 'typeOfResource', 'imageAccessibilityAltText'],
+                ['identifierFileName', 'fileTitle', 'typeOfResource', 'noteImageAltText'],
                 ['sample-record', 'Sample title', 'still image', ''],
             ]),
         ])

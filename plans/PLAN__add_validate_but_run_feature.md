@@ -134,7 +134,7 @@ Preview route response when enforcement is disabled and warnings exist:
 {
   "preview": "...generated MODS preview...",
   "warnings": [...],
-  "warning_text": "Row 2, column \"imageAccessibilityAltText\": ..."
+  "warning_text": "Row 2, column \"noteImageAltText\": ..."
 }
 ```
 
@@ -143,7 +143,7 @@ Preview route response when enforcement is enabled and errors exist:
 ```json
 {
   "errors": [...],
-  "error_text": "Row 2, column \"imageAccessibilityAltText\": ..."
+  "error_text": "Row 2, column \"noteImageAltText\": ..."
 }
 ```
 
@@ -191,7 +191,7 @@ For Preview:
 ```text
 Validation warnings were found. Processing continued because validations are not being enforced. MODS created with failed validation may not work in the Workshop.
 
-Row 2, column "imageAccessibilityAltText": ...
+Row 2, column "noteImageAltText": ...
 ```
 
 Implementation options:

@@ -126,7 +126,7 @@ class TestProfileInterpreterXml(unittest.TestCase):
         xml_string = profile.convertRowToXmlString({
             'identifierFileName': 'sample-record',
             'fileTitle': 'Sample title',
-            'imageAccessibilityAltText': 'Photograph of a campus building entrance.',
+            'noteImageAltText': 'Photograph of a campus building entrance.',
         })
 
         root = etree.fromstring(xml_string.encode('utf-8'))
@@ -146,7 +146,7 @@ class TestProfileInterpreterXml(unittest.TestCase):
         xml_string = profile.convertRowToXmlString({
             'identifierFileName': 'sample-record',
             'fileTitle': 'Sample title',
-            'imageAccessibilityAltText': '',
+            'noteImageAltText': '',
         })
 
         root = etree.fromstring(xml_string.encode('utf-8'))

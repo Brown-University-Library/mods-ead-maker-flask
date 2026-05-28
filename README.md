@@ -38,7 +38,7 @@ Then, users upload an `.xlsx` file, select a sheet, preview the generated XML, a
 
 The important idea is that the spreadsheet does not directly define the XML structure. The YAML profile does. Each profile in `profiles/` describes which spreadsheet columns to read and how those values should become MODS elements, attributes, filenames, repeated fields, names, subjects, rights statements, and other metadata.
 
-For image records, include an `imageAccessibilityAltText` column. When `typeOfResource` is `still image`, the MODS Maker requires that column to stay within the configured character limit and writes it as `<mods:note type="image_accessibility_alt_text">...</mods:note>`.
+For image records, include a `noteImageAltText` column. When `typeOfResource` is `still image`, the MODS Maker requires that column to stay within the configured character limit and writes it as `<mods:note type="image_accessibility_alt_text">...</mods:note>`.
 
 The default alt-text limit comes from the active YAML profile, currently 250 characters. To override it without changing code or profiles, add this setting to the `.env` file in the parent directory of this repository:
 
