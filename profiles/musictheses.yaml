@@ -25,8 +25,20 @@ validations:
     col: noteImageAltText
     severity: error
     conditions:
-      - {type: equals, col: typeOfResource, text: "still image"}
-    message: "Image accessibility alt text is required when typeOfResource is still image."
+      - type: in
+        col: typeOfResource
+        values:
+          - still image
+          - books
+          - images
+          - journals
+          - manuscripts
+          - maps
+          - newspapers
+          - realia
+          - scores
+          - text_resources
+    message: "Image accessibility alt text is required when typeOfResource requires it."
 
 keepblanktextelements:
   - {elementxpath: '//mods:accessCondition[@type="logo"][@xlink:href]'}
