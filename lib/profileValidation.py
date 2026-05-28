@@ -29,6 +29,12 @@ def conditionMatches(row, condition):
         rowText = normalizeValue(row.get(column, ''))
         return rowText.lower() == expectedText.lower()
 
+    if conditionType == 'in':
+        column = condition.get('col', '')
+        expectedTexts = [normalizeValue(value).lower() for value in condition.get('values', [])]
+        rowText = normalizeValue(row.get(column, '')).lower()
+        return rowText in expectedTexts
+
     return False
 
 

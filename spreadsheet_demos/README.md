@@ -20,7 +20,7 @@ Notes:
 
 - Each workbook has two sample records.
 - Generated output is downloaded as a ZIP containing one `.mods.xml` file per generated record.
-- Still-image rows include `noteImageAltText`; the MODS Maker requires that column when `typeOfResource` is `still image`.
+- Rows whose `typeOfResource` requires image-accessibility text include `noteImageAltText`; the MODS Maker requires that column for `still image`, `books`, `images`, `journals`, `manuscripts`, `maps`, `newspapers`, `realia`, `scores`, and `text_resources`.
 - By default, validation errors stop Preview and Download. Uncheck `Enforce validations` to continue processing while showing validation warnings.
 - The TIFF image demo uses `identifierFileName` values like `demo_image_0001`, intended to pair conceptually with source files such as `demo_image_0001.tif`.
 - The sample metadata is fictional and intended only for demonstration.
@@ -36,6 +36,6 @@ Expected row behavior:
 - Row 3: missing `typeOfResource`; should pass the conditional required rule.
 - Row 4: `noteImageAltText` is longer than the configured character limit; should fail max-length validation.
 - Row 5: `typeOfResource` is ` Still Image ` with extra whitespace and different case; should fail required alt-text validation.
-- Row 6: `typeOfResource` is `still image|text`; should pass because the rule only matches exactly `still image`.
+- Row 6: `typeOfResource` is `still image|text`; should pass because the rule only matches exact configured values.
 - Row 7: normal still-image row with valid alt text; should pass.
 - Row 8: normal non-image row with blank alt text; should pass.

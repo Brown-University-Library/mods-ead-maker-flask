@@ -4,6 +4,19 @@ from unittest.mock import patch
 from lib import profileValidation
 
 
+ALT_TEXT_REQUIRED_TYPE_OF_RESOURCE_VALUES = [
+    'still image',
+    'books',
+    'images',
+    'journals',
+    'manuscripts',
+    'maps',
+    'newspapers',
+    'realia',
+    'scores',
+    'text_resources',
+]
+
 VALIDATIONS = [
     {
         'type': 'maxchars',
@@ -17,9 +30,13 @@ VALIDATIONS = [
         'col': 'noteImageAltText',
         'severity': 'error',
         'conditions': [
-            {'type': 'equals', 'col': 'typeOfResource', 'text': 'still image'},
+            {
+                'type': 'in',
+                'col': 'typeOfResource',
+                'values': ALT_TEXT_REQUIRED_TYPE_OF_RESOURCE_VALUES,
+            },
         ],
-        'message': 'Image accessibility alt text is required when typeOfResource is still image.',
+        'message': 'Image accessibility alt text is required when typeOfResource requires it.',
     },
 ]
 
@@ -96,20 +113,24 @@ class TestProfileValidation(unittest.TestCase):
         self.assertEqual(1, len(errors))
         self.assertEqual(250, errors[0]['limit'])
 
-    def test_validate_rows_requires_alt_text_for_still_image(self):
+    def test_validate_rows_requires_alt_text_for_configured_type_of_resource_values(self):
         """
-        Checks that still image rows require alt text.
+        Checks that configured typeOfResource values require alt text.
         """
-        errors = profileValidation.validateRows([{'typeOfResource': 'still image'}], VALIDATIONS)
+        rows = [{'typeOfResource': value} for value in ALT_TEXT_REQUIRED_TYPE_OF_RESOURCE_VALUES]
 
-        self.assertEqual(1, len(errors))
-        self.assertEqual('required', errors[0]['type'])
+        errors = profileValidation.validateRows(rows, VALIDATIONS)
 
-    def test_validate_rows_trims_and_ignores_case_for_still_image_condition(self):
+        errorTypes = [error['type'] for error in errors]
+
+        self.assertEqual(len(ALT_TEXT_REQUIRED_TYPE_OF_RESOURCE_VALUES), len(errors))
+        self.assertEqual(['required'] * len(ALT_TEXT_REQUIRED_TYPE_OF_RESOURCE_VALUES), errorTypes)
+
+    def test_validate_rows_trims_and_ignores_case_for_type_of_resource_condition(self):
         """
         Checks that condition matching trims whitespace and ignores case.
         """
-        errors = profileValidation.validateRows([{'typeOfResource': ' Still Image '}], VALIDATIONS)
+        errors = profileValidation.validateRows([{'typeOfResource': ' Images '}], VALIDATIONS)
 
         self.assertEqual(1, len(errors))
         self.assertEqual('required', errors[0]['type'])
@@ -122,7 +143,9 @@ class TestProfileValidation(unittest.TestCase):
             {},
             {'typeOfResource': ''},
             {'typeOfResource': 'moving image'},
+            {'typeOfResource': 'book'},
             {'typeOfResource': 'still image|text'},
+            {'typeOfResource': 'books|text'},
             {'typeOfResource': 'still image; text'},
         ]
 
