@@ -496,6 +496,14 @@ fields:
 
   - type: element
     name: note
+    attrs: {type: content_warning, displayLabel: Content Warning}
+    text:
+      - type: value
+        values:
+          - {type: col, header: noteContentWarning, method: value}
+
+  - type: element
+    name: note
     attrs: {type: biographical/historical, displayLabel: Class year}
     text:
       - type: value

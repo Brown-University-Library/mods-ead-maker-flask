@@ -902,6 +902,14 @@ def processExceltoEAD(chosenfile, chosensheet, id):
             pelement = etree.SubElement(notescopeelement, "p")
             pelement.text = ' '.join(line.split())
 
+        cwelement = etree.SubElement(ctelement, "scopecontent")
+        cwlines = row.get("noteContentWarning", '').splitlines()
+        for line in cwlines:
+            headelement = etree.SubElement(cwelement, "head")
+            headelement.text = "Content Warning"
+            pelement = etree.SubElement(cwelement, "p")
+            pelement.text = ' '.join(line.split())
+
         notebioghistelement = etree.SubElement(ctelement, "bioghist")
         bioghistlines = row.get("noteHistorical", '').splitlines()
         for line in bioghistlines:
